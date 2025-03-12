@@ -40,7 +40,7 @@ const MeshGrid = () => {
   }, [mouseX, mouseY]);
 
   return (
-    <div className="absolute inset-0 overflow-hidden">
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {/* Background gradient layer */}
       <motion.div
         className="absolute inset-0 bg-gradient-to-b from-white via-white to-blue-50/10"
@@ -54,14 +54,14 @@ const MeshGrid = () => {
       <motion.div
         className="absolute inset-0"
         style={{
-          backgroundImage: `radial-gradient(#e5e7eb 1px, transparent 1px)`,
+          backgroundImage: `radial-gradient(#3b82f6 1px, transparent 1px)`,
           backgroundSize: "40px 40px",
           x: gridX,
           y: gridY,
           rotate: gridRotate,
         }}
         animate={{
-          opacity: [0.2, 0.3, 0.2],
+          opacity: [0.2, 0.35, 0.2],
           scale: [1, 1.05, 1],
         }}
         transition={{
@@ -75,7 +75,7 @@ const MeshGrid = () => {
       <motion.div
         className="absolute inset-0"
         style={{
-          backgroundImage: `radial-gradient(#cbd5e1 0.5px, transparent 0.5px)`,
+          backgroundImage: `radial-gradient(#1d4ed8 0.5px, transparent 0.5px)`,
           backgroundSize: "30px 30px",
           backgroundPosition: "10px 10px",
           x: useTransform(gridX, (x) => x * -1.2),
@@ -83,7 +83,7 @@ const MeshGrid = () => {
           rotate: useTransform(gridRotate, (r) => r * -1.5),
         }}
         animate={{
-          opacity: [0.1, 0.2, 0.1],
+          opacity: [0.15, 0.25, 0.15],
         }}
         transition={{
           duration: 8,
@@ -94,7 +94,7 @@ const MeshGrid = () => {
       />
       
       {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-radial from-transparent to-white/30 mix-blend-overlay" />
+      <div className="absolute inset-0 bg-gradient-radial from-transparent to-white/80 mix-blend-overlay" />
     </div>
   );
 };
