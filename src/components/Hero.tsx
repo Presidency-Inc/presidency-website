@@ -11,15 +11,6 @@ const Hero = () => {
       <div className="absolute bottom-0 right-0 w-1/3 h-full bg-gradient-to-tl from-purple-200/30 to-blue-200/30 blur-3xl" />
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.img
-          src="/lovable-uploads/22f67f3d-5242-4f7d-b084-c70a4ef5c758.png"
-          alt="Logo"
-          className="h-12 w-auto mx-auto mb-8"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        />
-        
         <motion.h1
           className="text-5xl md:text-7xl font-bold tracking-tight text-gray-900 mb-6"
           initial={{ opacity: 0, y: 20 }}

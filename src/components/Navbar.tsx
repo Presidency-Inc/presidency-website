@@ -9,8 +9,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <a href="/" className="flex items-center">
-              <img src="/lovable-uploads/22f67f3d-5242-4f7d-b084-c70a4ef5c758.png" alt="Logo" className="h-8 w-auto" />
-              <span className="ml-2 text-xl font-semibold text-gray-900">Presidency</span>
+              <span className="text-xl font-semibold text-gray-900">Presidency</span>
             </a>
           </div>
           
