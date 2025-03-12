@@ -144,8 +144,8 @@ const Navbar = () => {
                 <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">Data</h3>
                 <ul className="space-y-3">
                   <li><a href="#enterprise-etl" className="text-gray-600 hover:text-blue-600">Enterprise ETL</a></li>
-                  <li><a href="#pipeline-development" className="text-gray-600 hover:text-blue-600">Pipeline Development</a></li>
-                  <li><a href="#data-infrastructure" className="text-gray-600 hover:text-blue-600">Data Infrastructure Setup</a></li>
+                  <li><a href="#lakehouse" className="text-gray-600 hover:text-blue-600">Lakehouse</a></li>
+                  <li><a href="#integrations" className="text-gray-600 hover:text-blue-600">Integrations</a></li>
                 </ul>
               </div>
 
@@ -345,8 +345,8 @@ const Navbar = () => {
                   <h3 className="font-bold text-gray-900 mt-6 mb-3">Data</h3>
                   <ul className="space-y-3">
                     <li><a href="#enterprise-etl" className="block py-2 text-gray-900">Enterprise ETL</a></li>
-                    <li><a href="#pipeline-development" className="block py-2 text-gray-900">Pipeline Development</a></li>
-                    <li><a href="#data-infrastructure" className="block py-2 text-gray-900">Data Infrastructure Setup</a></li>
+                    <li><a href="#lakehouse" className="block py-2 text-gray-900">Lakehouse</a></li>
+                    <li><a href="#integrations" className="block py-2 text-gray-900">Integrations</a></li>
                   </ul>
                   
                   <h3 className="font-bold text-gray-900 mt-6 mb-3">Modernization</h3>
