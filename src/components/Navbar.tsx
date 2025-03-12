@@ -106,7 +106,11 @@ const Navbar = () => {
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Featured Products</h3>
                 <ul className="space-y-4">
                   <li>
-                    <Link to="/products/leapfrog" className="flex items-start group" onClick={() => setProductsOpen(false)}>
+                    <Link 
+                      to="/products/leapfrog" 
+                      className="flex items-start group" 
+                      onClick={() => setProductsOpen(false)}
+                    >
                       <div>
                         <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Leapfrog</h4>
                         <p className="text-sm text-gray-600">AI enabled full stack</p>
@@ -114,12 +118,16 @@ const Navbar = () => {
                     </Link>
                   </li>
                   <li>
-                    <a href="#omniflow" className="flex items-start group">
+                    <Link
+                      to="/products/omniflow"
+                      className="flex items-start group"
+                      onClick={() => setProductsOpen(false)}
+                    >
                       <div>
                         <h4 className="font-medium text-gray-900 group-hover:text-blue-600">OmniFlow</h4>
                         <p className="text-sm text-gray-600">Agentic ETL orchestration</p>
                       </div>
-                    </a>
+                    </Link>
                   </li>
                   <li>
                     <a href="#kube8r" className="flex items-start group">
@@ -333,10 +341,17 @@ const Navbar = () => {
                       </Link>
                     </li>
                     <li>
-                      <a href="#omniflow" className="block py-2">
+                      <Link
+                        to="/products/omniflow"
+                        className="block py-2"
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          setMobileSubmenuOpen(null);
+                        }}
+                      >
                         <span className="font-medium text-gray-900">OmniFlow</span>
                         <p className="text-sm text-gray-600">Agentic ETL orchestration</p>
-                      </a>
+                      </Link>
                     </li>
                     <li>
                       <a href="#kube8r" className="block py-2">
