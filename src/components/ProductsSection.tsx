@@ -35,14 +35,30 @@ const ProductsSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-5xl font-bold text-white mb-6">
-            Discover the Power of{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
-              Innovation
-            </span>{" "}
-            with Our Products
-          </h2>
-          <p className="text-gray-400 text-lg mb-12 max-w-3xl">
+          <div className="flex items-center mb-6 gap-6">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6 }}
+              className="w-24 h-24 md:w-32 md:h-32 flex-shrink-0"
+            >
+              <img 
+                src="/lovable-uploads/9a89c7f7-03ea-407a-8eba-c305270a84d9.png" 
+                alt="Binary Globe" 
+                className="w-full h-full object-contain"
+              />
+            </motion.div>
+            
+            <h2 className="text-4xl md:text-5xl font-bold text-white">
+              Discover the Power of{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
+                Innovation
+              </span>{" "}
+              with Our Products
+            </h2>
+          </div>
+          
+          <p className="text-gray-400 text-lg mb-12 max-w-3xl ml-0 md:ml-40">
             Our aim is to deliver products of unparalleled quality, providing significant cost benefits and outstanding value. With our customer-first approach, it's clear why our customers adore our products.
           </p>
 
