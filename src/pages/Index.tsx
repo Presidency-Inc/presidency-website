@@ -10,6 +10,7 @@ import ExtendedTeamsSection from "@/components/ExtendedTeamsSection";
 import Footer from "@/components/Footer";
 import ScrollProgress from "@/components/ScrollProgress";
 import ScrollToTop from "@/components/ScrollToTop";
+import ChatButton from "@/components/ChatButton";
 
 const Index = () => {
   return (
@@ -25,6 +26,7 @@ const Index = () => {
       <ExtendedTeamsSection />
       <Footer />
       <ScrollToTop />
+      <ChatButton />
     </main>
   );
 };
