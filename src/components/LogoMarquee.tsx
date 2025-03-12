@@ -36,51 +36,53 @@ const LogoMarquee = () => {
       }`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-center mb-4">
-          <h3 className="text-white text-sm font-medium">TRUSTED BY INDUSTRY LEADERS</h3>
-        </div>
-        <div className="relative overflow-hidden">
-          <div className="flex items-center">
-            <motion.div
-              className="flex items-center space-x-16 min-w-full"
-              animate={{ x: [0, -1920] }}
-              transition={{
-                repeat: Infinity,
-                duration: 30,
-                ease: "linear",
-              }}
-            >
-              {customerLogos.map((logo, index) => (
-                <div key={index} className="flex items-center justify-center h-12">
-                  <img
-                    src={logo.logo}
-                    alt={logo.name}
-                    className="h-10 md:h-12 object-contain"
-                  />
-                </div>
-              ))}
-            </motion.div>
+        <div className="flex flex-col md:flex-row md:items-center">
+          <div className="md:w-1/4 mb-4 md:mb-0">
+            <h3 className="text-white text-xl font-bold">TRUSTED BY THE ENTERPRISE</h3>
+          </div>
+          <div className="md:w-3/4 relative overflow-hidden">
+            <div className="flex items-center">
+              <motion.div
+                className="flex items-center space-x-16 min-w-full"
+                animate={{ x: [0, -1920] }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 30,
+                  ease: "linear",
+                }}
+              >
+                {customerLogos.map((logo, index) => (
+                  <div key={index} className="flex items-center justify-center h-16">
+                    <img
+                      src={logo.logo}
+                      alt={logo.name}
+                      className="h-14 md:h-16 object-contain"
+                    />
+                  </div>
+                ))}
+              </motion.div>
 
-            {/* Duplicate for seamless loop */}
-            <motion.div
-              className="flex items-center space-x-16 min-w-full absolute left-full top-0"
-              animate={{ x: [0, -1920] }}
-              transition={{
-                repeat: Infinity,
-                duration: 30,
-                ease: "linear",
-              }}
-            >
-              {customerLogos.map((logo, index) => (
-                <div key={index} className="flex items-center justify-center h-12">
-                  <img
-                    src={logo.logo}
-                    alt={logo.name}
-                    className="h-10 md:h-12 object-contain"
-                  />
-                </div>
-              ))}
-            </motion.div>
+              {/* Duplicate for seamless loop */}
+              <motion.div
+                className="flex items-center space-x-16 min-w-full absolute left-full top-0"
+                animate={{ x: [0, -1920] }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 30,
+                  ease: "linear",
+                }}
+              >
+                {customerLogos.map((logo, index) => (
+                  <div key={index} className="flex items-center justify-center h-16">
+                    <img
+                      src={logo.logo}
+                      alt={logo.name}
+                      className="h-14 md:h-16 object-contain"
+                    />
+                  </div>
+                ))}
+              </motion.div>
+            </div>
           </div>
         </div>
       </div>
