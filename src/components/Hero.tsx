@@ -36,6 +36,15 @@ const Hero = () => {
         </svg>
       </div>
 
+      {/* New Hero Image - Top Left Prismatic Crystal */}
+      <div className="absolute top-0 left-0 z-10 w-40 md:w-48 lg:w-64 pointer-events-none">
+        <img 
+          src="/lovable-uploads/3d61ba69-c1e5-4d40-980d-e8aec7ee6a1b.png" 
+          alt="Prismatic crystal top" 
+          className="w-full h-auto"
+        />
+      </div>
+
       {/* Hero Image - Prismatic Crystal - STICKY WITHIN HERO SECTION */}
       <div className="absolute bottom-0 right-0 z-10 w-40 md:w-48 lg:w-64 pointer-events-none">
         <img 
