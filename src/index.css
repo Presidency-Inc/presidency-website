@@ -98,9 +98,29 @@
 
   html, body {
     font-family: 'Space Grotesk', sans-serif !important;
+    cursor: none; /* Hide the default cursor */
   }
 
   body {
     @apply bg-background text-foreground;
   }
+  
+  /* Make buttons, links and other interactive elements show a pointer cursor */
+  a, button, [role="button"], input[type="submit"], input[type="button"], input[type="reset"], select, [tabindex="0"] {
+    cursor: none !important; 
+  }
+}
+
+/* Custom cursor styles */
+.custom-cursor {
+  position: fixed;
+  width: 32px;
+  height: 32px;
+  pointer-events: none;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M2 2L28 16L2 30L2 18L16 16L2 14L2 2Z' fill='%231a46e5' stroke='black' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+  transform: translate(-10%, -10%);
+  transition: opacity 0.2s ease;
 }
