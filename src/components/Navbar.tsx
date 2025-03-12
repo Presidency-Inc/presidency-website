@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown, ChevronUp, X, ArrowLeft, Menu } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -10,26 +10,6 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileSubmenuOpen, setMobileSubmenuOpen] = useState<string | null>(null);
   const isMobile = useIsMobile();
-  const productsRef = useRef<HTMLDivElement>(null);
-  const servicesRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (!isMobile) {
-        if (productsRef.current && !productsRef.current.contains(event.target as Node)) {
-          setProductsOpen(false);
-        }
-        if (servicesRef.current && !servicesRef.current.contains(event.target as Node)) {
-          setServicesOpen(false);
-        }
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isMobile]);
 
   const toggleProducts = () => {
     if (isMobile) {
@@ -70,7 +50,7 @@ const Navbar = () => {
           </div>
           
           <div className="hidden md:flex items-center space-x-8">
-            <div className="relative" ref={productsRef}>
+            <div className="relative">
               <button 
                 onClick={toggleProducts}
                 className="flex items-center text-gray-700 hover:text-gray-900 transition-colors"
@@ -82,76 +62,9 @@ const Navbar = () => {
                   <ChevronDown className="ml-1 h-4 w-4" />
                 )}
               </button>
-              
-              {/* Products dropdown content will be part of the ref container */}
-              {!isMobile && productsOpen && (
-                <div className="absolute left-0 right-0 bg-white shadow-lg border-b border-gray-200 z-50">
-                  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                    <div className="grid grid-cols-4 gap-8">
-                      <div className="col-span-1">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-4">Featured Products</h3>
-                        <ul className="space-y-4">
-                          <li>
-                            <a href="#leapfrog" className="flex items-start group">
-                              <div>
-                                <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Leapfrog</h4>
-                                <p className="text-sm text-gray-600">AI enabled full stack</p>
-                              </div>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#omniflow" className="flex items-start group">
-                              <div>
-                                <h4 className="font-medium text-gray-900 group-hover:text-blue-600">OmniFlow</h4>
-                                <p className="text-sm text-gray-600">Agentic ETL orchestration</p>
-                              </div>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#kube8r" className="flex items-start group">
-                              <div>
-                                <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Kube8r</h4>
-                                <p className="text-sm text-gray-600">Cloud and app modernization</p>
-                              </div>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-
-                      <div className="col-span-1">
-                        <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">AI</h3>
-                        <ul className="space-y-3">
-                          <li><a href="#ai-full-stack" className="text-gray-600 hover:text-blue-600">AI Full Stack</a></li>
-                          <li><a href="#context-protocol" className="text-gray-600 hover:text-blue-600">Context Protocol</a></li>
-                          <li><a href="#multi-channel" className="text-gray-600 hover:text-blue-600">Multi Channel Experience</a></li>
-                          <li><a href="#business-logic" className="text-gray-600 hover:text-blue-600">Business Logic Orchestration</a></li>
-                          <li><a href="#llms" className="text-gray-600 hover:text-blue-600">LLMs & Finetunes</a></li>
-                        </ul>
-                      </div>
-
-                      <div className="col-span-1">
-                        <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">Data</h3>
-                        <ul className="space-y-3">
-                          <li><a href="#enterprise-etl" className="text-gray-600 hover:text-blue-600">Enterprise ETL</a></li>
-                          <li><a href="#lakehouse" className="text-gray-600 hover:text-blue-600">Lakehouse</a></li>
-                          <li><a href="#integrations" className="text-gray-600 hover:text-blue-600">Integrations</a></li>
-                        </ul>
-                      </div>
-
-                      <div className="col-span-1">
-                        <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">Modernization</h3>
-                        <ul className="space-y-3">
-                          <li><a href="#bare-metal" className="text-gray-600 hover:text-blue-600">Bare-metal to Cloud</a></li>
-                          <li><a href="#app-stack" className="text-gray-600 hover:text-blue-600">App-stack Modernization</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
             </div>
             
-            <div className="relative" ref={servicesRef}>
+            <div className="relative">
               <button 
                 onClick={toggleServices}
                 className="flex items-center text-gray-700 hover:text-gray-900 transition-colors"
@@ -163,86 +76,6 @@ const Navbar = () => {
                   <ChevronDown className="ml-1 h-4 w-4" />
                 )}
               </button>
-              
-              {/* Services dropdown content will be part of the ref container */}
-              {!isMobile && servicesOpen && (
-                <div className="absolute left-0 right-0 bg-white shadow-lg border-b border-gray-200 z-50">
-                  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                    <div className="grid grid-cols-4 gap-8">
-                      <div className="col-span-1">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-4">Our Services</h3>
-                        <ul className="space-y-4">
-                          <li>
-                            <a href="#ai" className="flex items-start group">
-                              <div>
-                                <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Artificial Intelligence</h4>
-                                <p className="text-sm text-gray-600">Enhanced efficiency for your business</p>
-                              </div>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#data-engineering" className="flex items-start group">
-                              <div>
-                                <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Data Engineering</h4>
-                                <p className="text-sm text-gray-600">Optimize your data operations</p>
-                              </div>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#databricks" className="flex items-start group">
-                              <div>
-                                <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Databricks Solutions</h4>
-                                <p className="text-sm text-gray-600">Tailored databricks expertise</p>
-                              </div>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#cloud" className="flex items-start group">
-                              <div>
-                                <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Cloud Modernization</h4>
-                                <p className="text-sm text-gray-600">Upgrade your infrastructure</p>
-                              </div>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-
-                      <div className="col-span-1">
-                        <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">AI</h3>
-                        <ul className="space-y-3">
-                          <li><a href="#full-stack-ai" className="text-gray-600 hover:text-blue-600">Full Stack AI Engineering</a></li>
-                          <li><a href="#agent-development" className="text-gray-600 hover:text-blue-600">Agent Development</a></li>
-                          <li><a href="#finetuning" className="text-gray-600 hover:text-blue-600">Finetuning Frontier Models</a></li>
-                          <li><a href="#customer-engagement" className="text-gray-600 hover:text-blue-600">Customer Engagement</a></li>
-                        </ul>
-                      </div>
-
-                      <div className="col-span-1">
-                        <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">Data</h3>
-                        <ul className="space-y-3">
-                          <li><a href="#enterprise-etl" className="text-gray-600 hover:text-blue-600">Enterprise ETL</a></li>
-                          <li><a href="#pipeline-development" className="text-gray-600 hover:text-blue-600">Pipeline Development</a></li>
-                          <li><a href="#data-infrastructure" className="text-gray-600 hover:text-blue-600">Data Infrastructure Setup</a></li>
-                        </ul>
-                      </div>
-
-                      <div className="col-span-1">
-                        <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">Modernization</h3>
-                        <ul className="space-y-3">
-                          <li><a href="#cloud-migrations" className="text-gray-600 hover:text-blue-600">Cloud Migrations</a></li>
-                          <li><a href="#app-stack-enhancements" className="text-gray-600 hover:text-blue-600">App-stack Enhancements</a></li>
-                        </ul>
-                        
-                        <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mt-6 mb-4">TALENT</h3>
-                        <ul className="space-y-3">
-                          <li><a href="#extended-teams" className="text-gray-600 hover:text-blue-600">Extended Teams</a></li>
-                          <li><a href="#nearshore" className="text-gray-600 hover:text-blue-600">Nearshore</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
             </div>
             
             <a href="#databricks" className="text-gray-700 hover:text-gray-900 transition-colors">Databricks</a>
@@ -262,6 +95,152 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+
+      {/* Desktop Dropdowns */}
+      {!isMobile && productsOpen && (
+        <div className="absolute left-0 right-0 bg-white shadow-lg border-b border-gray-200 z-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="grid grid-cols-4 gap-8">
+              <div className="col-span-1">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">Featured Products</h3>
+                <ul className="space-y-4">
+                  <li>
+                    <a href="#leapfrog" className="flex items-start group">
+                      <div>
+                        <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Leapfrog</h4>
+                        <p className="text-sm text-gray-600">AI enabled full stack</p>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#omniflow" className="flex items-start group">
+                      <div>
+                        <h4 className="font-medium text-gray-900 group-hover:text-blue-600">OmniFlow</h4>
+                        <p className="text-sm text-gray-600">Agentic ETL orchestration</p>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#kube8r" className="flex items-start group">
+                      <div>
+                        <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Kube8r</h4>
+                        <p className="text-sm text-gray-600">Cloud and app modernization</p>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="col-span-1">
+                <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">AI</h3>
+                <ul className="space-y-3">
+                  <li><a href="#ai-full-stack" className="text-gray-600 hover:text-blue-600">AI Full Stack</a></li>
+                  <li><a href="#context-protocol" className="text-gray-600 hover:text-blue-600">Context Protocol</a></li>
+                  <li><a href="#multi-channel" className="text-gray-600 hover:text-blue-600">Multi Channel Experience</a></li>
+                  <li><a href="#business-logic" className="text-gray-600 hover:text-blue-600">Business Logic Orchestration</a></li>
+                  <li><a href="#llms" className="text-gray-600 hover:text-blue-600">LLMs & Finetunes</a></li>
+                </ul>
+              </div>
+
+              <div className="col-span-1">
+                <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">Data</h3>
+                <ul className="space-y-3">
+                  <li><a href="#enterprise-etl" className="text-gray-600 hover:text-blue-600">Enterprise ETL</a></li>
+                  <li><a href="#lakehouse" className="text-gray-600 hover:text-blue-600">Lakehouse</a></li>
+                  <li><a href="#integrations" className="text-gray-600 hover:text-blue-600">Integrations</a></li>
+                </ul>
+              </div>
+
+              <div className="col-span-1">
+                <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">Modernization</h3>
+                <ul className="space-y-3">
+                  <li><a href="#bare-metal" className="text-gray-600 hover:text-blue-600">Bare-metal to Cloud</a></li>
+                  <li><a href="#app-stack" className="text-gray-600 hover:text-blue-600">App-stack Modernization</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {!isMobile && servicesOpen && (
+        <div className="absolute left-0 right-0 bg-white shadow-lg border-b border-gray-200 z-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="grid grid-cols-4 gap-8">
+              <div className="col-span-1">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">Our Services</h3>
+                <ul className="space-y-4">
+                  <li>
+                    <a href="#ai" className="flex items-start group">
+                      <div>
+                        <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Artificial Intelligence</h4>
+                        <p className="text-sm text-gray-600">Enhanced efficiency for your business</p>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#data-engineering" className="flex items-start group">
+                      <div>
+                        <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Data Engineering</h4>
+                        <p className="text-sm text-gray-600">Optimize your data operations</p>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#databricks" className="flex items-start group">
+                      <div>
+                        <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Databricks Solutions</h4>
+                        <p className="text-sm text-gray-600">Tailored databricks expertise</p>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#cloud" className="flex items-start group">
+                      <div>
+                        <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Cloud Modernization</h4>
+                        <p className="text-sm text-gray-600">Upgrade your infrastructure</p>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="col-span-1">
+                <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">AI</h3>
+                <ul className="space-y-3">
+                  <li><a href="#full-stack-ai" className="text-gray-600 hover:text-blue-600">Full Stack AI Engineering</a></li>
+                  <li><a href="#agent-development" className="text-gray-600 hover:text-blue-600">Agent Development</a></li>
+                  <li><a href="#finetuning" className="text-gray-600 hover:text-blue-600">Finetuning Frontier Models</a></li>
+                  <li><a href="#customer-engagement" className="text-gray-600 hover:text-blue-600">Customer Engagement</a></li>
+                </ul>
+              </div>
+
+              <div className="col-span-1">
+                <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">Data</h3>
+                <ul className="space-y-3">
+                  <li><a href="#enterprise-etl" className="text-gray-600 hover:text-blue-600">Enterprise ETL</a></li>
+                  <li><a href="#pipeline-development" className="text-gray-600 hover:text-blue-600">Pipeline Development</a></li>
+                  <li><a href="#data-infrastructure" className="text-gray-600 hover:text-blue-600">Data Infrastructure Setup</a></li>
+                </ul>
+              </div>
+
+              <div className="col-span-1">
+                <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">Modernization</h3>
+                <ul className="space-y-3">
+                  <li><a href="#cloud-migrations" className="text-gray-600 hover:text-blue-600">Cloud Migrations</a></li>
+                  <li><a href="#app-stack-enhancements" className="text-gray-600 hover:text-blue-600">App-stack Enhancements</a></li>
+                </ul>
+                
+                <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mt-6 mb-4">TALENT</h3>
+                <ul className="space-y-3">
+                  <li><a href="#extended-teams" className="text-gray-600 hover:text-blue-600">Extended Teams</a></li>
+                  <li><a href="#nearshore" className="text-gray-600 hover:text-blue-600">Nearshore</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Mobile Menu */}
       {isMobile && mobileMenuOpen && (
