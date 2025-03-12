@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown, ChevronUp, X, ArrowLeft, Menu } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import Logo from "./Logo";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [productsOpen, setProductsOpen] = useState(false);
@@ -43,10 +44,10 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <a href="/" className="flex items-center gap-0.5">
+            <Link to="/" className="flex items-center gap-0.5">
               <Logo />
               <span className="text-xl font-semibold text-gray-900">Presidency</span>
-            </a>
+            </Link>
           </div>
           
           <div className="hidden md:flex items-center space-x-8">
@@ -105,12 +106,12 @@ const Navbar = () => {
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Featured Products</h3>
                 <ul className="space-y-4">
                   <li>
-                    <a href="#leapfrog" className="flex items-start group">
+                    <Link to="/products/leapfrog" className="flex items-start group" onClick={() => setProductsOpen(false)}>
                       <div>
                         <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Leapfrog</h4>
                         <p className="text-sm text-gray-600">AI enabled full stack</p>
                       </div>
-                    </a>
+                    </Link>
                   </li>
                   <li>
                     <a href="#omniflow" className="flex items-start group">
@@ -319,10 +320,17 @@ const Navbar = () => {
                   <h3 className="font-bold text-gray-900 mb-3">Featured Products</h3>
                   <ul className="space-y-3">
                     <li>
-                      <a href="#leapfrog" className="block py-2">
+                      <Link 
+                        to="/products/leapfrog" 
+                        className="block py-2"
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          setMobileSubmenuOpen(null);
+                        }}
+                      >
                         <span className="font-medium text-gray-900">Leapfrog</span>
                         <p className="text-sm text-gray-600">AI enabled full stack</p>
-                      </a>
+                      </Link>
                     </li>
                     <li>
                       <a href="#omniflow" className="block py-2">
