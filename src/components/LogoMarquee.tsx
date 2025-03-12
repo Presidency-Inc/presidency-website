@@ -37,7 +37,7 @@ const LogoMarquee = () => {
 
   return (
     <div 
-      className={`w-full bg-black py-2 z-30 ${
+      className={`w-full bg-black py-4 z-30 ${
         isSticky ? "fixed bottom-0 left-0" : ""
       }`}
     >
@@ -49,7 +49,7 @@ const LogoMarquee = () => {
             </div>
           )}
           <div className={isMobile ? "w-full" : "flex-1 pl-8 relative overflow-hidden"}>
-            <div className="flex items-center h-10">
+            <div className="flex items-center h-14">
               <motion.div
                 className="flex items-center"
                 initial={{ x: 0 }}
@@ -75,7 +75,7 @@ const LogoMarquee = () => {
                     <img
                       src={logo.logo}
                       alt={logo.name}
-                      className="max-h-[50px] max-w-full object-contain w-auto"
+                      className="max-h-[60px] max-w-full object-contain w-auto"
                     />
                   </div>
                 ))}
@@ -106,7 +106,7 @@ const LogoMarquee = () => {
                     <img
                       src={logo.logo}
                       alt={logo.name}
-                      className="max-h-[50px] max-w-full object-contain w-auto"
+                      className="max-h-[60px] max-w-full object-contain w-auto"
                     />
                   </div>
                 ))}
