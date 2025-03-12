@@ -55,7 +55,7 @@ const SuccessStoriesSection = () => {
               viewport={{ once: true }}
               className="bg-white p-6 rounded-xl shadow-sm"
             >
-              <div className="mb-4 text-purple-600">
+              <div className="mb-4 text-blue-600">
                 <Quote className="w-8 h-8" />
               </div>
               <p className="text-gray-700 mb-6 italic">"{story.quote}"</p>

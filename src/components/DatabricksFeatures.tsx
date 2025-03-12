@@ -38,7 +38,7 @@ const DatabricksFeatures = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <div className="bg-purple-50 w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center mb-3 md:mb-4 text-purple-600">
+              <div className="bg-blue-50 w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center mb-3 md:mb-4 text-blue-600">
                 {feature.icon}
               </div>
               <h3 className="text-lg md:text-xl font-semibold mb-2 text-gray-900">

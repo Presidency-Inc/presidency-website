@@ -77,14 +77,14 @@ const ServicesOfferingSection = () => {
                 <ul className="space-y-3">
                   {service.features.map((feature, i) => (
                     <li key={i} className="flex items-start">
-                      <CheckCircle className="h-5 w-5 text-purple-600 mr-2 mt-0.5 flex-shrink-0" />
+                      <CheckCircle className="h-5 w-5 text-blue-600 mr-2 mt-0.5 flex-shrink-0" />
                       <span className="text-gray-700 text-sm">{feature}</span>
                     </li>
                   ))}
                 </ul>
               </div>
               <div className="mt-auto p-6 pt-0">
-                <Button variant="outline" className="w-full justify-between">
+                <Button variant="outline" className="w-full justify-between border-blue-500 text-blue-600 hover:bg-blue-50">
                   Learn More
                   <ArrowRight className="h-4 w-4" />
                 </Button>
