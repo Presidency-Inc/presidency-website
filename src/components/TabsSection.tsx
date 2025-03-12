@@ -1,6 +1,5 @@
-
 import { motion } from "framer-motion";
-import { BrainCircuit, UserCog, Layers, Headset, Database, GitBranch, Server } from "lucide-react";
+import { BrainCircuit, UserCog, Layers, Headset, Database, GitBranch, Server, Cloud } from "lucide-react";
 import { useState } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
@@ -53,6 +52,11 @@ const tabData = [
           icon: Server,
           heading: "Data Infrastructure Setup",
           description: "Establish scalable and secure data infrastructure that forms the foundation of your data-driven operations."
+        },
+        {
+          icon: Cloud,
+          heading: "Databricks Services",
+          description: "Expert consulting and implementation services for Databricks platform, helping you leverage the full potential of unified analytics."
         }
       ],
       cta: "View data solutions"
