@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { BrainCircuit, UserCog, Layers, CustomerService } from "lucide-react";
 import { useState } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
@@ -8,10 +8,29 @@ const tabData = [
     id: "ai",
     title: "Artificial Intelligence",
     content: {
-      heading: "Full Stack AI Engineering",
-      description: "We specialize in AI from backend to frontend, enhancing automation, personalization, and problem-solving for your business needs.",
-      cta: "Explore AI services",
-      image: "/lovable-uploads/8304d312-8378-42a5-9ec0-699b6f66c884.png"
+      services: [
+        {
+          icon: BrainCircuit,
+          heading: "Full Stack AI Engineering",
+          description: "We specialize in AI from backend to frontend, enhancing automation, personalization, and problem-solving for your business needs."
+        },
+        {
+          icon: UserCog,
+          heading: "Agent Development",
+          description: "Create intelligent AI agents that can perform complex tasks and make autonomous decisions for your business."
+        },
+        {
+          icon: Layers,
+          heading: "Finetuning Frontier Models",
+          description: "Customize and optimize large language models to meet your specific business requirements and use cases."
+        },
+        {
+          icon: CustomerService,
+          heading: "Customer Engagement",
+          description: "Implement AI-powered solutions to enhance customer interactions and provide personalized experiences."
+        }
+      ],
+      cta: "Explore AI services"
     }
   },
   {
@@ -85,47 +104,45 @@ const TabsSection = () => {
             <div className="mt-8 border-t border-gray-200 pt-8">
               {tabData.map((tab) => (
                 <TabsContent key={tab.id} value={tab.id} className="mt-0">
-                  <div className="grid md:grid-cols-2 gap-10 items-center">
+                  {tab.id === 'ai' ? (
                     <motion.div 
-                      className="rounded-2xl overflow-hidden"
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5 }}
+                      className="grid grid-cols-1 md:grid-cols-2 gap-8"
                     >
-                      <img 
-                        src={tab.content.image} 
-                        alt={tab.content.heading}
-                        className="w-full h-auto object-cover"
-                      />
+                      {tab.content.services.map((service, index) => (
+                        <motion.div
+                          key={service.heading}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.5, delay: index * 0.1 }}
+                          className="p-6 rounded-xl border border-gray-200 hover:border-gray-300 transition-colors"
+                        >
+                          <service.icon className="w-8 h-8 text-blue-600 mb-4" />
+                          <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                            {service.heading}
+                          </h3>
+                          <p className="text-gray-600">
+                            {service.description}
+                          </p>
+                        </motion.div>
+                      ))}
                     </motion.div>
-                    <motion.div
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.5, delay: 0.2 }}
-                    >
-                      <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                        {tab.content.heading}
-                      </h3>
-                      <p className="text-gray-600 mb-6">
-                        {tab.content.description}
-                      </p>
-                      <a 
-                        href="#" 
-                        className="inline-flex items-center text-blue-600 font-medium hover:text-blue-800"
+                  ) : (
+                    <div className="grid md:grid-cols-2 gap-10 items-center">
+                      <motion.div 
+                        className="rounded-2xl overflow-hidden"
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5 }}
                       >
-                        {tab.content.cta}
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </a>
-                    </motion.div>
-                  </div>
-                </TabsContent>
-              ))}
-            </div>
-          </Tabs>
-        </div>
-      </div>
-    </section>
-  );
-};
+                        <img 
+                          src={tab.content.image} 
+                          alt={tab.content.heading}
+                          className="w-full h-auto object-cover"
+                        />
+                      </motion.div>
+                      <motion.div
+                        initial
 
-export default TabsSection;
