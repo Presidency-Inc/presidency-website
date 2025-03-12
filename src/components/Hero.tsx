@@ -6,6 +6,36 @@ import { motion } from "framer-motion";
 const Hero = () => {
   return (
     <div className="relative min-h-screen flex items-center overflow-hidden">
+      {/* Wave Pattern Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-50 z-0">
+        <svg
+          className="absolute inset-0 w-full h-full opacity-30"
+          xmlns="http://www.w3.org/2000/svg"
+          width="100%"
+          height="100%"
+          viewBox="0 0 1200 800"
+          preserveAspectRatio="none"
+        >
+          <defs>
+            <linearGradient id="wave-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#1a46e5" stopOpacity="0.2" />
+              <stop offset="50%" stopColor="#6366f1" stopOpacity="0.1" />
+              <stop offset="100%" stopColor="#818cf8" stopOpacity="0.2" />
+            </linearGradient>
+          </defs>
+          {/* Wave Lines */}
+          {Array.from({ length: 20 }).map((_, i) => (
+            <path
+              key={i}
+              d={`M0,${40 + i * 40} C300,${10 + i * 40} 600,${60 + i * 40} 1200,${30 + i * 40} V800 H0 Z`}
+              fill="none"
+              stroke="url(#wave-gradient)"
+              strokeWidth="1.5"
+            />
+          ))}
+        </svg>
+      </div>
+
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8 py-16 lg:py-32">
         {/* Left side with content */}
