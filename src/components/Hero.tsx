@@ -2,60 +2,11 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
 
 const Hero = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-    
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
   return (
     <div className="relative min-h-screen flex items-center overflow-hidden bg-white">
-      {/* Mesh animation backdrop */}
-      <div className="absolute bottom-0 left-0 w-full h-3/4 overflow-hidden">
-        <motion.div 
-          className="absolute bottom-0 left-0 w-[120%] h-[200%] opacity-10"
-          style={{ 
-            background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, #1a46e5 0%, transparent 60%)`,
-          }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.1 }}
-          transition={{ duration: 1 }}
-        />
-        {Array.from({ length: 5 }).map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full bg-blue-400/30 blur-3xl"
-            style={{
-              width: `${100 + i * 50}px`,
-              height: `${100 + i * 50}px`,
-              left: `${10 + i * 15}%`,
-              bottom: `${-20 + i * 10}%`,
-            }}
-            animate={{
-              x: [0, 30, -30, 0],
-              y: [0, -30, 30, 0],
-              scale: [1, 1.1, 0.9, 1],
-            }}
-            transition={{
-              duration: 15 + i * 2,
-              repeat: Infinity,
-              ease: "easeInOut",
-              repeatType: "mirror",
-              delay: i * 1.5,
-            }}
-          />
-        ))}
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8 py-16 lg:py-32 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8 py-16 lg:py-32">
         {/* Left side with content */}
         <motion.div 
           className="flex flex-col justify-center"
