@@ -1,6 +1,6 @@
 
 import { motion } from "framer-motion";
-import { BrainCircuit, UserCog, Layers, CustomerService } from "lucide-react";
+import { BrainCircuit, UserCog, Layers, Headset } from "lucide-react";
 import { useState } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
@@ -26,7 +26,7 @@ const tabData = [
           description: "Customize and optimize large language models to meet your specific business requirements and use cases."
         },
         {
-          icon: CustomerService,
+          icon: Headset,
           heading: "Customer Engagement",
           description: "Implement AI-powered solutions to enhance customer interactions and provide personalized experiences."
         }
