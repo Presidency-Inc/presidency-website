@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
@@ -16,21 +15,17 @@ const customerLogos = [
 ];
 
 const LogoMarquee = () => {
-  const [hasScrolled, setHasScrolled] = useState(false);
+  const [isSticky, setIsSticky] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
-      // If user has scrolled at all, update state
-      if (window.scrollY > 0 && !hasScrolled) {
-        setHasScrolled(true);
-      }
+      setIsSticky(window.scrollY === 0);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [hasScrolled]);
+  }, []);
 
-  // Each logo has a fixed width with padding
   const logoWidth = 220;
   const logoPadding = 10;
   const totalLogoWidth = logoWidth + (logoPadding * 2); // Total width per logo item
@@ -39,7 +34,7 @@ const LogoMarquee = () => {
   return (
     <div 
       className={`w-full bg-black py-3 z-30 ${
-        hasScrolled ? "" : "fixed bottom-0 left-0"
+        isSticky ? "fixed bottom-0 left-0" : ""
       }`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -49,7 +44,6 @@ const LogoMarquee = () => {
           </div>
           <div className="w-3/4 pl-8 relative overflow-hidden">
             <div className="flex items-center h-14">
-              {/* First marquee animation */}
               <motion.div
                 className="flex items-center"
                 initial={{ x: 0 }}
@@ -81,7 +75,6 @@ const LogoMarquee = () => {
                 ))}
               </motion.div>
 
-              {/* Duplicate marquee for seamless looping */}
               <motion.div
                 className="flex items-center absolute left-0"
                 initial={{ x: totalWidth }}
@@ -121,3 +114,4 @@ const LogoMarquee = () => {
 };
 
 export default LogoMarquee;
+
