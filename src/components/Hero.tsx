@@ -36,6 +36,15 @@ const Hero = () => {
         </svg>
       </div>
 
+      {/* Hero Image - Prismatic Crystal */}
+      <div className="fixed bottom-0 right-0 z-10 w-64 md:w-80 lg:w-96 pointer-events-none">
+        <img 
+          src="/lovable-uploads/3505d22d-17d9-44da-99ac-94f3b9cde259.png" 
+          alt="Prismatic crystal" 
+          className="w-full h-auto"
+        />
+      </div>
+
       {/* Content */}
       <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-16">
         <motion.div 
