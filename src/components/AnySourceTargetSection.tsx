@@ -16,7 +16,7 @@ const AnySourceTargetSection = () => {
             className="order-2 lg:order-1"
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">
-              <span className="bg-gradient-to-r from-emerald-500 to-teal-600 bg-clip-text text-transparent">Any Source</span> to <span className="bg-gradient-to-r from-teal-500 to-emerald-600 bg-clip-text text-transparent">Any Target</span>
+              <span className="bg-gradient-to-r from-blue-500 to-indigo-600 bg-clip-text text-transparent">Any Source</span> to <span className="bg-gradient-to-r from-indigo-500 to-blue-600 bg-clip-text text-transparent">Any Target</span>
             </h2>
             <p className="text-xl text-gray-600 mb-8">
               From DBs, Streaming, APIs to basic filesystems, you can configure your ETL source and targets with ease.
@@ -33,19 +33,19 @@ const AnySourceTargetSection = () => {
                     <span className="text-gray-700 text-sm">Databases</span>
                   </div>
                   <div className="flex items-center">
-                    <div className="bg-amber-100 p-1.5 rounded text-amber-600 mr-3">
+                    <div className="bg-indigo-100 p-1.5 rounded text-indigo-600 mr-3">
                       <FileText className="w-4 h-4" />
                     </div>
                     <span className="text-gray-700 text-sm">File Systems</span>
                   </div>
                   <div className="flex items-center">
-                    <div className="bg-purple-100 p-1.5 rounded text-purple-600 mr-3">
+                    <div className="bg-blue-100 p-1.5 rounded text-blue-600 mr-3">
                       <Wifi className="w-4 h-4" />
                     </div>
                     <span className="text-gray-700 text-sm">Streaming APIs</span>
                   </div>
                   <div className="flex items-center">
-                    <div className="bg-green-100 p-1.5 rounded text-green-600 mr-3">
+                    <div className="bg-indigo-100 p-1.5 rounded text-indigo-600 mr-3">
                       <Server className="w-4 h-4" />
                     </div>
                     <span className="text-gray-700 text-sm">REST/GraphQL</span>
@@ -57,25 +57,25 @@ const AnySourceTargetSection = () => {
                 <h3 className="text-lg font-semibold text-gray-900 mb-3">Supported Target Types</h3>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="flex items-center">
-                    <div className="bg-cyan-100 p-1.5 rounded text-cyan-600 mr-3">
+                    <div className="bg-blue-100 p-1.5 rounded text-blue-600 mr-3">
                       <Database className="w-4 h-4" />
                     </div>
                     <span className="text-gray-700 text-sm">Data Warehouses</span>
                   </div>
                   <div className="flex items-center">
-                    <div className="bg-rose-100 p-1.5 rounded text-rose-600 mr-3">
+                    <div className="bg-indigo-100 p-1.5 rounded text-indigo-600 mr-3">
                       <FileText className="w-4 h-4" />
                     </div>
                     <span className="text-gray-700 text-sm">Storage Services</span>
                   </div>
                   <div className="flex items-center">
-                    <div className="bg-indigo-100 p-1.5 rounded text-indigo-600 mr-3">
+                    <div className="bg-blue-100 p-1.5 rounded text-blue-600 mr-3">
                       <CloudCog className="w-4 h-4" />
                     </div>
                     <span className="text-gray-700 text-sm">Cloud Services</span>
                   </div>
                   <div className="flex items-center">
-                    <div className="bg-emerald-100 p-1.5 rounded text-emerald-600 mr-3">
+                    <div className="bg-indigo-100 p-1.5 rounded text-indigo-600 mr-3">
                       <ArrowRightLeft className="w-4 h-4" />
                     </div>
                     <span className="text-gray-700 text-sm">Analytics Tools</span>
@@ -100,11 +100,11 @@ const AnySourceTargetSection = () => {
             className="order-1 lg:order-2"
           >
             <div className="relative">
-              <div className="bg-gradient-to-r from-teal-100 to-emerald-100 rounded-3xl p-8">
+              <div className="bg-gradient-to-r from-blue-100 to-indigo-100 rounded-3xl p-8">
                 <div className="bg-white rounded-2xl shadow-lg p-6">
                   <div className="flex items-center justify-between mb-6 border-b pb-4">
                     <div className="flex items-center">
-                      <div className="w-8 h-8 bg-teal-600 rounded-md flex items-center justify-center text-white mr-3">
+                      <div className="w-8 h-8 bg-blue-600 rounded-md flex items-center justify-center text-white mr-3">
                         <ArrowRightLeft className="w-4 h-4" />
                       </div>
                       <h3 className="font-semibold text-lg">Data Flow Designer</h3>
@@ -124,9 +124,9 @@ const AnySourceTargetSection = () => {
                           <div className="space-y-3 overflow-auto flex-1 pr-1">
                             {[
                               { name: 'PostgreSQL DB', icon: <Database className="w-4 h-4" />, color: 'blue' },
-                              { name: 'REST API', icon: <Server className="w-4 h-4" />, color: 'purple' },
-                              { name: 'CSV Files', icon: <FileText className="w-4 h-4" />, color: 'amber' },
-                              { name: 'Message Queue', icon: <Wifi className="w-4 h-4" />, color: 'green' },
+                              { name: 'REST API', icon: <Server className="w-4 h-4" />, color: 'indigo' },
+                              { name: 'CSV Files', icon: <FileText className="w-4 h-4" />, color: 'blue' },
+                              { name: 'Message Queue', icon: <Wifi className="w-4 h-4" />, color: 'indigo' },
                             ].map((source, idx) => (
                               <div key={idx} className={`bg-${source.color}-100 p-2 rounded flex items-center shadow-sm`}>
                                 <div className={`text-${source.color}-600 mr-2`}>
@@ -142,13 +142,13 @@ const AnySourceTargetSection = () => {
                       
                       {/* Transformation Column */}
                       <div className="absolute left-[36%] top-4 bottom-4 w-[28%]">
-                        <div className="bg-emerald-50 rounded-lg p-3 h-full flex flex-col">
-                          <div className="text-sm font-medium text-gray-700 mb-3 text-center pb-2 border-b border-emerald-100">
+                        <div className="bg-indigo-50 rounded-lg p-3 h-full flex flex-col">
+                          <div className="text-sm font-medium text-gray-700 mb-3 text-center pb-2 border-b border-indigo-100">
                             Transformations
                           </div>
                           <div className="flex flex-col justify-center items-center h-full space-y-4">
-                            <div className="relative w-full h-[70%] border-2 border-dashed border-emerald-300 rounded-lg flex items-center justify-center p-3">
-                              <div className="absolute -top-3 bg-emerald-50 px-2 text-xs text-emerald-700 font-medium">
+                            <div className="relative w-full h-[70%] border-2 border-dashed border-indigo-300 rounded-lg flex items-center justify-center p-3">
+                              <div className="absolute -top-3 bg-indigo-50 px-2 text-xs text-indigo-700 font-medium">
                                 OmniLang Transformation
                               </div>
                               <div className="text-xs text-gray-500 text-center">
@@ -163,9 +163,9 @@ const AnySourceTargetSection = () => {
                               </div>
                             </div>
                             <div className="w-full flex justify-center items-center">
-                              <div className="h-1 bg-emerald-200 w-2/3 relative">
+                              <div className="h-1 bg-indigo-200 w-2/3 relative">
                                 <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0">
-                                  <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                                  <div className="h-2 w-2 rounded-full bg-indigo-500 animate-pulse"></div>
                                 </div>
                               </div>
                             </div>
@@ -175,16 +175,16 @@ const AnySourceTargetSection = () => {
                       
                       {/* Targets Column */}
                       <div className="absolute right-6 top-4 bottom-4 w-[28%]">
-                        <div className="bg-cyan-50 rounded-lg p-3 h-full flex flex-col">
-                          <div className="text-sm font-medium text-gray-700 mb-3 text-center pb-2 border-b border-cyan-100">
+                        <div className="bg-blue-50 rounded-lg p-3 h-full flex flex-col">
+                          <div className="text-sm font-medium text-gray-700 mb-3 text-center pb-2 border-b border-blue-100">
                             Targets
                           </div>
                           <div className="space-y-3 overflow-auto flex-1 pr-1">
                             {[
-                              { name: 'Snowflake DW', icon: <Database className="w-4 h-4" />, color: 'cyan' },
+                              { name: 'Snowflake DW', icon: <Database className="w-4 h-4" />, color: 'blue' },
                               { name: 'S3 Storage', icon: <CloudCog className="w-4 h-4" />, color: 'indigo' },
-                              { name: 'Analytics API', icon: <ArrowRightLeft className="w-4 h-4" />, color: 'teal' },
-                              { name: 'Tableau', icon: <FileText className="w-4 h-4" />, color: 'rose' },
+                              { name: 'Analytics API', icon: <ArrowRightLeft className="w-4 h-4" />, color: 'blue' },
+                              { name: 'Tableau', icon: <FileText className="w-4 h-4" />, color: 'indigo' },
                             ].map((target, idx) => (
                               <div key={idx} className={`bg-${target.color}-100 p-2 rounded flex items-center shadow-sm`}>
                                 <div className={`text-${target.color}-600 mr-2`}>
@@ -199,11 +199,11 @@ const AnySourceTargetSection = () => {
                       </div>
                       
                       {/* Flow Arrows */}
-                      <div className="absolute left-[32%] top-1/2 w-[4%] h-0.5 bg-emerald-300 transform -translate-y-1/2">
-                        <div className="absolute right-0 h-2 w-2 bg-emerald-500 rounded-full transform translate-x-1/2 -translate-y-1/2"></div>
+                      <div className="absolute left-[32%] top-1/2 w-[4%] h-0.5 bg-indigo-300 transform -translate-y-1/2">
+                        <div className="absolute right-0 h-2 w-2 bg-indigo-500 rounded-full transform translate-x-1/2 -translate-y-1/2"></div>
                       </div>
-                      <div className="absolute left-[64%] top-1/2 w-[4%] h-0.5 bg-emerald-300 transform -translate-y-1/2">
-                        <div className="absolute right-0 h-2 w-2 bg-emerald-500 rounded-full transform translate-x-1/2 -translate-y-1/2"></div>
+                      <div className="absolute left-[64%] top-1/2 w-[4%] h-0.5 bg-blue-300 transform -translate-y-1/2">
+                        <div className="absolute right-0 h-2 w-2 bg-blue-500 rounded-full transform translate-x-1/2 -translate-y-1/2"></div>
                       </div>
                     </div>
                     

@@ -16,7 +16,7 @@ const EnterpriseETLSection = () => {
             className="order-2 lg:order-1"
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">
-              Enterprise <span className="bg-gradient-to-r from-emerald-500 to-teal-600 bg-clip-text text-transparent">ETL</span>
+              Enterprise <span className="bg-gradient-to-r from-blue-500 to-indigo-600 bg-clip-text text-transparent">ETL</span>
             </h2>
             <p className="text-xl text-gray-600 mb-8">
               The ETL system simplifies data integration by automating tasks, providing teams with consistent, usable data.
@@ -24,7 +24,7 @@ const EnterpriseETLSection = () => {
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
               <div className="flex items-start">
-                <div className="flex-shrink-0 bg-emerald-100 p-2 rounded-lg text-emerald-600 mr-4">
+                <div className="flex-shrink-0 bg-blue-100 p-2 rounded-lg text-blue-600 mr-4">
                   <Database className="w-6 h-6" />
                 </div>
                 <div>
@@ -34,7 +34,7 @@ const EnterpriseETLSection = () => {
               </div>
               
               <div className="flex items-start">
-                <div className="flex-shrink-0 bg-emerald-100 p-2 rounded-lg text-emerald-600 mr-4">
+                <div className="flex-shrink-0 bg-blue-100 p-2 rounded-lg text-blue-600 mr-4">
                   <RefreshCw className="w-6 h-6" />
                 </div>
                 <div>
@@ -44,7 +44,7 @@ const EnterpriseETLSection = () => {
               </div>
               
               <div className="flex items-start">
-                <div className="flex-shrink-0 bg-emerald-100 p-2 rounded-lg text-emerald-600 mr-4">
+                <div className="flex-shrink-0 bg-blue-100 p-2 rounded-lg text-blue-600 mr-4">
                   <Zap className="w-6 h-6" />
                 </div>
                 <div>
@@ -54,7 +54,7 @@ const EnterpriseETLSection = () => {
               </div>
               
               <div className="flex items-start">
-                <div className="flex-shrink-0 bg-emerald-100 p-2 rounded-lg text-emerald-600 mr-4">
+                <div className="flex-shrink-0 bg-blue-100 p-2 rounded-lg text-blue-600 mr-4">
                   <BarChart3 className="w-6 h-6" />
                 </div>
                 <div>
@@ -74,16 +74,16 @@ const EnterpriseETLSection = () => {
             className="order-1 lg:order-2"
           >
             <div className="relative">
-              <div className="bg-gradient-to-r from-emerald-100 to-teal-100 rounded-3xl p-8">
+              <div className="bg-gradient-to-r from-blue-100 to-indigo-100 rounded-3xl p-8">
                 <div className="bg-white rounded-2xl shadow-lg p-6">
                   <div className="flex items-center justify-between mb-6 border-b pb-4">
                     <div className="flex items-center">
-                      <div className="w-8 h-8 bg-emerald-600 rounded-md flex items-center justify-center text-white mr-3">
+                      <div className="w-8 h-8 bg-blue-600 rounded-md flex items-center justify-center text-white mr-3">
                         <Database className="w-4 h-4" />
                       </div>
                       <h3 className="font-semibold text-lg">ETL Process Monitor</h3>
                     </div>
-                    <div className="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm">Live</div>
+                    <div className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Live</div>
                   </div>
                   
                   <div className="space-y-4">
@@ -106,7 +106,7 @@ const EnterpriseETLSection = () => {
                           {[0, 1, 2].map(i => (
                             <div 
                               key={i} 
-                              className="absolute h-3 w-3 bg-emerald-500 rounded-full animate-pulse"
+                              className="absolute h-3 w-3 bg-blue-500 rounded-full animate-pulse"
                               style={{
                                 left: `${20 + i * 25}%`,
                                 top: '50%',
@@ -120,7 +120,7 @@ const EnterpriseETLSection = () => {
                         {/* Targets */}
                         <div className="space-y-2">
                           {["Data Warehouse", "Analytics", "Reporting"].map((target, i) => (
-                            <div key={target} className="bg-emerald-100 text-emerald-700 px-3 py-2 rounded-md text-sm flex items-center">
+                            <div key={target} className="bg-indigo-100 text-indigo-700 px-3 py-2 rounded-md text-sm flex items-center">
                               <BarChart3 className="w-4 h-4 mr-2" />
                               {target}
                             </div>
@@ -162,7 +162,7 @@ const EnterpriseETLSection = () => {
                           <span>62%</span>
                         </div>
                         <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                          <div className="h-full bg-purple-500 rounded-full" style={{width: '62%'}}></div>
+                          <div className="h-full bg-indigo-500 rounded-full" style={{width: '62%'}}></div>
                         </div>
                       </div>
                       <div>
@@ -171,7 +171,7 @@ const EnterpriseETLSection = () => {
                           <span>45%</span>
                         </div>
                         <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                          <div className="h-full bg-emerald-500 rounded-full" style={{width: '45%'}}></div>
+                          <div className="h-full bg-blue-500 rounded-full" style={{width: '45%'}}></div>
                         </div>
                       </div>
                     </div>
