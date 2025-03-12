@@ -1,6 +1,6 @@
 
 import { motion } from "framer-motion";
-import { BrainCircuit, UserCog, Layers, Headset } from "lucide-react";
+import { BrainCircuit, UserCog, Layers, Headset, Database, GitBranch, Server } from "lucide-react";
 import { useState } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
@@ -38,10 +38,24 @@ const tabData = [
     id: "data",
     title: "Data",
     content: {
-      heading: "Data",
-      description: "Discover strategies to harness your data assets, implement analytics solutions, and drive data-informed decision making.",
-      cta: "View data solutions",
-      image: "/lovable-uploads/8304d312-8378-42a5-9ec0-699b6f66c884.png"
+      services: [
+        {
+          icon: Database,
+          heading: "Enterprise ETL",
+          description: "Extract, transform, and load data efficiently across your organization with our enterprise-grade ETL solutions."
+        },
+        {
+          icon: GitBranch,
+          heading: "Pipeline Development",
+          description: "Build robust data pipelines that ensure smooth and reliable data flow throughout your infrastructure."
+        },
+        {
+          icon: Server,
+          heading: "Data Infrastructure Setup",
+          description: "Establish scalable and secure data infrastructure that forms the foundation of your data-driven operations."
+        }
+      ],
+      cta: "View data solutions"
     }
   },
   {
@@ -105,7 +119,7 @@ const TabsSection = () => {
             <div className="mt-8 border-t border-gray-200 pt-8">
               {tabData.map((tab) => (
                 <TabsContent key={tab.id} value={tab.id} className="mt-0">
-                  {tab.id === 'ai' ? (
+                  {tab.id === 'ai' && tab.content.services && (
                     <motion.div 
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -130,7 +144,34 @@ const TabsSection = () => {
                         </motion.div>
                       ))}
                     </motion.div>
-                  ) : (
+                  )}
+                  {tab.id === 'data' && tab.content.services && (
+                    <motion.div 
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5 }}
+                      className="grid grid-cols-1 md:grid-cols-2 gap-8"
+                    >
+                      {tab.content.services.map((service, index) => (
+                        <motion.div
+                          key={service.heading}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.5, delay: index * 0.1 }}
+                          className="p-6 rounded-xl border border-gray-200 hover:border-gray-300 transition-colors"
+                        >
+                          <service.icon className="w-8 h-8 text-blue-600 mb-4" />
+                          <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                            {service.heading}
+                          </h3>
+                          <p className="text-gray-600">
+                            {service.description}
+                          </p>
+                        </motion.div>
+                      ))}
+                    </motion.div>
+                  )}
+                  {tab.id === 'cloud' && (
                     <div className="grid md:grid-cols-2 gap-10 items-center">
                       <motion.div 
                         className="rounded-2xl overflow-hidden"
