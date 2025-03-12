@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Smartphone, Monitor, Globe } from "lucide-react";
+import { ArrowRight, Smartphone, Monitor, Globe, MessageCircle, MessageSquare, Share2, Users } from "lucide-react";
 import { motion } from "framer-motion";
 
 const MultiChannelSection = () => {
@@ -8,7 +8,7 @@ const MultiChannelSection = () => {
     <section className="py-24 bg-gray-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left Content - Visual Dashboard */}
+          {/* Left Content - Multi-Channel Visualization */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -26,49 +26,108 @@ const MultiChannelSection = () => {
                   preserveAspectRatio="none"
                 >
                   <defs>
-                    <pattern id="dots-pattern" width="20" height="20" patternUnits="userSpaceOnUse">
-                      <circle cx="10" cy="10" r="2" fill="currentColor" className="text-blue-300" />
+                    <pattern id="channel-pattern" width="30" height="30" patternUnits="userSpaceOnUse">
+                      <path
+                        d="M 15 0 L 0 15 L 15 30 L 30 15 Z"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="0.5"
+                        className="text-blue-300"
+                      />
                     </pattern>
                   </defs>
-                  <rect width="100%" height="100%" fill="url(#dots-pattern)" />
+                  <rect width="100%" height="100%" fill="url(#channel-pattern)" />
                 </svg>
                 
-                {/* Dashboard mockup */}
-                <div className="bg-white rounded-xl shadow-md p-4">
-                  <div className="mb-6 p-3 bg-blue-50 rounded-lg">
-                    <div className="text-gray-700 font-medium">Total balance</div>
-                    <div className="text-3xl font-bold">$6,519,794.00</div>
+                {/* Multi-channel visualization */}
+                <div className="bg-white rounded-xl shadow-md p-6">
+                  <div className="flex justify-between items-center mb-6">
+                    <div className="font-medium text-gray-800">Active Channels</div>
+                    <div className="text-xs text-blue-600 font-semibold bg-blue-50 px-2 py-1 rounded-full">
+                      Live Data
+                    </div>
                   </div>
                   
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between p-3 border-b">
-                      <div className="flex items-center">
-                        <div className="w-10 h-10 bg-blue-800 rounded-full flex items-center justify-center text-white mr-3">
-                          <span className="text-xl">&#x1F4B0;</span>
+                  {/* Channel metrics */}
+                  <div className="space-y-5">
+                    <div className="flex items-center justify-between border-b border-gray-100 pb-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                          <Smartphone className="h-5 w-5 text-blue-600" />
                         </div>
-                        <div>Primary Checking</div>
+                        <div>
+                          <div className="font-medium">Mobile Apps</div>
+                          <div className="text-xs text-gray-500">iOS & Android</div>
+                        </div>
                       </div>
-                      <div className="font-medium">$86,342.00</div>
+                      <div className="flex items-center gap-2">
+                        <div className="w-24 h-2 bg-gray-100 rounded-full overflow-hidden">
+                          <div className="bg-blue-500 h-full" style={{width: "78%"}}></div>
+                        </div>
+                        <span className="text-sm font-medium">78%</span>
+                      </div>
                     </div>
                     
-                    <div className="flex items-center justify-between p-3 border-b">
-                      <div className="flex items-center">
-                        <div className="w-10 h-10 bg-blue-400 rounded-full flex items-center justify-center text-white mr-3">
-                          <span className="text-xl">&#x1F4C8;</span>
+                    <div className="flex items-center justify-between border-b border-gray-100 pb-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center">
+                          <Globe className="h-5 w-5 text-indigo-600" />
                         </div>
-                        <div>Treasury</div>
+                        <div>
+                          <div className="font-medium">Web Platform</div>
+                          <div className="text-xs text-gray-500">Desktop & Mobile</div>
+                        </div>
                       </div>
-                      <div className="font-medium">$483,452.00</div>
+                      <div className="flex items-center gap-2">
+                        <div className="w-24 h-2 bg-gray-100 rounded-full overflow-hidden">
+                          <div className="bg-indigo-500 h-full" style={{width: "65%"}}></div>
+                        </div>
+                        <span className="text-sm font-medium">65%</span>
+                      </div>
                     </div>
                     
-                    <div className="flex items-center justify-between p-3">
-                      <div className="flex items-center">
-                        <div className="w-10 h-10 bg-blue-300 rounded-full flex items-center justify-center text-white mr-3">
-                          <span className="text-xl">&#x1F510;</span>
+                    <div className="flex items-center justify-between border-b border-gray-100 pb-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-violet-100 rounded-lg flex items-center justify-center">
+                          <MessageSquare className="h-5 w-5 text-violet-600" />
                         </div>
-                        <div>Vault</div>
+                        <div>
+                          <div className="font-medium">Chat Interface</div>
+                          <div className="text-xs text-gray-500">Customer Service</div>
+                        </div>
                       </div>
-                      <div className="font-medium">$5,950,000.00</div>
+                      <div className="flex items-center gap-2">
+                        <div className="w-24 h-2 bg-gray-100 rounded-full overflow-hidden">
+                          <div className="bg-violet-500 h-full" style={{width: "42%"}}></div>
+                        </div>
+                        <span className="text-sm font-medium">42%</span>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-purple-600"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+                        </div>
+                        <div>
+                          <div className="font-medium">Voice Assistants</div>
+                          <div className="text-xs text-gray-500">Smart Speakers & Calls</div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="w-24 h-2 bg-gray-100 rounded-full overflow-hidden">
+                          <div className="bg-purple-500 h-full" style={{width: "25%"}}></div>
+                        </div>
+                        <span className="text-sm font-medium">25%</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Total metrics */}
+                  <div className="mt-6 pt-4 border-t border-gray-100">
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="font-medium">Total Active Users</span>
+                      <span className="font-bold text-blue-600">245,812</span>
                     </div>
                   </div>
                 </div>

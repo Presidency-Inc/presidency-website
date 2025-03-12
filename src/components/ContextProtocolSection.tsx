@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Database, Layers, Network, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 
 const ContextProtocolSection = () => {
@@ -23,6 +23,48 @@ const ContextProtocolSection = () => {
               Integrate with any dataset and optimize it for AI use. Our Context Protocol ensures your data is structured, searchable, and ready for AI consumption across all channels.
             </p>
             
+            <div className="grid grid-cols-2 gap-4 pt-2">
+              <div className="flex items-start space-x-3">
+                <div className="bg-blue-100 p-2 rounded-lg text-blue-600">
+                  <Database size={24} />
+                </div>
+                <div>
+                  <h3 className="font-semibold">Data Storage</h3>
+                  <p className="text-sm text-gray-500">Efficient & secure</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start space-x-3">
+                <div className="bg-indigo-100 p-2 rounded-lg text-indigo-600">
+                  <Network size={24} />
+                </div>
+                <div>
+                  <h3 className="font-semibold">Connections</h3>
+                  <p className="text-sm text-gray-500">Seamless integration</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start space-x-3">
+                <div className="bg-violet-100 p-2 rounded-lg text-violet-600">
+                  <Layers size={24} />
+                </div>
+                <div>
+                  <h3 className="font-semibold">Structure</h3>
+                  <p className="text-sm text-gray-500">Organized knowledge</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start space-x-3">
+                <div className="bg-purple-100 p-2 rounded-lg text-purple-600">
+                  <Sparkles size={24} />
+                </div>
+                <div>
+                  <h3 className="font-semibold">Optimization</h3>
+                  <p className="text-sm text-gray-500">AI-ready format</p>
+                </div>
+              </div>
+            </div>
+            
             <div className="pt-4">
               <Button 
                 variant="outline" 
@@ -34,7 +76,7 @@ const ContextProtocolSection = () => {
             </div>
           </motion.div>
           
-          {/* Right Content - Phone Mockup */}
+          {/* Right Content - Context Protocol Visualization */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -42,7 +84,7 @@ const ContextProtocolSection = () => {
             className="relative"
           >
             <div className="bg-gradient-to-br from-indigo-50 to-blue-50 p-8 rounded-3xl shadow-lg">
-              <div className="relative mx-auto max-w-[300px]">
+              <div className="relative mx-auto max-w-[450px]">
                 <svg
                   className="absolute inset-0 w-full h-full opacity-30 -z-10"
                   xmlns="http://www.w3.org/2000/svg"
@@ -52,30 +94,72 @@ const ContextProtocolSection = () => {
                   preserveAspectRatio="none"
                 >
                   <defs>
-                    <pattern id="grid-small" width="20" height="20" patternUnits="userSpaceOnUse">
-                      <path
-                        d="M 20 0 L 0 0 0 20"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="0.5"
-                        className="text-blue-300"
-                      />
+                    <pattern id="data-grid-pattern" width="20" height="20" patternUnits="userSpaceOnUse">
+                      <circle cx="10" cy="10" r="1" fill="currentColor" className="text-blue-300" />
                     </pattern>
                   </defs>
-                  <rect width="100%" height="100%" fill="url(#grid-small)" />
+                  <rect width="100%" height="100%" fill="url(#data-grid-pattern)" />
                 </svg>
                 
-                <div className="relative border-8 border-gray-900 rounded-[3rem] p-1 bg-gray-900 shadow-xl">
-                  <div className="absolute top-0 z-10 w-full h-6 bg-gray-900 rounded-t-[2.5rem]"></div>
-                  <div className="absolute top-2 z-10 left-1/2 transform -translate-x-1/2 w-1/4 h-1 bg-gray-800 rounded-full"></div>
-                  <div className="overflow-hidden rounded-[2.5rem]">
-                    <img 
-                      src="/lovable-uploads/e37bdc98-408b-43ab-a870-f13c834451ba.png" 
-                      alt="Context Protocol in action" 
-                      className="w-full h-full object-cover"
-                    />
+                {/* Context Protocol visualization */}
+                <div className="bg-white rounded-xl shadow-md p-6">
+                  <div className="flex justify-between items-center mb-6">
+                    <div className="font-medium text-gray-800">Context Protocol</div>
+                    <div className="text-xs text-blue-600 font-semibold bg-blue-50 px-2 py-1 rounded-full">
+                      Active
+                    </div>
                   </div>
-                  <div className="absolute bottom-0 z-10 w-full h-6 bg-gray-900 rounded-b-[2.5rem]"></div>
+                  
+                  {/* Visualization elements */}
+                  <div className="space-y-5">
+                    <div className="relative">
+                      <div className="absolute -left-2 top-1/2 transform -translate-y-1/2 w-4 h-4 bg-blue-500 rounded-full"></div>
+                      <div className="border border-blue-100 rounded-lg p-4 ml-4 bg-blue-50">
+                        <div className="flex justify-between items-center">
+                          <div className="font-medium">Customer Data</div>
+                          <div className="text-xs text-gray-500">12.5K records</div>
+                        </div>
+                        <div className="mt-2 h-3 bg-gray-100 rounded overflow-hidden">
+                          <div className="bg-blue-500 h-full" style={{width: "85%"}}></div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="relative">
+                      <div className="absolute -left-2 top-1/2 transform -translate-y-1/2 w-4 h-4 bg-indigo-500 rounded-full"></div>
+                      <div className="border border-indigo-100 rounded-lg p-4 ml-4 bg-indigo-50">
+                        <div className="flex justify-between items-center">
+                          <div className="font-medium">Product Database</div>
+                          <div className="text-xs text-gray-500">2.8K items</div>
+                        </div>
+                        <div className="mt-2 h-3 bg-gray-100 rounded overflow-hidden">
+                          <div className="bg-indigo-500 h-full" style={{width: "65%"}}></div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="relative">
+                      <div className="absolute -left-2 top-1/2 transform -translate-y-1/2 w-4 h-4 bg-violet-500 rounded-full"></div>
+                      <div className="border border-violet-100 rounded-lg p-4 ml-4 bg-violet-50">
+                        <div className="flex justify-between items-center">
+                          <div className="font-medium">Knowledge Base</div>
+                          <div className="text-xs text-gray-500">5.3K documents</div>
+                        </div>
+                        <div className="mt-2 h-3 bg-gray-100 rounded overflow-hidden">
+                          <div className="bg-violet-500 h-full" style={{width: "90%"}}></div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex justify-end">
+                      <div className="flex items-center gap-2 text-sm text-blue-600">
+                        <span>Ready for AI consumption</span>
+                        <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none">
+                          <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 
                 {/* Decorative elements */}
