@@ -31,7 +31,7 @@ const LogoMarquee = () => {
 
   return (
     <div 
-      className={`w-full bg-black py-6 z-30 ${
+      className={`w-full bg-black py-8 z-30 ${
         isScrolledPast ? "" : "fixed bottom-0 left-0"
       }`}
     >
@@ -52,11 +52,11 @@ const LogoMarquee = () => {
                 }}
               >
                 {customerLogos.map((logo, index) => (
-                  <div key={index} className="flex items-center justify-center h-20">
+                  <div key={index} className="flex items-center justify-center h-28">
                     <img
                       src={logo.logo}
                       alt={logo.name}
-                      className="h-20 md:h-28 object-contain"
+                      className="h-24 md:h-32 object-contain"
                     />
                   </div>
                 ))}
@@ -73,11 +73,11 @@ const LogoMarquee = () => {
                 }}
               >
                 {customerLogos.map((logo, index) => (
-                  <div key={index} className="flex items-center justify-center h-20">
+                  <div key={index} className="flex items-center justify-center h-28">
                     <img
                       src={logo.logo}
                       alt={logo.name}
-                      className="h-20 md:h-28 object-contain"
+                      className="h-24 md:h-32 object-contain"
                     />
                   </div>
                 ))}
