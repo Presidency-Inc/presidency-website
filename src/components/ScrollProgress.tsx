@@ -24,7 +24,7 @@ const ScrollProgress = () => {
   }, []);
 
   return (
-    <div className="fixed top-16 left-0 right-0 z-30">
+    <div className="fixed top-24 left-0 right-0 z-30">
       <Progress value={scrollProgress} className="h-1 rounded-none bg-transparent" 
         indicatorClassName="bg-[#1a46e5]" />
     </div>
