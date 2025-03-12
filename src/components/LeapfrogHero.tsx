@@ -44,17 +44,18 @@ const LeapfrogHero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-gray-900 mb-2 leading-tight">
-            Presidency
+          <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-gray-900 mb-4 leading-tight">
+            Presidency Leapfrog
           </h1>
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6 leading-tight">
+          
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-8 leading-tight">
             <span className="bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">
-              Leapfrog
+              AI Enabled Full Stack
             </span>
-          </h1>
+          </h2>
 
           <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
-            AI enabled full stack solutions to accelerate your business transformation and innovation.
+            Accelerate your business transformation and innovation with our comprehensive solutions.
           </p>
 
           <div>
