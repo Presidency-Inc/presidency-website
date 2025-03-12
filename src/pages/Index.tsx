@@ -5,6 +5,7 @@ import StatusBar from "@/components/StatusBar";
 import LogoMarquee from "@/components/LogoMarquee";
 import FeaturesSection from "@/components/FeaturesSection";
 import TabsSection from "@/components/TabsSection";
+import ProductsSection from "@/components/ProductsSection";
 import Footer from "@/components/Footer";
 import ScrollProgress from "@/components/ScrollProgress";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -19,6 +20,7 @@ const Index = () => {
       <LogoMarquee />
       <FeaturesSection />
       <TabsSection />
+      <ProductsSection />
       <Footer />
       <ScrollToTop />
     </main>
