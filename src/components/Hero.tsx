@@ -37,7 +37,7 @@ const Hero = () => {
       </div>
 
       {/* New Hero Image - Top Left Prismatic Crystal */}
-      <div className="absolute top-0 left-0 z-10 w-40 md:w-48 lg:w-64 pointer-events-none">
+      <div className="absolute top-0 left-0 z-10 w-28 sm:w-32 md:w-40 lg:w-48 pointer-events-none">
         <img 
           src="/lovable-uploads/3d61ba69-c1e5-4d40-980d-e8aec7ee6a1b.png" 
           alt="Prismatic crystal top" 
@@ -46,7 +46,7 @@ const Hero = () => {
       </div>
 
       {/* Hero Image - Prismatic Crystal - STICKY WITHIN HERO SECTION */}
-      <div className="absolute bottom-0 right-0 z-10 w-40 md:w-48 lg:w-64 pointer-events-none">
+      <div className="absolute bottom-0 right-0 z-10 w-28 sm:w-32 md:w-40 lg:w-48 pointer-events-none">
         <img 
           src="/lovable-uploads/3505d22d-17d9-44da-99ac-94f3b9cde259.png" 
           alt="Prismatic crystal" 
