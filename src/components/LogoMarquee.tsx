@@ -29,9 +29,11 @@ const LogoMarquee = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Calculate total width needed for the animation
-  // Each logo container is 350px wide with 100px padding on each side (550px total per logo)
-  const totalWidth = customerLogos.length * 550;
+  // Each logo has a fixed width with padding
+  const logoWidth = 350; // Logo width
+  const logoPadding = 50; // Padding on each side
+  const totalLogoWidth = logoWidth + (logoPadding * 2); // Total width per logo item
+  const totalWidth = customerLogos.length * totalLogoWidth;
 
   return (
     <div 
@@ -46,9 +48,10 @@ const LogoMarquee = () => {
           </div>
           <div className="w-3/4 pl-8 relative overflow-hidden">
             <div className="flex items-center h-24">
+              {/* First marquee */}
               <motion.div
-                className="flex items-center gap-24"
-                animate={{ x: [-100, -totalWidth] }}
+                className="flex items-center"
+                animate={{ x: [-totalLogoWidth, -totalWidth - totalLogoWidth] }}
                 transition={{
                   repeat: Infinity,
                   duration: 40,
@@ -57,22 +60,28 @@ const LogoMarquee = () => {
                 style={{ width: `${totalWidth}px` }}
               >
                 {customerLogos.map((logo, index) => (
-                  <div key={index} className="flex items-center justify-center">
-                    <div className="w-[350px] h-[150px] flex items-center justify-center px-12">
-                      <img
-                        src={logo.logo}
-                        alt={logo.name}
-                        className="max-h-[150px] max-w-[350px] object-contain w-auto"
-                      />
-                    </div>
+                  <div 
+                    key={index} 
+                    className="flex items-center justify-center"
+                    style={{ 
+                      width: `${logoWidth}px`, 
+                      paddingLeft: `${logoPadding}px`, 
+                      paddingRight: `${logoPadding}px` 
+                    }}
+                  >
+                    <img
+                      src={logo.logo}
+                      alt={logo.name}
+                      className="max-h-[150px] max-w-full object-contain w-auto"
+                    />
                   </div>
                 ))}
               </motion.div>
 
               {/* Duplicate for seamless loop */}
               <motion.div
-                className="flex items-center gap-24 absolute left-full"
-                animate={{ x: [-100, -totalWidth] }}
+                className="flex items-center absolute left-0"
+                animate={{ x: [totalWidth - totalLogoWidth, -totalLogoWidth] }}
                 transition={{
                   repeat: Infinity,
                   duration: 40,
@@ -81,14 +90,20 @@ const LogoMarquee = () => {
                 style={{ width: `${totalWidth}px` }}
               >
                 {customerLogos.map((logo, index) => (
-                  <div key={index} className="flex items-center justify-center">
-                    <div className="w-[350px] h-[150px] flex items-center justify-center px-12">
-                      <img
-                        src={logo.logo}
-                        alt={logo.name}
-                        className="max-h-[150px] max-w-[350px] object-contain w-auto"
-                      />
-                    </div>
+                  <div 
+                    key={index} 
+                    className="flex items-center justify-center"
+                    style={{ 
+                      width: `${logoWidth}px`, 
+                      paddingLeft: `${logoPadding}px`, 
+                      paddingRight: `${logoPadding}px` 
+                    }}
+                  >
+                    <img
+                      src={logo.logo}
+                      alt={logo.name}
+                      className="max-h-[150px] max-w-full object-contain w-auto"
+                    />
                   </div>
                 ))}
               </motion.div>
