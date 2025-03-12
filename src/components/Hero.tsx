@@ -26,7 +26,7 @@ const Hero = () => {
           </p>
 
           <div>
-            <Button variant="default" size="lg" className="bg-black text-white hover:bg-gray-800">
+            <Button variant="default" size="lg" className="bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
               GET SOLUTIONS
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
