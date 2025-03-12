@@ -8,6 +8,8 @@ import ScrollToTop from "@/components/ScrollToTop";
 import LeapfrogFeatures from "@/components/LeapfrogFeatures";
 import ContextProtocolSection from "@/components/ContextProtocolSection";
 import MultiChannelSection from "@/components/MultiChannelSection";
+import BusinessLogicSection from "@/components/BusinessLogicSection";
+import LLMsSection from "@/components/LLMsSection";
 
 const ProductLeapfrog = () => {
   return (
@@ -19,6 +21,8 @@ const ProductLeapfrog = () => {
       <LeapfrogFeatures />
       <ContextProtocolSection />
       <MultiChannelSection />
+      <BusinessLogicSection />
+      <LLMsSection />
       <Footer />
       <ScrollToTop />
     </main>
