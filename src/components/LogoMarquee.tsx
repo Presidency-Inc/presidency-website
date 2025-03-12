@@ -52,12 +52,14 @@ const LogoMarquee = () => {
                 }}
               >
                 {customerLogos.map((logo, index) => (
-                  <div key={index} className="flex items-center justify-center h-24 px-8">
-                    <img
-                      src={logo.logo}
-                      alt={logo.name}
-                      className="h-16 md:h-24 lg:h-32 object-contain w-auto max-w-none"
-                    />
+                  <div key={index} className="flex items-center justify-center h-24 px-12">
+                    <div className="w-[350px] h-[150px] flex items-center justify-center">
+                      <img
+                        src={logo.logo}
+                        alt={logo.name}
+                        className="max-h-[150px] max-w-[350px] object-contain w-auto"
+                      />
+                    </div>
                   </div>
                 ))}
               </motion.div>
@@ -73,12 +75,14 @@ const LogoMarquee = () => {
                 }}
               >
                 {customerLogos.map((logo, index) => (
-                  <div key={index} className="flex items-center justify-center h-24 px-8">
-                    <img
-                      src={logo.logo}
-                      alt={logo.name}
-                      className="h-16 md:h-24 lg:h-32 object-contain w-auto max-w-none"
-                    />
+                  <div key={index} className="flex items-center justify-center h-24 px-12">
+                    <div className="w-[350px] h-[150px] flex items-center justify-center">
+                      <img
+                        src={logo.logo}
+                        alt={logo.name}
+                        className="max-h-[150px] max-w-[350px] object-contain w-auto"
+                      />
+                    </div>
                   </div>
                 ))}
               </motion.div>
