@@ -244,7 +244,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isMobile && mobileMenuOpen && (
-        <div className="fixed inset-0 bg-white z-50 overflow-y-auto h-screen w-screen">
+        <div className="fixed inset-0 bg-white z-50 overflow-y-auto h-full w-full pb-safe">
           {mobileSubmenuOpen === null ? (
             <div className="px-4 py-6 h-full flex flex-col">
               <div className="flex items-center justify-between border-b border-gray-200 pb-3">
@@ -254,7 +254,7 @@ const Navbar = () => {
                 </button>
               </div>
               
-              <ul className="mt-6 divide-y divide-gray-100 flex-1">
+              <ul className="mt-6 divide-y divide-gray-100 flex-1 overflow-y-auto">
                 <li>
                   <button 
                     onClick={toggleProducts}
@@ -290,7 +290,7 @@ const Navbar = () => {
                 </li>
               </ul>
               
-              <div className="mt-auto pt-6 border-t border-gray-100">
+              <div className="mt-auto pt-6 border-t border-gray-100 pb-6">
                 <Button variant="default" className="w-full bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
                   GET SOLUTIONS
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -309,7 +309,7 @@ const Navbar = () => {
                 </button>
               </div>
               
-              <div className="mt-6 overflow-y-auto flex-1">
+              <div className="mt-6 overflow-y-auto flex-1 pb-6">
                 <h3 className="font-bold text-gray-900 mb-3">Featured Products</h3>
                 <ul className="space-y-3">
                   <li>
@@ -349,7 +349,7 @@ const Navbar = () => {
                 </ul>
                 
                 <h3 className="font-bold text-gray-900 mt-6 mb-3">Modernization</h3>
-                <ul className="space-y-3 mb-6">
+                <ul className="space-y-3 mb-8">
                   <li><a href="#bare-metal" className="block py-2 text-gray-900">Bare-metal to Cloud</a></li>
                   <li><a href="#app-stack" className="block py-2 text-gray-900">App-stack Modernization</a></li>
                 </ul>
@@ -367,7 +367,7 @@ const Navbar = () => {
                 </button>
               </div>
               
-              <div className="mt-6 overflow-y-auto flex-1">
+              <div className="mt-6 overflow-y-auto flex-1 pb-6">
                 <h3 className="font-bold text-gray-900 mb-3">Our Services</h3>
                 <ul className="space-y-3">
                   <li>
@@ -406,7 +406,7 @@ const Navbar = () => {
                 </ul>
                 
                 <h3 className="font-bold text-gray-900 mt-6 mb-3">AI Solutions</h3>
-                <ul className="space-y-3 mb-6">
+                <ul className="space-y-3 mb-8">
                   <li><a href="#gpu-droplets" className="block py-2 text-gray-900">GPU Droplets</a></li>
                   <li><a href="#one-click" className="block py-2 text-gray-900">1-Click Models</a></li>
                   <li><a href="#genai-platform" className="block py-2 text-gray-900">GenAI Platform</a></li>
