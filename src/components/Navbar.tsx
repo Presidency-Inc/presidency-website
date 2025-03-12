@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown, ChevronUp } from "lucide-react";
@@ -126,12 +127,6 @@ const Navbar = () => {
                 <ul className="space-y-3">
                   <li><a href="#bare-metal" className="text-gray-600 hover:text-blue-600">Bare-metal to Cloud</a></li>
                   <li><a href="#app-stack" className="text-gray-600 hover:text-blue-600">App-stack Modernization</a></li>
-                </ul>
-
-                <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mt-6 mb-4">Developer Tools</h3>
-                <ul className="space-y-3">
-                  <li><a href="#api" className="text-gray-600 hover:text-blue-600">API</a></li>
-                  <li><a href="#cli" className="text-gray-600 hover:text-blue-600">CLI</a></li>
                 </ul>
               </div>
             </div>
