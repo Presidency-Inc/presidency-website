@@ -44,7 +44,7 @@ const LeapfrogHero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-gray-900 mb-4 leading-tight">
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mb-4 leading-tight">
             Presidency Leapfrog
           </h1>
           
