@@ -54,14 +54,14 @@ const MeshGrid = () => {
       <motion.div
         className="absolute inset-0"
         style={{
-          backgroundImage: `radial-gradient(#3b82f6 1px, transparent 1px)`,
+          backgroundImage: `radial-gradient(#0EA5E9 1.5px, transparent 1.5px)`,
           backgroundSize: "40px 40px",
           x: gridX,
           y: gridY,
           rotate: gridRotate,
         }}
         animate={{
-          opacity: [0.2, 0.35, 0.2],
+          opacity: [0.3, 0.45, 0.3],
           scale: [1, 1.05, 1],
         }}
         transition={{
@@ -75,7 +75,7 @@ const MeshGrid = () => {
       <motion.div
         className="absolute inset-0"
         style={{
-          backgroundImage: `radial-gradient(#1d4ed8 0.5px, transparent 0.5px)`,
+          backgroundImage: `radial-gradient(#8B5CF6 0.8px, transparent 0.8px)`,
           backgroundSize: "30px 30px",
           backgroundPosition: "10px 10px",
           x: useTransform(gridX, (x) => x * -1.2),
@@ -83,7 +83,7 @@ const MeshGrid = () => {
           rotate: useTransform(gridRotate, (r) => r * -1.5),
         }}
         animate={{
-          opacity: [0.15, 0.25, 0.15],
+          opacity: [0.2, 0.35, 0.2],
         }}
         transition={{
           duration: 8,
@@ -93,8 +93,30 @@ const MeshGrid = () => {
         }}
       />
       
+      {/* Third grid layer for extra depth */}
+      <motion.div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `radial-gradient(#F97316 0.6px, transparent 0.6px)`,
+          backgroundSize: "25px 25px",
+          backgroundPosition: "5px 5px",
+          x: useTransform(gridX, (x) => x * 1.5),
+          y: useTransform(gridY, (y) => y * 1.5),
+          rotate: useTransform(gridRotate, (r) => r * 1.2),
+        }}
+        animate={{
+          opacity: [0.15, 0.28, 0.15],
+        }}
+        transition={{
+          duration: 12,
+          ease: "easeInOut",
+          repeat: Infinity,
+          repeatType: "mirror",
+        }}
+      />
+      
       {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-radial from-transparent to-white/80 mix-blend-overlay" />
+      <div className="absolute inset-0 bg-gradient-radial from-transparent to-white/70 mix-blend-overlay" />
     </div>
   );
 };
