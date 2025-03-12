@@ -1,5 +1,7 @@
+
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const products = [
   {
@@ -26,59 +28,63 @@ const products = [
 ];
 
 const ProductsSection = () => {
+  const isMobile = useIsMobile();
+
   return (
-    <section className="bg-black py-24">
+    <section className="bg-black py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="flex items-center mb-12 gap-12">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6 }}
-              className="w-48 h-48 md:w-[400px] md:h-[400px] flex-shrink-0"
-            >
-              <img 
-                src="/lovable-uploads/9a89c7f7-03ea-407a-8eba-c305270a84d9.png" 
-                alt="Binary Globe" 
-                className="w-full h-full object-contain"
-              />
-            </motion.div>
+          <div className="flex flex-col md:flex-row md:items-center mb-8 md:mb-12 gap-8 md:gap-12">
+            {!isMobile && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6 }}
+                className="w-48 h-48 md:w-[400px] md:h-[400px] flex-shrink-0 mx-auto md:mx-0"
+              >
+                <img 
+                  src="/lovable-uploads/9a89c7f7-03ea-407a-8eba-c305270a84d9.png" 
+                  alt="Binary Globe" 
+                  className="w-full h-full object-contain"
+                />
+              </motion.div>
+            )}
             
-            <div className="flex-1">
-              <h2 className="text-4xl md:text-6xl font-bold text-white">
+            <div className="flex-1 text-center md:text-left">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
                 Discover the Power of{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
                   Innovation
                 </span>{" "}
-                with Our Products
+                <span className="block md:inline">with Our Products</span>
               </h2>
               
-              <p className="text-gray-400 text-lg mt-6 max-w-2xl">
+              <p className="text-gray-400 text-base md:text-lg mt-4 md:mt-6 max-w-2xl mx-auto md:mx-0">
                 Our aim is to deliver products of unparalleled quality, providing significant cost benefits and outstanding value. With our customer-first approach, it's clear why our customers adore our products.
               </p>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {products.map((product) => (
               <motion.div
                 key={product.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: Number(product.id) * 0.1 }}
-                className="bg-zinc-900/50 rounded-xl p-6 hover:bg-zinc-900/70 transition-colors"
+                className="bg-zinc-900/50 rounded-xl p-4 md:p-6 hover:bg-zinc-900/70 transition-colors"
               >
-                <h3 className="text-xl text-white mb-2">
+                <h3 className="text-lg md:text-xl text-white mb-2">
                   {product.title}{" "}
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
                     {product.highlight}
                   </span>
                 </h3>
-                <p className="text-gray-400 mb-6 text-sm">
+                <p className="text-gray-400 mb-4 md:mb-6 text-sm md:text-base">
                   {product.description}
                 </p>
                 <div className="flex justify-between items-center">
