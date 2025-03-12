@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useState } from "react";
@@ -9,8 +8,8 @@ const tabData = [
     id: "ai",
     title: "Artificial Intelligence",
     content: {
-      heading: "Artificial Intelligence",
-      description: "Learn how to leverage AI technologies to transform your business processes and create intelligent applications.",
+      heading: "Full Stack AI Engineering",
+      description: "We specialize in AI from backend to frontend, enhancing automation, personalization, and problem-solving for your business needs.",
       cta: "Explore AI services",
       image: "/lovable-uploads/8304d312-8378-42a5-9ec0-699b6f66c884.png"
     }
