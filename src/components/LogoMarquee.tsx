@@ -37,7 +37,7 @@ const LogoMarquee = () => {
 
   return (
     <div 
-      className={`w-full bg-black py-4 z-30 ${
+      className={`w-full bg-black py-3 z-30 ${
         isScrolledPast ? "" : "fixed bottom-0 left-0"
       }`}
     >
@@ -47,11 +47,11 @@ const LogoMarquee = () => {
             <h3 className="text-white text-lg font-bold">Trusted by the Enterprise</h3>
           </div>
           <div className="w-3/4 pl-8 relative overflow-hidden">
-            <div className="flex items-center h-16">
+            <div className="flex items-center h-14">
               {/* First marquee */}
               <motion.div
                 className="flex items-center"
-                animate={{ x: [-totalLogoWidth, -totalWidth - totalLogoWidth] }}
+                animate={{ x: [0, -totalWidth] }}
                 transition={{
                   repeat: Infinity,
                   duration: 40,
@@ -72,7 +72,7 @@ const LogoMarquee = () => {
                     <img
                       src={logo.logo}
                       alt={logo.name}
-                      className="max-h-[100px] max-w-full object-contain w-auto"
+                      className="max-h-[70px] max-w-full object-contain w-auto"
                     />
                   </div>
                 ))}
@@ -81,7 +81,7 @@ const LogoMarquee = () => {
               {/* Duplicate for seamless loop */}
               <motion.div
                 className="flex items-center absolute left-0"
-                animate={{ x: [totalWidth - totalLogoWidth, -totalLogoWidth] }}
+                animate={{ x: [totalWidth, 0] }}
                 transition={{
                   repeat: Infinity,
                   duration: 40,
@@ -102,7 +102,7 @@ const LogoMarquee = () => {
                     <img
                       src={logo.logo}
                       alt={logo.name}
-                      className="max-h-[100px] max-w-full object-contain w-auto"
+                      className="max-h-[70px] max-w-full object-contain w-auto"
                     />
                   </div>
                 ))}
