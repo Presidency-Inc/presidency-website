@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -145,22 +146,25 @@ const ExtendedTeamsSection = () => {
           </div>
         </motion.div>
         
-        {/* Nearshore Advantage Section */}
-        <div className="mt-32 relative overflow-hidden">
-          {/* Wave Background */}
+        {/* Nearshore Advantage Section - Updated with wave image */}
+        <div className="mt-32 relative overflow-hidden rounded-3xl">
+          {/* Wave Background - Using the uploaded image */}
           <div 
-            className="absolute inset-0 bg-gradient-to-b from-blue-50 to-blue-100 rounded-3xl"
+            className="absolute inset-0 bg-cover bg-center"
             style={{
-              clipPath: "polygon(0 15%, 100% 0%, 100% 100%, 0% 100%)",
+              backgroundImage: "url('/lovable-uploads/75463814-3e39-4537-8d9d-9a60df266ca9.png')",
             }}
-          />
+          >
+            {/* Add a semi-transparent overlay to ensure text readability */}
+            <div className="absolute inset-0 bg-white/20 backdrop-blur-sm"></div>
+          </div>
           
-          <div className="relative px-8 py-16 text-center">
+          <div className="relative px-8 py-24 text-center">
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="text-4xl font-bold mb-6"
+              className="text-4xl font-bold mb-8 text-white drop-shadow-md"
             >
               Nearshore Advantage
             </motion.h2>
@@ -169,35 +173,14 @@ const ExtendedTeamsSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto"
+              className="max-w-2xl mx-auto"
             >
-              <div className="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-sm">
-                <h3 className="text-xl font-semibold mb-3 text-blue-600">Time Zone Alignment</h3>
-                <p className="text-gray-600">
-                  Work in real-time with teams in compatible time zones, enabling seamless collaboration and faster response times.
-                </p>
-              </div>
-
-              <div className="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-sm">
-                <h3 className="text-xl font-semibold mb-3 text-blue-600">Cultural Affinity</h3>
-                <p className="text-gray-600">
-                  Benefit from shared cultural understanding and business practices that lead to better communication and project outcomes.
-                </p>
-              </div>
-
-              <div className="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-sm">
-                <h3 className="text-xl font-semibold mb-3 text-blue-600">Cost-Effective</h3>
-                <p className="text-gray-600">
-                  Access high-quality talent at competitive rates while maintaining excellent service standards.
-                </p>
-              </div>
-
-              <div className="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-sm">
-                <h3 className="text-xl font-semibold mb-3 text-blue-600">Geographic Proximity</h3>
-                <p className="text-gray-600">
-                  Easy travel for face-to-face meetings and workshops when needed, strengthening team relationships.
-                </p>
-              </div>
+              <p className="text-white text-lg leading-relaxed drop-shadow mb-6 backdrop-blur-sm bg-blue-600/20 p-6 rounded-xl">
+                Choosing nearshore talent offers the perfect balance: compatible time zones for real-time collaboration, 
+                cultural alignment for smoother communication, cost-effective access to exceptional talent, 
+                and easy travel for face-to-face meetings when needed. It's a strategic advantage that combines 
+                the best of both worlds—quality and value—without the drawbacks of fully offshore models.
+              </p>
             </motion.div>
           </div>
         </div>
