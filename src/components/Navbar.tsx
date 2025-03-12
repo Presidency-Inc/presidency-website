@@ -214,12 +214,11 @@ const Navbar = () => {
               </div>
 
               <div className="col-span-1">
-                <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">AI Solutions</h3>
+                <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">Data</h3>
                 <ul className="space-y-3">
-                  <li><a href="#gpu-droplets" className="text-gray-600 hover:text-blue-600">GPU Droplets</a></li>
-                  <li><a href="#one-click" className="text-gray-600 hover:text-blue-600">1-Click Models</a></li>
-                  <li><a href="#genai-platform" className="text-gray-600 hover:text-blue-600">GenAI Platform</a></li>
-                  <li><a href="#bare-metal-gpus" className="text-gray-600 hover:text-blue-600">Bare Metal GPUs</a></li>
+                  <li><a href="#enterprise-etl" className="text-gray-600 hover:text-blue-600">Enterprise ETL</a></li>
+                  <li><a href="#pipeline-development" className="text-gray-600 hover:text-blue-600">Pipeline Development</a></li>
+                  <li><a href="#data-infrastructure" className="text-gray-600 hover:text-blue-600">Data Infrastructure Setup</a></li>
                 </ul>
               </div>
 
@@ -410,16 +409,15 @@ const Navbar = () => {
                   <ul className="space-y-3">
                     <li><a href="#full-stack-ai" className="block py-2 text-gray-900">Full Stack AI Engineering</a></li>
                     <li><a href="#agent-development" className="block py-2 text-gray-900">Agent Development</a></li>
-                    <li><a href="#finetuning" className="block py-2 text-gray-900">Finetuning Frontier Models</a></li>
+                    <li><a href="#finetuning" className="block py-2 text-gray-600">Finetuning Frontier Models</a></li>
                     <li><a href="#customer-engagement" className="block py-2 text-gray-900">Customer Engagement</a></li>
                   </ul>
                   
-                  <h3 className="font-bold text-gray-900 mt-6 mb-3">AI Solutions</h3>
+                  <h3 className="font-bold text-gray-900 mt-6 mb-3">Data</h3>
                   <ul className="space-y-3 mb-6">
-                    <li><a href="#gpu-droplets" className="block py-2 text-gray-900">GPU Droplets</a></li>
-                    <li><a href="#one-click" className="block py-2 text-gray-900">1-Click Models</a></li>
-                    <li><a href="#genai-platform" className="block py-2 text-gray-900">GenAI Platform</a></li>
-                    <li><a href="#bare-metal-gpus" className="block py-2 text-gray-900">Bare Metal GPUs</a></li>
+                    <li><a href="#enterprise-etl" className="block py-2 text-gray-900">Enterprise ETL</a></li>
+                    <li><a href="#pipeline-development" className="block py-2 text-gray-900">Pipeline Development</a></li>
+                    <li><a href="#data-infrastructure" className="block py-2 text-gray-900">Data Infrastructure Setup</a></li>
                   </ul>
                 </div>
               </div>
