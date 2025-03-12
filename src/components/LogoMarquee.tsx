@@ -1,5 +1,7 @@
+
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const customerLogos = [
   { name: "US Air Force", logo: "/lovable-uploads/c624067b-e118-4415-88dd-6d6b53f8142e.png" },
@@ -16,6 +18,7 @@ const customerLogos = [
 
 const LogoMarquee = () => {
   const [isSticky, setIsSticky] = useState(true);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,10 +42,12 @@ const LogoMarquee = () => {
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-row items-center">
-          <div className="w-1/4 border-r border-gray-800 pr-8">
-            <h3 className="text-white text-lg font-bold">Trusted by the Enterprise</h3>
-          </div>
-          <div className="w-3/4 pl-8 relative overflow-hidden">
+          {!isMobile && (
+            <div className="w-1/4 border-r border-gray-800 pr-8">
+              <h3 className="text-white text-lg font-bold">Trusted by the Enterprise</h3>
+            </div>
+          )}
+          <div className={isMobile ? "w-full" : "w-3/4 pl-8"} className="relative overflow-hidden">
             <div className="flex items-center h-14">
               <motion.div
                 className="flex items-center"
@@ -114,4 +119,3 @@ const LogoMarquee = () => {
 };
 
 export default LogoMarquee;
-
