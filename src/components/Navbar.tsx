@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown, ChevronUp, X, ArrowLeft, Menu } from "lucide-react";
@@ -223,15 +224,16 @@ const Navbar = () => {
               </div>
 
               <div className="col-span-1">
-                <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">Cloud Hosting</h3>
+                <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">Modernization</h3>
                 <ul className="space-y-3">
-                  <li><a href="#cloudways" className="text-gray-600 hover:text-blue-600">Cloudways</a></li>
+                  <li><a href="#cloud-migrations" className="text-gray-600 hover:text-blue-600">Cloud Migrations</a></li>
+                  <li><a href="#app-stack-enhancements" className="text-gray-600 hover:text-blue-600">App-stack Enhancements</a></li>
                 </ul>
                 
-                <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mt-6 mb-4">Backups & Recovery</h3>
+                <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mt-6 mb-4">TALENT</h3>
                 <ul className="space-y-3">
-                  <li><a href="#backups" className="text-gray-600 hover:text-blue-600">Backups</a></li>
-                  <li><a href="#snapshots" className="text-gray-600 hover:text-blue-600">Snapshots</a></li>
+                  <li><a href="#extended-teams" className="text-gray-600 hover:text-blue-600">Extended Teams</a></li>
+                  <li><a href="#nearshore" className="text-gray-600 hover:text-blue-600">Nearshore</a></li>
                 </ul>
               </div>
             </div>
@@ -414,10 +416,22 @@ const Navbar = () => {
                   </ul>
                   
                   <h3 className="font-bold text-gray-900 mt-6 mb-3">Data</h3>
-                  <ul className="space-y-3 mb-6">
+                  <ul className="space-y-3">
                     <li><a href="#enterprise-etl" className="block py-2 text-gray-900">Enterprise ETL</a></li>
                     <li><a href="#pipeline-development" className="block py-2 text-gray-900">Pipeline Development</a></li>
                     <li><a href="#data-infrastructure" className="block py-2 text-gray-900">Data Infrastructure Setup</a></li>
+                  </ul>
+                  
+                  <h3 className="font-bold text-gray-900 mt-6 mb-3">Modernization</h3>
+                  <ul className="space-y-3">
+                    <li><a href="#cloud-migrations" className="block py-2 text-gray-900">Cloud Migrations</a></li>
+                    <li><a href="#app-stack-enhancements" className="block py-2 text-gray-900">App-stack Enhancements</a></li>
+                  </ul>
+                  
+                  <h3 className="font-bold text-gray-900 mt-6 mb-3">TALENT</h3>
+                  <ul className="space-y-3 mb-6">
+                    <li><a href="#extended-teams" className="block py-2 text-gray-900">Extended Teams</a></li>
+                    <li><a href="#nearshore" className="block py-2 text-gray-900">Nearshore</a></li>
                   </ul>
                 </div>
               </div>
