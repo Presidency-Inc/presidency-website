@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { BrainCircuit, UserCog, Layers, CustomerService } from "lucide-react";
 import { useState } from "react";
@@ -144,5 +145,27 @@ const TabsSection = () => {
                         />
                       </motion.div>
                       <motion.div
-                        initial
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5 }}
+                      >
+                        <h3 className="text-3xl font-bold text-gray-900 mb-4">
+                          {tab.content.heading}
+                        </h3>
+                        <p className="text-lg text-gray-600 mb-6">
+                          {tab.content.description}
+                        </p>
+                      </motion.div>
+                    </div>
+                  )}
+                </TabsContent>
+              ))}
+            </div>
+          </Tabs>
+        </div>
+      </div>
+    </section>
+  );
+};
 
+export default TabsSection;
