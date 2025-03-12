@@ -43,7 +43,7 @@ const LogoMarquee = () => {
           <div className="w-3/4 pl-8 relative overflow-hidden">
             <div className="flex items-center h-24">
               <motion.div
-                className="flex items-center space-x-16 min-w-full"
+                className="flex items-center space-x-24 min-w-full"
                 animate={{ x: [0, -1920] }}
                 transition={{
                   repeat: Infinity,
@@ -64,7 +64,7 @@ const LogoMarquee = () => {
 
               {/* Duplicate for seamless loop */}
               <motion.div
-                className="flex items-center space-x-16 min-w-full absolute left-full top-0"
+                className="flex items-center space-x-24 min-w-full absolute left-full top-0"
                 animate={{ x: [0, -1920] }}
                 transition={{
                   repeat: Infinity,
