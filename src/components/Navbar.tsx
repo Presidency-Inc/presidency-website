@@ -75,34 +75,26 @@ const Navbar = () => {
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Featured Products</h3>
                 <ul className="space-y-4">
                   <li>
-                    <a href="#droplets" className="flex items-start group">
+                    <a href="#leapfrog" className="flex items-start group">
                       <div>
-                        <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Droplets</h4>
-                        <p className="text-sm text-gray-600">Scalable virtual machines</p>
+                        <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Leapfrog</h4>
+                        <p className="text-sm text-gray-600">AI enabled full stack</p>
                       </div>
                     </a>
                   </li>
                   <li>
-                    <a href="#kubernetes" className="flex items-start group">
+                    <a href="#omniflow" className="flex items-start group">
                       <div>
-                        <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Kubernetes</h4>
-                        <p className="text-sm text-gray-600">Scale more effectively</p>
+                        <h4 className="font-medium text-gray-900 group-hover:text-blue-600">OmniFlow</h4>
+                        <p className="text-sm text-gray-600">Agentic ETL orchestration</p>
                       </div>
                     </a>
                   </li>
                   <li>
-                    <a href="#ai-ml" className="flex items-start group">
+                    <a href="#kube8r" className="flex items-start group">
                       <div>
-                        <h4 className="font-medium text-gray-900 group-hover:text-blue-600">AI / ML</h4>
-                        <p className="text-sm text-gray-600">Build and scale AI models</p>
-                      </div>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#app-platform" className="flex items-start group">
-                      <div>
-                        <h4 className="font-medium text-gray-900 group-hover:text-blue-600">App Platform</h4>
-                        <p className="text-sm text-gray-600">Get apps to market faster</p>
+                        <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Kube8r</h4>
+                        <p className="text-sm text-gray-600">Cloud and app modernization</p>
                       </div>
                     </a>
                   </li>
