@@ -55,7 +55,7 @@ const LeapfrogHero = () => {
           </h2>
 
           <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
-            Accelerate your business transformation and innovation with our comprehensive solutions.
+            Cross-platform solutions like you've never seen before
           </p>
 
           <div>
