@@ -11,8 +11,8 @@ const Index = () => {
       <StatusBar />
       <Navbar />
       <Hero />
-      <FeaturesSection />
       <LogoMarquee />
+      <FeaturesSection />
       {/* Add empty space to enable scrolling beyond the hero section */}
       <div className="py-24">{/* Content for the rest of the page */}</div>
     </main>

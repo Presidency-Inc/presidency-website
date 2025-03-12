@@ -1,6 +1,4 @@
-
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
 
 const customerLogos = [
   { name: "US Air Force", logo: "/lovable-uploads/c624067b-e118-4415-88dd-6d6b53f8142e.png" },
@@ -16,19 +14,6 @@ const customerLogos = [
 ];
 
 const LogoMarquee = () => {
-  const [isScrolledPast, setIsScrolledPast] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      // Hero section height plus some margin
-      const threshold = window.innerHeight + 100;
-      setIsScrolledPast(window.scrollY > threshold);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   // Each logo has a fixed width with padding
   const logoWidth = 220;
   const logoPadding = 10;
@@ -36,11 +21,7 @@ const LogoMarquee = () => {
   const totalWidth = customerLogos.length * totalLogoWidth;
 
   return (
-    <div 
-      className={`w-full bg-black py-3 z-30 ${
-        isScrolledPast ? "" : "fixed bottom-0 left-0"
-      }`}
-    >
+    <div className="w-full bg-black py-3">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-row items-center">
           <div className="w-1/4 border-r border-gray-800 pr-8">
