@@ -5,57 +5,39 @@ import { motion } from "framer-motion";
 
 const LeapfrogHero = () => {
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Wave Pattern Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-50 z-0">
+    <div className="relative min-h-[50vh] flex items-center justify-center overflow-hidden">
+      {/* New Pattern Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 to-blue-50 z-0">
         <svg
           className="absolute inset-0 w-full h-full opacity-30"
           xmlns="http://www.w3.org/2000/svg"
           width="100%"
           height="100%"
-          viewBox="0 0 1200 800"
+          viewBox="0 0 1200 600"
           preserveAspectRatio="none"
         >
           <defs>
-            <linearGradient id="wave-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#1a46e5" stopOpacity="0.2" />
-              <stop offset="50%" stopColor="#6366f1" stopOpacity="0.1" />
-              <stop offset="100%" stopColor="#818cf8" stopOpacity="0.2" />
+            <linearGradient id="grid-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#4f46e5" stopOpacity="0.2" />
+              <stop offset="50%" stopColor="#818cf8" stopOpacity="0.1" />
+              <stop offset="100%" stopColor="#a5b4fc" stopOpacity="0.2" />
             </linearGradient>
           </defs>
-          {/* Wave Lines */}
-          {Array.from({ length: 20 }).map((_, i) => (
+          {/* Grid Pattern */}
+          <pattern id="grid-pattern" width="40" height="40" patternUnits="userSpaceOnUse">
             <path
-              key={i}
-              d={`M0,${40 + i * 40} C300,${10 + i * 40} 600,${60 + i * 40} 1200,${30 + i * 40} V800 H0 Z`}
+              d="M 40 0 L 0 0 0 40"
               fill="none"
-              stroke="url(#wave-gradient)"
-              strokeWidth="1.5"
+              stroke="url(#grid-gradient)"
+              strokeWidth="1"
             />
-          ))}
+          </pattern>
+          <rect width="100%" height="100%" fill="url(#grid-pattern)" />
         </svg>
       </div>
 
-      {/* New Hero Image - Top Left Prismatic Crystal */}
-      <div className="absolute top-0 left-0 z-10 w-28 sm:w-32 md:w-40 lg:w-48 pointer-events-none">
-        <img 
-          src="/lovable-uploads/3d61ba69-c1e5-4d40-980d-e8aec7ee6a1b.png" 
-          alt="Prismatic crystal top" 
-          className="w-full h-auto"
-        />
-      </div>
-
-      {/* Hero Image - Prismatic Crystal - STICKY WITHIN HERO SECTION */}
-      <div className="absolute bottom-0 right-0 z-10 w-28 sm:w-32 md:w-40 lg:w-48 pointer-events-none">
-        <img 
-          src="/lovable-uploads/3505d22d-17d9-44da-99ac-94f3b9cde259.png" 
-          alt="Prismatic crystal" 
-          className="w-full h-auto"
-        />
-      </div>
-
       {/* Content */}
-      <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-16">
+      <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-12">
         <motion.div 
           className="flex flex-col items-center"
           initial={{ opacity: 0, y: 20 }}
