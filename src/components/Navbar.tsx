@@ -63,7 +63,7 @@ const Navbar = () => {
             <a href="#careers" className="text-gray-700 hover:text-gray-900 transition-colors">Careers</a>
           </div>
 
-          <Button variant="default" className="hidden md:inline-flex items-center bg-black text-white hover:bg-gray-800">
+          <Button variant="default" className="hidden md:inline-flex items-center bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
             GET SOLUTIONS
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
