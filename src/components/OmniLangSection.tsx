@@ -91,7 +91,7 @@ const OmniLangSection = () => {
                               <span className="pl-4 text-white">// Filter active orders from last month</span>
                               <br/>
                               <span className="pl-4 text-blue-400">filter</span>
-                              <span className="text-white">(row => row.status == </span>
+                              <span className="text-white">(row {`=>`} row.status == </span>
                               <span className="text-yellow-300">"completed"</span>
                               <span className="text-white"> && </span>
                               <br/>
@@ -145,7 +145,7 @@ const OmniLangSection = () => {
                     
                     <TabsContent value="validate" className="p-0 mt-0">
                       <div className="h-64 bg-gray-800 p-4 font-mono text-sm text-gray-300">
-                        <span className="text-emerald-400">import</span> { validate, schema, rules } <span className="text-emerald-400">from</span> <span className="text-yellow-300">"omniflow"</span>;
+                        <span className="text-emerald-400">import</span> {`{ validate, schema, rules }`} <span className="text-emerald-400">from</span> <span className="text-yellow-300">"omniflow"</span>;
                         <br/><br/>
                         <span className="text-purple-400">// Data validation rules</span>
                         <br/>
@@ -169,7 +169,7 @@ const OmniLangSection = () => {
                         <br/>
                         {`    `}custom: [
                         <br/>
-                        {`      `}row => row.status !== <span className="text-yellow-300">"inactive"</span> || row.notes,
+                        {`      `}row {`=>`} row.status !== <span className="text-yellow-300">"inactive"</span> || row.notes,
                         <br/>
                         {`      `}<span className="text-yellow-300">"Inactive customers must have notes"</span>
                         <br/>
