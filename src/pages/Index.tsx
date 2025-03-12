@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import StatusBar from "@/components/StatusBar";
 import LogoMarquee from "@/components/LogoMarquee";
 import FeaturesSection from "@/components/FeaturesSection";
+import TabsSection from "@/components/TabsSection";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -14,8 +15,7 @@ const Index = () => {
       <Hero />
       <LogoMarquee />
       <FeaturesSection />
-      {/* Add empty space to enable scrolling beyond the hero section */}
-      <div className="py-24">{/* Content for the rest of the page */}</div>
+      <TabsSection />
       <Footer />
     </main>
   );
