@@ -103,11 +103,4 @@
   body {
     @apply bg-background text-foreground;
   }
-  
-  /* Add environmental safe areas support (especially for mobile devices with notches) */
-  .pb-safe {
-    padding-bottom: max(env(safe-area-inset-bottom, 1rem), 1rem);
-  }
 }
-
-/* ... keep existing code */
