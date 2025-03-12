@@ -44,7 +44,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <a href="/" className="flex items-center gap-2">
+            <a href="/" className="flex items-center gap-1">
               <Logo />
               <span className="text-xl font-semibold text-gray-900">Presidency</span>
             </a>
