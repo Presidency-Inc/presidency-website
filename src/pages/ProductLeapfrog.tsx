@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import ScrollProgress from "@/components/ScrollProgress";
 import ScrollToTop from "@/components/ScrollToTop";
 import LeapfrogFeatures from "@/components/LeapfrogFeatures";
+import ContextProtocolSection from "@/components/ContextProtocolSection";
 
 const ProductLeapfrog = () => {
   return (
@@ -15,6 +16,7 @@ const ProductLeapfrog = () => {
       <ScrollProgress />
       <Hero />
       <LeapfrogFeatures />
+      <ContextProtocolSection />
       <Footer />
       <ScrollToTop />
     </main>
