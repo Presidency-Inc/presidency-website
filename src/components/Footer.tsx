@@ -1,5 +1,5 @@
-
 import { Facebook, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
+import Logo from "./Logo";
 
 const Footer = () => {
   return (
@@ -8,7 +8,10 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
           {/* Logo Column */}
           <div className="flex flex-col">
-            <div className="text-xl font-semibold mb-8">Presidency</div>
+            <div className="flex items-center gap-2 mb-8">
+              <Logo />
+              <span className="text-xl font-semibold">Presidency</span>
+            </div>
             <div className="flex space-x-4 mt-auto pt-8">
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
                 <Facebook size={20} />
