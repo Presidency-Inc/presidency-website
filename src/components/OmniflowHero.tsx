@@ -7,7 +7,7 @@ const OmniflowHero = () => {
   return (
     <div className="relative pt-16 md:pt-24 min-h-[50vh] flex items-center justify-center overflow-hidden">
       {/* Pattern Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 to-teal-50 z-0">
+      <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 to-blue-50 z-0">
         <svg
           className="absolute inset-0 w-full h-full opacity-30"
           xmlns="http://www.w3.org/2000/svg"
@@ -18,9 +18,9 @@ const OmniflowHero = () => {
         >
           <defs>
             <linearGradient id="flow-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#10b981" stopOpacity="0.2" />
-              <stop offset="50%" stopColor="#14b8a6" stopOpacity="0.1" />
-              <stop offset="100%" stopColor="#0d9488" stopOpacity="0.2" />
+              <stop offset="0%" stopColor="#4f46e5" stopOpacity="0.2" />
+              <stop offset="50%" stopColor="#3b82f6" stopOpacity="0.1" />
+              <stop offset="100%" stopColor="#2563eb" stopOpacity="0.2" />
             </linearGradient>
           </defs>
           {/* Flow Pattern */}
@@ -64,7 +64,7 @@ const OmniflowHero = () => {
           </h1>
           
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-8 leading-tight">
-            <span className="bg-gradient-to-r from-emerald-400 to-teal-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">
               A premier ETL Orchestration System
             </span>
           </h2>
@@ -74,7 +74,7 @@ const OmniflowHero = () => {
           </p>
 
           <div>
-            <Button variant="default" size="lg" className="bg-emerald-600 text-white hover:bg-emerald-700">
+            <Button variant="default" size="lg" className="bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
               EXPLORE OMNIFLOW
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
