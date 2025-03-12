@@ -6,7 +6,7 @@ import { ArrowRight } from "lucide-react";
 const DatabricksCTA = () => {
   return (
     <section className="py-16 md:py-24 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-indigo-800" />
+      <div className="absolute inset-0 bg-gradient-to-br from-orange-900 via-amber-800 to-orange-800" />
       <div className="absolute inset-0 bg-grid-white/[0.05] bg-[length:20px_20px]" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -37,7 +37,7 @@ const DatabricksCTA = () => {
             viewport={{ once: true }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <Button size="lg" className="bg-white text-purple-900 hover:bg-gray-100">
+            <Button size="lg" className="bg-white text-orange-900 hover:bg-gray-100">
               Schedule a Consultation
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
