@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
@@ -35,12 +34,12 @@ const ProductsSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="flex items-center mb-6 gap-6">
+          <div className="flex items-center mb-12 gap-12">
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6 }}
-              className="w-24 h-24 md:w-32 md:h-32 flex-shrink-0"
+              className="w-48 h-48 md:w-[400px] md:h-[400px] flex-shrink-0"
             >
               <img 
                 src="/lovable-uploads/9a89c7f7-03ea-407a-8eba-c305270a84d9.png" 
@@ -49,18 +48,20 @@ const ProductsSection = () => {
               />
             </motion.div>
             
-            <h2 className="text-4xl md:text-5xl font-bold text-white">
-              Discover the Power of{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
-                Innovation
-              </span>{" "}
-              with Our Products
-            </h2>
+            <div className="flex-1">
+              <h2 className="text-4xl md:text-6xl font-bold text-white">
+                Discover the Power of{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
+                  Innovation
+                </span>{" "}
+                with Our Products
+              </h2>
+              
+              <p className="text-gray-400 text-lg mt-6 max-w-2xl">
+                Our aim is to deliver products of unparalleled quality, providing significant cost benefits and outstanding value. With our customer-first approach, it's clear why our customers adore our products.
+              </p>
+            </div>
           </div>
-          
-          <p className="text-gray-400 text-lg mb-12 max-w-3xl ml-0 md:ml-40">
-            Our aim is to deliver products of unparalleled quality, providing significant cost benefits and outstanding value. With our customer-first approach, it's clear why our customers adore our products.
-          </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {products.map((product) => (
