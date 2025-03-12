@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { BrainCircuit, UserCog, Layers, Headset, Database, GitBranch, Server, Cloud } from "lucide-react";
 import { useState } from "react";
@@ -129,39 +130,40 @@ const TabsSection = () => {
               </TabsList>
             </div>
             
-          <div className="mt-8 border-t border-gray-200 pt-8">
-            {tabData.map((tab) => (
-              <TabsContent key={tab.id} value={tab.id} className="mt-0">
-                {tab.content.services && (
-                  <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="grid grid-cols-1 md:grid-cols-2 gap-8"
-                  >
-                    {tab.content.services.map((service, index) => (
-                      <motion.div
-                        key={service.heading}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: index * 0.1 }}
-                        className="p-6 rounded-xl border border-gray-200 hover:border-gray-300 transition-colors"
-                      >
-                        <service.icon className="w-8 h-8 text-blue-600 mb-4" />
-                        <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                          {service.heading}
-                        </h3>
-                        <p className="text-gray-600">
-                          {service.description}
-                        </p>
-                      </motion.div>
-                    ))}
-                  </motion.div>
-                )}
-              </TabsContent>
-            ))}
-          </div>
-        </Tabs>
+            <div className="mt-8 border-t border-gray-200 pt-8">
+              {tabData.map((tab) => (
+                <TabsContent key={tab.id} value={tab.id} className="mt-0">
+                  {tab.content.services && (
+                    <motion.div 
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5 }}
+                      className="grid grid-cols-1 md:grid-cols-2 gap-8"
+                    >
+                      {tab.content.services.map((service, index) => (
+                        <motion.div
+                          key={service.heading}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.5, delay: index * 0.1 }}
+                          className="p-6 rounded-xl border border-gray-200 hover:border-gray-300 transition-colors"
+                        >
+                          <service.icon className="w-8 h-8 text-blue-600 mb-4" />
+                          <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                            {service.heading}
+                          </h3>
+                          <p className="text-gray-600">
+                            {service.description}
+                          </p>
+                        </motion.div>
+                      ))}
+                    </motion.div>
+                  )}
+                </TabsContent>
+              ))}
+            </div>
+          </Tabs>
+        </div>
       </div>
     </section>
   );
