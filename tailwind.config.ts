@@ -20,6 +20,9 @@ export default {
 		extend: {
 			fontFamily: {
 				sans: ['Space Grotesk', 'sans-serif'],
+				hubot: ['Hubot Sans', 'sans-serif'],
+				josefin: ['Josefin Sans', 'sans-serif'],
+				grotesk: ['Space Grotesk', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
