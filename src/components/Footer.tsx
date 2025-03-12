@@ -30,7 +30,7 @@ const Footer = () => {
 
           {/* Products Column */}
           <div>
-            <h3 className="text-sm font-medium text-primary uppercase tracking-wider mb-4">Products</h3>
+            <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-4">Products</h3>
             <ul className="space-y-3">
               <li><a href="#leapfrog" className="text-gray-300 hover:text-white text-sm">Leapfrog</a></li>
               <li><a href="#omniflow" className="text-gray-300 hover:text-white text-sm">OmniFlow</a></li>
@@ -44,7 +44,7 @@ const Footer = () => {
 
           {/* Services Column */}
           <div>
-            <h3 className="text-sm font-medium text-primary uppercase tracking-wider mb-4">Services</h3>
+            <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-4">Services</h3>
             <ul className="space-y-3">
               <li><a href="#ai" className="text-gray-300 hover:text-white text-sm">Artificial Intelligence</a></li>
               <li><a href="#data-engineering" className="text-gray-300 hover:text-white text-sm">Data Engineering</a></li>
@@ -57,7 +57,7 @@ const Footer = () => {
 
           {/* Company Column */}
           <div>
-            <h3 className="text-sm font-medium text-primary uppercase tracking-wider mb-4">Company</h3>
+            <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-4">Company</h3>
             <ul className="space-y-3">
               <li><a href="#about" className="text-gray-300 hover:text-white text-sm">About</a></li>
               <li><a href="#careers" className="text-gray-300 hover:text-white text-sm">Careers</a></li>
@@ -70,7 +70,7 @@ const Footer = () => {
 
           {/* Resources Column */}
           <div>
-            <h3 className="text-sm font-medium text-primary uppercase tracking-wider mb-4">Resources</h3>
+            <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-4">Resources</h3>
             <ul className="space-y-3">
               <li><a href="#docs" className="text-gray-300 hover:text-white text-sm">Documentation</a></li>
               <li><a href="#help" className="text-gray-300 hover:text-white text-sm">Help Center</a></li>
