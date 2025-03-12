@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 const LeapfrogHero = () => {
   return (
-    <div className="relative min-h-[50vh] flex items-center justify-center overflow-hidden">
+    <div className="relative pt-16 md:pt-24 min-h-[50vh] flex items-center justify-center overflow-hidden">
       {/* New Pattern Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 to-blue-50 z-0">
         <svg
