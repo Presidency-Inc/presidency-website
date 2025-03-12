@@ -1,8 +1,13 @@
 
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const StatusBar = () => {
+  const isMobile = useIsMobile();
+  
+  if (isMobile) return null;
+  
   return (
     <div className="fixed top-0 left-0 right-0 z-50 bg-[#1a46e5] text-white py-2">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center md:justify-between">
