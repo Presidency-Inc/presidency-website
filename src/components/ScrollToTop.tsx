@@ -26,7 +26,7 @@ const ScrollToTop = () => {
   return (
     <button
       onClick={scrollToTop}
-      className="fixed bottom-2 left-8 p-4 rounded-full bg-[#1a46e5] text-white shadow-lg hover:bg-[#1a46e5]/90 transition-all mt-48"
+      className="fixed bottom-4 left-8 p-4 rounded-full bg-[#1a46e5] text-white shadow-lg hover:bg-[#1a46e5]/90 transition-all mt-48"
       aria-label="Scroll to top"
     >
       <ArrowUp size={32} />
@@ -35,3 +35,4 @@ const ScrollToTop = () => {
 };
 
 export default ScrollToTop;
+
