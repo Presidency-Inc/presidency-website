@@ -7,6 +7,7 @@ import FeaturesSection from "@/components/FeaturesSection";
 import TabsSection from "@/components/TabsSection";
 import Footer from "@/components/Footer";
 import ScrollProgress from "@/components/ScrollProgress";
+import ScrollToTop from "@/components/ScrollToTop";
 
 const Index = () => {
   return (
@@ -19,6 +20,7 @@ const Index = () => {
       <FeaturesSection />
       <TabsSection />
       <Footer />
+      <ScrollToTop />
     </main>
   );
 };
