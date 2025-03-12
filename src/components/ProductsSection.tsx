@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
@@ -49,7 +50,7 @@ const ProductsSection = () => {
             </motion.div>
             
             <div className="flex-1">
-              <h2 className="text-4xl md:text-6xl font-bold text-white">
+              <h2 className="text-4xl md:text-2xl font-bold text-white">
                 Discover the Power of{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
                   Innovation
