@@ -1,20 +1,41 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ChevronDown, ChevronUp } from "lucide-react";
+import { ArrowRight, ChevronDown, ChevronUp, X, ArrowLeft, Menu } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Navbar = () => {
   const [productsOpen, setProductsOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileSubmenuOpen, setMobileSubmenuOpen] = useState<string | null>(null);
+  const isMobile = useIsMobile();
 
   const toggleProducts = () => {
-    setProductsOpen(!productsOpen);
-    if (servicesOpen) setServicesOpen(false);
+    if (isMobile) {
+      setMobileSubmenuOpen(mobileSubmenuOpen === "products" ? null : "products");
+    } else {
+      setProductsOpen(!productsOpen);
+      if (servicesOpen) setServicesOpen(false);
+    }
   };
 
   const toggleServices = () => {
-    setServicesOpen(!servicesOpen);
-    if (productsOpen) setProductsOpen(false);
+    if (isMobile) {
+      setMobileSubmenuOpen(mobileSubmenuOpen === "services" ? null : "services");
+    } else {
+      setServicesOpen(!servicesOpen);
+      if (productsOpen) setProductsOpen(false);
+    }
+  };
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+    setMobileSubmenuOpen(null);
+  };
+
+  const closeMobileSubmenu = () => {
+    setMobileSubmenuOpen(null);
   };
 
   return (
@@ -61,14 +82,21 @@ const Navbar = () => {
             <a href="#careers" className="text-gray-700 hover:text-gray-900 transition-colors">Careers</a>
           </div>
 
-          <Button variant="default" className="hidden md:inline-flex items-center bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
-            GET SOLUTIONS
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
+          <div className="flex items-center">
+            <Button variant="default" className="hidden md:inline-flex items-center bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
+              GET SOLUTIONS
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+            
+            <button onClick={toggleMobileMenu} className="md:hidden p-2 text-gray-700">
+              <Menu className="h-6 w-6" />
+            </button>
+          </div>
         </div>
       </div>
 
-      {productsOpen && (
+      {/* Desktop Dropdowns */}
+      {!isMobile && productsOpen && (
         <div className="absolute left-0 right-0 bg-white shadow-lg border-b border-gray-200 z-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div className="grid grid-cols-4 gap-8">
@@ -134,7 +162,7 @@ const Navbar = () => {
         </div>
       )}
 
-      {servicesOpen && (
+      {!isMobile && servicesOpen && (
         <div className="absolute left-0 right-0 bg-white shadow-lg border-b border-gray-200 z-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div className="grid grid-cols-4 gap-8">
@@ -211,6 +239,131 @@ const Navbar = () => {
               </div>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* Mobile Menu */}
+      {isMobile && mobileMenuOpen && (
+        <div className="fixed inset-0 bg-white z-50 overflow-y-auto">
+          {mobileSubmenuOpen === null ? (
+            <div className="px-4 py-3">
+              <div className="flex items-center justify-between border-b border-gray-200 pb-3">
+                <div></div>
+                <button onClick={toggleMobileMenu} className="p-2 text-gray-700">
+                  <X className="h-6 w-6" />
+                </button>
+              </div>
+              
+              <ul className="mt-4 divide-y divide-gray-100">
+                <li>
+                  <button 
+                    onClick={toggleProducts}
+                    className="flex items-center justify-between w-full py-4 text-left text-gray-900 font-medium"
+                  >
+                    Products
+                    <ChevronDown className="h-5 w-5 text-gray-500" />
+                  </button>
+                </li>
+                <li>
+                  <button 
+                    onClick={toggleServices}
+                    className="flex items-center justify-between w-full py-4 text-left text-gray-900 font-medium"
+                  >
+                    Services
+                    <ChevronDown className="h-5 w-5 text-gray-500" />
+                  </button>
+                </li>
+                <li>
+                  <a href="#databricks" className="block py-4 text-gray-900 font-medium">
+                    Databricks
+                  </a>
+                </li>
+                <li>
+                  <a href="#teams" className="block py-4 text-gray-900 font-medium">
+                    Extended Teams
+                  </a>
+                </li>
+                <li>
+                  <a href="#careers" className="block py-4 text-gray-900 font-medium">
+                    Careers
+                  </a>
+                </li>
+              </ul>
+              
+              <Button variant="default" className="w-full mt-6 bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
+                GET SOLUTIONS
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </div>
+          ) : mobileSubmenuOpen === "products" ? (
+            <div className="px-4 py-3">
+              <div className="flex items-center justify-between border-b border-gray-200 pb-3">
+                <button onClick={closeMobileSubmenu} className="flex items-center text-gray-700">
+                  <ArrowLeft className="h-5 w-5 mr-2" />
+                  Products
+                </button>
+                <button onClick={toggleMobileMenu} className="p-2 text-gray-700">
+                  <X className="h-6 w-6" />
+                </button>
+              </div>
+              
+              <div className="mt-4">
+                <h3 className="font-bold text-gray-900 mb-3">Featured Products</h3>
+                <ul className="space-y-3">
+                  <li><a href="#leapfrog" className="block py-2 text-gray-900">Leapfrog</a></li>
+                  <li><a href="#omniflow" className="block py-2 text-gray-900">OmniFlow</a></li>
+                  <li><a href="#kube8r" className="block py-2 text-gray-900">Kube8r</a></li>
+                </ul>
+                
+                <h3 className="font-bold text-gray-900 mt-6 mb-3">Compute</h3>
+                <ul className="space-y-3">
+                  <li><a href="#droplets" className="block py-2 text-gray-900">Droplets</a></li>
+                  <li><a href="#kubernetes" className="block py-2 text-gray-900">Kubernetes</a></li>
+                  <li><a href="#cpu-optimized" className="block py-2 text-gray-900">CPU-Optimized Droplets</a></li>
+                  <li><a href="#functions" className="block py-2 text-gray-900">Functions</a></li>
+                  <li><a href="#app-platform" className="block py-2 text-gray-900">App Platform</a></li>
+                </ul>
+                
+                <h3 className="font-bold text-gray-900 mt-6 mb-3">AI / ML</h3>
+                <ul className="space-y-3">
+                  <li><a href="#gpu-droplets" className="block py-2 text-gray-900">GPU Droplets</a></li>
+                  <li><a href="#one-click" className="block py-2 text-gray-900">1-Click Models</a></li>
+                  <li><a href="#genai-platform" className="block py-2 text-gray-900">GenAI Platform</a></li>
+                  <li><a href="#bare-metal-gpus" className="block py-2 text-gray-900">Bare Metal GPUs</a></li>
+                </ul>
+              </div>
+            </div>
+          ) : mobileSubmenuOpen === "services" ? (
+            <div className="px-4 py-3">
+              <div className="flex items-center justify-between border-b border-gray-200 pb-3">
+                <button onClick={closeMobileSubmenu} className="flex items-center text-gray-700">
+                  <ArrowLeft className="h-5 w-5 mr-2" />
+                  Services
+                </button>
+                <button onClick={toggleMobileMenu} className="p-2 text-gray-700">
+                  <X className="h-6 w-6" />
+                </button>
+              </div>
+              
+              <div className="mt-4">
+                <h3 className="font-bold text-gray-900 mb-3">Our Services</h3>
+                <ul className="space-y-3">
+                  <li><a href="#consulting" className="block py-2 text-gray-900">Consulting</a></li>
+                  <li><a href="#implementation" className="block py-2 text-gray-900">Implementation</a></li>
+                  <li><a href="#training" className="block py-2 text-gray-900">Training</a></li>
+                  <li><a href="#support" className="block py-2 text-gray-900">Support</a></li>
+                </ul>
+                
+                <h3 className="font-bold text-gray-900 mt-6 mb-3">Managed Databases</h3>
+                <ul className="space-y-3">
+                  <li><a href="#mongodb" className="block py-2 text-gray-900">MongoDB</a></li>
+                  <li><a href="#kafka" className="block py-2 text-gray-900">Kafka</a></li>
+                  <li><a href="#mysql" className="block py-2 text-gray-900">MySQL</a></li>
+                  <li><a href="#postgresql" className="block py-2 text-gray-900">PostgreSQL</a></li>
+                </ul>
+              </div>
+            </div>
+          ) : null}
         </div>
       )}
     </nav>
