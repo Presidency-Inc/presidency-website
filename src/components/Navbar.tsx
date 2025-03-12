@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown, ChevronUp, X, ArrowLeft, Menu } from "lucide-react";
@@ -250,7 +249,10 @@ const Navbar = () => {
             <div className="flex flex-col h-full">
               <div className="px-4 py-6 flex-1 overflow-y-auto">
                 <div className="flex items-center justify-between border-b border-gray-200 pb-3">
-                  <div className="text-xl font-semibold">Presidency</div>
+                  <div className="flex items-center gap-0.5">
+                    <Logo />
+                    <span className="text-xl font-semibold">Presidency</span>
+                  </div>
                   <button onClick={toggleMobileMenu} className="p-2 text-gray-700">
                     <X className="h-6 w-6" />
                   </button>
