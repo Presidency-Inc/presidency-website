@@ -112,30 +112,28 @@ const Navbar = () => {
               <div className="col-span-1">
                 <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">AI</h3>
                 <ul className="space-y-3">
-                  <li><a href="#ai-droplets" className="text-gray-600 hover:text-blue-600">AI Droplets</a></li>
-                  <li><a href="#kubernetes" className="text-gray-600 hover:text-blue-600">Kubernetes</a></li>
-                  <li><a href="#genai-platform" className="text-gray-600 hover:text-blue-600">GenAI Platform</a></li>
-                  <li><a href="#functions" className="text-gray-600 hover:text-blue-600">Functions</a></li>
-                  <li><a href="#app-platform" className="text-gray-600 hover:text-blue-600">App Platform</a></li>
+                  <li><a href="#ai-full-stack" className="text-gray-600 hover:text-blue-600">AI Full Stack</a></li>
+                  <li><a href="#context-protocol" className="text-gray-600 hover:text-blue-600">Context Protocol</a></li>
+                  <li><a href="#multi-channel" className="text-gray-600 hover:text-blue-600">Multi Channel Experience</a></li>
+                  <li><a href="#business-logic" className="text-gray-600 hover:text-blue-600">Business Logic Orchestration</a></li>
+                  <li><a href="#llms" className="text-gray-600 hover:text-blue-600">LLMs & Finetunes</a></li>
                 </ul>
               </div>
 
               <div className="col-span-1">
                 <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">Data</h3>
                 <ul className="space-y-3">
-                  <li><a href="#data-analysis" className="text-gray-600 hover:text-blue-600">Data Analysis</a></li>
-                  <li><a href="#data-warehouse" className="text-gray-600 hover:text-blue-600">Data Warehouse</a></li>
-                  <li><a href="#data-lake" className="text-gray-600 hover:text-blue-600">Data Lake</a></li>
-                  <li><a href="#data-platform" className="text-gray-600 hover:text-blue-600">Data Platform</a></li>
-                  <li><a href="#streaming-data" className="text-gray-600 hover:text-blue-600">Streaming Data</a></li>
+                  <li><a href="#enterprise-etl" className="text-gray-600 hover:text-blue-600">Enterprise ETL</a></li>
+                  <li><a href="#lakehouse" className="text-gray-600 hover:text-blue-600">Lakehouse</a></li>
+                  <li><a href="#integrations" className="text-gray-600 hover:text-blue-600">Integrations</a></li>
                 </ul>
               </div>
 
               <div className="col-span-1">
                 <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">Modernization</h3>
                 <ul className="space-y-3">
-                  <li><a href="#spaces" className="text-gray-600 hover:text-blue-600">Spaces Object Storage</a></li>
-                  <li><a href="#volumes" className="text-gray-600 hover:text-blue-600">Volume Block Storage</a></li>
+                  <li><a href="#bare-metal" className="text-gray-600 hover:text-blue-600">Bare-metal to Cloud</a></li>
+                  <li><a href="#app-stack" className="text-gray-600 hover:text-blue-600">App-stack Modernization</a></li>
                 </ul>
 
                 <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mt-6 mb-4">Developer Tools</h3>
