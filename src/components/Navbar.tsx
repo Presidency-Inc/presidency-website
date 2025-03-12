@@ -170,34 +170,34 @@ const Navbar = () => {
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Our Services</h3>
                 <ul className="space-y-4">
                   <li>
-                    <a href="#consulting" className="flex items-start group">
+                    <a href="#ai" className="flex items-start group">
                       <div>
-                        <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Consulting</h4>
-                        <p className="text-sm text-gray-600">Expert guidance for your business</p>
+                        <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Artificial Intelligence</h4>
+                        <p className="text-sm text-gray-600">Enhanced efficiency for your business</p>
                       </div>
                     </a>
                   </li>
                   <li>
-                    <a href="#implementation" className="flex items-start group">
+                    <a href="#data-engineering" className="flex items-start group">
                       <div>
-                        <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Implementation</h4>
-                        <p className="text-sm text-gray-600">Seamless deployment solutions</p>
+                        <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Data Engineering</h4>
+                        <p className="text-sm text-gray-600">Optimize your data operations</p>
                       </div>
                     </a>
                   </li>
                   <li>
-                    <a href="#training" className="flex items-start group">
+                    <a href="#databricks" className="flex items-start group">
                       <div>
-                        <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Training</h4>
-                        <p className="text-sm text-gray-600">Skill development programs</p>
+                        <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Databricks Solutions</h4>
+                        <p className="text-sm text-gray-600">Tailored databricks expertise</p>
                       </div>
                     </a>
                   </li>
                   <li>
-                    <a href="#support" className="flex items-start group">
+                    <a href="#cloud" className="flex items-start group">
                       <div>
-                        <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Support</h4>
-                        <p className="text-sm text-gray-600">24/7 technical assistance</p>
+                        <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Cloud Modernization</h4>
+                        <p className="text-sm text-gray-600">Upgrade your infrastructure</p>
                       </div>
                     </a>
                   </li>
@@ -383,27 +383,27 @@ const Navbar = () => {
                   <h3 className="font-bold text-gray-900 mb-3">Our Services</h3>
                   <ul className="space-y-3">
                     <li>
-                      <a href="#consulting" className="block py-2">
-                        <span className="font-medium text-gray-900">Consulting</span>
-                        <p className="text-sm text-gray-600">Expert guidance for your business</p>
+                      <a href="#ai" className="block py-2">
+                        <span className="font-medium text-gray-900">Artificial Intelligence</span>
+                        <p className="text-sm text-gray-600">Enhanced efficiency for your business</p>
                       </a>
                     </li>
                     <li>
-                      <a href="#implementation" className="block py-2">
-                        <span className="font-medium text-gray-900">Implementation</span>
-                        <p className="text-sm text-gray-600">Seamless deployment solutions</p>
+                      <a href="#data-engineering" className="block py-2">
+                        <span className="font-medium text-gray-900">Data Engineering</span>
+                        <p className="text-sm text-gray-600">Optimize your data operations</p>
                       </a>
                     </li>
                     <li>
-                      <a href="#training" className="block py-2">
-                        <span className="font-medium text-gray-900">Training</span>
-                        <p className="text-sm text-gray-600">Skill development programs</p>
+                      <a href="#databricks" className="block py-2">
+                        <span className="font-medium text-gray-900">Databricks Solutions</span>
+                        <p className="text-sm text-gray-600">Tailored databricks expertise</p>
                       </a>
                     </li>
                     <li>
-                      <a href="#support" className="block py-2">
-                        <span className="font-medium text-gray-900">Support</span>
-                        <p className="text-sm text-gray-600">24/7 technical assistance</p>
+                      <a href="#cloud" className="block py-2">
+                        <span className="font-medium text-gray-900">Cloud Modernization</span>
+                        <p className="text-sm text-gray-600">Upgrade your infrastructure</p>
                       </a>
                     </li>
                   </ul>
