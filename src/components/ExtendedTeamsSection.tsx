@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -206,11 +207,12 @@ const ExtendedTeamsSection = () => {
           </div>
         </div>
         
+        {/* Added increased margin-top (mt-40 instead of no explicit mt) to create more spacing */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9 }}
-          className="flex justify-between items-center"
+          className="flex justify-between items-center mt-40"
         >
           <h3 className="text-2xl font-bold">
             Hire AI Engineers
