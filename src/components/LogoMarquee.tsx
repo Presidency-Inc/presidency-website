@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
@@ -15,17 +16,19 @@ const customerLogos = [
 ];
 
 const LogoMarquee = () => {
-  const [isScrolledPast, setIsScrolledPast] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const threshold = window.innerHeight + 100;
-      setIsScrolledPast(window.scrollY > threshold);
+      // If user has scrolled at all, update state
+      if (window.scrollY > 0 && !hasScrolled) {
+        setHasScrolled(true);
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [hasScrolled]);
 
   // Each logo has a fixed width with padding
   const logoWidth = 220;
@@ -36,7 +39,7 @@ const LogoMarquee = () => {
   return (
     <div 
       className={`w-full bg-black py-3 z-30 ${
-        isScrolledPast ? "" : "fixed bottom-0 left-0"
+        hasScrolled ? "" : "fixed bottom-0 left-0"
       }`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
