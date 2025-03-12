@@ -50,7 +50,10 @@ const TabsSection = () => {
           transition={{ duration: 0.5 }}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Build with the help of our<br />Exceptional Services
+            Build with the help of our<br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
+              Exceptional Services
+            </span>
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             Our goal is to ensure top-notch quality in the services we offer, while providing a distinct 
