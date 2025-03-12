@@ -79,7 +79,7 @@ const Navbar = () => {
               </button>
             </div>
             
-            <a href="#databricks" className="text-gray-700 hover:text-gray-900 transition-colors">Databricks</a>
+            <Link to="/services/databricks" className="text-gray-700 hover:text-gray-900 transition-colors">Databricks</Link>
             <a href="#teams" className="text-gray-700 hover:text-gray-900 transition-colors">Extended Teams</a>
             <a href="#careers" className="text-gray-700 hover:text-gray-900 transition-colors">Careers</a>
           </div>
@@ -196,12 +196,16 @@ const Navbar = () => {
                     </a>
                   </li>
                   <li>
-                    <a href="#databricks" className="flex items-start group">
+                    <Link
+                      to="/services/databricks"
+                      className="flex items-start group"
+                      onClick={() => setServicesOpen(false)}
+                    >
                       <div>
                         <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Databricks Solutions</h4>
                         <p className="text-sm text-gray-600">Tailored databricks expertise</p>
                       </div>
-                    </a>
+                    </Link>
                   </li>
                   <li>
                     <a href="#cloud" className="flex items-start group">
