@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -28,7 +27,6 @@ const ExtendedTeamsSection = () => {
   return (
     <section className="py-24 border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Top Bar */}
         <div className="flex justify-between items-center mb-24">
           <motion.h3 
             initial={{ opacity: 0, x: -20 }}
@@ -51,7 +49,6 @@ const ExtendedTeamsSection = () => {
           </motion.div>
         </div>
         
-        {/* Main Content */}
         <div className="text-center mb-16">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
@@ -72,7 +69,6 @@ const ExtendedTeamsSection = () => {
           </motion.p>
         </div>
         
-        {/* Feature Cards */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -109,7 +105,6 @@ const ExtendedTeamsSection = () => {
           ))}
         </motion.div>
         
-        {/* Remote, Hybrid or Onsite Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -146,46 +141,49 @@ const ExtendedTeamsSection = () => {
           </div>
         </motion.div>
         
-        {/* Nearshore Advantage Section - Updated with wave image */}
-        <div className="mt-32 relative overflow-hidden rounded-3xl">
-          {/* Wave Background - Using the uploaded image */}
-          <div 
-            className="absolute inset-0 bg-cover bg-center"
-            style={{
-              backgroundImage: "url('/lovable-uploads/75463814-3e39-4537-8d9d-9a60df266ca9.png')",
-            }}
-          >
-            {/* Add a semi-transparent overlay to ensure text readability */}
-            <div className="absolute inset-0 bg-white/20 backdrop-blur-sm"></div>
+        <div className="mt-32 relative overflow-hidden rounded-3xl bg-[#E1F6FF]">
+          <div className="absolute inset-0">
+            <img 
+              src="/lovable-uploads/4940dc6b-d36c-429d-9126-0beca4ae90c3.png"
+              alt="Wave background"
+              className="w-full h-full object-cover"
+            />
           </div>
           
-          <div className="relative px-8 py-24 text-center">
+          <div className="relative px-8 py-16 text-center max-w-3xl mx-auto">
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="text-4xl font-bold mb-8 text-white drop-shadow-md"
+              className="text-4xl font-bold mb-4"
             >
-              Nearshore Advantage
+              Get started for free
             </motion.h2>
             
-            <motion.div
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="max-w-2xl mx-auto"
+              className="text-gray-600 text-lg mb-8"
             >
-              <p className="text-white text-lg leading-relaxed drop-shadow mb-6 backdrop-blur-sm bg-blue-600/20 p-6 rounded-xl">
-                Choosing nearshore talent offers the perfect balance: compatible time zones for real-time collaboration, 
-                cultural alignment for smoother communication, cost-effective access to exceptional talent, 
-                and easy travel for face-to-face meetings when needed. It's a strategic advantage that combines 
-                the best of both worlds—quality and value—without the drawbacks of fully offshore models.
-              </p>
+              Sign up and get $200 in credit for your first 60 days with DigitalOcean.*
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <Button 
+                variant="default"
+                className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-8 py-6 h-auto text-lg font-medium"
+              >
+                Get started
+              </Button>
             </motion.div>
           </div>
         </div>
         
-        {/* Bottom CTA */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
