@@ -6,39 +6,39 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 const tabData = [
   {
-    id: "product",
-    title: "Product documentation",
+    id: "ai",
+    title: "Artificial Intelligence",
     content: {
-      heading: "Product documentation",
-      description: "Learn how to spin up a virtual machine, get started with block storage, and more with in-depth documentation.",
-      cta: "Read the docs",
+      heading: "Artificial Intelligence",
+      description: "Learn how to leverage AI technologies to transform your business processes and create intelligent applications.",
+      cta: "Explore AI services",
       image: "/lovable-uploads/8304d312-8378-42a5-9ec0-699b6f66c884.png"
     }
   },
   {
-    id: "business",
-    title: "Business advice",
+    id: "data",
+    title: "Data",
     content: {
-      heading: "Business advice",
-      description: "Discover strategies to scale your business, optimize costs, and make the most of your technology investments.",
-      cta: "Explore resources",
+      heading: "Data",
+      description: "Discover strategies to harness your data assets, implement analytics solutions, and drive data-informed decision making.",
+      cta: "View data solutions",
       image: "/lovable-uploads/8304d312-8378-42a5-9ec0-699b6f66c884.png"
     }
   },
   {
-    id: "technical",
-    title: "Technical expertise",
+    id: "cloud",
+    title: "Cloud Modernization",
     content: {
-      heading: "Technical expertise",
-      description: "Access tutorials and guides on AI implementation, data operations, and advanced technology integration.",
-      cta: "View tutorials",
+      heading: "Cloud Modernization",
+      description: "Access expertise on cloud migration, infrastructure optimization, and modern cloud-native application development.",
+      cta: "Learn about cloud services",
       image: "/lovable-uploads/8304d312-8378-42a5-9ec0-699b6f66c884.png"
     }
   }
 ];
 
 const TabsSection = () => {
-  const [activeTab, setActiveTab] = useState("product");
+  const [activeTab, setActiveTab] = useState("ai");
 
   return (
     <section className="py-24 bg-white">
@@ -50,17 +50,18 @@ const TabsSection = () => {
           transition={{ duration: 0.5 }}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Learn from the experts
+            Build with the help of our<br />Exceptional Services
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Whether you want to learn about funding your business, installing Linux on Ubuntu,
-            or getting started on DigitalOcean, we have the educational resources for you.
+            Our goal is to ensure top-notch quality in the services we offer, while providing a distinct 
+            price advantage and exceptional value to our customers. With our customer-centric motto, 
+            it's easy to see why our customers love us.
           </p>
         </motion.div>
 
         <div className="mb-16">
           <Tabs 
-            defaultValue="product" 
+            defaultValue="ai" 
             value={activeTab} 
             onValueChange={setActiveTab}
             className="w-full"
