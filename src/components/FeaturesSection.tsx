@@ -139,7 +139,7 @@ const FeaturesSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-4xl md:text-6xl font-bold mb-4">
             <span className="text-white">Ascend into the Future with</span>{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
               Presidency Solutions
