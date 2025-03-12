@@ -43,11 +43,11 @@ const LogoMarquee = () => {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-row items-center">
           {!isMobile && (
-            <div className="w-1/4 border-r border-gray-800 pr-8">
+            <div className="whitespace-nowrap border-r border-gray-800 pr-8">
               <h3 className="text-white text-lg font-bold">Trusted by the Enterprise</h3>
             </div>
           )}
-          <div className={isMobile ? "w-full" : "w-3/4 pl-8"} className="relative overflow-hidden">
+          <div className={isMobile ? "w-full" : "flex-1 pl-8 relative overflow-hidden"}>
             <div className="flex items-center h-14">
               <motion.div
                 className="flex items-center"
