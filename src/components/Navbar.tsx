@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown, ChevronUp, X, ArrowLeft, Menu } from "lucide-react";
@@ -205,13 +204,12 @@ const Navbar = () => {
               </div>
 
               <div className="col-span-1">
-                <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">Managed Databases</h3>
+                <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">AI</h3>
                 <ul className="space-y-3">
-                  <li><a href="#mongodb" className="text-gray-600 hover:text-blue-600">MongoDB</a></li>
-                  <li><a href="#kafka" className="text-gray-600 hover:text-blue-600">Kafka</a></li>
-                  <li><a href="#mysql" className="text-gray-600 hover:text-blue-600">MySQL</a></li>
-                  <li><a href="#postgresql" className="text-gray-600 hover:text-blue-600">PostgreSQL</a></li>
-                  <li><a href="#caching" className="text-gray-600 hover:text-blue-600">Caching</a></li>
+                  <li><a href="#full-stack-ai" className="text-gray-600 hover:text-blue-600">Full Stack AI Engineering</a></li>
+                  <li><a href="#agent-development" className="text-gray-600 hover:text-blue-600">Agent Development</a></li>
+                  <li><a href="#finetuning" className="text-gray-600 hover:text-blue-600">Finetuning Frontier Models</a></li>
+                  <li><a href="#customer-engagement" className="text-gray-600 hover:text-blue-600">Customer Engagement</a></li>
                 </ul>
               </div>
 
@@ -221,7 +219,7 @@ const Navbar = () => {
                   <li><a href="#gpu-droplets" className="text-gray-600 hover:text-blue-600">GPU Droplets</a></li>
                   <li><a href="#one-click" className="text-gray-600 hover:text-blue-600">1-Click Models</a></li>
                   <li><a href="#genai-platform" className="text-gray-600 hover:text-blue-600">GenAI Platform</a></li>
-                  <li><a href="#bare-metal" className="text-gray-600 hover:text-blue-600">Bare Metal GPUs</a></li>
+                  <li><a href="#bare-metal-gpus" className="text-gray-600 hover:text-blue-600">Bare Metal GPUs</a></li>
                 </ul>
               </div>
 
@@ -408,13 +406,12 @@ const Navbar = () => {
                     </li>
                   </ul>
                   
-                  <h3 className="font-bold text-gray-900 mt-6 mb-3">Managed Databases</h3>
+                  <h3 className="font-bold text-gray-900 mt-6 mb-3">AI</h3>
                   <ul className="space-y-3">
-                    <li><a href="#mongodb" className="block py-2 text-gray-900">MongoDB</a></li>
-                    <li><a href="#kafka" className="block py-2 text-gray-900">Kafka</a></li>
-                    <li><a href="#mysql" className="block py-2 text-gray-900">MySQL</a></li>
-                    <li><a href="#postgresql" className="block py-2 text-gray-900">PostgreSQL</a></li>
-                    <li><a href="#caching" className="block py-2 text-gray-900">Caching</a></li>
+                    <li><a href="#full-stack-ai" className="block py-2 text-gray-900">Full Stack AI Engineering</a></li>
+                    <li><a href="#agent-development" className="block py-2 text-gray-900">Agent Development</a></li>
+                    <li><a href="#finetuning" className="block py-2 text-gray-900">Finetuning Frontier Models</a></li>
+                    <li><a href="#customer-engagement" className="block py-2 text-gray-900">Customer Engagement</a></li>
                   </ul>
                   
                   <h3 className="font-bold text-gray-900 mt-6 mb-3">AI Solutions</h3>
