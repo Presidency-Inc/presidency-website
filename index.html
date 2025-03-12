@@ -15,6 +15,19 @@
 
   <body>
     <div id="root"></div>
+    <!-- Brevo Conversations Widget -->
+    <script>
+      (function(d, w, c) {
+          w.BrevoConversationsID = '67d1affe6f0f53dfd9086530';
+          w[c] = w[c] || function() {
+              (w[c].q = w[c].q || []).push(arguments);
+          };
+          var s = d.createElement('script');
+          s.async = true;
+          s.src = 'https://conversations-widget.brevo.com/brevo-conversations.js';
+          if (d.head) d.head.appendChild(s);
+      })(document, window, 'BrevoConversations');
+    </script>
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
