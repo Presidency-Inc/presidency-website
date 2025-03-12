@@ -37,17 +37,17 @@ const LogoMarquee = () => {
 
   return (
     <div 
-      className={`w-full bg-black py-8 z-30 ${
+      className={`w-full bg-black py-4 z-30 ${
         isScrolledPast ? "" : "fixed bottom-0 left-0"
       }`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-row items-center">
           <div className="w-1/4 border-r border-gray-800 pr-8">
-            <h3 className="text-white text-xl font-bold">Trusted by the Enterprise</h3>
+            <h3 className="text-white text-lg font-bold">Trusted by the Enterprise</h3>
           </div>
           <div className="w-3/4 pl-8 relative overflow-hidden">
-            <div className="flex items-center h-24">
+            <div className="flex items-center h-16">
               {/* First marquee */}
               <motion.div
                 className="flex items-center"
@@ -72,7 +72,7 @@ const LogoMarquee = () => {
                     <img
                       src={logo.logo}
                       alt={logo.name}
-                      className="max-h-[150px] max-w-full object-contain w-auto"
+                      className="max-h-[100px] max-w-full object-contain w-auto"
                     />
                   </div>
                 ))}
@@ -102,7 +102,7 @@ const LogoMarquee = () => {
                     <img
                       src={logo.logo}
                       alt={logo.name}
-                      className="max-h-[150px] max-w-full object-contain w-auto"
+                      className="max-h-[100px] max-w-full object-contain w-auto"
                     />
                   </div>
                 ))}
