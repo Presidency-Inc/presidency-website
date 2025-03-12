@@ -5,6 +5,7 @@ import StatusBar from "@/components/StatusBar";
 import Footer from "@/components/Footer";
 import ScrollProgress from "@/components/ScrollProgress";
 import ScrollToTop from "@/components/ScrollToTop";
+import LeapfrogFeatures from "@/components/LeapfrogFeatures";
 
 const ProductLeapfrog = () => {
   return (
@@ -13,6 +14,7 @@ const ProductLeapfrog = () => {
       <Navbar />
       <ScrollProgress />
       <Hero />
+      <LeapfrogFeatures />
       <Footer />
       <ScrollToTop />
     </main>
