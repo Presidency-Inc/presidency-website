@@ -30,8 +30,8 @@ const LogoMarquee = () => {
   }, []);
 
   // Each logo has a fixed width with padding
-  const logoWidth = 220; // Reduced from 300 to 220
-  const logoPadding = 10; // Reduced padding from 20 to 10 on each side
+  const logoWidth = 220;
+  const logoPadding = 10;
   const totalLogoWidth = logoWidth + (logoPadding * 2); // Total width per logo item
   const totalWidth = customerLogos.length * totalLogoWidth;
 
@@ -48,12 +48,14 @@ const LogoMarquee = () => {
           </div>
           <div className="w-3/4 pl-8 relative overflow-hidden">
             <div className="flex items-center h-14">
-              {/* First marquee */}
+              {/* First marquee animation */}
               <motion.div
                 className="flex items-center"
-                animate={{ x: [0, -totalWidth] }}
+                initial={{ x: 0 }}
+                animate={{ x: -totalWidth }}
                 transition={{
                   repeat: Infinity,
+                  repeatType: "loop",
                   duration: 40,
                   ease: "linear",
                 }}
@@ -78,12 +80,14 @@ const LogoMarquee = () => {
                 ))}
               </motion.div>
 
-              {/* Duplicate for seamless loop */}
+              {/* Duplicate marquee for seamless looping */}
               <motion.div
                 className="flex items-center absolute left-0"
-                animate={{ x: [totalWidth, 0] }}
+                initial={{ x: totalWidth }}
+                animate={{ x: 0 }}
                 transition={{
                   repeat: Infinity,
+                  repeatType: "loop",
                   duration: 40,
                   ease: "linear",
                 }}
