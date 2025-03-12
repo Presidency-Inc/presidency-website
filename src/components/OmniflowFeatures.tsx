@@ -38,7 +38,7 @@ const OmniflowFeatures = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <div className="bg-blue-50 w-12 h-12 rounded-lg flex items-center justify-center mb-4 text-blue-600">
+              <div className="bg-indigo-50 w-12 h-12 rounded-lg flex items-center justify-center mb-4 text-indigo-600">
                 {feature.icon}
               </div>
               <h3 className="text-xl font-semibold mb-2 text-gray-900">
