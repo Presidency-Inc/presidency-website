@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 const DatabricksHero = () => {
   return (
-    <section className="bg-gradient-to-br from-orange-900 via-amber-800 to-orange-800 pt-40 pb-16 md:py-40 relative overflow-hidden">
+    <section className="bg-gradient-to-br from-orange-900 via-amber-800 to-orange-800 pt-40 pb-8 md:pt-40 md:pb-12 relative overflow-hidden">
       <div className="absolute inset-0 bg-grid-white/[0.05] bg-[length:20px_20px]" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
