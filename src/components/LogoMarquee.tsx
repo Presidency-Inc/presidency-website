@@ -29,6 +29,10 @@ const LogoMarquee = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Calculate total width needed for the animation
+  // Each logo container is 350px wide with 100px padding on each side (550px total per logo)
+  const totalWidth = customerLogos.length * 550;
+
   return (
     <div 
       className={`w-full bg-black py-8 z-30 ${
@@ -43,17 +47,18 @@ const LogoMarquee = () => {
           <div className="w-3/4 pl-8 relative overflow-hidden">
             <div className="flex items-center h-24">
               <motion.div
-                className="flex items-center justify-between min-w-full"
-                animate={{ x: [0, -1920] }}
+                className="flex items-center gap-24"
+                animate={{ x: [-100, -totalWidth] }}
                 transition={{
                   repeat: Infinity,
-                  duration: 30,
+                  duration: 40,
                   ease: "linear",
                 }}
+                style={{ width: `${totalWidth}px` }}
               >
                 {customerLogos.map((logo, index) => (
-                  <div key={index} className="flex items-center justify-center h-24 px-12">
-                    <div className="w-[350px] h-[150px] flex items-center justify-center">
+                  <div key={index} className="flex items-center justify-center">
+                    <div className="w-[350px] h-[150px] flex items-center justify-center px-12">
                       <img
                         src={logo.logo}
                         alt={logo.name}
@@ -66,17 +71,18 @@ const LogoMarquee = () => {
 
               {/* Duplicate for seamless loop */}
               <motion.div
-                className="flex items-center justify-between min-w-full absolute left-full top-0"
-                animate={{ x: [0, -1920] }}
+                className="flex items-center gap-24 absolute left-full"
+                animate={{ x: [-100, -totalWidth] }}
                 transition={{
                   repeat: Infinity,
-                  duration: 30,
+                  duration: 40,
                   ease: "linear",
                 }}
+                style={{ width: `${totalWidth}px` }}
               >
                 {customerLogos.map((logo, index) => (
-                  <div key={index} className="flex items-center justify-center h-24 px-12">
-                    <div className="w-[350px] h-[150px] flex items-center justify-center">
+                  <div key={index} className="flex items-center justify-center">
+                    <div className="w-[350px] h-[150px] flex items-center justify-center px-12">
                       <img
                         src={logo.logo}
                         alt={logo.name}
