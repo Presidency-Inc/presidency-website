@@ -44,8 +44,10 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-gray-900 mb-6 leading-tight">
-            Maximize Impact with{" "}
+          <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-gray-900 mb-2 leading-tight">
+            Maximize Impact with
+          </h1>
+          <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6 leading-tight">
             <span className="bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">
               AI + Data
             </span>
