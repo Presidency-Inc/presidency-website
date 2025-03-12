@@ -30,8 +30,8 @@ const LogoMarquee = () => {
   }, []);
 
   // Each logo has a fixed width with padding
-  const logoWidth = 300; // Logo width
-  const logoPadding = 20; // Reduced padding from 50 to 20 on each side
+  const logoWidth = 220; // Reduced from 300 to 220
+  const logoPadding = 10; // Reduced padding from 20 to 10 on each side
   const totalLogoWidth = logoWidth + (logoPadding * 2); // Total width per logo item
   const totalWidth = customerLogos.length * totalLogoWidth;
 
