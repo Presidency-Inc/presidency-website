@@ -1,12 +1,16 @@
-
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import MeshGrid from "./MeshGrid";
 
 const Hero = () => {
   return (
     <div className="relative min-h-screen flex items-center overflow-hidden bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8 py-16 lg:py-32">
+      {/* Mesh Grid Background */}
+      <MeshGrid />
+      
+      {/* Content */}
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8 py-16 lg:py-32">
         {/* Left side with content */}
         <motion.div 
           className="flex flex-col justify-center"
