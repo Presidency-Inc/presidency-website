@@ -41,9 +41,9 @@ const LogoMarquee = () => {
             <h3 className="text-white text-xl font-bold">Trusted by the Enterprise</h3>
           </div>
           <div className="w-3/4 pl-8 relative overflow-hidden">
-            <div className="flex items-center h-16">
+            <div className="flex items-center h-24">
               <motion.div
-                className="flex items-center space-x-16 min-w-full"
+                className="flex items-center space-x-12 min-w-full"
                 animate={{ x: [0, -1920] }}
                 transition={{
                   repeat: Infinity,
@@ -52,11 +52,11 @@ const LogoMarquee = () => {
                 }}
               >
                 {customerLogos.map((logo, index) => (
-                  <div key={index} className="flex items-center justify-center h-16">
+                  <div key={index} className="flex items-center justify-center h-24">
                     <img
                       src={logo.logo}
                       alt={logo.name}
-                      className="h-12 md:h-16 lg:h-24 object-contain"
+                      className="h-16 md:h-24 lg:h-32 object-contain"
                     />
                   </div>
                 ))}
@@ -64,7 +64,7 @@ const LogoMarquee = () => {
 
               {/* Duplicate for seamless loop */}
               <motion.div
-                className="flex items-center space-x-16 min-w-full absolute left-full top-0"
+                className="flex items-center space-x-12 min-w-full absolute left-full top-0"
                 animate={{ x: [0, -1920] }}
                 transition={{
                   repeat: Infinity,
@@ -73,11 +73,11 @@ const LogoMarquee = () => {
                 }}
               >
                 {customerLogos.map((logo, index) => (
-                  <div key={index} className="flex items-center justify-center h-16">
+                  <div key={index} className="flex items-center justify-center h-24">
                     <img
                       src={logo.logo}
                       alt={logo.name}
-                      className="h-12 md:h-16 lg:h-24 object-contain"
+                      className="h-16 md:h-24 lg:h-32 object-contain"
                     />
                   </div>
                 ))}
