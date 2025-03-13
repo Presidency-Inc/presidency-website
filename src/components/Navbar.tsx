@@ -138,7 +138,6 @@ const Navbar = () => {
             <a href="#teams" className="text-gray-700 hover:text-gray-900 transition-colors">Need Talent?</a>
             <a href="#careers" className="text-gray-700 hover:text-gray-900 transition-colors">Careers</a>
           </div>
-
           
           <div className="flex items-center">
             <Button variant="default" className="hidden md:inline-flex items-center bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
@@ -152,7 +151,6 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-
       
       {!isMobile && productsOpen && (
         <div className="absolute left-0 right-0 bg-white shadow-lg border-b border-gray-200 z-50">
@@ -165,7 +163,7 @@ const Navbar = () => {
                     <Link 
                       to="/products/leapfrog" 
                       className="flex items-start group" 
-                      onClick={() => setProductsOpen(false)}
+                      onClick={handleNavigateToTop}
                     >
                       <div>
                         <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Leapfrog</h4>
@@ -391,10 +389,7 @@ const Navbar = () => {
                       <Link 
                         to="/products/leapfrog" 
                         className="block py-2"
-                        onClick={() => {
-                          setMobileMenuOpen(false);
-                          setMobileSubmenuOpen(null);
-                        }}
+                        onClick={handleNavigateToTop}
                       >
                         <span className="font-medium text-gray-900">Leapfrog</span>
                         <p className="text-sm text-gray-600">Artificial Intelligence Platform</p>
@@ -484,7 +479,6 @@ const Navbar = () => {
                       </button>
                     </li>
                   </ul>
-                  
                   
                   <h3 className="font-bold text-gray-900 mt-6 mb-3">Data</h3>
                   <ul className="space-y-3">
@@ -602,3 +596,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
