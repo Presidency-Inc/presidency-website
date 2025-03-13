@@ -18,7 +18,8 @@ const featureItems = [{
           </g>
         </svg>
       </div>,
-  link: "/products/leapfrog"
+  link: "/products/leapfrog",
+  scrollToTop: true
 }, {
   id: "02",
   title: "Streamline your",
@@ -73,6 +74,14 @@ const FeatureCard = ({
   item: typeof featureItems[0];
   index: number;
 }) => {
+  const handleClick = () => {
+    if (item.scrollToTop) {
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 100);
+    }
+  };
+
   return <motion.div className="relative bg-zinc-900 rounded-xl overflow-hidden" initial={{
     opacity: 0,
     y: 20
@@ -99,7 +108,7 @@ const FeatureCard = ({
         <div className="flex justify-between items-center">
           <span className="text-xs text-gray-500 font-mono">{item.cta}</span>
           {item.link ? (
-            <Link to={item.link} className="p-1.5 bg-zinc-800 rounded-md group">
+            <Link to={item.link} className="p-1.5 bg-zinc-800 rounded-md group" onClick={handleClick}>
               <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-white transition-colors" />
             </Link>
           ) : (
