@@ -7,8 +7,9 @@ const StatusBar = () => {
   const isMobile = useIsMobile();
   const location = useLocation();
   const isProductsActive = location.pathname.startsWith('/products/');
-  const isServicesActive = location.pathname.startsWith('/services/');
-  const hasActiveNav = isProductsActive || isServicesActive;
+  const isServicesActive = location.pathname.startsWith('/services/') && location.pathname !== '/services/databricks';
+  const isDatabricksActive = location.pathname === '/services/databricks';
+  const hasActiveNav = isProductsActive || isServicesActive || isDatabricksActive;
   
   if (isMobile) return null;
   

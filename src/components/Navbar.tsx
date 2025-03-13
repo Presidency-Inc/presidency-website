@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown, ChevronUp, X, ArrowLeft, Menu } from "lucide-react";
@@ -16,7 +17,8 @@ const Navbar = () => {
   const location = useLocation();
   
   const isProductsActive = location.pathname.startsWith('/products/');
-  const isServicesActive = location.pathname.startsWith('/services/');
+  const isServicesActive = location.pathname.startsWith('/services/') && location.pathname !== '/services/databricks';
+  const isDatabricksActive = location.pathname === '/services/databricks';
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -141,8 +143,8 @@ const Navbar = () => {
             <Link 
               to="/services/databricks" 
               className={`transition-colors ${
-                location.pathname === "/services/databricks" 
-                  ? "text-gray-900 font-medium" 
+                isDatabricksActive 
+                  ? "text-gray-900 font-medium bg-gray-100 px-3 py-1 rounded-md" 
                   : "text-gray-700 hover:text-gray-900"
               }`}
             >
@@ -362,7 +364,7 @@ const Navbar = () => {
                   <li>
                     <Link 
                       to="/services/databricks" 
-                      className={`block py-4 ${location.pathname === "/services/databricks" ? "text-blue-600" : "text-gray-900"} font-medium`}
+                      className={`block py-4 ${isDatabricksActive ? "text-blue-600" : "text-gray-900"} font-medium`}
                     >
                       Databricks
                     </Link>
