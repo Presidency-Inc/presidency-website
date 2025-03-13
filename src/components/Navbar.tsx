@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown, ChevronUp, X, ArrowLeft, Menu } from "lucide-react";
@@ -289,9 +290,9 @@ const Navbar = () => {
                     </button>
                   </li>
                   <li>
-                    <a href="#databricks" className="block py-4 text-gray-900 font-medium">
+                    <Link to="/services/databricks" className="block py-4 text-gray-900 font-medium">
                       Databricks
-                    </a>
+                    </Link>
                   </li>
                   <li>
                     <a href="#teams" className="block py-4 text-gray-900 font-medium">
@@ -365,11 +366,11 @@ const Navbar = () => {
                   
                   <h3 className="font-bold text-gray-900 mt-6 mb-3">AI</h3>
                   <ul className="space-y-3">
-                    <li><a href="#ai-full-stack" className="block py-2 text-gray-900">AI Full Stack</a></li>
-                    <li><a href="#context-protocol" className="block py-2 text-gray-900">Context Protocol</a></li>
+                    <li><a href="#ai-full-stack" className="block py-2 text-gray-900">Full Stack AI Framework</a></li>
+                    <li><a href="#context-protocol" className="block py-2 text-gray-900">Context Management System</a></li>
                     <li><a href="#business-logic" className="block py-2 text-gray-900">Business Logic Orchestration</a></li>
                     <li><a href="#aiops" className="block py-2 text-gray-900">AIOps Platform</a></li>
-                    <li><a href="#llms" className="block py-2 text-gray-900">LLMs & Finetunes</a></li>
+                    <li><a href="#llms" className="block py-2 text-gray-900">Model Hosting & Finetuning</a></li>
                   </ul>
                   
                   <h3 className="font-bold text-gray-900 mt-6 mb-3">Data</h3>
@@ -423,10 +424,17 @@ const Navbar = () => {
                       </a>
                     </li>
                     <li>
-                      <a href="#databricks" className="block py-2">
+                      <Link
+                        to="/services/databricks"
+                        className="block py-2"
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          setMobileSubmenuOpen(null);
+                        }}
+                      >
                         <span className="font-medium text-gray-900">Databricks Solutions</span>
                         <p className="text-sm text-gray-600">Tailored databricks expertise</p>
-                      </a>
+                      </Link>
                     </li>
                     <li>
                       <a href="#cloud" className="block py-2">
@@ -440,7 +448,7 @@ const Navbar = () => {
                   <ul className="space-y-3">
                     <li><a href="#full-stack-ai" className="block py-2 text-gray-900">Full Stack AI Engineering</a></li>
                     <li><a href="#agent-development" className="block py-2 text-gray-900">Agent Development</a></li>
-                    <li><a href="#finetuning" className="block py-2 text-gray-600">Finetuning Frontier Models</a></li>
+                    <li><a href="#finetuning" className="block py-2 text-gray-900">Finetuning Frontier Models</a></li>
                     <li><a href="#customer-engagement" className="block py-2 text-gray-900">Customer Engagement</a></li>
                   </ul>
                   
