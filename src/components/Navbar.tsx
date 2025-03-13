@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown, ChevronUp, X, ArrowLeft, Menu } from "lucide-react";
@@ -144,7 +143,7 @@ const Navbar = () => {
               <div className="col-span-1">
                 <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">AI</h3>
                 <ul className="space-y-3">
-                  <li><a href="#ai-full-stack" className="text-gray-600 hover:text-blue-600">AI Full Stack Framework</a></li>
+                  <li><a href="#ai-full-stack" className="text-gray-600 hover:text-blue-600">Full Stack AI Framework</a></li>
                   <li><a href="#context-protocol" className="text-gray-600 hover:text-blue-600">Context Management System</a></li>
                   <li><a href="#business-logic" className="text-gray-600 hover:text-blue-600">Business Logic Orchestration</a></li>
                   <li><a href="#llms" className="text-gray-600 hover:text-blue-600">Model Hosting & Finetuning</a></li>
