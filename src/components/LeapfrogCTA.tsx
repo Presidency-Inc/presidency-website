@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Mail, MessageSquare } from "lucide-react";
+import { ArrowRight, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 
 const LeapfrogCTA = () => {
@@ -52,21 +52,12 @@ const LeapfrogCTA = () => {
                   </h2>
                   
                   <p className="text-lg text-gray-600">
-                    Schedule a demo to see how Presidency Leapfrog can revolutionize your operations and customer experience.
+                    Contact our team to learn how Presidency Leapfrog can revolutionize your operations and customer experience.
                   </p>
                   
                   <div className="flex flex-col sm:flex-row gap-4 pt-4">
                     <Button 
                       className="bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90 shadow-lg"
-                      size="lg"
-                    >
-                      Schedule a Demo
-                      <MessageSquare className="ml-2 h-5 w-5" />
-                    </Button>
-                    
-                    <Button 
-                      variant="outline"
-                      className="border-[#1a46e5] text-[#1a46e5] hover:bg-[#1a46e5] hover:text-white transition-all"
                       size="lg"
                     >
                       Contact Sales
