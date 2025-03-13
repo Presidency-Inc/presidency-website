@@ -21,11 +21,21 @@ const ProductLeapfrog = () => {
       <ScrollProgress />
       <Hero />
       <MultiChannelSection />
-      <MultiChannelExperienceSection />
-      <ContextProtocolSection />
-      <BusinessLogicSection />
-      <AIOperationsSection />
-      <LLMsSection />
+      <div id="multi-channel-experience">
+        <MultiChannelExperienceSection />
+      </div>
+      <div id="context-protocol">
+        <ContextProtocolSection />
+      </div>
+      <div id="business-logic">
+        <BusinessLogicSection />
+      </div>
+      <div id="ai-operations">
+        <AIOperationsSection />
+      </div>
+      <div id="llms">
+        <LLMsSection />
+      </div>
       <LeapfrogCTA />
       <Footer />
       <ScrollToTop />

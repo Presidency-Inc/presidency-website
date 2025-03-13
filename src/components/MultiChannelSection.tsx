@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
@@ -13,7 +14,8 @@ const cards = [
     hoverColor: "hover:border-blue-500",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-600"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-    )
+    ),
+    scrollToId: "multi-channel-experience"
   },
   {
     title: "Context Management System",
@@ -23,7 +25,8 @@ const cards = [
     hoverColor: "hover:border-indigo-500",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-indigo-600"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" y1="22" y2="12"/></svg>
-    )
+    ),
+    scrollToId: "context-protocol"
   },
   {
     title: "Business Logic Orchestration",
@@ -33,7 +36,8 @@ const cards = [
     hoverColor: "hover:border-violet-500",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-violet-600"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><path d="M11 18H8a2 2 0 0 1-2-2V9"/></svg>
-    )
+    ),
+    scrollToId: "business-logic"
   },
   {
     title: "AIOps Platform",
@@ -43,7 +47,8 @@ const cards = [
     hoverColor: "hover:border-purple-500",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-purple-600"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
-    )
+    ),
+    scrollToId: "ai-operations"
   },
   {
     title: "Model Hosting & Finetuning",
@@ -53,7 +58,8 @@ const cards = [
     hoverColor: "hover:border-cyan-500",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-cyan-600"><path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z"/><path d="m3 9 2.45-4.9A2 2 0 0 1 7.24 3h9.52a2 2 0 0 1 1.8 1.1L21 9"/><path d="M12 3v6"/></svg>
-    )
+    ),
+    scrollToId: "llms"
   }
 ];
 
@@ -79,6 +85,13 @@ const CardRow = ({ card, isActive, onClick }) => {
 
 const MultiChannelSection = () => {
   const [selectedCardIndex, setSelectedCardIndex] = useState(0); // Default to first card
+
+  const handleScrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <section className="py-24 bg-white">
@@ -147,6 +160,7 @@ const MultiChannelSection = () => {
               <Button 
                 className="bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90"
                 size="lg"
+                onClick={() => handleScrollToSection(cards[selectedCardIndex].scrollToId)}
               >
                 Learn More
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -160,3 +174,4 @@ const MultiChannelSection = () => {
 };
 
 export default MultiChannelSection;
+
