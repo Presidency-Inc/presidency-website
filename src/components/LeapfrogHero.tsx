@@ -70,7 +70,7 @@ const LeapfrogHero = () => {
           </h2>
 
           <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
-            Cross-platform solutions like you've never seen before
+            We've abstracted away the complexity of building AI Systems
           </p>
 
           <div>
