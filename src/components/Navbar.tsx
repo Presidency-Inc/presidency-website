@@ -143,6 +143,7 @@ const Navbar = () => {
                 <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">AI</h3>
                 <ul className="space-y-3">
                   <li><a href="#full-stack-ai" className="text-gray-600 hover:text-blue-600">Full Stack AI Engineering</a></li>
+                  <li><a href="#custom-rag" className="text-gray-600 hover:text-blue-600">Custom RAG Development</a></li>
                   <li><a href="#agent-development" className="text-gray-600 hover:text-blue-600">Agent Development</a></li>
                   <li><a href="#voice-ai" className="text-gray-600 hover:text-blue-600">Voice AI Development</a></li>
                   <li><a href="#model-finetuning" className="text-gray-600 hover:text-blue-600">Business Focused Model Finetuning</a></li>
@@ -220,6 +221,7 @@ const Navbar = () => {
                 <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">AI</h3>
                 <ul className="space-y-3">
                   <li><a href="#full-stack-ai" className="text-gray-600 hover:text-blue-600">Full Stack AI Engineering</a></li>
+                  <li><a href="#custom-rag" className="text-gray-600 hover:text-blue-600">Custom RAG Development</a></li>
                   <li><a href="#agent-development" className="text-gray-600 hover:text-blue-600">Agent Development</a></li>
                   <li><a href="#voice-ai" className="text-gray-600 hover:text-blue-600">Voice AI Development</a></li>
                   <li><a href="#model-finetuning" className="text-gray-600 hover:text-blue-600">Business Focused Model Finetuning</a></li>
@@ -445,6 +447,7 @@ const Navbar = () => {
                   <h3 className="font-bold text-gray-900 mt-6 mb-3">AI</h3>
                   <ul className="space-y-3">
                     <li><a href="#full-stack-ai" className="block py-2 text-gray-900">Full Stack AI Engineering</a></li>
+                    <li><a href="#custom-rag" className="block py-2 text-gray-900">Custom RAG Development</a></li>
                     <li><a href="#agent-development" className="block py-2 text-gray-900">Agent Development</a></li>
                     <li><a href="#voice-ai" className="block py-2 text-gray-900">Voice AI Development</a></li>
                     <li><a href="#model-finetuning" className="block py-2 text-gray-900">Business Focused Model Finetuning</a></li>
