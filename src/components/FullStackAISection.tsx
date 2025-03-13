@@ -10,9 +10,10 @@ import { Button } from "@/components/ui/button";
 interface StackLayerProps {
   title: string;
   icon: React.ReactNode;
-  position: number;
+  position: number; 
   isSelected: boolean;
   onClick: () => void;
+  rotation: number;
 }
 
 const stackLayers = [
@@ -102,30 +103,37 @@ const StackLayer: React.FC<StackLayerProps> = ({
   icon, 
   position, 
   isSelected,
-  onClick 
+  onClick,
+  rotation
 }) => {
+  // Calculate the position for the 3D cube slice
+  const layerHeight = 50; // height of each layer
+  const baseTransform = `translateY(${position * -layerHeight}px) rotateX(${rotation}deg)`;
+  
   return (
     <motion.div
-      className={`absolute w-80 h-16 flex items-center px-4 cursor-pointer transition-all duration-300 ${
+      className={`absolute w-full h-[50px] cursor-pointer transition-all duration-300 ${
         isSelected ? "bg-blue-100 border border-blue-300" : "bg-white/90 border border-gray-200"
       }`}
       style={{ 
-        top: `${position * 2.5}rem`,
-        left: 0,
-        zIndex: 10 - position,
+        transform: baseTransform,
+        transformOrigin: "center",
+        backfaceVisibility: "hidden",
         boxShadow: isSelected ? "0 4px 12px rgba(0, 0, 0, 0.15)" : "0 2px 6px rgba(0, 0, 0, 0.1)"
       }}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: position * 0.1 }}
       onClick={onClick}
       whileHover={{ scale: 1.02 }}
     >
-      <div className="bg-blue-50 w-10 h-10 rounded-lg flex items-center justify-center text-blue-600 mr-3">
-        {icon}
-      </div>
-      <div>
-        <h4 className="font-medium text-gray-900">{title}</h4>
+      <div className="flex items-center h-full px-4">
+        <div className="bg-blue-50 w-10 h-10 rounded-lg flex items-center justify-center text-blue-600 mr-3">
+          {icon}
+        </div>
+        <div>
+          <h4 className="font-medium text-gray-900">{title}</h4>
+        </div>
       </div>
     </motion.div>
   );
@@ -133,6 +141,28 @@ const StackLayer: React.FC<StackLayerProps> = ({
 
 const FullStackAISection: React.FC = () => {
   const [selectedLayer, setSelectedLayer] = useState<typeof stackLayers[0] | null>(null);
+  const [cubeRotation, setCubeRotation] = useState({ x: 60, y: 0, z: -45 });
+
+  // Simulate the 3D cube by positioning each layer with appropriate rotation
+  const createCubeFaces = () => {
+    return stackLayers.map((layer, index) => {
+      // Calculate position and rotation for each face of the cube
+      const position = index;
+      const rotation = index * (360 / stackLayers.length);
+      
+      return (
+        <StackLayer
+          key={layer.title}
+          title={layer.title}
+          icon={layer.icon}
+          position={position}
+          rotation={rotation}
+          isSelected={selectedLayer?.title === layer.title}
+          onClick={() => setSelectedLayer(layer)}
+        />
+      );
+    });
+  };
 
   return (
     <section className="py-20 bg-gray-50">
@@ -153,37 +183,32 @@ const FullStackAISection: React.FC = () => {
         </motion.div>
         
         <div className="flex flex-col md:flex-row space-y-12 md:space-y-0 items-center justify-center">
-          {/* 3D Stack Visualization */}
-          <div className="relative max-w-md mx-auto perspective-[1200px]">
+          {/* 3D Cube Stack Visualization */}
+          <div className="relative w-80 h-80 perspective-[1200px]">
             <motion.div
-              className="w-80 h-80 transform-style-3d"
-              style={{ transform: "rotateX(60deg) rotateZ(-45deg)" }}
+              className="relative w-full h-full transform-style-3d"
+              style={{ 
+                transform: `rotateX(${cubeRotation.x}deg) rotateY(${cubeRotation.y}deg) rotateZ(${cubeRotation.z}deg)`,
+                transformStyle: "preserve-3d"
+              }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8 }}
             >
-              {/* Stack Layers */}
-              <div className="relative">
-                {stackLayers.map((layer, index) => (
-                  <StackLayer
-                    key={layer.title}
-                    title={layer.title}
-                    icon={layer.icon}
-                    position={index}
-                    isSelected={selectedLayer?.title === layer.title}
-                    onClick={() => setSelectedLayer(layer)}
-                  />
-                ))}
+              {/* Create the 3D cube faces */}
+              <div className="absolute inset-0 transform-style-3d">
+                {createCubeFaces()}
               </div>
               
               {/* AI Logo in the center */}
               <motion.div
-                className="absolute top-[calc(50%-3rem)] left-[calc(50%-3rem)] w-24 h-24 bg-white flex items-center justify-center z-30 shadow-lg border border-gray-100"
-                initial={{ opacity: 0, rotateY: 90 }}
-                animate={{ opacity: 1, rotateY: 0 }}
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-white flex items-center justify-center z-30 shadow-lg border border-gray-100"
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
                 style={{ 
-                  transform: `translateX(4rem) translateY(-4rem) rotateX(60deg) rotateZ(-45deg)`,
+                  transform: `translate(-50%, -50%) translateZ(100px)`,
+                  transformStyle: "preserve-3d"
                 }}
               >
                 <span className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">AI</span>
