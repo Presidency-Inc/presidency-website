@@ -1,5 +1,8 @@
+
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+
 const featureItems = [{
   id: "01",
   title: "Improve your business with",
@@ -14,7 +17,8 @@ const featureItems = [{
         }).map((_, i) => <line key={i} x1="50" y1={40 + i * 20} x2={300 - i * 30} y2={40 + i * 20} stroke="currentColor" strokeWidth="2" opacity={1 - i * 0.1} />)}
           </g>
         </svg>
-      </div>
+      </div>,
+  link: "/products/leapfrog"
 }, {
   id: "02",
   title: "Streamline your",
@@ -61,6 +65,7 @@ const featureItems = [{
         </svg>
       </div>
 }];
+
 const FeatureCard = ({
   item,
   index
@@ -93,13 +98,20 @@ const FeatureCard = ({
         </p>
         <div className="flex justify-between items-center">
           <span className="text-xs text-gray-500 font-mono">{item.cta}</span>
-          <button className="p-1.5 bg-zinc-800 rounded-md group">
-            <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-white transition-colors" />
-          </button>
+          {item.link ? (
+            <Link to={item.link} className="p-1.5 bg-zinc-800 rounded-md group">
+              <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-white transition-colors" />
+            </Link>
+          ) : (
+            <button className="p-1.5 bg-zinc-800 rounded-md group">
+              <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-white transition-colors" />
+            </button>
+          )}
         </div>
       </div>
     </motion.div>;
 };
+
 const FeaturesSection = () => {
   return <section className="relative bg-black py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -125,4 +137,5 @@ Presidency Solutions</span>
       </div>
     </section>;
 };
+
 export default FeaturesSection;

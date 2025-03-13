@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown, ChevronUp, X, ArrowLeft, Menu } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import Logo from "./Logo";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [productsOpen, setProductsOpen] = useState(false);
@@ -12,6 +12,7 @@ const Navbar = () => {
   const [mobileSubmenuOpen, setMobileSubmenuOpen] = useState<string | null>(null);
   const isMobile = useIsMobile();
   const navRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const toggleProducts = () => {
     if (isMobile) {
@@ -38,6 +39,20 @@ const Navbar = () => {
 
   const closeMobileSubmenu = () => {
     setMobileSubmenuOpen(null);
+  };
+
+  const handleNavigateToSection = (sectionId: string) => {
+    navigate('/products/leapfrog');
+    setProductsOpen(false);
+    setServicesOpen(false);
+    
+    // Use setTimeout to ensure navigation completes before scrolling
+    setTimeout(() => {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
   };
 
   useEffect(() => {
@@ -165,11 +180,11 @@ const Navbar = () => {
               <div className="col-span-1">
                 <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">AI</h3>
                 <ul className="space-y-3">
-                  <li><a href="#full-stack-ai" className="text-gray-600 hover:text-blue-600">Full Stack AI Framework</a></li>
-                  <li><a href="#context-protocol" className="text-gray-600 hover:text-blue-600">Context Management System</a></li>
-                  <li><a href="#business-logic" className="text-gray-600 hover:text-blue-600">Business Logic Orchestration</a></li>
-                  <li><a href="#aiops" className="text-gray-600 hover:text-blue-600">AIOps Platform</a></li>
-                  <li><a href="#llms" className="text-gray-600 hover:text-blue-600">Model Hosting & Finetuning</a></li>
+                  <li><button onClick={() => handleNavigateToSection('multi-channel-experience')} className="text-gray-600 hover:text-blue-600">Full Stack AI Framework</button></li>
+                  <li><button onClick={() => handleNavigateToSection('context-protocol')} className="text-gray-600 hover:text-blue-600">Context Management System</button></li>
+                  <li><button onClick={() => handleNavigateToSection('business-logic')} className="text-gray-600 hover:text-blue-600">Business Logic Orchestration</button></li>
+                  <li><button onClick={() => handleNavigateToSection('ai-operations')} className="text-gray-600 hover:text-blue-600">AIOps Platform</button></li>
+                  <li><button onClick={() => handleNavigateToSection('llms')} className="text-gray-600 hover:text-blue-600">Model Hosting & Finetuning</button></li>
                 </ul>
               </div>
 
@@ -385,11 +400,66 @@ const Navbar = () => {
                   
                   <h3 className="font-bold text-gray-900 mt-6 mb-3">AI</h3>
                   <ul className="space-y-3">
-                    <li><a href="#full-stack-ai" className="block py-2 text-gray-900">Full Stack AI Framework</a></li>
-                    <li><a href="#context-protocol" className="block py-2 text-gray-900">Context Management System</a></li>
-                    <li><a href="#business-logic" className="block py-2 text-gray-900">Business Logic Orchestration</a></li>
-                    <li><a href="#aiops" className="block py-2 text-gray-900">AIOps Platform</a></li>
-                    <li><a href="#llms" className="block py-2 text-gray-900">Model Hosting & Finetuning</a></li>
+                    <li>
+                      <button 
+                        onClick={() => {
+                          handleNavigateToSection('multi-channel-experience');
+                          setMobileMenuOpen(false);
+                          setMobileSubmenuOpen(null);
+                        }}
+                        className="block py-2 text-gray-900 text-left w-full"
+                      >
+                        Full Stack AI Framework
+                      </button>
+                    </li>
+                    <li>
+                      <button 
+                        onClick={() => {
+                          handleNavigateToSection('context-protocol');
+                          setMobileMenuOpen(false);
+                          setMobileSubmenuOpen(null);
+                        }}
+                        className="block py-2 text-gray-900 text-left w-full"
+                      >
+                        Context Management System
+                      </button>
+                    </li>
+                    <li>
+                      <button 
+                        onClick={() => {
+                          handleNavigateToSection('business-logic');
+                          setMobileMenuOpen(false);
+                          setMobileSubmenuOpen(null);
+                        }}
+                        className="block py-2 text-gray-900 text-left w-full"
+                      >
+                        Business Logic Orchestration
+                      </button>
+                    </li>
+                    <li>
+                      <button 
+                        onClick={() => {
+                          handleNavigateToSection('ai-operations');
+                          setMobileMenuOpen(false);
+                          setMobileSubmenuOpen(null);
+                        }}
+                        className="block py-2 text-gray-900 text-left w-full"
+                      >
+                        AIOps Platform
+                      </button>
+                    </li>
+                    <li>
+                      <button 
+                        onClick={() => {
+                          handleNavigateToSection('llms');
+                          setMobileMenuOpen(false);
+                          setMobileSubmenuOpen(null);
+                        }}
+                        className="block py-2 text-gray-900 text-left w-full"
+                      >
+                        Model Hosting & Finetuning
+                      </button>
+                    </li>
                   </ul>
                   
                   <h3 className="font-bold text-gray-900 mt-6 mb-3">Data</h3>
