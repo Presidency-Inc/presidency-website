@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown, ChevronUp, X, ArrowLeft, Menu } from "lucide-react";
@@ -80,7 +81,7 @@ const Navbar = () => {
             </div>
             
             <Link to="/services/databricks" className="text-gray-700 hover:text-gray-900 transition-colors">Databricks</Link>
-            <a href="#teams" className="text-gray-700 hover:text-gray-900 transition-colors">Extended Teams</a>
+            <a href="#teams" className="text-gray-700 hover:text-gray-900 transition-colors">Need Talent?</a>
             <a href="#careers" className="text-gray-700 hover:text-gray-900 transition-colors">Careers</a>
           </div>
 
@@ -296,7 +297,7 @@ const Navbar = () => {
                   </li>
                   <li>
                     <a href="#teams" className="block py-4 text-gray-900 font-medium">
-                      Extended Teams
+                      Need Talent?
                     </a>
                   </li>
                   <li>
