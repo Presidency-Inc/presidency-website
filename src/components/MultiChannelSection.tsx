@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
@@ -82,12 +81,9 @@ const MultiChannelSection = () => {
   const [selectedCardIndex, setSelectedCardIndex] = useState(0); // Default to first card
 
   return (
-    <section className="py-24 bg-gray-50">
+    <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Removed the title and description section */}
-        
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Card List - Left Column */}
           <div className="lg:col-span-5">
             {cards.map((card, index) => (
               <CardRow
@@ -99,7 +95,6 @@ const MultiChannelSection = () => {
             ))}
           </div>
           
-          {/* Card Details - Right Column */}
           <div className="lg:col-span-7">
             <motion.div
               key={selectedCardIndex}

@@ -39,6 +39,14 @@ export default {
 					'250': '#D9DCE1',  // Custom intermediate gray
 					'300': '#D1D5DB',
 				},
+				blue: {
+					// Adding lighter blue shades
+					'25': '#F5F9FF',
+					'35': '#EDF5FF',
+					'45': '#E5F0FF',
+					'55': '#DCE9FD',
+					'65': '#D3E4FD',
+				},
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))'
