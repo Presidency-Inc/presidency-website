@@ -57,7 +57,7 @@ const Navbar = () => {
                 onClick={toggleProducts}
                 className={`flex items-center transition-colors ${
                   productsOpen 
-                    ? "text-white bg-[#1a46e5] px-3 py-1 rounded-md" 
+                    ? "text-gray-900 bg-gray-100 px-3 py-1 rounded-md" 
                     : "text-gray-700 hover:text-gray-900"
                 }`}
               >
@@ -75,7 +75,7 @@ const Navbar = () => {
                 onClick={toggleServices}
                 className={`flex items-center transition-colors ${
                   servicesOpen 
-                    ? "text-white bg-[#1a46e5] px-3 py-1 rounded-md" 
+                    ? "text-gray-900 bg-gray-100 px-3 py-1 rounded-md" 
                     : "text-gray-700 hover:text-gray-900"
                 }`}
               >
