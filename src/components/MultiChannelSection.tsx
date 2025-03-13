@@ -10,9 +10,9 @@ const cards = [
   {
     title: "Multi Channel Experience",
     description: "Provide seamless cross-platform experiences on web, iOS, Android, desktops, voice, and beyond.",
-    color: "bg-blue-50",
-    borderColor: "border-blue-200",
-    hoverColor: "hover:border-blue-400",
+    color: "bg-blue-100",
+    borderColor: "border-blue-300",
+    hoverColor: "hover:border-blue-500",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-600"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
     )
@@ -20,9 +20,9 @@ const cards = [
   {
     title: "Context Management System",
     description: "Efficiently manage and utilize contextual information to enhance AI interactions and decision-making processes.",
-    color: "bg-indigo-50",
-    borderColor: "border-indigo-200",
-    hoverColor: "hover:border-indigo-400",
+    color: "bg-indigo-100",
+    borderColor: "border-indigo-300",
+    hoverColor: "hover:border-indigo-500",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-indigo-600"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" y1="22" y2="12"/></svg>
     )
@@ -30,9 +30,9 @@ const cards = [
   {
     title: "Business Logic Orchestration",
     description: "Integrate your business logic and AI with the appropriate data, tools, and command sequences.",
-    color: "bg-violet-50",
-    borderColor: "border-violet-200",
-    hoverColor: "hover:border-violet-400",
+    color: "bg-violet-100",
+    borderColor: "border-violet-300",
+    hoverColor: "hover:border-violet-500",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-violet-600"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><path d="M11 18H8a2 2 0 0 1-2-2V9"/></svg>
     )
@@ -40,9 +40,9 @@ const cards = [
   {
     title: "AIOps Platform",
     description: "Streamline AI operations with automated monitoring, scaling, and management of AI infrastructure.",
-    color: "bg-purple-50",
-    borderColor: "border-purple-200",
-    hoverColor: "hover:border-purple-400",
+    color: "bg-purple-100",
+    borderColor: "border-purple-300",
+    hoverColor: "hover:border-purple-500",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-purple-600"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
     )
@@ -50,9 +50,9 @@ const cards = [
   {
     title: "Model Hosting & Finetuning",
     description: "Deploy models in the cloud or on-premises and fine-tune them to meet your specific business requirements.",
-    color: "bg-cyan-50",
-    borderColor: "border-cyan-200",
-    hoverColor: "hover:border-cyan-400",
+    color: "bg-cyan-100",
+    borderColor: "border-cyan-300",
+    hoverColor: "hover:border-cyan-500",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-cyan-600"><path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z"/><path d="m3 9 2.45-4.9A2 2 0 0 1 7.24 3h9.52a2 2 0 0 1 1.8 1.1L21 9"/><path d="M12 3v6"/></svg>
     )
@@ -64,10 +64,10 @@ const StackedCard = ({ card, index, selectedIndex, onClick, totalCards }) => {
   const baseZIndex = totalCards - index;
   
   // Calculate the offset for normal stacked cards (not selected)
-  const stackOffset = index * 20; // Increase this value for more spacing between cards
+  const stackOffset = index * 30; // Increased from 20 for more visible spacing
   
   // For selected card animation
-  const selectedOffset = 80; // How far the selected card moves out
+  const selectedOffset = 100; // Increased from 80 for more dramatic movement
   
   return (
     <motion.div
@@ -79,18 +79,18 @@ const StackedCard = ({ card, index, selectedIndex, onClick, totalCards }) => {
       animate={{ 
         y: isSelected ? selectedOffset : stackOffset,
         zIndex: isSelected ? 50 : baseZIndex,
-        x: isSelected ? 40 : 0, // Move selected card to the right
+        x: isSelected ? 80 : 0, // Increased from 40 for more dramatic movement
         transition: { type: "spring", stiffness: 300, damping: 30 }
       }}
-      className={`absolute rounded-lg shadow-md transition-all duration-300 ${card.borderColor} border-2 ${card.hoverColor} ${card.color}`}
+      className={`absolute rounded-xl shadow-lg transition-all duration-300 ${card.color} ${card.borderColor} border-2 ${card.hoverColor}`}
       onClick={onClick}
       style={{ 
-        width: "calc(100% - 20px)",
-        left: "10px",
+        width: "calc(100% - 40px)",
+        left: "20px",
         opacity: 1,
       }}
     >
-      <Card className="bg-white/95 backdrop-blur-sm overflow-hidden border-0">
+      <Card className="bg-white shadow-md overflow-hidden border-0">
         <div className="p-6">
           <div className="flex items-center space-x-3 mb-2">
             <div className={`p-2 rounded-lg ${card.color} flex-shrink-0`}>
@@ -150,10 +150,11 @@ const MultiChannelSection = () => {
             className="relative mx-auto"
           >
             <div className="relative h-[500px] w-full max-w-lg mx-auto">
-              <div className="absolute inset-0 bg-white/50 backdrop-blur-sm rounded-xl"></div>
+              {/* Changed from white/50 to a visible background */}
+              <div className="absolute inset-0 bg-gray-100 backdrop-blur-sm rounded-xl"></div>
               
               <div className="relative h-full flex items-center justify-center">
-                <div className="w-full max-w-md relative h-80">
+                <div className="w-full max-w-md relative h-96">
                   {cards.map((card, index) => (
                     <StackedCard
                       key={index}
@@ -167,9 +168,9 @@ const MultiChannelSection = () => {
                 </div>
               </div>
               
-              {/* Decorative elements */}
-              <div className="absolute top-4 left-4 w-12 h-12 bg-blue-100 rounded-full opacity-30"></div>
-              <div className="absolute bottom-8 right-8 w-16 h-16 bg-indigo-100 rounded-full opacity-40"></div>
+              {/* Decorative elements - made more visible */}
+              <div className="absolute top-4 left-4 w-12 h-12 bg-blue-200 rounded-full opacity-60"></div>
+              <div className="absolute bottom-8 right-8 w-16 h-16 bg-indigo-200 rounded-full opacity-70"></div>
             </div>
           </motion.div>
           
