@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown, ChevronUp, X, ArrowLeft, Menu } from "lucide-react";
@@ -143,11 +142,10 @@ const Navbar = () => {
               <div className="col-span-1">
                 <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">AI</h3>
                 <ul className="space-y-3">
-                  <li><a href="#ai-full-stack" className="text-gray-600 hover:text-blue-600">Full Stack AI Framework</a></li>
-                  <li><a href="#context-protocol" className="text-gray-600 hover:text-blue-600">Context Management System</a></li>
-                  <li><a href="#business-logic" className="text-gray-600 hover:text-blue-600">Business Logic Orchestration</a></li>
-                  <li><a href="#aiops" className="text-gray-600 hover:text-blue-600">AIOps Platform</a></li>
-                  <li><a href="#llms" className="text-gray-600 hover:text-blue-600">Model Hosting & Finetuning</a></li>
+                  <li><a href="#full-stack-ai" className="text-gray-600 hover:text-blue-600">Full Stack AI Engineering</a></li>
+                  <li><a href="#agent-development" className="text-gray-600 hover:text-blue-600">Agent Development</a></li>
+                  <li><a href="#voice-ai" className="text-gray-600 hover:text-blue-600">Voice AI Development</a></li>
+                  <li><a href="#model-finetuning" className="text-gray-600 hover:text-blue-600">Business Focused Model Finetuning</a></li>
                 </ul>
               </div>
 
@@ -223,8 +221,8 @@ const Navbar = () => {
                 <ul className="space-y-3">
                   <li><a href="#full-stack-ai" className="text-gray-600 hover:text-blue-600">Full Stack AI Engineering</a></li>
                   <li><a href="#agent-development" className="text-gray-600 hover:text-blue-600">Agent Development</a></li>
-                  <li><a href="#finetuning" className="text-gray-600 hover:text-blue-600">Finetuning Frontier Models</a></li>
-                  <li><a href="#customer-engagement" className="text-gray-600 hover:text-blue-600">Customer Engagement</a></li>
+                  <li><a href="#voice-ai" className="text-gray-600 hover:text-blue-600">Voice AI Development</a></li>
+                  <li><a href="#model-finetuning" className="text-gray-600 hover:text-blue-600">Business Focused Model Finetuning</a></li>
                 </ul>
               </div>
 
@@ -366,7 +364,7 @@ const Navbar = () => {
                   
                   <h3 className="font-bold text-gray-900 mt-6 mb-3">AI</h3>
                   <ul className="space-y-3">
-                    <li><a href="#ai-full-stack" className="block py-2 text-gray-900">Full Stack AI Framework</a></li>
+                    <li><a href="#full-stack-ai" className="block py-2 text-gray-900">Full Stack AI Framework</a></li>
                     <li><a href="#context-protocol" className="block py-2 text-gray-900">Context Management System</a></li>
                     <li><a href="#business-logic" className="block py-2 text-gray-900">Business Logic Orchestration</a></li>
                     <li><a href="#aiops" className="block py-2 text-gray-900">AIOps Platform</a></li>
@@ -448,8 +446,8 @@ const Navbar = () => {
                   <ul className="space-y-3">
                     <li><a href="#full-stack-ai" className="block py-2 text-gray-900">Full Stack AI Engineering</a></li>
                     <li><a href="#agent-development" className="block py-2 text-gray-900">Agent Development</a></li>
-                    <li><a href="#finetuning" className="block py-2 text-gray-900">Finetuning Frontier Models</a></li>
-                    <li><a href="#customer-engagement" className="block py-2 text-gray-900">Customer Engagement</a></li>
+                    <li><a href="#voice-ai" className="block py-2 text-gray-900">Voice AI Development</a></li>
+                    <li><a href="#model-finetuning" className="block py-2 text-gray-900">Business Focused Model Finetuning</a></li>
                   </ul>
                   
                   <h3 className="font-bold text-gray-900 mt-6 mb-3">Data</h3>
