@@ -235,17 +235,11 @@ const Navbar = () => {
                   <li><a href="#enterprise-etl" className="text-gray-600 hover:text-blue-600">Enterprise ETL</a></li>
                   <li><a href="#pipeline-development" className="text-gray-600 hover:text-blue-600">Pipeline Development</a></li>
                   <li><a href="#data-infrastructure" className="text-gray-600 hover:text-blue-600">Data Infrastructure Setup</a></li>
-                  <li><Link to="/services/databricks" className="text-gray-600 hover:text-blue-600" onClick={() => setServicesOpen(false)}>Databricks Solutions</Link></li>
+                  <li><Link to="/services/databricks" className="text-gray-600 hover:text-blue-600" onClick={() => setServicesOpen(false)}>Databricks Services</Link></li>
                 </ul>
               </div>
 
               <div className="col-span-1">
-                <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">Modernization</h3>
-                <ul className="space-y-3">
-                  <li><a href="#cloud-migrations" className="text-gray-600 hover:text-blue-600">Cloud Migrations</a></li>
-                  <li><a href="#app-stack-enhancements" className="text-gray-600 hover:text-blue-600">App-stack Enhancements</a></li>
-                </ul>
-                
                 <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mt-6 mb-4">TALENT</h3>
                 <ul className="space-y-3">
                   <li><a href="#extended-teams" className="text-gray-600 hover:text-blue-600">Extended Teams</a></li>
@@ -464,7 +458,7 @@ const Navbar = () => {
                     <li><Link to="/services/databricks" className="block py-2 text-gray-900" onClick={() => {
                         setMobileMenuOpen(false);
                         setMobileSubmenuOpen(null);
-                    }}>Databricks Solutions</Link></li>
+                    }}>Databricks Services</Link></li>
                   </ul>
                   
                   <h3 className="font-bold text-gray-900 mt-6 mb-3">Modernization</h3>
