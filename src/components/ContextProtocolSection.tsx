@@ -1,5 +1,6 @@
+
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Database, Network, Layers, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 
 const ContextProtocolSection = () => {
