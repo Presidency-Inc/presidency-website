@@ -1,6 +1,6 @@
 
 import { motion } from "framer-motion";
-import { BrainCircuit, UserCog, Layers, Headset, Database, GitBranch, Server, Cloud } from "lucide-react";
+import { BrainCircuit, UserCog, Layers, Headset, Database, GitBranch, Server, Cloud, Mic, BookOpen, Bot } from "lucide-react";
 import { useState } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -17,19 +17,24 @@ const tabData = [
           description: "We specialize in AI from backend to frontend, enhancing automation, personalization, and problem-solving for your business needs."
         },
         {
-          icon: UserCog,
+          icon: BookOpen,
+          heading: "Custom RAG Development",
+          description: "Build tailored Retrieval Augmented Generation systems that leverage your proprietary data to provide accurate, contextual AI responses."
+        },
+        {
+          icon: Bot,
           heading: "Agent Development",
           description: "Create intelligent AI agents that can perform complex tasks and make autonomous decisions for your business."
         },
         {
-          icon: Layers,
-          heading: "Finetuning Frontier Models",
-          description: "Customize and optimize large language models to meet your specific business requirements and use cases."
+          icon: Mic,
+          heading: "Voice AI Development",
+          description: "Implement cutting-edge voice recognition and synthesis solutions for natural and engaging audio interactions."
         },
         {
-          icon: Headset,
-          heading: "Customer Engagement",
-          description: "Implement AI-powered solutions to enhance customer interactions and provide personalized experiences."
+          icon: Layers,
+          heading: "Business Focused Model Finetuning",
+          description: "Customize and optimize large language models to meet your specific business requirements and industry use cases."
         }
       ],
       cta: "Explore AI services"
