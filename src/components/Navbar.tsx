@@ -49,6 +49,8 @@ const Navbar = () => {
     navigate('/products/leapfrog');
     setProductsOpen(false);
     setServicesOpen(false);
+    setMobileMenuOpen(false);
+    setMobileSubmenuOpen(null);
     
     setTimeout(() => {
       const section = document.getElementById(sectionId);
@@ -62,6 +64,8 @@ const Navbar = () => {
     navigate('/products/leapfrog');
     setProductsOpen(false);
     setServicesOpen(false);
+    setMobileMenuOpen(false);
+    setMobileSubmenuOpen(null);
     
     setTimeout(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -135,6 +139,7 @@ const Navbar = () => {
             <a href="#careers" className="text-gray-700 hover:text-gray-900 transition-colors">Careers</a>
           </div>
 
+          
           <div className="flex items-center">
             <Button variant="default" className="hidden md:inline-flex items-center bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
               GET SOLUTIONS
@@ -148,6 +153,7 @@ const Navbar = () => {
         </div>
       </div>
 
+      
       {!isMobile && productsOpen && (
         <div className="absolute left-0 right-0 bg-white shadow-lg border-b border-gray-200 z-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -310,7 +316,10 @@ const Navbar = () => {
               <div className="px-4 py-6 flex-1 overflow-y-auto">
                 <div className="flex items-center justify-between border-b border-gray-200 pb-3">
                   <div className="flex items-center gap-0.5">
-                    <Logo />
+                    <Logo onClick={() => {
+                      scrollToTop();
+                      setMobileMenuOpen(false);
+                    }} />
                     <span className="text-xl font-semibold">Presidency</span>
                   </div>
                   <button onClick={toggleMobileMenu} className="p-2 text-gray-700">
@@ -418,8 +427,6 @@ const Navbar = () => {
                       <button 
                         onClick={() => {
                           handleNavigateToTop();
-                          setMobileMenuOpen(false);
-                          setMobileSubmenuOpen(null);
                         }}
                         className="block py-2 text-gray-900 text-left w-full"
                       >
@@ -430,8 +437,6 @@ const Navbar = () => {
                       <button 
                         onClick={() => {
                           handleNavigateToSection('multi-channel-experience');
-                          setMobileMenuOpen(false);
-                          setMobileSubmenuOpen(null);
                         }}
                         className="block py-2 text-gray-900 text-left w-full"
                       >
@@ -442,8 +447,6 @@ const Navbar = () => {
                       <button 
                         onClick={() => {
                           handleNavigateToSection('context-protocol');
-                          setMobileMenuOpen(false);
-                          setMobileSubmenuOpen(null);
                         }}
                         className="block py-2 text-gray-900 text-left w-full"
                       >
@@ -454,8 +457,6 @@ const Navbar = () => {
                       <button 
                         onClick={() => {
                           handleNavigateToSection('business-logic');
-                          setMobileMenuOpen(false);
-                          setMobileSubmenuOpen(null);
                         }}
                         className="block py-2 text-gray-900 text-left w-full"
                       >
@@ -466,8 +467,6 @@ const Navbar = () => {
                       <button 
                         onClick={() => {
                           handleNavigateToSection('ai-operations');
-                          setMobileMenuOpen(false);
-                          setMobileSubmenuOpen(null);
                         }}
                         className="block py-2 text-gray-900 text-left w-full"
                       >
@@ -478,8 +477,6 @@ const Navbar = () => {
                       <button 
                         onClick={() => {
                           handleNavigateToSection('llms');
-                          setMobileMenuOpen(false);
-                          setMobileSubmenuOpen(null);
                         }}
                         className="block py-2 text-gray-900 text-left w-full"
                       >
@@ -487,6 +484,7 @@ const Navbar = () => {
                       </button>
                     </li>
                   </ul>
+                  
                   
                   <h3 className="font-bold text-gray-900 mt-6 mb-3">Data</h3>
                   <ul className="space-y-3">
@@ -523,6 +521,7 @@ const Navbar = () => {
                     <X className="h-6 w-6" />
                   </button>
                 </div>
+                
                 
                 <div className="mt-6">
                   <h3 className="font-bold text-gray-900 mb-3">Our Services</h3>
