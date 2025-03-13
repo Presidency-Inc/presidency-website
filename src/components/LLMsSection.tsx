@@ -53,8 +53,8 @@ const LLMsSection = () => {
                           <Brain className="w-6 h-6 text-blue-600" />
                         </div>
                         <div>
-                          <div className="font-medium">Frontier LLM</div>
-                          <div className="text-xs text-gray-500">Latest capabilities</div>
+                          <div className="font-medium">Frontier LLMs</div>
+                          <div className="text-xs text-gray-500">GPT, Grok, DeepSeek, Llama & more</div>
                         </div>
                       </div>
                     </div>
@@ -110,7 +110,7 @@ const LLMsSection = () => {
             className="space-y-6"
           >
             <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 leading-tight">
-              <span className="bg-gradient-to-r from-violet-500 to-blue-500 bg-clip-text text-transparent">LLMs</span> & Fine Tunes
+              <span className="bg-gradient-to-r from-violet-500 to-blue-500 bg-clip-text text-transparent">Model Hosting</span> & Finetuning
             </h2>
             
             <p className="text-xl text-gray-600 max-w-lg">
