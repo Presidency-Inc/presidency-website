@@ -155,6 +155,7 @@ const Navbar = () => {
                 <ul className="space-y-3">
                   <li><a href="#enterprise-etl" className="text-gray-600 hover:text-blue-600">Enterprise ETL Framework</a></li>
                   <li><a href="#integrations" className="text-gray-600 hover:text-blue-600">Source & Target Integrations</a></li>
+                  <li><a href="#multimodal" className="text-gray-600 hover:text-blue-600">Multimodal Data Pipelines</a></li>
                   <li><a href="#governance" className="text-gray-600 hover:text-blue-600">Governance & Observability</a></li>
                 </ul>
               </div>
@@ -377,6 +378,7 @@ const Navbar = () => {
                   <ul className="space-y-3">
                     <li><a href="#enterprise-etl" className="block py-2 text-gray-900">Enterprise ETL Framework</a></li>
                     <li><a href="#integrations" className="block py-2 text-gray-900">Source & Target Integrations</a></li>
+                    <li><a href="#multimodal" className="block py-2 text-gray-900">Multimodal Data Pipelines</a></li>
                     <li><a href="#governance" className="block py-2 text-gray-900">Governance & Observability</a></li>
                   </ul>
                   
