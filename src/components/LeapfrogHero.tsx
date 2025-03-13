@@ -65,7 +65,7 @@ const LeapfrogHero = () => {
           
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-8 leading-tight">
             <span className="bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">
-              AI Enabled Full Stack
+              Artificial Intelligence Platform
             </span>
           </h2>
 
