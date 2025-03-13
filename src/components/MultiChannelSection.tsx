@@ -59,30 +59,38 @@ const cards = [
   }
 ];
 
-const StackedCard = ({ card, index, selectedIndex, onClick, total }) => {
+const StackedCard = ({ card, index, selectedIndex, onClick, totalCards }) => {
   const isSelected = selectedIndex === index;
-  const baseZIndex = total - index;
-  const baseOffset = index * 15;
-  const selectedOffset = 40;
+  const baseZIndex = totalCards - index;
+  
+  // Calculate the offset for normal stacked cards (not selected)
+  const stackOffset = index * 20; // Increase this value for more spacing between cards
+  
+  // For selected card animation
+  const selectedOffset = 80; // How far the selected card moves out
   
   return (
     <motion.div
-      initial={{ y: baseOffset, zIndex: baseZIndex }}
+      initial={{ 
+        y: stackOffset, 
+        zIndex: baseZIndex,
+        x: 0
+      }}
       animate={{ 
-        y: isSelected ? selectedOffset + baseOffset : baseOffset,
+        y: isSelected ? selectedOffset : stackOffset,
         zIndex: isSelected ? 50 : baseZIndex,
+        x: isSelected ? 40 : 0, // Move selected card to the right
         transition: { type: "spring", stiffness: 300, damping: 30 }
       }}
-      className={`absolute w-full cursor-pointer shadow-lg transition-all ${card.borderColor} border ${card.hoverColor} ${card.color}`}
+      className={`absolute rounded-lg shadow-md transition-all duration-300 ${card.borderColor} border-2 ${card.hoverColor} ${card.color}`}
       onClick={onClick}
       style={{ 
-        borderRadius: "8px",
-        width: "calc(100% - 10px)",
-        left: "5px",
-        opacity: isSelected ? 1 : index === 0 ? 1 : 0.9 - (index * 0.15),
+        width: "calc(100% - 20px)",
+        left: "10px",
+        opacity: 1,
       }}
     >
-      <Card className="bg-white/90 backdrop-blur-sm overflow-hidden border-0">
+      <Card className="bg-white/95 backdrop-blur-sm overflow-hidden border-0">
         <div className="p-6">
           <div className="flex items-center space-x-3 mb-2">
             <div className={`p-2 rounded-lg ${card.color} flex-shrink-0`}>
@@ -141,17 +149,17 @@ const MultiChannelSection = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="relative mx-auto"
           >
-            <div className="relative h-[400px] w-full max-w-lg mx-auto">
+            <div className="relative h-[500px] w-full max-w-lg mx-auto">
               <div className="absolute inset-0 bg-white/50 backdrop-blur-sm rounded-xl"></div>
               
               <div className="relative h-full flex items-center justify-center">
-                <div className="w-full max-w-md relative h-64">
+                <div className="w-full max-w-md relative h-80">
                   {cards.map((card, index) => (
                     <StackedCard
                       key={index}
                       card={card}
                       index={index}
-                      total={cards.length}
+                      totalCards={cards.length}
                       selectedIndex={selectedCardIndex}
                       onClick={() => setSelectedCardIndex(prev => prev === index ? null : index)}
                     />
