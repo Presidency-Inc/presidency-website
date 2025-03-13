@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 const LeapfrogHero = () => {
   return (
     <div className="relative pt-16 md:pt-24 min-h-[50vh] flex items-center justify-center overflow-hidden">
-      {/* New Pattern Background */}
+      {/* Pattern Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 to-blue-50 z-0">
         <svg
           className="absolute inset-0 w-full h-full opacity-30"
@@ -17,22 +17,37 @@ const LeapfrogHero = () => {
           preserveAspectRatio="none"
         >
           <defs>
-            <linearGradient id="grid-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <linearGradient id="flow-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#4f46e5" stopOpacity="0.2" />
-              <stop offset="50%" stopColor="#818cf8" stopOpacity="0.1" />
-              <stop offset="100%" stopColor="#a5b4fc" stopOpacity="0.2" />
+              <stop offset="50%" stopColor="#3b82f6" stopOpacity="0.1" />
+              <stop offset="100%" stopColor="#2563eb" stopOpacity="0.2" />
             </linearGradient>
           </defs>
-          {/* Grid Pattern */}
-          <pattern id="grid-pattern" width="40" height="40" patternUnits="userSpaceOnUse">
+          {/* Flow Pattern */}
+          <pattern id="flow-pattern" width="100" height="100" patternUnits="userSpaceOnUse">
             <path
-              d="M 40 0 L 0 0 0 40"
+              d="M 0,50 C 20,20 40,0 50,0 C 60,0 80,20 100,50 C 120,80 140,100 150,100 C 160,100 180,80 200,50"
               fill="none"
-              stroke="url(#grid-gradient)"
-              strokeWidth="1"
+              stroke="url(#flow-gradient)"
+              strokeWidth="2"
+              transform="translate(0,0)"
+            />
+            <path
+              d="M 0,50 C 20,20 40,0 50,0 C 60,0 80,20 100,50 C 120,80 140,100 150,100 C 160,100 180,80 200,50"
+              fill="none"
+              stroke="url(#flow-gradient)"
+              strokeWidth="2"
+              transform="translate(-100,25)"
+            />
+            <path
+              d="M 0,50 C 20,20 40,0 50,0 C 60,0 80,20 100,50 C 120,80 140,100 150,100 C 160,100 180,80 200,50"
+              fill="none"
+              stroke="url(#flow-gradient)"
+              strokeWidth="2"
+              transform="translate(0,50)"
             />
           </pattern>
-          <rect width="100%" height="100%" fill="url(#grid-pattern)" />
+          <rect width="100%" height="100%" fill="url(#flow-pattern)" />
         </svg>
       </div>
 
