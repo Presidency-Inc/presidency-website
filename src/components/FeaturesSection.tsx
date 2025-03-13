@@ -76,9 +76,7 @@ const FeatureCard = ({
 }) => {
   const handleClick = () => {
     if (item.scrollToTop) {
-      setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 100);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 

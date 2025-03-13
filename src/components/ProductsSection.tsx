@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Link } from "react-router-dom";
 
 const products = [
   {
@@ -9,7 +10,8 @@ const products = [
     title: "AI Full Stack with",
     highlight: "Presidency Leapfrog",
     description: "Use AI to innovate, automate, and gain an edge in your market.",
-    label: "Full Stack AI"
+    label: "Full Stack AI",
+    link: "/products/leapfrog"
   },
   {
     id: "02",
@@ -29,6 +31,13 @@ const products = [
 
 const ProductsSection = () => {
   const isMobile = useIsMobile();
+
+  const handleScrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  };
 
   return (
     <section className="bg-black py-16 md:py-24">
@@ -94,9 +103,19 @@ const ProductsSection = () => {
                   <span className="text-xs text-gray-500 font-mono">
                     {product.label}
                   </span>
-                  <button className="p-1.5 bg-zinc-800 rounded-md group">
-                    <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-white transition-colors" />
-                  </button>
+                  {product.link ? (
+                    <Link 
+                      to={product.link} 
+                      onClick={handleScrollToTop}
+                      className="p-1.5 bg-zinc-800 rounded-md group"
+                    >
+                      <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-white transition-colors" />
+                    </Link>
+                  ) : (
+                    <button className="p-1.5 bg-zinc-800 rounded-md group">
+                      <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-white transition-colors" />
+                    </button>
+                  )}
                 </div>
               </motion.div>
             ))}
