@@ -192,6 +192,7 @@ const Navbar = () => {
                 <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">AI</h3>
                 <ul className="space-y-3">
                   <li><button onClick={handleNavigateToTop} className="text-gray-600 hover:text-blue-600">Full Stack AI Framework</button></li>
+                  <li><button onClick={() => handleNavigateToSection('multi-channel-experience')} className="text-gray-600 hover:text-blue-600">Multi Channel Experience</button></li>
                   <li><button onClick={() => handleNavigateToSection('context-protocol')} className="text-gray-600 hover:text-blue-600">Context Management System</button></li>
                   <li><button onClick={() => handleNavigateToSection('business-logic')} className="text-gray-600 hover:text-blue-600">Business Logic Orchestration</button></li>
                   <li><button onClick={() => handleNavigateToSection('ai-operations')} className="text-gray-600 hover:text-blue-600">AIOps Platform</button></li>
@@ -426,6 +427,18 @@ const Navbar = () => {
                     <li>
                       <button 
                         onClick={() => {
+                          handleNavigateToSection('multi-channel-experience');
+                          setMobileMenuOpen(false);
+                          setMobileSubmenuOpen(null);
+                        }}
+                        className="block py-2 text-gray-900 text-left w-full"
+                      >
+                        Multi Channel Experience
+                      </button>
+                    </li>
+                    <li>
+                      <button 
+                        onClick={() => {
                           handleNavigateToSection('context-protocol');
                           setMobileMenuOpen(false);
                           setMobileSubmenuOpen(null);
@@ -588,3 +601,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
