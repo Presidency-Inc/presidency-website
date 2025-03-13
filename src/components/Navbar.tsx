@@ -14,6 +14,10 @@ const Navbar = () => {
   const navRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const toggleProducts = () => {
     if (isMobile) {
       setMobileSubmenuOpen(mobileSubmenuOpen === "products" ? null : "products");
@@ -46,7 +50,6 @@ const Navbar = () => {
     setProductsOpen(false);
     setServicesOpen(false);
     
-    // Use setTimeout to ensure navigation completes before scrolling
     setTimeout(() => {
       const section = document.getElementById(sectionId);
       if (section) {
@@ -60,7 +63,6 @@ const Navbar = () => {
     setProductsOpen(false);
     setServicesOpen(false);
     
-    // Use setTimeout to ensure navigation completes before scrolling
     setTimeout(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 100);
@@ -85,8 +87,8 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <Link to="/" className="flex items-center gap-0.5">
-              <Logo />
+            <Logo onClick={scrollToTop} />
+            <Link to="/" onClick={scrollToTop} className="ml-0.5">
               <span className="text-xl font-semibold text-gray-900">Presidency</span>
             </Link>
           </div>
@@ -601,4 +603,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
