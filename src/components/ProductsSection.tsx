@@ -51,7 +51,7 @@ const ProductsSection = () => {
                   alt="Binary Globe" 
                   className="w-full h-full object-contain"
                   loading="eager"
-                  fetchpriority="high"
+                  fetchPriority="high"
                   decoding="async"
                 />
               </motion.div>

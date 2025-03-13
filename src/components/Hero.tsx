@@ -43,7 +43,7 @@ const Hero = () => {
           alt="Prismatic crystal top" 
           className="w-full h-auto"
           loading="eager"
-          fetchpriority="high"
+          fetchPriority="high"
           decoding="async"
         />
       </div>
@@ -55,7 +55,7 @@ const Hero = () => {
           alt="Prismatic crystal" 
           className="w-full h-auto"
           loading="eager"
-          fetchpriority="high"
+          fetchPriority="high"
           decoding="async"
         />
       </div>
