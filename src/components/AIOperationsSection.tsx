@@ -1,11 +1,10 @@
-
 import { Button } from "@/components/ui/button";
-import { ArrowRight, BarChart, ServerCog, ShieldCheck, Cpu } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 const AIOperationsSection = () => {
   return (
-    <section className="py-24 bg-white overflow-hidden">
+    <section className="py-24 bg-gray-250">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Content - AI Ops Visualization */}

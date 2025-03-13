@@ -31,6 +31,14 @@ export default {
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
+				gray: {
+					'50': '#F9FAFB',
+					'100': '#F3F4F6',
+					'150': '#EBEDF0',  // Custom intermediate gray
+					'200': '#E5E7EB',
+					'250': '#D9DCE1',  // Custom intermediate gray
+					'300': '#D1D5DB',
+				},
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))'
