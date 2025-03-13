@@ -1,5 +1,4 @@
-
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown, ChevronUp, X, ArrowLeft, Menu } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -12,6 +11,7 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileSubmenuOpen, setMobileSubmenuOpen] = useState<string | null>(null);
   const isMobile = useIsMobile();
+  const navRef = useRef<HTMLDivElement>(null);
 
   const toggleProducts = () => {
     if (isMobile) {
@@ -40,8 +40,22 @@ const Navbar = () => {
     setMobileSubmenuOpen(null);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(event.target as Node)) {
+        setProductsOpen(false);
+        setServicesOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <nav className={`fixed ${isMobile ? 'top-0' : 'top-8'} left-0 right-0 z-40 bg-white border-b border-gray-100`}>
+    <nav ref={navRef} className={`fixed ${isMobile ? 'top-0' : 'top-8'} left-0 right-0 z-40 bg-white border-b border-gray-100`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
