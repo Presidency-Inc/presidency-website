@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown, ChevronUp, X, ArrowLeft, Menu } from "lucide-react";
@@ -113,7 +114,7 @@ const Navbar = () => {
                     >
                       <div>
                         <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Leapfrog</h4>
-                        <p className="text-sm text-gray-600">AI enabled full stack</p>
+                        <p className="text-sm text-gray-600">Artificial Intelligence Platform</p>
                       </div>
                     </Link>
                   </li>
@@ -341,7 +342,7 @@ const Navbar = () => {
                         }}
                       >
                         <span className="font-medium text-gray-900">Leapfrog</span>
-                        <p className="text-sm text-gray-600">AI enabled full stack</p>
+                        <p className="text-sm text-gray-600">Artificial Intelligence Platform</p>
                       </Link>
                     </li>
                     <li>
