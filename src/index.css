@@ -104,3 +104,24 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* 3D Transforms */
+.perspective-[1200px] {
+  perspective: 1200px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.rotate-x-\[60deg\] {
+  transform: rotateX(60deg);
+}
+
+.rotate-z-\[-45deg\] {
+  transform: rotateZ(-45deg);
+}
+
+.rotate-x-\[60deg\].rotate-z-\[-45deg\] {
+  transform: rotateX(60deg) rotateZ(-45deg);
+}
