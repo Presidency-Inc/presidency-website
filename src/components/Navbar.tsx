@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown, ChevronUp, X, ArrowLeft, Menu } from "lucide-react";
@@ -54,7 +55,11 @@ const Navbar = () => {
             <div className="relative">
               <button 
                 onClick={toggleProducts}
-                className="flex items-center text-gray-700 hover:text-gray-900 transition-colors"
+                className={`flex items-center transition-colors ${
+                  productsOpen 
+                    ? "text-white bg-[#1a46e5] px-3 py-1 rounded-md" 
+                    : "text-gray-700 hover:text-gray-900"
+                }`}
               >
                 Products
                 {productsOpen ? (
@@ -68,7 +73,11 @@ const Navbar = () => {
             <div className="relative">
               <button 
                 onClick={toggleServices}
-                className="flex items-center text-gray-700 hover:text-gray-900 transition-colors"
+                className={`flex items-center transition-colors ${
+                  servicesOpen 
+                    ? "text-white bg-[#1a46e5] px-3 py-1 rounded-md" 
+                    : "text-gray-700 hover:text-gray-900"
+                }`}
               >
                 Services
                 {servicesOpen ? (
