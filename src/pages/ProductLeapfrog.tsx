@@ -5,7 +5,7 @@ import StatusBar from "@/components/StatusBar";
 import Footer from "@/components/Footer";
 import ScrollProgress from "@/components/ScrollProgress";
 import ScrollToTop from "@/components/ScrollToTop";
-import MultiChannelExperience from "@/components/MultiChannelExperience";
+import MultiChannelSection from "@/components/MultiChannelSection";
 import ContextProtocolSection from "@/components/ContextProtocolSection";
 import BusinessLogicSection from "@/components/BusinessLogicSection";
 import LLMsSection from "@/components/LLMsSection";
@@ -18,7 +18,7 @@ const ProductLeapfrog = () => {
       <Navbar />
       <ScrollProgress />
       <Hero />
-      <MultiChannelExperience />
+      <MultiChannelSection />
       <ContextProtocolSection />
       <BusinessLogicSection />
       <LLMsSection />
