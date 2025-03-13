@@ -42,6 +42,9 @@ const Hero = () => {
           src="/lovable-uploads/3d61ba69-c1e5-4d40-980d-e8aec7ee6a1b.png" 
           alt="Prismatic crystal top" 
           className="w-full h-auto"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
         />
       </div>
 
@@ -51,6 +54,9 @@ const Hero = () => {
           src="/lovable-uploads/3505d22d-17d9-44da-99ac-94f3b9cde259.png" 
           alt="Prismatic crystal" 
           className="w-full h-auto"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
         />
       </div>
 

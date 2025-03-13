@@ -50,6 +50,9 @@ const ProductsSection = () => {
                   src="/lovable-uploads/9a89c7f7-03ea-407a-8eba-c305270a84d9.png" 
                   alt="Binary Globe" 
                   className="w-full h-full object-contain"
+                  loading="eager"
+                  fetchpriority="high"
+                  decoding="async"
                 />
               </motion.div>
             )}
