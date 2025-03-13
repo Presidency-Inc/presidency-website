@@ -1,15 +1,19 @@
 
 import { ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const StatusBar = () => {
   const isMobile = useIsMobile();
+  const location = useLocation();
+  const isProductsActive = location.pathname.startsWith('/products/');
+  const isServicesActive = location.pathname.startsWith('/services/');
+  const hasActiveNav = isProductsActive || isServicesActive;
   
   if (isMobile) return null;
   
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 bg-[#1a46e5] text-white py-2">
+    <div className={`fixed top-0 left-0 right-0 z-50 bg-[#1a46e5] text-white py-2`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center md:justify-between">
         <div className="flex items-center text-sm">
           <span className="hidden md:inline">

@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown, ChevronUp, X, ArrowLeft, Menu } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import Logo from "./Logo";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const [productsOpen, setProductsOpen] = useState(false);
@@ -13,6 +13,10 @@ const Navbar = () => {
   const isMobile = useIsMobile();
   const navRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  
+  const isProductsActive = location.pathname.startsWith('/products/');
+  const isServicesActive = location.pathname.startsWith('/services/');
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -102,7 +106,7 @@ const Navbar = () => {
               <button 
                 onClick={toggleProducts}
                 className={`flex items-center transition-colors ${
-                  productsOpen 
+                  productsOpen || isProductsActive
                     ? "text-gray-900 bg-gray-100 px-3 py-1 rounded-md" 
                     : "text-gray-700 hover:text-gray-900"
                 }`}
@@ -120,7 +124,7 @@ const Navbar = () => {
               <button 
                 onClick={toggleServices}
                 className={`flex items-center transition-colors ${
-                  servicesOpen 
+                  servicesOpen || isServicesActive
                     ? "text-gray-900 bg-gray-100 px-3 py-1 rounded-md" 
                     : "text-gray-700 hover:text-gray-900"
                 }`}
@@ -134,7 +138,16 @@ const Navbar = () => {
               </button>
             </div>
             
-            <Link to="/services/databricks" className="text-gray-700 hover:text-gray-900 transition-colors">Databricks</Link>
+            <Link 
+              to="/services/databricks" 
+              className={`transition-colors ${
+                location.pathname === "/services/databricks" 
+                  ? "text-gray-900 font-medium" 
+                  : "text-gray-700 hover:text-gray-900"
+              }`}
+            >
+              Databricks
+            </Link>
             <a href="#teams" className="text-gray-700 hover:text-gray-900 transition-colors">Need Talent?</a>
             <a href="#careers" className="text-gray-700 hover:text-gray-900 transition-colors">Careers</a>
           </div>
@@ -329,23 +342,28 @@ const Navbar = () => {
                   <li>
                     <button 
                       onClick={toggleProducts}
-                      className="flex items-center justify-between w-full py-4 text-left text-gray-900 font-medium"
+                      className={`flex items-center justify-between w-full py-4 text-left 
+                        ${isProductsActive ? "text-blue-600 font-medium" : "text-gray-900 font-medium"}`}
                     >
                       Products
-                      <ChevronDown className="h-5 w-5 text-gray-500" />
+                      <ChevronDown className={`h-5 w-5 ${isProductsActive ? "text-blue-600" : "text-gray-500"}`} />
                     </button>
                   </li>
                   <li>
                     <button 
                       onClick={toggleServices}
-                      className="flex items-center justify-between w-full py-4 text-left text-gray-900 font-medium"
+                      className={`flex items-center justify-between w-full py-4 text-left 
+                        ${isServicesActive ? "text-blue-600 font-medium" : "text-gray-900 font-medium"}`}
                     >
                       Services
-                      <ChevronDown className="h-5 w-5 text-gray-500" />
+                      <ChevronDown className={`h-5 w-5 ${isServicesActive ? "text-blue-600" : "text-gray-500"}`} />
                     </button>
                   </li>
                   <li>
-                    <Link to="/services/databricks" className="block py-4 text-gray-900 font-medium">
+                    <Link 
+                      to="/services/databricks" 
+                      className={`block py-4 ${location.pathname === "/services/databricks" ? "text-blue-600" : "text-gray-900"} font-medium`}
+                    >
                       Databricks
                     </Link>
                   </li>
@@ -596,4 +614,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
