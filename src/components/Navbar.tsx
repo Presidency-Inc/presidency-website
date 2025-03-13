@@ -146,6 +146,7 @@ const Navbar = () => {
                   <li><a href="#ai-full-stack" className="text-gray-600 hover:text-blue-600">Full Stack AI Framework</a></li>
                   <li><a href="#context-protocol" className="text-gray-600 hover:text-blue-600">Context Management System</a></li>
                   <li><a href="#business-logic" className="text-gray-600 hover:text-blue-600">Business Logic Orchestration</a></li>
+                  <li><a href="#aiops" className="text-gray-600 hover:text-blue-600">AIOps Platform</a></li>
                   <li><a href="#llms" className="text-gray-600 hover:text-blue-600">Model Hosting & Finetuning</a></li>
                 </ul>
               </div>
@@ -368,8 +369,8 @@ const Navbar = () => {
                   <ul className="space-y-3">
                     <li><a href="#ai-full-stack" className="block py-2 text-gray-900">AI Full Stack</a></li>
                     <li><a href="#context-protocol" className="block py-2 text-gray-900">Context Protocol</a></li>
-                    <li><a href="#multi-channel" className="block py-2 text-gray-900">Multi Channel Experience</a></li>
                     <li><a href="#business-logic" className="block py-2 text-gray-900">Business Logic Orchestration</a></li>
+                    <li><a href="#aiops" className="block py-2 text-gray-900">AIOps Platform</a></li>
                     <li><a href="#llms" className="block py-2 text-gray-900">LLMs & Finetunes</a></li>
                   </ul>
                   
