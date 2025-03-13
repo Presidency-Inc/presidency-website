@@ -97,7 +97,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Desktop Dropdowns */}
       {!isMobile && productsOpen && (
         <div className="absolute left-0 right-0 bg-white shadow-lg border-b border-gray-200 z-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -156,9 +155,7 @@ const Navbar = () => {
                 <ul className="space-y-3">
                   <li><a href="#enterprise-etl" className="text-gray-600 hover:text-blue-600">Enterprise ETL Framework</a></li>
                   <li><a href="#integrations" className="text-gray-600 hover:text-blue-600">Source & Target Integrations</a></li>
-                  <li><a href="#ingestion" className="text-gray-600 hover:text-blue-600">Ingestion & Transportation</a></li>
-                  <li><a href="#storage" className="text-gray-600 hover:text-blue-600">Storage</a></li>
-                  <li><a href="#transformation" className="text-gray-600 hover:text-blue-600">Transformation Paradigm</a></li>
+                  <li><a href="#governance" className="text-gray-600 hover:text-blue-600">Governance & Observability</a></li>
                 </ul>
               </div>
 
@@ -257,7 +254,6 @@ const Navbar = () => {
         </div>
       )}
 
-      {/* Mobile Menu */}
       {isMobile && mobileMenuOpen && (
         <div className="fixed inset-0 bg-white z-50 flex flex-col h-screen w-full">
           {mobileSubmenuOpen === null ? (
@@ -380,9 +376,7 @@ const Navbar = () => {
                   <ul className="space-y-3">
                     <li><a href="#enterprise-etl" className="block py-2 text-gray-900">Enterprise ETL Framework</a></li>
                     <li><a href="#integrations" className="block py-2 text-gray-900">Source & Target Integrations</a></li>
-                    <li><a href="#ingestion" className="block py-2 text-gray-900">Ingestion & Transportation</a></li>
-                    <li><a href="#storage" className="block py-2 text-gray-900">Storage</a></li>
-                    <li><a href="#transformation" className="block py-2 text-gray-900">Transformation Paradigm</a></li>
+                    <li><a href="#governance" className="block py-2 text-gray-900">Governance & Observability</a></li>
                   </ul>
                   
                   <h3 className="font-bold text-gray-900 mt-6 mb-3">Modernization</h3>
