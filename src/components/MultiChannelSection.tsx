@@ -84,25 +84,7 @@ const MultiChannelSection = () => {
   return (
     <section className="py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mb-4"
-          >
-            Leapfrog Platform <span className="bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent">Stack</span>
-          </motion.h2>
-          
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-xl text-gray-600 max-w-3xl mx-auto"
-          >
-            Our comprehensive platform provides the tools and services you need to build and scale AI solutions.
-          </motion.p>
-        </div>
+        {/* Removed the title and description section */}
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Card List - Left Column */}
