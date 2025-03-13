@@ -12,8 +12,25 @@ import BusinessLogicSection from "@/components/BusinessLogicSection";
 import AIOperationsSection from "@/components/AIOperationsSection";
 import LLMsSection from "@/components/LLMsSection";
 import LeapfrogCTA from "@/components/LeapfrogCTA";
+import { useEffect } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const ProductLeapfrog = () => {
+  const isMobile = useIsMobile();
+  
+  // Apply mobile-specific CSS class to the body when on mobile
+  useEffect(() => {
+    if (isMobile) {
+      document.body.classList.add('mobile-leapfrog-layout');
+    } else {
+      document.body.classList.remove('mobile-leapfrog-layout');
+    }
+    
+    return () => {
+      document.body.classList.remove('mobile-leapfrog-layout');
+    };
+  }, [isMobile]);
+  
   return (
     <main className="min-h-screen bg-white">
       <StatusBar />
@@ -21,19 +38,19 @@ const ProductLeapfrog = () => {
       <ScrollProgress />
       <Hero />
       <MultiChannelSection />
-      <div id="multi-channel-experience">
+      <div id="multi-channel-experience" className="mobile-section">
         <MultiChannelExperienceSection />
       </div>
-      <div id="context-protocol">
+      <div id="context-protocol" className="mobile-section">
         <ContextProtocolSection />
       </div>
-      <div id="business-logic">
+      <div id="business-logic" className="mobile-section">
         <BusinessLogicSection />
       </div>
-      <div id="ai-operations">
+      <div id="ai-operations" className="mobile-section">
         <AIOperationsSection />
       </div>
-      <div id="llms">
+      <div id="llms" className="mobile-section">
         <LLMsSection />
       </div>
       <LeapfrogCTA />
