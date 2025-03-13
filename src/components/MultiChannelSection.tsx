@@ -3,8 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 
 const cards = [
   {
@@ -59,67 +58,31 @@ const cards = [
   }
 ];
 
-const StackedCard = ({ card, index, selectedIndex, onClick, totalCards }) => {
-  const isSelected = selectedIndex === index;
-  const baseZIndex = totalCards - index;
-  
-  // Calculate the offset for normal stacked cards (not selected)
-  const stackOffset = index * 30; // Increased from 20 for more visible spacing
-  
-  // For selected card animation
-  const selectedOffset = 100; // Increased from 80 for more dramatic movement
-  
+const CardRow = ({ card, isActive, onClick }) => {
   return (
-    <motion.div
-      initial={{ 
-        y: stackOffset, 
-        zIndex: baseZIndex,
-        x: 0
-      }}
-      animate={{ 
-        y: isSelected ? selectedOffset : stackOffset,
-        zIndex: isSelected ? 50 : baseZIndex,
-        x: isSelected ? 80 : 0, // Increased from 40 for more dramatic movement
-        transition: { type: "spring", stiffness: 300, damping: 30 }
-      }}
-      className={`absolute rounded-xl shadow-lg transition-all duration-300 ${card.color} ${card.borderColor} border-2 ${card.hoverColor}`}
+    <div 
+      className={`p-4 rounded-lg mb-3 cursor-pointer transition-all duration-300 ${
+        isActive 
+          ? `${card.color} ${card.borderColor} border-2 shadow-md` 
+          : 'hover:bg-gray-50 border border-gray-100'
+      }`}
       onClick={onClick}
-      style={{ 
-        width: "calc(100% - 40px)",
-        left: "20px",
-        opacity: 1,
-      }}
     >
-      <Card className="bg-white shadow-md overflow-hidden border-0">
-        <div className="p-6">
-          <div className="flex items-center space-x-3 mb-2">
-            <div className={`p-2 rounded-lg ${card.color} flex-shrink-0`}>
-              {card.icon}
-            </div>
-            <h3 className="font-semibold text-xl">{card.title}</h3>
-          </div>
-          
-          {isSelected && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-              className="text-gray-600 mt-2"
-            >
-              {card.description}
-            </motion.div>
-          )}
+      <div className="flex items-center">
+        <div className={`p-2 rounded-lg ${card.color} mr-3 flex-shrink-0`}>
+          {card.icon}
         </div>
-      </Card>
-    </motion.div>
+        <h3 className="font-semibold">{card.title}</h3>
+      </div>
+    </div>
   );
 };
 
 const MultiChannelSection = () => {
-  const [selectedCardIndex, setSelectedCardIndex] = useState(null);
+  const [selectedCardIndex, setSelectedCardIndex] = useState(0); // Default to first card
 
   return (
-    <section className="py-24 bg-gray-50 overflow-hidden">
+    <section className="py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <motion.h2 
@@ -141,110 +104,78 @@ const MultiChannelSection = () => {
           </motion.p>
         </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Stacked Card Visualization */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative mx-auto"
-          >
-            <div className="relative h-[500px] w-full max-w-lg mx-auto">
-              {/* Changed from white/50 to a visible background */}
-              <div className="absolute inset-0 bg-gray-100 backdrop-blur-sm rounded-xl"></div>
-              
-              <div className="relative h-full flex items-center justify-center">
-                <div className="w-full max-w-md relative h-96">
-                  {cards.map((card, index) => (
-                    <StackedCard
-                      key={index}
-                      card={card}
-                      index={index}
-                      totalCards={cards.length}
-                      selectedIndex={selectedCardIndex}
-                      onClick={() => setSelectedCardIndex(prev => prev === index ? null : index)}
-                    />
-                  ))}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          {/* Card List - Left Column */}
+          <div className="lg:col-span-5">
+            {cards.map((card, index) => (
+              <CardRow
+                key={index}
+                card={card}
+                isActive={selectedCardIndex === index}
+                onClick={() => setSelectedCardIndex(index)}
+              />
+            ))}
+          </div>
+          
+          {/* Card Details - Right Column */}
+          <div className="lg:col-span-7">
+            <motion.div
+              key={selectedCardIndex}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4 }}
+              className="bg-white p-8 rounded-xl shadow-sm h-full"
+            >
+              <div className="flex items-center mb-6">
+                <div className={`p-3 rounded-lg ${cards[selectedCardIndex].color} mr-4`}>
+                  {cards[selectedCardIndex].icon}
                 </div>
+                <h3 className="text-2xl font-bold text-gray-900">
+                  {cards[selectedCardIndex].title}
+                </h3>
               </div>
               
-              {/* Decorative elements - made more visible */}
-              <div className="absolute top-4 left-4 w-12 h-12 bg-blue-200 rounded-full opacity-60"></div>
-              <div className="absolute bottom-8 right-8 w-16 h-16 bg-indigo-200 rounded-full opacity-70"></div>
-            </div>
-          </motion.div>
-          
-          {/* Content */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="space-y-6"
-          >
-            <h3 className="text-3xl font-bold text-gray-900">
-              {selectedCardIndex !== null 
-                ? cards[selectedCardIndex].title 
-                : "Comprehensive AI Platform"}
-            </h3>
-            
-            <div className="h-24">
-              {selectedCardIndex !== null ? (
-                <motion.p
-                  key={selectedCardIndex}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.3 }}
-                  className="text-lg text-gray-600"
-                >
+              <div className="mb-8">
+                <p className="text-lg text-gray-600">
                   {cards[selectedCardIndex].description}
-                </motion.p>
-              ) : (
-                <motion.p 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="text-lg text-gray-600"
-                >
-                  Click on any layer of our platform stack to learn more about each component.
-                  Each layer is designed to work seamlessly together while also providing value individually.
-                </motion.p>
-              )}
-            </div>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
-              {selectedCardIndex === null && cards.slice(0, 4).map((card, index) => (
-                <HoverCard key={index} openDelay={100} closeDelay={100}>
-                  <HoverCardTrigger asChild>
-                    <div className="flex items-start space-x-3 p-3 rounded-lg cursor-pointer hover:bg-white transition-colors">
-                      <div className={`p-2 rounded-lg ${card.color} flex-shrink-0`}>
-                        {card.icon}
-                      </div>
-                      <div>
-                        <h4 className="font-semibold">{card.title}</h4>
-                      </div>
-                    </div>
-                  </HoverCardTrigger>
-                  <HoverCardContent className="w-80">
-                    <div className="space-y-2">
-                      <h4 className="font-semibold text-lg">{card.title}</h4>
-                      <p className="text-sm text-gray-500">{card.description}</p>
-                    </div>
-                  </HoverCardContent>
-                </HoverCard>
-              ))}
-            </div>
-            
-            <div className="pt-6">
+                </p>
+                
+                <Card className={`mt-6 border ${cards[selectedCardIndex].borderColor}`}>
+                  <CardContent className="p-6">
+                    <h4 className="font-semibold mb-2">Key Benefits</h4>
+                    <ul className="space-y-2">
+                      <li className="flex items-start">
+                        <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                        </svg>
+                        <span>Seamlessly integrate with existing systems</span>
+                      </li>
+                      <li className="flex items-start">
+                        <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                        </svg>
+                        <span>Reduce time-to-market for AI solutions</span>
+                      </li>
+                      <li className="flex items-start">
+                        <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                        </svg>
+                        <span>Scale seamlessly as your needs grow</span>
+                      </li>
+                    </ul>
+                  </CardContent>
+                </Card>
+              </div>
+              
               <Button 
                 className="bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90"
                 size="lg"
               >
-                Explore Platform Architecture
+                Learn More
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>
