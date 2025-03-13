@@ -1,209 +1,238 @@
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Smartphone, Monitor, Globe, MessageCircle, MessageSquare, Share2, Users } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { useState } from "react";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import { Card } from "@/components/ui/card";
+
+const cards = [
+  {
+    title: "Multi Channel Experience",
+    description: "Provide seamless cross-platform experiences on web, iOS, Android, desktops, voice, and beyond.",
+    color: "bg-blue-50",
+    borderColor: "border-blue-200",
+    hoverColor: "hover:border-blue-400",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-600"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+    )
+  },
+  {
+    title: "Context Management System",
+    description: "Efficiently manage and utilize contextual information to enhance AI interactions and decision-making processes.",
+    color: "bg-indigo-50",
+    borderColor: "border-indigo-200",
+    hoverColor: "hover:border-indigo-400",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-indigo-600"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" y1="22" y2="12"/></svg>
+    )
+  },
+  {
+    title: "Business Logic Orchestration",
+    description: "Integrate your business logic and AI with the appropriate data, tools, and command sequences.",
+    color: "bg-violet-50",
+    borderColor: "border-violet-200",
+    hoverColor: "hover:border-violet-400",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-violet-600"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><path d="M11 18H8a2 2 0 0 1-2-2V9"/></svg>
+    )
+  },
+  {
+    title: "AIOps Platform",
+    description: "Streamline AI operations with automated monitoring, scaling, and management of AI infrastructure.",
+    color: "bg-purple-50",
+    borderColor: "border-purple-200",
+    hoverColor: "hover:border-purple-400",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-purple-600"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+    )
+  },
+  {
+    title: "Model Hosting & Finetuning",
+    description: "Deploy models in the cloud or on-premises and fine-tune them to meet your specific business requirements.",
+    color: "bg-cyan-50",
+    borderColor: "border-cyan-200",
+    hoverColor: "hover:border-cyan-400",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-cyan-600"><path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z"/><path d="m3 9 2.45-4.9A2 2 0 0 1 7.24 3h9.52a2 2 0 0 1 1.8 1.1L21 9"/><path d="M12 3v6"/></svg>
+    )
+  }
+];
+
+const StackedCard = ({ card, index, selectedIndex, onClick, total }) => {
+  const isSelected = selectedIndex === index;
+  const baseZIndex = total - index;
+  const baseOffset = index * 15;
+  const selectedOffset = 40;
+  
+  return (
+    <motion.div
+      initial={{ y: baseOffset, zIndex: baseZIndex }}
+      animate={{ 
+        y: isSelected ? selectedOffset + baseOffset : baseOffset,
+        zIndex: isSelected ? 50 : baseZIndex,
+        transition: { type: "spring", stiffness: 300, damping: 30 }
+      }}
+      className={`absolute w-full cursor-pointer shadow-lg transition-all ${card.borderColor} border ${card.hoverColor} ${card.color}`}
+      onClick={onClick}
+      style={{ 
+        borderRadius: "8px",
+        width: "calc(100% - 10px)",
+        left: "5px",
+        opacity: isSelected ? 1 : index === 0 ? 1 : 0.9 - (index * 0.15),
+      }}
+    >
+      <Card className="bg-white/90 backdrop-blur-sm overflow-hidden border-0">
+        <div className="p-6">
+          <div className="flex items-center space-x-3 mb-2">
+            <div className={`p-2 rounded-lg ${card.color} flex-shrink-0`}>
+              {card.icon}
+            </div>
+            <h3 className="font-semibold text-xl">{card.title}</h3>
+          </div>
+          
+          {isSelected && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className="text-gray-600 mt-2"
+            >
+              {card.description}
+            </motion.div>
+          )}
+        </div>
+      </Card>
+    </motion.div>
+  );
+};
 
 const MultiChannelSection = () => {
+  const [selectedCardIndex, setSelectedCardIndex] = useState(null);
+
   return (
     <section className="py-24 bg-gray-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left Content - Multi-Channel Visualization */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
+        <div className="text-center mb-16">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="relative"
+            className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mb-4"
           >
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-3xl shadow-lg">
-              <div className="relative mx-auto max-w-[450px]">
-                <svg
-                  className="absolute inset-0 w-full h-full opacity-30 -z-10"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="100%"
-                  height="100%"
-                  viewBox="0 0 800 800"
-                  preserveAspectRatio="none"
-                >
-                  <defs>
-                    <pattern id="channel-pattern" width="30" height="30" patternUnits="userSpaceOnUse">
-                      <path
-                        d="M 15 0 L 0 15 L 15 30 L 30 15 Z"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="0.5"
-                        className="text-blue-300"
-                      />
-                    </pattern>
-                  </defs>
-                  <rect width="100%" height="100%" fill="url(#channel-pattern)" />
-                </svg>
-                
-                {/* Multi-channel visualization */}
-                <div className="bg-white rounded-xl shadow-md p-6">
-                  <div className="flex justify-between items-center mb-6">
-                    <div className="font-medium text-gray-800">Active Channels</div>
-                    <div className="text-xs text-blue-600 font-semibold bg-blue-50 px-2 py-1 rounded-full">
-                      Live Data
-                    </div>
-                  </div>
-                  
-                  {/* Channel metrics */}
-                  <div className="space-y-5">
-                    <div className="flex items-center justify-between border-b border-gray-100 pb-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                          <Smartphone className="h-5 w-5 text-blue-600" />
-                        </div>
-                        <div>
-                          <div className="font-medium">Mobile Apps</div>
-                          <div className="text-xs text-gray-500">iOS & Android</div>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="w-24 h-2 bg-gray-100 rounded-full overflow-hidden">
-                          <div className="bg-blue-500 h-full" style={{width: "78%"}}></div>
-                        </div>
-                        <span className="text-sm font-medium">78%</span>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-center justify-between border-b border-gray-100 pb-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center">
-                          <Globe className="h-5 w-5 text-indigo-600" />
-                        </div>
-                        <div>
-                          <div className="font-medium">Web Platform</div>
-                          <div className="text-xs text-gray-500">Desktop & Mobile</div>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="w-24 h-2 bg-gray-100 rounded-full overflow-hidden">
-                          <div className="bg-indigo-500 h-full" style={{width: "65%"}}></div>
-                        </div>
-                        <span className="text-sm font-medium">65%</span>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-center justify-between border-b border-gray-100 pb-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-violet-100 rounded-lg flex items-center justify-center">
-                          <MessageSquare className="h-5 w-5 text-violet-600" />
-                        </div>
-                        <div>
-                          <div className="font-medium">Chat Interface</div>
-                          <div className="text-xs text-gray-500">Customer Service</div>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="w-24 h-2 bg-gray-100 rounded-full overflow-hidden">
-                          <div className="bg-violet-500 h-full" style={{width: "42%"}}></div>
-                        </div>
-                        <span className="text-sm font-medium">42%</span>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-purple-600"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
-                        </div>
-                        <div>
-                          <div className="font-medium">Voice Assistants</div>
-                          <div className="text-xs text-gray-500">Smart Speakers & Calls</div>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="w-24 h-2 bg-gray-100 rounded-full overflow-hidden">
-                          <div className="bg-purple-500 h-full" style={{width: "25%"}}></div>
-                        </div>
-                        <span className="text-sm font-medium">25%</span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Total metrics */}
-                  <div className="mt-6 pt-4 border-t border-gray-100">
-                    <div className="flex justify-between items-center text-sm">
-                      <span className="font-medium">Total Active Users</span>
-                      <span className="font-bold text-blue-600">245,812</span>
-                    </div>
-                  </div>
+            Leapfrog Platform <span className="bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent">Stack</span>
+          </motion.h2>
+          
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-xl text-gray-600 max-w-3xl mx-auto"
+          >
+            Our comprehensive platform provides the tools and services you need to build and scale AI solutions.
+          </motion.p>
+        </div>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Stacked Card Visualization */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="relative mx-auto"
+          >
+            <div className="relative h-[400px] w-full max-w-lg mx-auto">
+              <div className="absolute inset-0 bg-white/50 backdrop-blur-sm rounded-xl"></div>
+              
+              <div className="relative h-full flex items-center justify-center">
+                <div className="w-full max-w-md relative h-64">
+                  {cards.map((card, index) => (
+                    <StackedCard
+                      key={index}
+                      card={card}
+                      index={index}
+                      total={cards.length}
+                      selectedIndex={selectedCardIndex}
+                      onClick={() => setSelectedCardIndex(prev => prev === index ? null : index)}
+                    />
+                  ))}
                 </div>
-                
-                {/* Decorative elements */}
-                <div className="absolute -top-4 -left-4 w-12 h-12 bg-violet-100 rounded-full"></div>
-                <div className="absolute -bottom-8 -right-8 w-16 h-16 bg-blue-100 rounded-full"></div>
               </div>
+              
+              {/* Decorative elements */}
+              <div className="absolute top-4 left-4 w-12 h-12 bg-blue-100 rounded-full opacity-30"></div>
+              <div className="absolute bottom-8 right-8 w-16 h-16 bg-indigo-100 rounded-full opacity-40"></div>
             </div>
           </motion.div>
           
-          {/* Right Content */}
+          {/* Content */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
             className="space-y-6"
           >
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 leading-tight">
-              Multi-Channel <span className="bg-gradient-to-r from-violet-400 to-blue-400 bg-clip-text text-transparent">Experience</span>
-            </h2>
+            <h3 className="text-3xl font-bold text-gray-900">
+              {selectedCardIndex !== null 
+                ? cards[selectedCardIndex].title 
+                : "Comprehensive AI Platform"}
+            </h3>
             
-            <p className="text-xl text-gray-600 max-w-lg">
-              Provide seamless cross-platform experiences on web, iOS, Android, desktops, 
-              voice, and beyond. One system, multiple touchpoints, consistent experience.
-            </p>
-            
-            <div className="grid grid-cols-2 gap-4 pt-2">
-              <div className="flex items-start space-x-3">
-                <div className="bg-violet-100 p-2 rounded-lg text-violet-600">
-                  <Smartphone size={24} />
-                </div>
-                <div>
-                  <h3 className="font-semibold">Mobile</h3>
-                  <p className="text-sm text-gray-500">iOS & Android apps</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-3">
-                <div className="bg-blue-100 p-2 rounded-lg text-blue-600">
-                  <Monitor size={24} />
-                </div>
-                <div>
-                  <h3 className="font-semibold">Desktop</h3>
-                  <p className="text-sm text-gray-500">Web & native apps</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-3">
-                <div className="bg-indigo-100 p-2 rounded-lg text-indigo-600">
-                  <Globe size={24} />
-                </div>
-                <div>
-                  <h3 className="font-semibold">Web</h3>
-                  <p className="text-sm text-gray-500">Modern browser experience</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-3">
-                <div className="bg-purple-100 p-2 rounded-lg text-purple-600">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-mic"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
-                </div>
-                <div>
-                  <h3 className="font-semibold">Voice</h3>
-                  <p className="text-sm text-gray-500">Smart assistants & calls</p>
-                </div>
-              </div>
+            <div className="h-24">
+              {selectedCardIndex !== null ? (
+                <motion.p
+                  key={selectedCardIndex}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.3 }}
+                  className="text-lg text-gray-600"
+                >
+                  {cards[selectedCardIndex].description}
+                </motion.p>
+              ) : (
+                <motion.p 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="text-lg text-gray-600"
+                >
+                  Click on any layer of our platform stack to learn more about each component.
+                  Each layer is designed to work seamlessly together while also providing value individually.
+                </motion.p>
+              )}
             </div>
             
-            <div className="pt-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+              {selectedCardIndex === null && cards.slice(0, 4).map((card, index) => (
+                <HoverCard key={index} openDelay={100} closeDelay={100}>
+                  <HoverCardTrigger asChild>
+                    <div className="flex items-start space-x-3 p-3 rounded-lg cursor-pointer hover:bg-white transition-colors">
+                      <div className={`p-2 rounded-lg ${card.color} flex-shrink-0`}>
+                        {card.icon}
+                      </div>
+                      <div>
+                        <h4 className="font-semibold">{card.title}</h4>
+                      </div>
+                    </div>
+                  </HoverCardTrigger>
+                  <HoverCardContent className="w-80">
+                    <div className="space-y-2">
+                      <h4 className="font-semibold text-lg">{card.title}</h4>
+                      <p className="text-sm text-gray-500">{card.description}</p>
+                    </div>
+                  </HoverCardContent>
+                </HoverCard>
+              ))}
+            </div>
+            
+            <div className="pt-6">
               <Button 
-                variant="outline" 
-                className="group border-[#1a46e5] text-[#1a46e5] hover:bg-[#1a46e5] hover:text-white transition-all"
+                className="bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90"
+                size="lg"
               >
-                Explore Multi-Channel
-                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                Explore Platform Architecture
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </div>
           </motion.div>

@@ -6,7 +6,6 @@ import Footer from "@/components/Footer";
 import ScrollProgress from "@/components/ScrollProgress";
 import ScrollToTop from "@/components/ScrollToTop";
 import LeapfrogFeatures from "@/components/LeapfrogFeatures";
-import FullStackAISection from "@/components/FullStackAISection";
 import ContextProtocolSection from "@/components/ContextProtocolSection";
 import MultiChannelSection from "@/components/MultiChannelSection";
 import BusinessLogicSection from "@/components/BusinessLogicSection";
@@ -21,9 +20,8 @@ const ProductLeapfrog = () => {
       <ScrollProgress />
       <Hero />
       <LeapfrogFeatures />
-      <FullStackAISection />
+      <MultiChannelSection /> {/* Using the updated MultiChannelSection instead of FullStackAISection */}
       <ContextProtocolSection />
-      <MultiChannelSection />
       <BusinessLogicSection />
       <LLMsSection />
       <LeapfrogCTA />
