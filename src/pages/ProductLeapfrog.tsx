@@ -9,6 +9,7 @@ import MultiChannelSection from "@/components/MultiChannelSection";
 import MultiChannelExperienceSection from "@/components/MultiChannelExperienceSection";
 import ContextProtocolSection from "@/components/ContextProtocolSection";
 import BusinessLogicSection from "@/components/BusinessLogicSection";
+import AIOperationsSection from "@/components/AIOperationsSection";
 import LLMsSection from "@/components/LLMsSection";
 import LeapfrogCTA from "@/components/LeapfrogCTA";
 
@@ -23,6 +24,7 @@ const ProductLeapfrog = () => {
       <MultiChannelExperienceSection />
       <ContextProtocolSection />
       <BusinessLogicSection />
+      <AIOperationsSection />
       <LLMsSection />
       <LeapfrogCTA />
       <Footer />

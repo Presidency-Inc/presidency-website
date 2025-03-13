@@ -8,11 +8,80 @@ const LLMsSection = () => {
     <section className="py-24 bg-gray-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left Content - LLM Visualization */}
+          {/* Left Content */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
+            className="space-y-6"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 leading-tight">
+              <span className="bg-gradient-to-r from-violet-500 to-blue-500 bg-clip-text text-transparent">Model Hosting</span> & Finetuning
+            </h2>
+            
+            <p className="text-xl text-gray-600 max-w-lg">
+              Use frontier models or deploy your preferred LLM locally or on the cloud. 
+              Fine-tune them to align with your business logic and deliver superior results.
+            </p>
+            
+            <div className="grid grid-cols-2 gap-4 pt-2">
+              <div className="flex items-start space-x-3">
+                <div className="bg-violet-100 p-2 rounded-lg text-violet-600">
+                  <Brain size={24} />
+                </div>
+                <div>
+                  <h3 className="font-semibold">Multiple Models</h3>
+                  <p className="text-sm text-gray-500">Frontier and beyond</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start space-x-3">
+                <div className="bg-blue-100 p-2 rounded-lg text-blue-600">
+                  <Sparkle size={24} />
+                </div>
+                <div>
+                  <h3 className="font-semibold">Fine-tuning</h3>
+                  <p className="text-sm text-gray-500">Domain expertise</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start space-x-3">
+                <div className="bg-indigo-100 p-2 rounded-lg text-indigo-600">
+                  <Database size={24} />
+                </div>
+                <div>
+                  <h3 className="font-semibold">Self-hosting</h3>
+                  <p className="text-sm text-gray-500">Full control</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start space-x-3">
+                <div className="bg-purple-100 p-2 rounded-lg text-purple-600">
+                  <Code size={24} />
+                </div>
+                <div>
+                  <h3 className="font-semibold">Prompting</h3>
+                  <p className="text-sm text-gray-500">Advanced techniques</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="pt-4">
+              <Button 
+                variant="outline" 
+                className="group border-[#1a46e5] text-[#1a46e5] hover:bg-[#1a46e5] hover:text-white transition-all"
+              >
+                Explore LLM Capabilities
+                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </div>
+          </motion.div>
+          
+          {/* Right Content - LLM Visualization */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
             className="relative"
           >
             <div className="bg-gradient-to-br from-violet-50 to-indigo-50 p-8 rounded-3xl shadow-lg">
@@ -99,75 +168,6 @@ const LLMsSection = () => {
                 <div className="absolute -top-4 -left-4 w-12 h-12 bg-violet-100 rounded-full"></div>
                 <div className="absolute -bottom-8 -right-8 w-16 h-16 bg-indigo-100 rounded-full"></div>
               </div>
-            </div>
-          </motion.div>
-          
-          {/* Right Content */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="space-y-6"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 leading-tight">
-              <span className="bg-gradient-to-r from-violet-500 to-blue-500 bg-clip-text text-transparent">Model Hosting</span> & Finetuning
-            </h2>
-            
-            <p className="text-xl text-gray-600 max-w-lg">
-              Use frontier models or deploy your preferred LLM locally or on the cloud. 
-              Fine-tune them to align with your business logic and deliver superior results.
-            </p>
-            
-            <div className="grid grid-cols-2 gap-4 pt-2">
-              <div className="flex items-start space-x-3">
-                <div className="bg-violet-100 p-2 rounded-lg text-violet-600">
-                  <Brain size={24} />
-                </div>
-                <div>
-                  <h3 className="font-semibold">Multiple Models</h3>
-                  <p className="text-sm text-gray-500">Frontier and beyond</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-3">
-                <div className="bg-blue-100 p-2 rounded-lg text-blue-600">
-                  <Sparkle size={24} />
-                </div>
-                <div>
-                  <h3 className="font-semibold">Fine-tuning</h3>
-                  <p className="text-sm text-gray-500">Domain expertise</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-3">
-                <div className="bg-indigo-100 p-2 rounded-lg text-indigo-600">
-                  <Database size={24} />
-                </div>
-                <div>
-                  <h3 className="font-semibold">Self-hosting</h3>
-                  <p className="text-sm text-gray-500">Full control</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-3">
-                <div className="bg-purple-100 p-2 rounded-lg text-purple-600">
-                  <Code size={24} />
-                </div>
-                <div>
-                  <h3 className="font-semibold">Prompting</h3>
-                  <p className="text-sm text-gray-500">Advanced techniques</p>
-                </div>
-              </div>
-            </div>
-            
-            <div className="pt-4">
-              <Button 
-                variant="outline" 
-                className="group border-[#1a46e5] text-[#1a46e5] hover:bg-[#1a46e5] hover:text-white transition-all"
-              >
-                Explore LLM Capabilities
-                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
             </div>
           </motion.div>
         </div>
