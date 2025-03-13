@@ -235,6 +235,7 @@ const Navbar = () => {
                   <li><a href="#enterprise-etl" className="text-gray-600 hover:text-blue-600">Enterprise ETL</a></li>
                   <li><a href="#pipeline-development" className="text-gray-600 hover:text-blue-600">Pipeline Development</a></li>
                   <li><a href="#data-infrastructure" className="text-gray-600 hover:text-blue-600">Data Infrastructure Setup</a></li>
+                  <li><Link to="/services/databricks" className="text-gray-600 hover:text-blue-600" onClick={() => setServicesOpen(false)}>Databricks Solutions</Link></li>
                 </ul>
               </div>
 
@@ -460,6 +461,10 @@ const Navbar = () => {
                     <li><a href="#enterprise-etl" className="block py-2 text-gray-900">Enterprise ETL</a></li>
                     <li><a href="#pipeline-development" className="block py-2 text-gray-900">Pipeline Development</a></li>
                     <li><a href="#data-infrastructure" className="block py-2 text-gray-900">Data Infrastructure Setup</a></li>
+                    <li><Link to="/services/databricks" className="block py-2 text-gray-900" onClick={() => {
+                        setMobileMenuOpen(false);
+                        setMobileSubmenuOpen(null);
+                    }}>Databricks Solutions</Link></li>
                   </ul>
                   
                   <h3 className="font-bold text-gray-900 mt-6 mb-3">Modernization</h3>
