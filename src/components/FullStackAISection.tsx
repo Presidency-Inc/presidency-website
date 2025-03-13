@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { 
   Database, Server, Cloud, Code, 
@@ -13,7 +13,6 @@ interface StackLayerProps {
   position: number; 
   isSelected: boolean;
   onClick: () => void;
-  rotation: number;
 }
 
 const stackLayers = [
@@ -103,29 +102,39 @@ const StackLayer: React.FC<StackLayerProps> = ({
   icon, 
   position, 
   isSelected,
-  onClick,
-  rotation
+  onClick
 }) => {
-  // Calculate the position for the 3D cube slice
-  const layerHeight = 50; // height of each layer
-  const baseTransform = `translateY(${position * -layerHeight}px) rotateX(${rotation}deg)`;
-  
+  // Calculate the position within the 3D cube
+  const layerOffset = 55; // Height of each cube section
+  const baseY = position * layerOffset;
+  const slideOutDistance = 100; // Distance the piece slides out when selected
+
   return (
     <motion.div
-      className={`absolute w-full h-[50px] cursor-pointer transition-all duration-300 ${
+      className={`absolute w-full h-[50px] cursor-pointer transition-colors duration-300 ${
         isSelected ? "bg-blue-100 border border-blue-300" : "bg-white/90 border border-gray-200"
       }`}
       style={{ 
-        transform: baseTransform,
-        transformOrigin: "center",
+        transformStyle: "preserve-3d",
         backfaceVisibility: "hidden",
-        boxShadow: isSelected ? "0 4px 12px rgba(0, 0, 0, 0.15)" : "0 2px 6px rgba(0, 0, 0, 0.1)"
+        boxShadow: isSelected ? "0 4px 12px rgba(0, 0, 0, 0.15)" : "0 2px 6px rgba(0, 0, 0, 0.1)",
+        zIndex: isSelected ? 10 : position
       }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5, delay: position * 0.1 }}
+      animate={{ 
+        y: baseY,
+        x: isSelected ? slideOutDistance : 0,
+        scale: isSelected ? 1.05 : 1,
+        transition: { 
+          type: "spring", 
+          stiffness: 300, 
+          damping: 30 
+        }
+      }}
       onClick={onClick}
-      whileHover={{ scale: 1.02 }}
+      whileHover={{ 
+        scale: isSelected ? 1.05 : 1.02,
+        boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)" 
+      }}
     >
       <div className="flex items-center h-full px-4">
         <div className="bg-blue-50 w-10 h-10 rounded-lg flex items-center justify-center text-blue-600 mr-3">
@@ -141,27 +150,36 @@ const StackLayer: React.FC<StackLayerProps> = ({
 
 const FullStackAISection: React.FC = () => {
   const [selectedLayer, setSelectedLayer] = useState<typeof stackLayers[0] | null>(null);
-  const [cubeRotation, setCubeRotation] = useState({ x: 60, y: 0, z: -45 });
+  const [rotationY, setRotationY] = useState(0);
+  const [isAutoRotating, setIsAutoRotating] = useState(true);
 
-  // Simulate the 3D cube by positioning each layer with appropriate rotation
-  const createCubeFaces = () => {
-    return stackLayers.map((layer, index) => {
-      // Calculate position and rotation for each face of the cube
-      const position = index;
-      const rotation = index * (360 / stackLayers.length);
-      
-      return (
-        <StackLayer
-          key={layer.title}
-          title={layer.title}
-          icon={layer.icon}
-          position={position}
-          rotation={rotation}
-          isSelected={selectedLayer?.title === layer.title}
-          onClick={() => setSelectedLayer(layer)}
-        />
-      );
-    });
+  // Handle auto rotation
+  useEffect(() => {
+    if (!isAutoRotating) return;
+    
+    const interval = setInterval(() => {
+      setRotationY(prev => (prev + 0.2) % 360);
+    }, 50);
+    
+    return () => clearInterval(interval);
+  }, [isAutoRotating]);
+
+  // Stop auto rotation when a layer is selected
+  useEffect(() => {
+    if (selectedLayer) {
+      setIsAutoRotating(false);
+    } else {
+      setIsAutoRotating(true);
+    }
+  }, [selectedLayer]);
+
+  const handleLayerClick = (layer: typeof stackLayers[0]) => {
+    setSelectedLayer(prev => prev?.title === layer.title ? null : layer);
+    
+    // Stop at a specific rotation when clicked
+    if (selectedLayer?.title !== layer.title) {
+      setRotationY(0);
+    }
   };
 
   return (
@@ -183,36 +201,55 @@ const FullStackAISection: React.FC = () => {
         </motion.div>
         
         <div className="flex flex-col md:flex-row space-y-12 md:space-y-0 items-center justify-center">
-          {/* 3D Cube Stack Visualization */}
-          <div className="relative w-80 h-80 perspective-[1200px]">
-            <motion.div
-              className="relative w-full h-full transform-style-3d"
+          {/* 3D Cube Visualization */}
+          <div className="relative w-[350px] h-[350px] perspective-[1200px]">
+            <motion.div 
+              className="relative w-full h-full"
               style={{ 
-                transform: `rotateX(${cubeRotation.x}deg) rotateY(${cubeRotation.y}deg) rotateZ(${cubeRotation.z}deg)`,
-                transformStyle: "preserve-3d"
+                transformStyle: "preserve-3d",
+                transform: `rotateY(${rotationY}deg)`,
+                transition: "transform 0.5s ease"
               }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8 }}
+              animate={{ 
+                rotateY: rotationY
+              }}
             >
-              {/* Create the 3D cube faces */}
-              <div className="absolute inset-0 transform-style-3d">
-                {createCubeFaces()}
+              {/* 3D Cube Structure */}
+              <div className="absolute inset-0" style={{ transformStyle: "preserve-3d" }}>
+                {/* Stack Layers */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" style={{ transformStyle: "preserve-3d" }}>
+                  {stackLayers.map((layer, index) => (
+                    <StackLayer
+                      key={layer.title}
+                      title={layer.title}
+                      icon={layer.icon}
+                      position={index}
+                      isSelected={selectedLayer?.title === layer.title}
+                      onClick={() => handleLayerClick(layer)}
+                    />
+                  ))}
+                </div>
+                
+                {/* AI Logo in the center */}
+                <motion.div
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80px] h-[80px] bg-white rounded-lg flex items-center justify-center shadow-xl"
+                  style={{ 
+                    transformStyle: "preserve-3d",
+                    transform: "translateZ(120px)",
+                    zIndex: 20
+                  }}
+                  animate={{ 
+                    scale: [1, 1.05, 1],
+                    transition: { 
+                      duration: 2,
+                      repeat: Infinity,
+                      repeatType: "reverse" 
+                    }
+                  }}
+                >
+                  <span className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">AI</span>
+                </motion.div>
               </div>
-              
-              {/* AI Logo in the center */}
-              <motion.div
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-white flex items-center justify-center z-30 shadow-lg border border-gray-100"
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.5 }}
-                style={{ 
-                  transform: `translate(-50%, -50%) translateZ(100px)`,
-                  transformStyle: "preserve-3d"
-                }}
-              >
-                <span className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">AI</span>
-              </motion.div>
             </motion.div>
           </div>
           
