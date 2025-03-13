@@ -484,13 +484,7 @@ const Navbar = () => {
                     }}>Databricks Services</Link></li>
                   </ul>
                   
-                  <h3 className="font-bold text-gray-900 mt-6 mb-3">Modernization</h3>
-                  <ul className="space-y-3">
-                    <li><a href="#cloud-migrations" className="block py-2 text-gray-900">Cloud Migrations</a></li>
-                    <li><a href="#app-stack-enhancements" className="block py-2 text-gray-900">App-stack Enhancements</a></li>
-                  </ul>
-                  
-                  <h3 className="font-bold text-gray-900 mt-6 mb-3">TALENT</h3>
+                  <h3 className="font-bold text-gray-900 mt-6 mb-3">Talent</h3>
                   <ul className="space-y-3 mb-6">
                     <li><a href="#extended-teams" className="block py-2 text-gray-900">Extended Teams</a></li>
                     <li><a href="#nearshore" className="block py-2 text-gray-900">Nearshore</a></li>
