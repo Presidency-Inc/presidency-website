@@ -55,6 +55,17 @@ const Navbar = () => {
     }, 100);
   };
 
+  const handleNavigateToTop = () => {
+    navigate('/products/leapfrog');
+    setProductsOpen(false);
+    setServicesOpen(false);
+    
+    // Use setTimeout to ensure navigation completes before scrolling
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 100);
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (navRef.current && !navRef.current.contains(event.target as Node)) {
@@ -180,7 +191,7 @@ const Navbar = () => {
               <div className="col-span-1">
                 <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">AI</h3>
                 <ul className="space-y-3">
-                  <li><button onClick={() => handleNavigateToSection('multi-channel-experience')} className="text-gray-600 hover:text-blue-600">Full Stack AI Framework</button></li>
+                  <li><button onClick={handleNavigateToTop} className="text-gray-600 hover:text-blue-600">Full Stack AI Framework</button></li>
                   <li><button onClick={() => handleNavigateToSection('context-protocol')} className="text-gray-600 hover:text-blue-600">Context Management System</button></li>
                   <li><button onClick={() => handleNavigateToSection('business-logic')} className="text-gray-600 hover:text-blue-600">Business Logic Orchestration</button></li>
                   <li><button onClick={() => handleNavigateToSection('ai-operations')} className="text-gray-600 hover:text-blue-600">AIOps Platform</button></li>
@@ -403,7 +414,7 @@ const Navbar = () => {
                     <li>
                       <button 
                         onClick={() => {
-                          handleNavigateToSection('multi-channel-experience');
+                          handleNavigateToTop();
                           setMobileMenuOpen(false);
                           setMobileSubmenuOpen(null);
                         }}
