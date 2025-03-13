@@ -13,6 +13,7 @@ interface StackLayerProps {
   position: number; 
   isSelected: boolean;
   onClick: () => void;
+  logoSrc?: string;
 }
 
 const stackLayers = [
@@ -97,33 +98,44 @@ const stackLayers = [
   }
 ];
 
-const StackLayer: React.FC<StackLayerProps> = ({ 
+const AILogo = () => (
+  <svg viewBox="0 0 100 100" width="60" height="60" className="stroke-current">
+    <path 
+      fill="none" 
+      strokeWidth="8" 
+      strokeLinecap="round" 
+      strokeLinejoin="round" 
+      d="M30,20 L70,20 L70,80 L30,80 Z M30,40 L70,40 M30,60 L70,60 M50,20 L50,80"
+    />
+  </svg>
+);
+
+const IsometricCubeLayer: React.FC<StackLayerProps> = ({ 
   title, 
   icon, 
   position, 
   isSelected,
-  onClick
+  onClick,
+  logoSrc
 }) => {
-  // Calculate the position within the 3D cube
-  const layerOffset = 55; // Height of each cube section
-  const baseY = position * layerOffset;
-  const slideOutDistance = 100; // Distance the piece slides out when selected
+  // Calculate layer positions in the isometric cube
+  const layerHeight = 40; // Height of each cube section
+  const baseY = position * layerHeight; 
+  const slideOutDistance = 150; // Distance the piece slides out when selected
 
   return (
     <motion.div
-      className={`absolute w-full h-[50px] cursor-pointer transition-colors duration-300 ${
-        isSelected ? "bg-blue-100 border border-blue-300" : "bg-white/90 border border-gray-200"
+      className={`absolute w-[200px] h-[40px] cursor-pointer transform-style-3d ${
+        isSelected ? "z-20" : `z-${10 - position}`
       }`}
       style={{ 
         transformStyle: "preserve-3d",
+        transform: `translateY(${baseY}px) translateZ(0px)`,
+        transformOrigin: "center",
         backfaceVisibility: "hidden",
-        boxShadow: isSelected ? "0 4px 12px rgba(0, 0, 0, 0.15)" : "0 2px 6px rgba(0, 0, 0, 0.1)",
-        zIndex: isSelected ? 10 : position
       }}
       animate={{ 
-        y: baseY,
         x: isSelected ? slideOutDistance : 0,
-        scale: isSelected ? 1.05 : 1,
         transition: { 
           type: "spring", 
           stiffness: 300, 
@@ -131,18 +143,25 @@ const StackLayer: React.FC<StackLayerProps> = ({
         }
       }}
       onClick={onClick}
-      whileHover={{ 
-        scale: isSelected ? 1.05 : 1.02,
-        boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)" 
-      }}
     >
-      <div className="flex items-center h-full px-4">
-        <div className="bg-blue-50 w-10 h-10 rounded-lg flex items-center justify-center text-blue-600 mr-3">
-          {icon}
-        </div>
-        <div>
-          <h4 className="font-medium text-gray-900">{title}</h4>
-        </div>
+      <div className={`w-full h-full bg-gray-200 border border-gray-300 relative ${
+        isSelected ? "bg-white shadow-lg" : ""
+      }`}>
+        {logoSrc ? (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <AILogo />
+          </div>
+        ) : (
+          <div className="px-4 h-full flex items-center justify-between">
+            <div className="flex items-center">
+              <div className="bg-gray-100 w-8 h-8 rounded-md flex items-center justify-center text-gray-700 mr-3">
+                {icon}
+              </div>
+              <span className="text-sm font-medium text-gray-800">{title}</span>
+            </div>
+            <span className="text-xs text-gray-500">C3 AI {title}</span>
+          </div>
+        )}
       </div>
     </motion.div>
   );
@@ -150,8 +169,9 @@ const StackLayer: React.FC<StackLayerProps> = ({
 
 const FullStackAISection: React.FC = () => {
   const [selectedLayer, setSelectedLayer] = useState<typeof stackLayers[0] | null>(null);
-  const [rotationY, setRotationY] = useState(0);
-  const [isAutoRotating, setIsAutoRotating] = useState(true);
+  const [rotationY, setRotationY] = useState(30);
+  const [rotationX, setRotationX] = useState(-20);
+  const [isAutoRotating, setIsAutoRotating] = useState(false);
 
   // Handle auto rotation
   useEffect(() => {
@@ -168,18 +188,11 @@ const FullStackAISection: React.FC = () => {
   useEffect(() => {
     if (selectedLayer) {
       setIsAutoRotating(false);
-    } else {
-      setIsAutoRotating(true);
     }
   }, [selectedLayer]);
 
   const handleLayerClick = (layer: typeof stackLayers[0]) => {
     setSelectedLayer(prev => prev?.title === layer.title ? null : layer);
-    
-    // Stop at a specific rotation when clicked
-    if (selectedLayer?.title !== layer.title) {
-      setRotationY(0);
-    }
   };
 
   return (
@@ -201,54 +214,53 @@ const FullStackAISection: React.FC = () => {
         </motion.div>
         
         <div className="flex flex-col md:flex-row space-y-12 md:space-y-0 items-center justify-center">
-          {/* 3D Cube Visualization */}
-          <div className="relative w-[350px] h-[350px] perspective-[1200px]">
+          {/* Isometric Cube Visualization */}
+          <div className="relative w-[400px] h-[400px] perspective-[1200px]">
             <motion.div 
-              className="relative w-full h-full"
+              className="relative w-full h-full flex items-center justify-center"
               style={{ 
                 transformStyle: "preserve-3d",
-                transform: `rotateY(${rotationY}deg)`,
-                transition: "transform 0.5s ease"
-              }}
-              animate={{ 
-                rotateY: rotationY
+                transform: `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`,
               }}
             >
-              {/* 3D Cube Structure */}
-              <div className="absolute inset-0" style={{ transformStyle: "preserve-3d" }}>
+              {/* Base cube - dark gray background cube */}
+              <div 
+                className="absolute w-[200px] h-[200px] bg-gray-800/70"
+                style={{ 
+                  transformStyle: "preserve-3d",
+                  transform: `translateZ(-100px) translateY(100px)`,
+                }}
+              />
+              
+              {/* Layer container */}
+              <div 
+                className="relative w-[200px] h-[200px]" 
+                style={{ transformStyle: "preserve-3d" }}
+              >
                 {/* Stack Layers */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" style={{ transformStyle: "preserve-3d" }}>
-                  {stackLayers.map((layer, index) => (
-                    <StackLayer
-                      key={layer.title}
-                      title={layer.title}
-                      icon={layer.icon}
-                      position={index}
-                      isSelected={selectedLayer?.title === layer.title}
-                      onClick={() => handleLayerClick(layer)}
-                    />
-                  ))}
-                </div>
+                {stackLayers.map((layer, index) => (
+                  <IsometricCubeLayer
+                    key={layer.title}
+                    title={layer.title}
+                    icon={layer.icon}
+                    position={index}
+                    isSelected={selectedLayer?.title === layer.title}
+                    onClick={() => handleLayerClick(layer)}
+                  />
+                ))}
                 
-                {/* AI Logo in the center */}
-                <motion.div
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80px] h-[80px] bg-white rounded-lg flex items-center justify-center shadow-xl"
+                {/* AI Logo Layer on top */}
+                <div 
+                  className="absolute w-[200px] h-[40px] bg-white border border-gray-300"
                   style={{ 
                     transformStyle: "preserve-3d",
-                    transform: "translateZ(120px)",
-                    zIndex: 20
-                  }}
-                  animate={{ 
-                    scale: [1, 1.05, 1],
-                    transition: { 
-                      duration: 2,
-                      repeat: Infinity,
-                      repeatType: "reverse" 
-                    }
+                    transform: 'translateY(-40px) translateZ(0)',
                   }}
                 >
-                  <span className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">AI</span>
-                </motion.div>
+                  <div className="w-full h-full flex items-center justify-center">
+                    <AILogo />
+                  </div>
+                </div>
               </div>
             </motion.div>
           </div>
