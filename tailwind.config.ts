@@ -40,12 +40,12 @@ export default {
 					'300': '#D1D5DB',
 				},
 				blue: {
-					// Adding lighter blue shades
-					'25': '#F5F9FF',
-					'35': '#EDF5FF',
-					'45': '#E5F0FF',
-					'55': '#DCE9FD',
-					'65': '#D3E4FD',
+					// Using much lighter blue shades
+					'25': '#FAFCFF',
+					'35': '#F8FBFF', 
+					'45': '#F5F9FF',
+					'55': '#F2F7FF',
+					'65': '#EFF5FF',
 				},
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
