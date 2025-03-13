@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 import { motion } from "framer-motion";
 
 const LeapfrogCTA = () => {
@@ -75,7 +75,7 @@ const LeapfrogCTA = () => {
                         ))}
                       </div>
                       <div>
-                        <div className="text-sm text-gray-600">Trusted by 500+ companies worldwide</div>
+                        <div className="text-sm text-gray-600">Trusted by the Enterprise</div>
                         <div className="flex items-center gap-1">
                           {[1, 2, 3, 4, 5].map((star) => (
                             <svg key={star} className="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
