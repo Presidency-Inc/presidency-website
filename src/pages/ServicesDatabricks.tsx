@@ -1,4 +1,5 @@
 
+import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import StatusBar from "@/components/StatusBar";
 import Footer from "@/components/Footer";
@@ -13,8 +14,13 @@ import SuccessStoriesSection from "@/components/SuccessStoriesSection";
 import DatabricksCTA from "@/components/DatabricksCTA";
 
 const ServicesDatabricks = () => {
+  useEffect(() => {
+    // Scroll to top when component mounts
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-white" id="top">
       <StatusBar />
       <Navbar />
       <ScrollProgress />
