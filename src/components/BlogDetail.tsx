@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { marked } from "marked";
 import { ArrowLeft } from "lucide-react";
 import { Blog, Tag } from "./BlogForm";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 // Configure marked for proper rendering of headings and line breaks
 marked.setOptions({
@@ -17,10 +18,18 @@ interface BlogDetailProps {
   onBack: () => void;
 }
 
+interface Author {
+  id: string;
+  name: string;
+  avatar_url: string | null;
+  title: string | null;
+}
+
 const BlogDetail = ({ blogId, onBack }: BlogDetailProps) => {
   const [blog, setBlog] = useState<Blog | null>(null);
   const [loading, setLoading] = useState(true);
   const [renderedContent, setRenderedContent] = useState("");
+  const [author, setAuthor] = useState<Author | null>(null);
 
   useEffect(() => {
     const fetchBlog = async () => {
@@ -60,6 +69,17 @@ const BlogDetail = ({ blogId, onBack }: BlogDetailProps) => {
 
           const blogWithTags = { ...data, tags };
           setBlog(blogWithTags);
+          
+          // Fetch author information
+          const { data: authorData, error: authorError } = await supabase
+            .from('user_profiles')
+            .select('id, name, avatar_url, title')
+            .eq('id', data.created_by)
+            .single();
+          
+          if (!authorError && authorData) {
+            setAuthor(authorData);
+          }
           
           // Process markdown with marked using a custom renderer
           const renderer = new marked.Renderer();
@@ -143,6 +163,19 @@ const BlogDetail = ({ blogId, onBack }: BlogDetailProps) => {
         </div>
 
         <h1 className="text-3xl font-bold">{blog?.title}</h1>
+        
+        {author && (
+          <div className="flex items-center space-x-3 my-4">
+            <Avatar className="h-10 w-10">
+              <AvatarImage src={author.avatar_url || ''} alt={author.name} />
+              <AvatarFallback>{author.name.charAt(0)}</AvatarFallback>
+            </Avatar>
+            <div>
+              <p className="font-medium text-gray-900">{author.name}</p>
+              {author.title && <p className="text-sm text-gray-500">{author.title}</p>}
+            </div>
+          </div>
+        )}
         
         <div className="flex items-center text-sm text-gray-500">
           <span>{blog?.created_at && new Date(blog.created_at).toLocaleDateString()}</span>

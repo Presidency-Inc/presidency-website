@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -10,12 +11,20 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { marked } from "marked";
 import { Blog, Tag } from "@/components/BlogForm";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 // Configure marked for proper rendering of headings and line breaks
 marked.setOptions({
   breaks: true,  // Enable line breaks
   gfm: true,     // Enable GitHub Flavored Markdown
 });
+
+interface Author {
+  id: string;
+  name: string;
+  avatar_url: string | null;
+  title: string | null;
+}
 
 const BlogPostPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -24,6 +33,7 @@ const BlogPostPage = () => {
   const [loading, setLoading] = useState(true);
   const [renderedContent, setRenderedContent] = useState("");
   const [relatedPosts, setRelatedPosts] = useState<Blog[]>([]);
+  const [author, setAuthor] = useState<Author | null>(null);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -68,6 +78,17 @@ const BlogPostPage = () => {
 
           const blogWithTags = { ...data, tags };
           setPost(blogWithTags);
+          
+          // Fetch author information
+          const { data: authorData, error: authorError } = await supabase
+            .from('user_profiles')
+            .select('id, name, avatar_url, title')
+            .eq('id', data.created_by)
+            .single();
+          
+          if (!authorError && authorData) {
+            setAuthor(authorData);
+          }
           
           // Process markdown with marked - use custom renderer for headings
           const renderer = new marked.Renderer();
@@ -190,6 +211,19 @@ const BlogPostPage = () => {
           <article>
             <div className="mb-8">
               <h1 className="text-4xl font-bold mb-4">{post?.title}</h1>
+              
+              {author && (
+                <div className="flex items-center space-x-3 mb-6">
+                  <Avatar className="h-10 w-10">
+                    <AvatarImage src={author.avatar_url || ''} alt={author.name} />
+                    <AvatarFallback>{author.name.charAt(0)}</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="font-medium text-gray-900">{author.name}</p>
+                    {author.title && <p className="text-sm text-gray-500">{author.title}</p>}
+                  </div>
+                </div>
+              )}
               
               <div className="flex items-center text-gray-500 mb-6">
                 <time dateTime={post?.created_at}>
