@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
@@ -12,15 +13,17 @@ import {
   DialogTitle, 
   DialogDescription 
 } from "@/components/ui/dialog";
-import { Loader2, MapPin, Mail, User, UploadCloud } from "lucide-react";
+import { Loader2, MapPin, Mail, User, UploadCloud, ArrowRight, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { marked } from "marked";
 import { toast } from "@/components/ui/use-toast";
+import { Separator } from "@/components/ui/separator";
 
 const CareerPage = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
+  const [jobCount, setJobCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [viewJobModalOpen, setViewJobModalOpen] = useState(false);
@@ -38,13 +41,14 @@ const CareerPage = () => {
   const fetchJobs = async () => {
     try {
       setLoading(true);
-      const { data, error } = await supabase
+      const { data, error, count } = await supabase
         .from("job_postings")
-        .select("*")
+        .select("*", { count: 'exact' })
         .order("created_at", { ascending: false });
 
       if (error) throw error;
       setJobs(data || []);
+      setJobCount(count || 0);
     } catch (error: any) {
       console.error("Error fetching jobs:", error);
       toast({
@@ -62,8 +66,8 @@ const CareerPage = () => {
     setViewJobModalOpen(true);
   };
 
-  const handleApplyNow = () => {
-    setViewJobModalOpen(false);
+  const handleApplyNow = (job: Job) => {
+    setSelectedJob(job);
     setApplyModalOpen(true);
   };
 
@@ -162,6 +166,20 @@ const CareerPage = () => {
             </p>
           </div>
 
+          <div className="mb-8 flex justify-between items-center">
+            <div className="text-lg font-medium text-gray-600">
+              {jobCount} jobs
+            </div>
+            <div className="flex space-x-4">
+              <Button variant="outline" className="flex items-center gap-2">
+                All teams <ChevronDown className="h-4 w-4" />
+              </Button>
+              <Button variant="outline" className="flex items-center gap-2">
+                All locations <ChevronDown className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+
           {loading ? (
             <div className="flex justify-center items-center py-20">
               <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -172,27 +190,31 @@ const CareerPage = () => {
               <p className="mt-2 text-gray-400">Check back later for new opportunities.</p>
             </div>
           ) : (
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="divide-y divide-gray-200">
               {jobs.map((job) => (
-                <div 
-                  key={job.id} 
-                  className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
-                >
-                  <div className="p-6">
-                    <h2 className="text-xl font-semibold mb-2">{job.title}</h2>
-                    <div className="flex items-center text-gray-500 mb-4">
-                      <MapPin className="h-4 w-4 mr-1" />
-                      <span>{job.location}</span>
+                <div key={job.id} className="py-6">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <h2 className="text-lg font-medium text-gray-900 hover:text-primary cursor-pointer" 
+                          onClick={() => handleViewJob(job)}>
+                        {job.title}
+                      </h2>
+                      <p className="text-sm text-gray-500 mt-1">
+                        {job.department || "General"}
+                      </p>
                     </div>
-                    <p className="text-gray-600 mb-6 line-clamp-3">
-                      {job.description.replace(/#{1,6}\s|[*_~`]|\[.*\]\(.*\)/g, '').substring(0, 150)}...
-                    </p>
-                    <Button 
-                      onClick={() => handleViewJob(job)} 
-                      className="w-full"
-                    >
-                      View Details
-                    </Button>
+                    <div className="flex items-center gap-6">
+                      <div className="text-sm text-gray-500">
+                        {job.location}
+                      </div>
+                      <Button 
+                        variant="ghost" 
+                        className="text-primary hover:text-primary hover:bg-transparent p-0 flex items-center gap-1"
+                        onClick={() => handleApplyNow(job)}
+                      >
+                        Apply now <ArrowRight className="h-4 w-4 ml-1" />
+                      </Button>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -224,7 +246,7 @@ const CareerPage = () => {
                 dangerouslySetInnerHTML={{ __html: marked.parse(selectedJob.description) }}
               />
               <div className="mt-6 flex justify-end">
-                <Button onClick={handleApplyNow}>
+                <Button onClick={() => handleApplyNow(selectedJob)}>
                   Apply Now
                 </Button>
               </div>
