@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
@@ -35,7 +34,6 @@ const CareerPage = () => {
   const [resume, setResume] = useState<File | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
-  // Search and filter states
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredJobs, setFilteredJobs] = useState<Job[]>([]);
   const [selectedDepartment, setSelectedDepartment] = useState<string | null>(null);
@@ -48,7 +46,6 @@ const CareerPage = () => {
   }, []);
 
   useEffect(() => {
-    // Filter jobs based on search term and filters
     let filtered = [...jobs];
     
     if (searchTerm) {
@@ -68,7 +65,6 @@ const CareerPage = () => {
     setFilteredJobs(filtered);
   }, [searchTerm, jobs, selectedDepartment, selectedLocation]);
 
-  // Extract unique departments and locations for filters
   useEffect(() => {
     if (jobs.length > 0) {
       const depts = Array.from(new Set(jobs.map(job => job.department)));
@@ -87,8 +83,8 @@ const CareerPage = () => {
         .order("created_at", { ascending: false });
 
       if (error) throw error;
-      setJobs(data || []);
-      setFilteredJobs(data || []);
+      setJobs(data as Job[] || []);
+      setFilteredJobs(data as Job[] || []);
       setJobCount(count || 0);
     } catch (error: any) {
       console.error("Error fetching jobs:", error);
@@ -213,7 +209,6 @@ const CareerPage = () => {
             </p>
           </div>
 
-          {/* Search and Filters Section */}
           <div className="mb-8 space-y-4">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
@@ -236,7 +231,6 @@ const CareerPage = () => {
                     variant="outline" 
                     className="flex items-center gap-2"
                     onClick={() => {
-                      // This would be a dropdown in a real implementation
                       setSelectedDepartment(selectedDepartment ? null : departments[0]);
                     }}
                   >
@@ -249,7 +243,6 @@ const CareerPage = () => {
                     variant="outline" 
                     className="flex items-center gap-2"
                     onClick={() => {
-                      // This would be a dropdown in a real implementation
                       setSelectedLocation(selectedLocation ? null : locations[0]);
                     }}
                   >

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent } from "@/components/ui/card";
@@ -156,6 +155,7 @@ const JobList = ({ onEdit, onView }: JobListProps) => {
             <TableHeader>
               <TableRow>
                 <TableHead>Title</TableHead>
+                <TableHead>Department</TableHead>
                 <TableHead>Location</TableHead>
                 <TableHead>Created</TableHead>
                 <TableHead>Updated</TableHead>
@@ -166,6 +166,7 @@ const JobList = ({ onEdit, onView }: JobListProps) => {
               {filteredJobs.map((job) => (
                 <TableRow key={job.id}>
                   <TableCell className="font-medium">{job.title}</TableCell>
+                  <TableCell>{job.department}</TableCell>
                   <TableCell>
                     <div className="flex items-center">
                       <MapPin className="mr-1 h-3 w-3 text-muted-foreground" />

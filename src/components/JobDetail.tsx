@@ -42,7 +42,7 @@ const JobDetail = ({ jobId, onBack }: JobDetailProps) => {
         .single();
 
       if (error) throw error;
-      setJob(data);
+      setJob(data as Job);
     } catch (error: any) {
       console.error("Error fetching job details:", error);
       toast({
@@ -143,6 +143,9 @@ const JobDetail = ({ jobId, onBack }: JobDetailProps) => {
             <div className="flex items-center gap-2 mt-1">
               <MapPin className="h-4 w-4 text-muted-foreground" />
               <span>{job.location}</span>
+            </div>
+            <div className="mt-1">
+              <span className="text-muted-foreground">{job.department}</span>
             </div>
             <div className="mt-2">
               Posted on {new Date(job.created_at).toLocaleDateString()} 
