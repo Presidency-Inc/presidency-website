@@ -9,13 +9,45 @@ import Footer from "@/components/Footer";
 import StatusBar from "@/components/StatusBar";
 import ScrollProgress from "@/components/ScrollProgress";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { User, FileText, Newspaper, Flag } from "lucide-react";
+import { User, FileText, Newspaper, Flag, Edit, Save } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
+import { useForm } from "react-hook-form";
+
+interface UserProfile {
+  name: string;
+  title: string;
+  bio: string;
+  avatarUrl: string;
+}
 
 const Admin = () => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<any>(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [profile, setProfile] = useState<UserProfile>({
+    name: "",
+    title: "",
+    bio: "",
+    avatarUrl: "",
+  });
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+  
   const navigate = useNavigate();
+
+  const form = useForm<UserProfile>({
+    defaultValues: {
+      name: "",
+      title: "",
+      bio: "",
+      avatarUrl: "",
+    },
+  });
 
   useEffect(() => {
     const checkUser = async () => {
@@ -27,6 +59,22 @@ const Admin = () => {
       }
       
       setUser(data.session.user);
+
+      // For demo purposes - in a real app, this would fetch from a profiles table
+      setProfile({
+        name: data.session.user.email?.split('@')[0] || "User",
+        title: "Team Member",
+        bio: "This is my professional bio. I work at this company and contribute to various projects.",
+        avatarUrl: "",
+      });
+
+      form.reset({
+        name: data.session.user.email?.split('@')[0] || "User",
+        title: "Team Member",
+        bio: "This is my professional bio. I work at this company and contribute to various projects.",
+        avatarUrl: "",
+      });
+      
       setLoading(false);
     };
 
@@ -45,7 +93,7 @@ const Admin = () => {
     return () => {
       authListener.subscription.unsubscribe();
     };
-  }, [navigate]);
+  }, [navigate, form]);
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -54,6 +102,44 @@ const Admin = () => {
       description: "You have been signed out.",
     });
     navigate("/");
+  };
+
+  const handleEditToggle = () => {
+    if (isEditing) {
+      // Cancel edit
+      form.reset(profile);
+      setAvatarPreview(null);
+      setAvatarFile(null);
+    }
+    setIsEditing(!isEditing);
+  };
+
+  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setAvatarFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setAvatarPreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleProfileSubmit = (data: UserProfile) => {
+    // In a real app, this would save to the database
+    setProfile({
+      ...data,
+      avatarUrl: avatarPreview || profile.avatarUrl,
+    });
+    
+    toast({
+      title: "Profile updated",
+      description: "Your profile has been updated successfully.",
+    });
+    
+    setIsEditing(false);
+    setAvatarFile(null);
   };
 
   if (loading) {
@@ -105,12 +191,143 @@ const Admin = () => {
                 
                 <TabsContent value="profile" className="mt-6">
                   <Card>
-                    <CardHeader>
-                      <CardTitle>Your Profile</CardTitle>
-                      <CardDescription>Manage your profile information here.</CardDescription>
+                    <CardHeader className="flex flex-row items-center justify-between">
+                      <div>
+                        <CardTitle>Your Profile</CardTitle>
+                        <CardDescription>Manage your profile information here.</CardDescription>
+                      </div>
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        onClick={handleEditToggle}
+                        className="flex items-center gap-2"
+                      >
+                        {isEditing ? (
+                          <>
+                            <Edit className="h-4 w-4" />
+                            Cancel
+                          </>
+                        ) : (
+                          <>
+                            <Edit className="h-4 w-4" />
+                            Edit Profile
+                          </>
+                        )}
+                      </Button>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-gray-700">Profile management content will go here.</p>
+                      {isEditing ? (
+                        <Form {...form}>
+                          <form onSubmit={form.handleSubmit(handleProfileSubmit)} className="space-y-6">
+                            <div className="flex flex-col items-center mb-6">
+                              <div className="relative">
+                                <Avatar className="h-24 w-24">
+                                  {avatarPreview ? (
+                                    <AvatarImage src={avatarPreview} alt="Preview" />
+                                  ) : profile.avatarUrl ? (
+                                    <AvatarImage src={profile.avatarUrl} alt={profile.name} />
+                                  ) : (
+                                    <AvatarFallback className="text-lg">
+                                      {profile.name?.charAt(0)?.toUpperCase() || "U"}
+                                    </AvatarFallback>
+                                  )}
+                                </Avatar>
+                                <Label 
+                                  htmlFor="avatar-upload" 
+                                  className="absolute bottom-0 right-0 bg-primary text-white p-1 rounded-full cursor-pointer"
+                                >
+                                  <Edit className="h-4 w-4" />
+                                </Label>
+                                <Input 
+                                  id="avatar-upload" 
+                                  type="file" 
+                                  accept="image/*" 
+                                  className="hidden" 
+                                  onChange={handleAvatarChange}
+                                />
+                              </div>
+                              <p className="text-xs text-gray-500 mt-2">Click the icon to upload a new image</p>
+                            </div>
+                            
+                            <div className="space-y-4">
+                              <FormField
+                                control={form.control}
+                                name="name"
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel>Name</FormLabel>
+                                    <FormControl>
+                                      <Input {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                              
+                              <FormField
+                                control={form.control}
+                                name="title"
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel>Title</FormLabel>
+                                    <FormControl>
+                                      <Input {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                              
+                              <FormField
+                                control={form.control}
+                                name="bio"
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel>Bio</FormLabel>
+                                    <FormControl>
+                                      <Textarea {...field} rows={4} />
+                                    </FormControl>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                            </div>
+                            
+                            <Button type="submit" className="w-full flex items-center gap-2">
+                              <Save className="h-4 w-4" />
+                              Save Changes
+                            </Button>
+                          </form>
+                        </Form>
+                      ) : (
+                        <div className="flex flex-col md:flex-row gap-6">
+                          <div className="flex flex-col items-center">
+                            <Avatar className="h-24 w-24">
+                              {profile.avatarUrl ? (
+                                <AvatarImage src={profile.avatarUrl} alt={profile.name} />
+                              ) : (
+                                <AvatarFallback className="text-lg">
+                                  {profile.name?.charAt(0)?.toUpperCase() || "U"}
+                                </AvatarFallback>
+                              )}
+                            </Avatar>
+                          </div>
+                          <div className="flex-1 space-y-4">
+                            <div>
+                              <h3 className="text-xl font-semibold">{profile.name}</h3>
+                              <p className="text-gray-500">{profile.title}</p>
+                            </div>
+                            <div>
+                              <h4 className="text-sm font-medium text-gray-500">Bio</h4>
+                              <p className="mt-1">{profile.bio}</p>
+                            </div>
+                            <div>
+                              <h4 className="text-sm font-medium text-gray-500">Email</h4>
+                              <p className="mt-1">{user?.email}</p>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </CardContent>
                   </Card>
                 </TabsContent>
