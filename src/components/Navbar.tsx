@@ -18,6 +18,7 @@ const Navbar = () => {
   const isProductsActive = location.pathname.startsWith('/products/');
   const isServicesActive = location.pathname.startsWith('/services/') && location.pathname !== '/services/databricks';
   const isDatabricksActive = location.pathname === '/services/databricks';
+  const isTalentActive = location.pathname.startsWith('/talent');
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -257,7 +258,16 @@ const Navbar = () => {
             >
               Databricks
             </Link>
-            <Link to="/talent" className="text-gray-700 hover:text-gray-900 transition-colors">Need Talent?</Link>
+            <Link 
+              to="/talent" 
+              className={`transition-colors ${
+                isTalentActive 
+                  ? "text-gray-900 font-medium bg-gray-100 px-3 py-1 rounded-md" 
+                  : "text-gray-700 hover:text-gray-900"
+              }`}
+            >
+              Need Talent?
+            </Link>
             <a href="#careers" className="text-gray-700 hover:text-gray-900 transition-colors">Careers</a>
           </div>
           
@@ -485,7 +495,10 @@ const Navbar = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link to="/talent" className="block py-4 text-gray-900 font-medium">
+                    <Link 
+                      to="/talent" 
+                      className={`block py-4 ${isTalentActive ? "text-blue-600" : "text-gray-900"} font-medium`}
+                    >
                       Need Talent?
                     </Link>
                   </li>
