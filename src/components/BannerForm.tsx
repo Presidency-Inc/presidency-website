@@ -11,6 +11,8 @@ interface BannerSettings {
   title: string;
   link_name: string;
   link_url: string;
+  updated_at?: string;
+  updated_by?: string;
 }
 
 const BannerForm = () => {
@@ -26,6 +28,8 @@ const BannerForm = () => {
   useEffect(() => {
     const fetchBannerSettings = async () => {
       try {
+        // We need to explicitly cast the types to avoid TypeScript errors
+        // since the banner_settings table is not in the generated types yet
         const { data, error } = await supabase
           .from('banner_settings')
           .select('*')
@@ -42,11 +46,20 @@ const BannerForm = () => {
         }
 
         if (data) {
-          setSettings(data);
-          setFormData({
+          const bannerData: BannerSettings = {
+            id: data.id,
             title: data.title,
             link_name: data.link_name,
-            link_url: data.link_url
+            link_url: data.link_url,
+            updated_at: data.updated_at,
+            updated_by: data.updated_by
+          };
+          
+          setSettings(bannerData);
+          setFormData({
+            title: bannerData.title,
+            link_name: bannerData.link_name,
+            link_url: bannerData.link_url
           });
         }
       } catch (error) {
@@ -81,7 +94,8 @@ const BannerForm = () => {
           title: formData.title,
           link_name: formData.link_name,
           link_url: formData.link_url,
-          updated_at: new Date().toISOString()
+          updated_at: new Date().toISOString(),
+          updated_by: (await supabase.auth.getUser()).data.user?.id
         })
         .eq('id', settings.id);
 

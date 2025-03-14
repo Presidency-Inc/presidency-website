@@ -6,14 +6,18 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
 interface BannerSettings {
+  id: string;
   title: string;
   link_name: string;
   link_url: string;
+  updated_at?: string;
+  updated_by?: string;
 }
 
 const StatusBar = () => {
   const isMobile = useIsMobile();
   const [bannerSettings, setBannerSettings] = useState<BannerSettings>({
+    id: "",
     title: "Join FREE AI Solutions Webinar: Maximize Enterprise Impact - June 15-16, 2023",
     link_name: "Register Now",
     link_url: "/register"
@@ -23,6 +27,8 @@ const StatusBar = () => {
   useEffect(() => {
     const fetchBannerSettings = async () => {
       try {
+        // We need to explicitly cast the types to avoid TypeScript errors
+        // since the banner_settings table is not in the generated types yet
         const { data, error } = await supabase
           .from('banner_settings')
           .select('*')
@@ -35,9 +41,12 @@ const StatusBar = () => {
 
         if (data) {
           setBannerSettings({
+            id: data.id,
             title: data.title,
             link_name: data.link_name,
-            link_url: data.link_url
+            link_url: data.link_url,
+            updated_at: data.updated_at,
+            updated_by: data.updated_by
           });
         }
       } catch (error) {

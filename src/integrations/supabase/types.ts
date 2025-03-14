@@ -27,6 +27,33 @@ export type Database = {
         }
         Relationships: []
       }
+      banner_settings: {
+        Row: {
+          id: string
+          link_name: string
+          link_url: string
+          title: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          id?: string
+          link_name?: string
+          link_url?: string
+          title?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          id?: string
+          link_name?: string
+          link_url?: string
+          title?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
       job_applicants: {
         Row: {
           email: string
