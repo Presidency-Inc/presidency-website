@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -152,129 +151,47 @@ const BlogPage = () => {
 
   const totalPages = Math.ceil(totalCount / POSTS_PER_PAGE);
 
-  // Featured post layout for first post
-  const renderFeaturedPost = (post: Blog, index: number) => {
-    if (index === 0) {
-      return (
-        <div key={post.id} className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 items-center">
-          <div className="aspect-[16/9] overflow-hidden rounded-lg">
-            <img
-              src={post.banner_image}
-              alt={post.title}
-              className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-            />
-          </div>
-          <div className="space-y-4">
-            <div className="flex flex-wrap gap-2 mb-2">
-              {post.tags?.map(tag => (
-                <span 
-                  key={tag.id} 
-                  className="px-3 py-1 bg-gray-100 rounded-full text-sm cursor-pointer"
-                  onClick={() => handleTagSelect(tag.id)}
-                >
-                  {tag.name}
-                </span>
-              ))}
-            </div>
-            <h2 className="text-3xl font-bold">{post.title}</h2>
-            <p className="text-gray-600 line-clamp-3">{post.description}</p>
-            <div className="flex justify-between items-center">
-              <div className="text-sm text-gray-500">
-                {new Date(post.created_at).toLocaleDateString()}
-              </div>
-              <Button variant="default" asChild>
-                <Link to={`/blog/${post.slug}`} className="flex items-center gap-1">
-                  Read more
-                  <ArrowRight size={16} />
-                </Link>
-              </Button>
-            </div>
-          </div>
+  // Grid layout for all posts
+  const renderGridPost = (post: Blog) => {
+    return (
+      <Card key={post.id} className="overflow-hidden flex flex-col h-full">
+        <div className="aspect-[16/9] relative overflow-hidden">
+          <img
+            src={post.banner_image}
+            alt={post.title}
+            className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+          />
         </div>
-      );
-    }
-    return null;
-  };
-
-  // Side-by-side layout for posts 1-3
-  const renderHighlightedPosts = (post: Blog, index: number) => {
-    if (index > 0 && index < 4) {
-      return (
-        <div key={post.id} className="border-t pt-6 mb-6">
+        <CardHeader className="flex-1">
           <div className="flex flex-wrap gap-2 mb-2">
             {post.tags?.map(tag => (
               <span 
                 key={tag.id} 
-                className="px-3 py-1 bg-gray-100 rounded-full text-xs cursor-pointer"
+                className="px-2 py-1 bg-gray-100 rounded-full text-xs cursor-pointer"
                 onClick={() => handleTagSelect(tag.id)}
               >
                 {tag.name}
               </span>
             ))}
           </div>
-          <h3 className="text-2xl font-bold mb-2">{post.title}</h3>
-          <p className="text-gray-600 line-clamp-2 mb-4">{post.description}</p>
-          <div className="flex justify-between items-center">
-            <div className="text-sm text-gray-500">
-              {new Date(post.created_at).toLocaleDateString()}
-            </div>
-            <Button variant="ghost" asChild>
-              <Link to={`/blog/${post.slug}`} className="flex items-center gap-1">
-                Read more
-                <ArrowRight size={16} />
-              </Link>
-            </Button>
+          <CardTitle className="text-xl line-clamp-2">{post.title}</CardTitle>
+          <CardDescription className="line-clamp-3">
+            {post.description}
+          </CardDescription>
+        </CardHeader>
+        <CardFooter className="pt-0 flex justify-between items-center">
+          <div className="text-sm text-gray-500">
+            {new Date(post.created_at).toLocaleDateString()}
           </div>
-        </div>
-      );
-    }
-    return null;
-  };
-
-  // Grid layout for remaining posts
-  const renderGridPosts = (post: Blog, index: number) => {
-    if (index >= 4) {
-      return (
-        <Card key={post.id} className="overflow-hidden flex flex-col h-full">
-          <div className="aspect-[16/9] relative overflow-hidden">
-            <img
-              src={post.banner_image}
-              alt={post.title}
-              className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-            />
-          </div>
-          <CardHeader className="flex-1">
-            <div className="flex flex-wrap gap-2 mb-2">
-              {post.tags?.map(tag => (
-                <span 
-                  key={tag.id} 
-                  className="px-2 py-1 bg-gray-100 rounded-full text-xs cursor-pointer"
-                  onClick={() => handleTagSelect(tag.id)}
-                >
-                  {tag.name}
-                </span>
-              ))}
-            </div>
-            <CardTitle className="text-xl line-clamp-2">{post.title}</CardTitle>
-            <CardDescription className="line-clamp-3">
-              {post.description}
-            </CardDescription>
-          </CardHeader>
-          <CardFooter className="pt-0 flex justify-between items-center">
-            <div className="text-sm text-gray-500">
-              {new Date(post.created_at).toLocaleDateString()}
-            </div>
-            <Button variant="ghost" asChild>
-              <Link to={`/blog/${post.slug}`} className="flex items-center gap-1">
-                Read more
-                <ArrowRight size={16} />
-              </Link>
-            </Button>
-          </CardFooter>
-        </Card>
-      );
-    }
-    return null;
+          <Button variant="ghost" asChild>
+            <Link to={`/blog/${post.slug}`} className="flex items-center gap-1">
+              Read more
+              <ArrowRight size={16} />
+            </Link>
+          </Button>
+        </CardFooter>
+      </Card>
+    );
   };
 
   return (
@@ -286,7 +203,7 @@ const BlogPage = () => {
       <main className="flex-grow bg-gray-50 py-16 mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">Turing Blog</h1>
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">Stories</h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Stories and insights on AI adoption, industry shifts, and real-world impact.
             </p>
@@ -336,28 +253,9 @@ const BlogPage = () => {
               <div className="w-12 h-12 border-t-4 border-b-4 border-blue-500 rounded-full animate-spin"></div>
             </div>
           ) : posts.length > 0 ? (
-            <>
-              {/* Featured Layout for First 4 Posts */}
-              <div className="mb-16">
-                {/* Main featured post */}
-                {posts.map((post, index) => renderFeaturedPost(post, index))}
-                
-                {/* Side-by-side layout for posts 1-3 */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  {posts.map((post, index) => renderHighlightedPosts(post, index))}
-                </div>
-              </div>
-              
-              {/* All Blog Posts section with grid */}
-              {posts.length > 4 && (
-                <>
-                  <h2 className="text-2xl font-bold mb-8">All blog posts</h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {posts.map((post, index) => renderGridPosts(post, index))}
-                  </div>
-                </>
-              )}
-            </>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {posts.map(post => renderGridPost(post))}
+            </div>
           ) : (
             <div className="text-center py-20">
               <h3 className="text-2xl font-semibold text-gray-800 mb-2">No blog posts found</h3>
