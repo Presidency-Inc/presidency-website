@@ -28,7 +28,7 @@ const Talent = () => {
       link.rel = "preload";
       link.as = "image";
       link.href = imageUrl;
-      link.fetchpriority = "high";
+      link.fetchPriority = "high";
       document.head.appendChild(link);
     };
     
