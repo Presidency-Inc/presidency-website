@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Users, ArrowRight } from "lucide-react";
@@ -56,9 +55,6 @@ const TalentCTA = () => {
               <Button size="lg" className="bg-white text-blue-900 hover:bg-gray-100">
                 Schedule a Consultation
                 <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10">
-                Learn About Our Process
               </Button>
             </div>
           </motion.div>
