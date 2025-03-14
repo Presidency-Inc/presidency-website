@@ -8,6 +8,8 @@ import { Label } from "@/components/ui/label";
 import { toast } from "@/components/ui/use-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import StatusBar from "@/components/StatusBar";
+import ScrollProgress from "@/components/ScrollProgress";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -54,7 +56,9 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <StatusBar />
       <Navbar />
+      <ScrollProgress />
       <main className="flex-grow flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
