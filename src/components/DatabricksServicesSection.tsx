@@ -70,7 +70,7 @@ const DatabricksServicesSection = () => {
               className="bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90"
               asChild
             >
-              <Link to="/services/databricks">See Databricks Solutions</Link>
+              <Link to="/services/databricks#top">See Databricks Solutions</Link>
             </Button>
           </motion.div>
         </div>
