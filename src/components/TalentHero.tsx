@@ -8,7 +8,7 @@ const TalentHero = () => {
   // Preload the background image
   useEffect(() => {
     const heroImage = new Image();
-    heroImage.src = "/public/lovable-uploads/aeec63a9-b351-48eb-9182-6c8e04b32c08.png";
+    heroImage.src = "/lovable-uploads/aeec63a9-b351-48eb-9182-6c8e04b32c08.png";
     
     // Optional: Add loading metadata to help with performance
     heroImage.loading = "eager";
@@ -20,7 +20,7 @@ const TalentHero = () => {
       {/* Background Image with caching attributes */}
       <div className="absolute inset-0 z-0">
         <img 
-          src="/public/lovable-uploads/aeec63a9-b351-48eb-9182-6c8e04b32c08.png" 
+          src="/lovable-uploads/aeec63a9-b351-48eb-9182-6c8e04b32c08.png" 
           alt="Abstract digital art with blue and purple hues" 
           className="w-full h-full object-cover"
           loading="eager"
