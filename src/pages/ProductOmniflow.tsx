@@ -11,6 +11,7 @@ import EnterpriseIntegrationsSection from "@/components/EnterpriseIntegrationsSe
 import AnySourceTargetSection from "@/components/AnySourceTargetSection";
 import OmniLangSection from "@/components/OmniLangSection";
 import OmniflowCTA from "@/components/OmniflowCTA";
+import OmniflowFeaturesSelector from "@/components/OmniflowFeaturesSelector";
 import { useEffect } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -36,6 +37,7 @@ const ProductOmniflow = () => {
       <Navbar />
       <ScrollProgress />
       <Hero />
+      <OmniflowFeaturesSelector />
       <OmniflowFeatures />
       <div id="enterprise-etl" className="mobile-section">
         <EnterpriseETLSection />
