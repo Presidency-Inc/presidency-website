@@ -5,17 +5,17 @@ import { motion } from "framer-motion";
 
 const Kube8rCTA = () => {
   return (
-    <section className="py-24 bg-gradient-to-br from-blue-50 to-teal-50 overflow-hidden">
+    <section className="py-24 bg-gradient-to-br from-indigo-50 to-blue-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative z-10">
           {/* Decorative elements */}
-          <div className="absolute -top-20 -right-20 w-64 h-64 bg-teal-100 rounded-full opacity-50 blur-3xl"></div>
-          <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-blue-100 rounded-full opacity-50 blur-3xl"></div>
+          <div className="absolute -top-20 -right-20 w-64 h-64 bg-blue-100 rounded-full opacity-50 blur-3xl"></div>
+          <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-indigo-100 rounded-full opacity-50 blur-3xl"></div>
           
           <div className="relative bg-white rounded-3xl shadow-xl overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-2">
               {/* Left content - Image/Graphics */}
-              <div className="bg-gradient-to-br from-blue-500 to-teal-600 p-12 lg:p-16 flex items-center justify-center">
+              <div className="bg-gradient-to-br from-indigo-500 to-blue-600 p-12 lg:p-16 flex items-center justify-center">
                 <motion.div 
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -49,7 +49,7 @@ const Kube8rCTA = () => {
                   className="space-y-6"
                 >
                   <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900 leading-tight">
-                    Ready to Transform Your <span className="bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent">Legacy Systems?</span>
+                    Ready to Transform Your <span className="bg-gradient-to-r from-indigo-400 to-blue-400 bg-clip-text text-transparent">Legacy Systems?</span>
                   </h2>
                   
                   <p className="text-lg text-gray-600">
@@ -58,7 +58,7 @@ const Kube8rCTA = () => {
                   
                   <div className="flex flex-col sm:flex-row gap-4 pt-4">
                     <Button 
-                      className="bg-[#0ea5e9] text-white hover:bg-[#0ea5e9]/90 shadow-lg"
+                      className="bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90 shadow-lg"
                       size="lg"
                     >
                       Contact Sales
@@ -70,7 +70,7 @@ const Kube8rCTA = () => {
                     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                       <div className="flex -space-x-2">
                         {[1, 2, 3, 4].map((i) => (
-                          <div key={i} className={`w-10 h-10 rounded-full border-2 border-white bg-teal-${i*100} flex items-center justify-center text-white text-xs font-bold`}>
+                          <div key={i} className={`w-10 h-10 rounded-full border-2 border-white bg-blue-${i*100} flex items-center justify-center text-white text-xs font-bold`}>
                             {['JD', 'SL', 'AM', 'TP'][i-1]}
                           </div>
                         ))}

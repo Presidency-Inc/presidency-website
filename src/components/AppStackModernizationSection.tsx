@@ -14,7 +14,7 @@ const AppStackModernizationSection = () => {
             viewport={{ once: true }}
           >
             <div className="relative">
-              <div className="absolute -top-6 -right-6 w-64 h-64 bg-teal-100 rounded-full opacity-20 blur-3xl"></div>
+              <div className="absolute -top-6 -right-6 w-64 h-64 bg-blue-100 rounded-full opacity-20 blur-3xl"></div>
               <div className="relative bg-white p-6 rounded-2xl shadow-xl overflow-hidden border border-gray-100">
                 <h3 className="text-xl font-bold mb-4 text-gray-900">How it Works</h3>
                 
@@ -30,11 +30,11 @@ const AppStackModernizationSection = () => {
                   <div className="flex flex-col items-center p-3 rounded-lg bg-blue-50">
                     <span className="text-sm font-medium text-center text-blue-700">Discover</span>
                   </div>
-                  <div className="flex flex-col items-center p-3 rounded-lg bg-teal-50">
-                    <span className="text-sm font-medium text-center text-teal-700">Migrate</span>
+                  <div className="flex flex-col items-center p-3 rounded-lg bg-indigo-50">
+                    <span className="text-sm font-medium text-center text-indigo-700">Migrate</span>
                   </div>
-                  <div className="flex flex-col items-center p-3 rounded-lg bg-cyan-50">
-                    <span className="text-sm font-medium text-center text-cyan-700">Operationalize</span>
+                  <div className="flex flex-col items-center p-3 rounded-lg bg-blue-50">
+                    <span className="text-sm font-medium text-center text-blue-700">Operationalize</span>
                   </div>
                 </div>
               </div>
@@ -48,7 +48,7 @@ const AppStackModernizationSection = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900 mb-6">
-              App-Stack <span className="text-teal-500">Modernization</span>
+              App-Stack <span className="text-blue-500">Modernization</span>
             </h2>
             
             <p className="text-lg text-gray-600 mb-8">
@@ -57,7 +57,7 @@ const AppStackModernizationSection = () => {
             
             <ul className="space-y-4">
               <li className="flex items-start">
-                <div className="flex-shrink-0 w-8 h-8 bg-teal-100 rounded-full flex items-center justify-center text-teal-600 mr-3">
+                <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mr-3">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                     <path d="M13.3334 4L6.00008 11.3333L2.66675 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
@@ -68,7 +68,7 @@ const AppStackModernizationSection = () => {
                 </div>
               </li>
               <li className="flex items-start">
-                <div className="flex-shrink-0 w-8 h-8 bg-teal-100 rounded-full flex items-center justify-center text-teal-600 mr-3">
+                <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mr-3">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                     <path d="M13.3334 4L6.00008 11.3333L2.66675 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
@@ -79,7 +79,7 @@ const AppStackModernizationSection = () => {
                 </div>
               </li>
               <li className="flex items-start">
-                <div className="flex-shrink-0 w-8 h-8 bg-teal-100 rounded-full flex items-center justify-center text-teal-600 mr-3">
+                <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mr-3">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                     <path d="M13.3334 4L6.00008 11.3333L2.66675 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
@@ -90,7 +90,7 @@ const AppStackModernizationSection = () => {
                 </div>
               </li>
               <li className="flex items-start">
-                <div className="flex-shrink-0 w-8 h-8 bg-teal-100 rounded-full flex items-center justify-center text-teal-600 mr-3">
+                <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mr-3">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                     <path d="M13.3334 4L6.00008 11.3333L2.66675 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
