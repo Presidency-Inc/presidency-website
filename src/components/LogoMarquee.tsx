@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useLocation } from "react-router-dom";
 
 const customerLogos = [
   { name: "US Air Force", logo: "/lovable-uploads/c624067b-e118-4415-88dd-6d6b53f8142e.png" },
@@ -17,17 +18,26 @@ const customerLogos = [
 ];
 
 const LogoMarquee = () => {
-  const [isSticky, setIsSticky] = useState(true);
+  const [isSticky, setIsSticky] = useState(false);
   const isMobile = useIsMobile();
+  const location = useLocation();
+  
+  // Only enable sticky behavior on the homepage
+  const enableSticky = location.pathname === "/" || location.pathname === "";
 
   useEffect(() => {
+    if (!enableSticky) return;
+    
     const handleScroll = () => {
       setIsSticky(window.scrollY === 0);
     };
 
+    // Initial state
+    setIsSticky(window.scrollY === 0);
+    
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [enableSticky]);
 
   const logoWidth = 180; // Reduced from 220
   const logoPadding = 5; // Reduced from 10
@@ -38,7 +48,7 @@ const LogoMarquee = () => {
   return (
     <div 
       className={`w-full bg-black h-16 z-30 ${
-        isSticky ? "fixed bottom-0 left-0" : ""
+        enableSticky && isSticky ? "fixed bottom-0 left-0" : ""
       }`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-full">
