@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -12,10 +11,12 @@ import { ArrowLeft } from "lucide-react";
 import { marked } from "marked";
 import { Blog, Tag } from "@/components/BlogForm";
 
-// Configure marked for proper rendering
+// Configure marked for proper rendering of headings and line breaks
 marked.setOptions({
-  breaks: true,
-  gfm: true,
+  breaks: true,     // Enable line breaks
+  gfm: true,        // Enable GitHub Flavored Markdown
+  mangle: false,    // Don't escape HTML
+  headerIds: false  // Don't add IDs to headers
 });
 
 const BlogPostPage = () => {

@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -5,10 +6,12 @@ import { marked } from "marked";
 import { ArrowLeft } from "lucide-react";
 import { Blog, Tag } from "./BlogForm";
 
-// Configure marked for proper rendering
+// Configure marked for proper rendering of headings and line breaks
 marked.setOptions({
-  breaks: true,
-  gfm: true,
+  breaks: true,     // Enable line breaks
+  gfm: true,        // Enable GitHub Flavored Markdown
+  mangle: false,    // Don't escape HTML
+  headerIds: false  // Don't add IDs to headers
 });
 
 interface BlogDetailProps {
@@ -145,4 +148,3 @@ const BlogDetail = ({ blogId, onBack }: BlogDetailProps) => {
 };
 
 export default BlogDetail;
-

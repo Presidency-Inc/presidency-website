@@ -69,6 +69,8 @@ const BlogForm = ({ initialData, onSuccess, onCancel }: BlogFormProps) => {
     marked.setOptions({
       breaks: true,
       gfm: true,
+      mangle: false,
+      headerIds: false
     });
 
     const rendered = marked.parse(content || "");
