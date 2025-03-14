@@ -159,6 +159,33 @@ const Navbar = () => {
     }, 100);
   };
 
+  const handleNavigateToAISection = (sectionId: string) => {
+    navigate('/services/ai');
+    setProductsOpen(false);
+    setServicesOpen(false);
+    setMobileMenuOpen(false);
+    setMobileSubmenuOpen(null);
+    
+    setTimeout(() => {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  };
+
+  const handleNavigateToAITop = () => {
+    navigate('/services/ai');
+    setProductsOpen(false);
+    setServicesOpen(false);
+    setMobileMenuOpen(false);
+    setMobileSubmenuOpen(null);
+    
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 100);
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (navRef.current && !navRef.current.contains(event.target as Node)) {
@@ -336,7 +363,7 @@ const Navbar = () => {
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Our Services</h3>
                 <ul className="space-y-4">
                   <li>
-                    <Link to="/services/ai" className="flex items-start group">
+                    <Link to="/services/ai" className="flex items-start group" onClick={handleNavigateToAITop}>
                       <div>
                         <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Artificial Intelligence</h4>
                         <p className="text-sm text-gray-600">Enhanced efficiency for your business</p>
@@ -377,11 +404,11 @@ const Navbar = () => {
               <div className="col-span-1">
                 <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">AI</h3>
                 <ul className="space-y-3">
-                  <li><Link to="/services/ai#full-stack-ai-engineering" className="text-gray-600 hover:text-blue-600">Full Stack AI Engineering</Link></li>
-                  <li><Link to="/services/ai#custom-rag-development" className="text-gray-600 hover:text-blue-600">Custom RAG Development</Link></li>
-                  <li><Link to="/services/ai#agent-development" className="text-gray-600 hover:text-blue-600">Agent Development</Link></li>
-                  <li><Link to="/services/ai#voice-ai-development" className="text-gray-600 hover:text-blue-600">Voice AI Development</Link></li>
-                  <li><Link to="/services/ai#model-finetuning" className="text-gray-600 hover:text-blue-600">Business Focused Model Finetuning</Link></li>
+                  <li><button onClick={() => handleNavigateToAISection('full-stack-ai-engineering')} className="text-gray-600 hover:text-blue-600 text-left">Full Stack AI Engineering</button></li>
+                  <li><button onClick={() => handleNavigateToAISection('custom-rag-development')} className="text-gray-600 hover:text-blue-600 text-left">Custom RAG Development</button></li>
+                  <li><button onClick={() => handleNavigateToAISection('agent-development')} className="text-gray-600 hover:text-blue-600 text-left">Agent Development</button></li>
+                  <li><button onClick={() => handleNavigateToAISection('voice-ai-development')} className="text-gray-600 hover:text-blue-600 text-left">Voice AI Development</button></li>
+                  <li><button onClick={() => handleNavigateToAISection('model-finetuning')} className="text-gray-600 hover:text-blue-600 text-left">Business Focused Model Finetuning</button></li>
                 </ul>
               </div>
 
@@ -632,10 +659,7 @@ const Navbar = () => {
                   <h3 className="font-bold text-gray-900 mb-3">Our Services</h3>
                   <ul className="space-y-3">
                     <li>
-                      <Link to="/services/ai" className="block py-2" onClick={() => {
-                        setMobileMenuOpen(false);
-                        setMobileSubmenuOpen(null);
-                      }}>
+                      <Link to="/services/ai" className="block py-2" onClick={handleNavigateToAITop}>
                         <span className="font-medium text-gray-900">Artificial Intelligence</span>
                         <p className="text-sm text-gray-600">Enhanced efficiency for your business</p>
                       </Link>
@@ -669,26 +693,11 @@ const Navbar = () => {
                   
                   <h3 className="font-bold text-gray-900 mt-6 mb-3">AI</h3>
                   <ul className="space-y-3">
-                    <li><Link to="/services/ai#full-stack-ai-engineering" className="block py-2 text-gray-900" onClick={() => {
-                      setMobileMenuOpen(false);
-                      setMobileSubmenuOpen(null);
-                    }}>Full Stack AI Engineering</Link></li>
-                    <li><Link to="/services/ai#custom-rag-development" className="block py-2 text-gray-900" onClick={() => {
-                      setMobileMenuOpen(false);
-                      setMobileSubmenuOpen(null);
-                    }}>Custom RAG Development</Link></li>
-                    <li><Link to="/services/ai#agent-development" className="block py-2 text-gray-900" onClick={() => {
-                      setMobileMenuOpen(false);
-                      setMobileSubmenuOpen(null);
-                    }}>Agent Development</Link></li>
-                    <li><Link to="/services/ai#voice-ai-development" className="block py-2 text-gray-900" onClick={() => {
-                      setMobileMenuOpen(false);
-                      setMobileSubmenuOpen(null);
-                    }}>Voice AI Development</Link></li>
-                    <li><Link to="/services/ai#model-finetuning" className="block py-2 text-gray-900" onClick={() => {
-                      setMobileMenuOpen(false);
-                      setMobileSubmenuOpen(null);
-                    }}>Business Focused Model Finetuning</Link></li>
+                    <li><button onClick={() => handleNavigateToAISection('full-stack-ai-engineering')} className="block py-2 text-gray-900 text-left w-full">Full Stack AI Engineering</button></li>
+                    <li><button onClick={() => handleNavigateToAISection('custom-rag-development')} className="block py-2 text-gray-900 text-left w-full">Custom RAG Development</button></li>
+                    <li><button onClick={() => handleNavigateToAISection('agent-development')} className="block py-2 text-gray-900 text-left w-full">Agent Development</button></li>
+                    <li><button onClick={() => handleNavigateToAISection('voice-ai-development')} className="block py-2 text-gray-900 text-left w-full">Voice AI Development</button></li>
+                    <li><button onClick={() => handleNavigateToAISection('model-finetuning')} className="block py-2 text-gray-900 text-left w-full">Business Focused Model Finetuning</button></li>
                   </ul>
                   
                   <h3 className="font-bold text-gray-900 mt-6 mb-3">Data</h3>
@@ -697,8 +706,8 @@ const Navbar = () => {
                     <li><button onClick={() => handleNavigateToDataSection('pipeline-development')} className="block py-2 text-gray-900 text-left w-full">Pipeline Development</button></li>
                     <li><button onClick={() => handleNavigateToDataSection('data-infrastructure')} className="block py-2 text-gray-900 text-left w-full">Data Infrastructure Setup</button></li>
                     <li><Link to="/services/databricks" className="block py-2 text-gray-900" onClick={() => {
-                        setMobileMenuOpen(false);
-                        setMobileSubmenuOpen(null);
+                      setMobileMenuOpen(false);
+                      setMobileSubmenuOpen(null);
                     }}>Databricks Services</Link></li>
                   </ul>
                   

@@ -30,6 +30,11 @@ const ServicesAI = () => {
     };
   }, [isMobile]);
   
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
   return (
     <main className="min-h-screen bg-white">
       <StatusBar />
