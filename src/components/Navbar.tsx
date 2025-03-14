@@ -19,6 +19,7 @@ const Navbar = () => {
   const isServicesActive = location.pathname.startsWith('/services/') && location.pathname !== '/services/databricks';
   const isDatabricksActive = location.pathname === '/services/databricks';
   const isTalentActive = location.pathname.startsWith('/talent');
+  const isCareersActive = location.pathname === '/careers';
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -268,7 +269,16 @@ const Navbar = () => {
             >
               Need Talent?
             </Link>
-            <a href="#careers" className="text-gray-700 hover:text-gray-900 transition-colors">Careers</a>
+            <Link 
+              to="/careers" 
+              className={`transition-colors ${
+                isCareersActive 
+                  ? "text-gray-900 font-medium bg-gray-100 px-3 py-1 rounded-md" 
+                  : "text-gray-700 hover:text-gray-900"
+              }`}
+            >
+              Careers
+            </Link>
           </div>
           
           <div className="flex items-center">
@@ -503,9 +513,12 @@ const Navbar = () => {
                     </Link>
                   </li>
                   <li>
-                    <a href="#careers" className="block py-4 text-gray-900 font-medium">
+                    <Link 
+                      to="/careers" 
+                      className={`block py-4 ${isCareersActive ? "text-blue-600" : "text-gray-900"} font-medium`}
+                    >
                       Careers
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
