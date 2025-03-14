@@ -47,7 +47,7 @@ const TalentFeatures = () => {
             viewport={{ once: true }}
             className="text-3xl font-bold text-gray-900"
           >
-            Why Choose Our Engineers
+            Get an Extended Engineering Team
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
