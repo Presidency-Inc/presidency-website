@@ -1,7 +1,7 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Mail, MessageSquare } from "lucide-react";
+import { MessageSquare } from "lucide-react";
 
 const DatabricksCTA = () => {
   return (
@@ -64,15 +64,6 @@ const DatabricksCTA = () => {
                     >
                       Schedule a Consultation
                       <MessageSquare className="ml-2 h-5 w-5" />
-                    </Button>
-                    
-                    <Button 
-                      variant="outline"
-                      className="border-[#1a46e5] text-[#1a46e5] hover:bg-[#1a46e5] hover:text-white transition-all"
-                      size="lg"
-                    >
-                      Learn About Our Accelerators
-                      <Mail className="ml-2 h-5 w-5" />
                     </Button>
                   </div>
                   

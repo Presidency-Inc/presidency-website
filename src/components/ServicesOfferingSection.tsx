@@ -1,6 +1,6 @@
 
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle } from "lucide-react";
+import { ArrowRight, CheckCircle, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const services = [
@@ -85,8 +85,8 @@ const ServicesOfferingSection = () => {
               </div>
               <div className="mt-auto p-6 pt-0">
                 <Button variant="outline" className="w-full justify-between border-blue-500 text-blue-600 hover:bg-blue-50">
-                  Learn More
-                  <ArrowRight className="h-4 w-4" />
+                  Book a call
+                  <Phone className="h-4 w-4" />
                 </Button>
               </div>
             </motion.div>

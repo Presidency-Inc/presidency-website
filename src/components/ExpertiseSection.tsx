@@ -86,33 +86,6 @@ const ExpertiseSection = () => {
             </p>
           </motion.div>
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="mt-16 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-2xl p-8 md:p-12"
-        >
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="text-4xl font-bold text-purple-600">100+</div>
-              <div className="text-gray-700 mt-2">Databricks Projects</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-purple-600">50+</div>
-              <div className="text-gray-700 mt-2">Certified Experts</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-purple-600">3-5x</div>
-              <div className="text-gray-700 mt-2">Performance Boost</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-purple-600">40%</div>
-              <div className="text-gray-700 mt-2">Cost Reduction</div>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
