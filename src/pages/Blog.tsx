@@ -8,6 +8,7 @@ import StatusBar from "@/components/StatusBar";
 import ScrollProgress from "@/components/ScrollProgress";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { 
   Pagination, 
   PaginationContent, 
@@ -16,7 +17,7 @@ import {
   PaginationNext, 
   PaginationPrevious 
 } from "@/components/ui/pagination";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Search } from "lucide-react";
 import { Blog, Tag } from "@/components/BlogForm";
 
 const POSTS_PER_PAGE = 9;
@@ -28,6 +29,7 @@ const BlogPage = () => {
   const [totalCount, setTotalCount] = useState(0);
   const [allTags, setAllTags] = useState<Tag[]>([]);
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const fetchPosts = async () => {
     setLoading(true);
@@ -53,6 +55,11 @@ const BlogPage = () => {
           setLoading(false);
           return;
         }
+      }
+      
+      // Add search filter if search query exists
+      if (searchQuery) {
+        query = query.or(`title.ilike.%${searchQuery}%,description.ilike.%${searchQuery}%`);
       }
       
       // Get count for pagination
@@ -131,14 +138,144 @@ const BlogPage = () => {
 
   useEffect(() => {
     fetchPosts();
-  }, [currentPage, selectedTag]);
+  }, [currentPage, selectedTag, searchQuery]);
 
   const handleTagSelect = (tagId: string | null) => {
     setSelectedTag(tagId);
     setCurrentPage(1); // Reset to first page when changing tag
   };
 
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    setCurrentPage(1); // Reset to first page when searching
+  };
+
   const totalPages = Math.ceil(totalCount / POSTS_PER_PAGE);
+
+  // Featured post layout for first post
+  const renderFeaturedPost = (post: Blog, index: number) => {
+    if (index === 0) {
+      return (
+        <div key={post.id} className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 items-center">
+          <div className="aspect-[16/9] overflow-hidden rounded-lg">
+            <img
+              src={post.banner_image}
+              alt={post.title}
+              className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+            />
+          </div>
+          <div className="space-y-4">
+            <div className="flex flex-wrap gap-2 mb-2">
+              {post.tags?.map(tag => (
+                <span 
+                  key={tag.id} 
+                  className="px-3 py-1 bg-gray-100 rounded-full text-sm cursor-pointer"
+                  onClick={() => handleTagSelect(tag.id)}
+                >
+                  {tag.name}
+                </span>
+              ))}
+            </div>
+            <h2 className="text-3xl font-bold">{post.title}</h2>
+            <p className="text-gray-600 line-clamp-3">{post.description}</p>
+            <div className="flex justify-between items-center">
+              <div className="text-sm text-gray-500">
+                {new Date(post.created_at).toLocaleDateString()}
+              </div>
+              <Button variant="default" asChild>
+                <Link to={`/blog/${post.slug}`} className="flex items-center gap-1">
+                  Read more
+                  <ArrowRight size={16} />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    return null;
+  };
+
+  // Side-by-side layout for posts 1-3
+  const renderHighlightedPosts = (post: Blog, index: number) => {
+    if (index > 0 && index < 4) {
+      return (
+        <div key={post.id} className="border-t pt-6 mb-6">
+          <div className="flex flex-wrap gap-2 mb-2">
+            {post.tags?.map(tag => (
+              <span 
+                key={tag.id} 
+                className="px-3 py-1 bg-gray-100 rounded-full text-xs cursor-pointer"
+                onClick={() => handleTagSelect(tag.id)}
+              >
+                {tag.name}
+              </span>
+            ))}
+          </div>
+          <h3 className="text-2xl font-bold mb-2">{post.title}</h3>
+          <p className="text-gray-600 line-clamp-2 mb-4">{post.description}</p>
+          <div className="flex justify-between items-center">
+            <div className="text-sm text-gray-500">
+              {new Date(post.created_at).toLocaleDateString()}
+            </div>
+            <Button variant="ghost" asChild>
+              <Link to={`/blog/${post.slug}`} className="flex items-center gap-1">
+                Read more
+                <ArrowRight size={16} />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      );
+    }
+    return null;
+  };
+
+  // Grid layout for remaining posts
+  const renderGridPosts = (post: Blog, index: number) => {
+    if (index >= 4) {
+      return (
+        <Card key={post.id} className="overflow-hidden flex flex-col h-full">
+          <div className="aspect-[16/9] relative overflow-hidden">
+            <img
+              src={post.banner_image}
+              alt={post.title}
+              className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+            />
+          </div>
+          <CardHeader className="flex-1">
+            <div className="flex flex-wrap gap-2 mb-2">
+              {post.tags?.map(tag => (
+                <span 
+                  key={tag.id} 
+                  className="px-2 py-1 bg-gray-100 rounded-full text-xs cursor-pointer"
+                  onClick={() => handleTagSelect(tag.id)}
+                >
+                  {tag.name}
+                </span>
+              ))}
+            </div>
+            <CardTitle className="text-xl line-clamp-2">{post.title}</CardTitle>
+            <CardDescription className="line-clamp-3">
+              {post.description}
+            </CardDescription>
+          </CardHeader>
+          <CardFooter className="pt-0 flex justify-between items-center">
+            <div className="text-sm text-gray-500">
+              {new Date(post.created_at).toLocaleDateString()}
+            </div>
+            <Button variant="ghost" asChild>
+              <Link to={`/blog/${post.slug}`} className="flex items-center gap-1">
+                Read more
+                <ArrowRight size={16} />
+              </Link>
+            </Button>
+          </CardFooter>
+        </Card>
+      );
+    }
+    return null;
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -149,11 +286,28 @@ const BlogPage = () => {
       <main className="flex-grow bg-gray-50 py-16 mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">Our Blog</h1>
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">Turing Blog</h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Insights, news, and perspectives from our team
+              Stories and insights on AI adoption, industry shifts, and real-world impact.
             </p>
           </div>
+          
+          {/* Search Bar */}
+          <form onSubmit={handleSearch} className="mb-12">
+            <div className="flex gap-2 max-w-3xl mx-auto">
+              <div className="relative flex-grow">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+                <Input
+                  type="text"
+                  placeholder="Search blog..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10 w-full"
+                />
+              </div>
+              <Button type="submit">Search</Button>
+            </div>
+          </form>
           
           {allTags.length > 0 && (
             <div className="mb-8 flex justify-center flex-wrap gap-2">
@@ -182,59 +336,45 @@ const BlogPage = () => {
               <div className="w-12 h-12 border-t-4 border-b-4 border-blue-500 rounded-full animate-spin"></div>
             </div>
           ) : posts.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {posts.map((post) => (
-                <Card key={post.id} className="overflow-hidden flex flex-col h-full">
-                  <div className="aspect-[4/3] relative overflow-hidden">
-                    <img
-                      src={post.banner_image}
-                      alt={post.title}
-                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                    />
+            <>
+              {/* Featured Layout for First 4 Posts */}
+              <div className="mb-16">
+                {/* Main featured post */}
+                {posts.map((post, index) => renderFeaturedPost(post, index))}
+                
+                {/* Side-by-side layout for posts 1-3 */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  {posts.map((post, index) => renderHighlightedPosts(post, index))}
+                </div>
+              </div>
+              
+              {/* All Blog Posts section with grid */}
+              {posts.length > 4 && (
+                <>
+                  <h2 className="text-2xl font-bold mb-8">All blog posts</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {posts.map((post, index) => renderGridPosts(post, index))}
                   </div>
-                  <CardHeader className="flex-1">
-                    <div className="flex flex-wrap gap-2 mb-2">
-                      {post.tags?.map(tag => (
-                        <span 
-                          key={tag.id} 
-                          className="px-2 py-1 bg-gray-100 rounded-full text-xs"
-                          onClick={() => handleTagSelect(tag.id)}
-                        >
-                          {tag.name}
-                        </span>
-                      ))}
-                    </div>
-                    <CardTitle className="text-xl line-clamp-2">{post.title}</CardTitle>
-                    <CardDescription className="line-clamp-3">
-                      {post.description}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardFooter className="pt-0 flex justify-between items-center">
-                    <div className="text-sm text-gray-500">
-                      {new Date(post.created_at).toLocaleDateString()}
-                    </div>
-                    <Button variant="ghost" asChild>
-                      <Link to={`/blog/${post.slug}`} className="flex items-center gap-1">
-                        Read more
-                        <ArrowRight size={16} />
-                      </Link>
-                    </Button>
-                  </CardFooter>
-                </Card>
-              ))}
-            </div>
+                </>
+              )}
+            </>
           ) : (
             <div className="text-center py-20">
               <h3 className="text-2xl font-semibold text-gray-800 mb-2">No blog posts found</h3>
               <p className="text-gray-600">
-                {selectedTag 
-                  ? "There are no posts with the selected tag." 
-                  : "Check back soon for our latest updates."}
+                {searchQuery 
+                  ? "No posts match your search query." 
+                  : selectedTag 
+                    ? "There are no posts with the selected tag." 
+                    : "Check back soon for our latest updates."}
               </p>
-              {selectedTag && (
+              {(selectedTag || searchQuery) && (
                 <Button 
                   variant="outline" 
-                  onClick={() => handleTagSelect(null)} 
+                  onClick={() => {
+                    setSelectedTag(null);
+                    setSearchQuery('');
+                  }} 
                   className="mt-4"
                 >
                   View all posts
