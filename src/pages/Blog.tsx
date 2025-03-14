@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -200,7 +201,7 @@ const BlogPage = () => {
       <Navbar />
       <ScrollProgress />
       
-      <main className="flex-grow bg-gray-50 py-16 mt-24">
+      <main className="flex-grow bg-gradient-to-br from-blue-50 to-indigo-50 py-16 mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">Stories</h1>
@@ -222,7 +223,7 @@ const BlogPage = () => {
                   className="pl-10 w-full"
                 />
               </div>
-              <Button type="submit">Search</Button>
+              <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white">Search</Button>
             </div>
           </form>
           
@@ -231,7 +232,7 @@ const BlogPage = () => {
               <Button
                 variant={selectedTag === null ? "default" : "outline"}
                 onClick={() => handleTagSelect(null)}
-                className="rounded-full"
+                className="rounded-full bg-blue-600 hover:bg-blue-700 text-white"
               >
                 All Posts
               </Button>
@@ -240,7 +241,7 @@ const BlogPage = () => {
                   key={tag.id}
                   variant={selectedTag === tag.id ? "default" : "outline"}
                   onClick={() => handleTagSelect(tag.id)}
-                  className="rounded-full"
+                  className={`rounded-full ${selectedTag === tag.id ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'hover:bg-blue-100'}`}
                 >
                   {tag.name}
                 </Button>
@@ -297,7 +298,7 @@ const BlogPage = () => {
                       <PaginationLink
                         isActive={currentPage === page}
                         onClick={() => setCurrentPage(page)}
-                        className="cursor-pointer"
+                        className={`cursor-pointer ${currentPage === page ? 'bg-blue-600 text-white' : ''}`}
                       >
                         {page}
                       </PaginationLink>

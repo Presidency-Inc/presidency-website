@@ -156,7 +156,7 @@ const BlogDetail = ({ blogId, onBack }: BlogDetailProps) => {
 
         <div className="flex flex-wrap gap-2 my-4">
           {blog?.tags?.map((tag) => (
-            <span key={tag.id} className="px-3 py-1 rounded-full bg-gray-100 text-sm">
+            <span key={tag.id} className="px-3 py-1 rounded-full bg-blue-100 text-sm">
               {tag.name}
             </span>
           ))}

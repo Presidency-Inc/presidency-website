@@ -170,7 +170,7 @@ const BlogPostPage = () => {
         <main className="flex-grow flex items-center justify-center mt-24">
           <div className="text-center">
             <h2 className="text-2xl font-bold mb-4">Blog post not found</h2>
-            <Button asChild>
+            <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white">
               <Link to="/blog">Back to Blog</Link>
             </Button>
           </div>
@@ -197,7 +197,7 @@ const BlogPostPage = () => {
       <Navbar />
       <ScrollProgress />
       
-      <main className="flex-grow bg-white py-16 mt-24">
+      <main className="flex-grow bg-gradient-to-br from-white to-blue-50 py-16 mt-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
             <Button variant="outline" asChild>
@@ -240,7 +240,7 @@ const BlogPostPage = () => {
                   <Link 
                     key={tag.id}
                     to={`/blog?tag=${tag.id}`} 
-                    className="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-sm transition"
+                    className="px-3 py-1 bg-blue-100 hover:bg-blue-200 rounded-full text-sm transition"
                   >
                     {tag.name}
                   </Link>
