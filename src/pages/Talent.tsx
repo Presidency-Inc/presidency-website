@@ -10,6 +10,7 @@ import TalentFeatures from "@/components/TalentFeatures";
 import TalentCTA from "@/components/TalentCTA";
 import HiringProcessSection from "@/components/HiringProcessSection";
 import EngineerTypesSection from "@/components/EngineerTypesSection";
+import NearshoreAdvantageSection from "@/components/NearshoreAdvantageSection";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const Talent = () => {
@@ -45,6 +46,9 @@ const Talent = () => {
       </div>
       <div id="hiring-process" className="mobile-section">
         <HiringProcessSection />
+      </div>
+      <div id="nearshore-advantage" className="mobile-section">
+        <NearshoreAdvantageSection />
       </div>
       <TalentCTA />
       <Footer />
