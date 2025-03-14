@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
@@ -12,13 +13,14 @@ import {
   DialogTitle, 
   DialogDescription 
 } from "@/components/ui/dialog";
-import { Loader2, MapPin, Mail, User, UploadCloud, ArrowRight, ChevronDown } from "lucide-react";
+import { Loader2, MapPin, Mail, User, UploadCloud, ArrowRight, ChevronDown, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { marked } from "marked";
 import { toast } from "@/components/ui/use-toast";
 import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
 
 const CareerPage = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -33,9 +35,48 @@ const CareerPage = () => {
   const [resume, setResume] = useState<File | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
+  // Search and filter states
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredJobs, setFilteredJobs] = useState<Job[]>([]);
+  const [selectedDepartment, setSelectedDepartment] = useState<string | null>(null);
+  const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
+  const [departments, setDepartments] = useState<string[]>([]);
+  const [locations, setLocations] = useState<string[]>([]);
+
   useEffect(() => {
     fetchJobs();
   }, []);
+
+  useEffect(() => {
+    // Filter jobs based on search term and filters
+    let filtered = [...jobs];
+    
+    if (searchTerm) {
+      filtered = filtered.filter(job => 
+        job.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+    
+    if (selectedDepartment) {
+      filtered = filtered.filter(job => job.department === selectedDepartment);
+    }
+    
+    if (selectedLocation) {
+      filtered = filtered.filter(job => job.location === selectedLocation);
+    }
+    
+    setFilteredJobs(filtered);
+  }, [searchTerm, jobs, selectedDepartment, selectedLocation]);
+
+  // Extract unique departments and locations for filters
+  useEffect(() => {
+    if (jobs.length > 0) {
+      const depts = Array.from(new Set(jobs.map(job => job.department)));
+      const locs = Array.from(new Set(jobs.map(job => job.location)));
+      setDepartments(depts);
+      setLocations(locs);
+    }
+  }, [jobs]);
 
   const fetchJobs = async () => {
     try {
@@ -47,6 +88,7 @@ const CareerPage = () => {
 
       if (error) throw error;
       setJobs(data || []);
+      setFilteredJobs(data || []);
       setJobCount(count || 0);
     } catch (error: any) {
       console.error("Error fetching jobs:", error);
@@ -148,6 +190,12 @@ const CareerPage = () => {
     }
   };
 
+  const clearFilters = () => {
+    setSearchTerm("");
+    setSelectedDepartment(null);
+    setSelectedLocation(null);
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <StatusBar />
@@ -165,17 +213,60 @@ const CareerPage = () => {
             </p>
           </div>
 
-          <div className="mb-8 flex justify-between items-center">
-            <div className="text-lg font-medium text-gray-600">
-              {jobCount} jobs
+          {/* Search and Filters Section */}
+          <div className="mb-8 space-y-4">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+              <Input
+                placeholder="Search job titles..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10"
+              />
             </div>
-            <div className="flex space-x-4">
-              <Button variant="outline" className="flex items-center gap-2">
-                All teams <ChevronDown className="h-4 w-4" />
-              </Button>
-              <Button variant="outline" className="flex items-center gap-2">
-                All locations <ChevronDown className="h-4 w-4" />
-              </Button>
+            
+            <div className="flex justify-between items-center">
+              <div className="text-lg font-medium text-gray-600">
+                {filteredJobs.length} job{filteredJobs.length !== 1 ? 's' : ''} 
+                {searchTerm && " matching '" + searchTerm + "'"}
+              </div>
+              <div className="flex space-x-4">
+                <div className="relative">
+                  <Button 
+                    variant="outline" 
+                    className="flex items-center gap-2"
+                    onClick={() => {
+                      // This would be a dropdown in a real implementation
+                      setSelectedDepartment(selectedDepartment ? null : departments[0]);
+                    }}
+                  >
+                    {selectedDepartment || "All departments"} <ChevronDown className="h-4 w-4" />
+                  </Button>
+                </div>
+                
+                <div className="relative">
+                  <Button 
+                    variant="outline" 
+                    className="flex items-center gap-2"
+                    onClick={() => {
+                      // This would be a dropdown in a real implementation
+                      setSelectedLocation(selectedLocation ? null : locations[0]);
+                    }}
+                  >
+                    {selectedLocation || "All locations"} <ChevronDown className="h-4 w-4" />
+                  </Button>
+                </div>
+                
+                {(searchTerm || selectedDepartment || selectedLocation) && (
+                  <Button 
+                    variant="ghost" 
+                    onClick={clearFilters}
+                    className="text-sm"
+                  >
+                    Clear filters
+                  </Button>
+                )}
+              </div>
             </div>
           </div>
 
@@ -183,14 +274,14 @@ const CareerPage = () => {
             <div className="flex justify-center items-center py-20">
               <Loader2 className="h-8 w-8 animate-spin text-primary" />
             </div>
-          ) : jobs.length === 0 ? (
+          ) : filteredJobs.length === 0 ? (
             <div className="text-center py-16">
-              <p className="text-xl text-gray-500">No job openings available at this time.</p>
-              <p className="mt-2 text-gray-400">Check back later for new opportunities.</p>
+              <p className="text-xl text-gray-500">No job openings match your search.</p>
+              <p className="mt-2 text-gray-400">Try adjusting your filters or search terms.</p>
             </div>
           ) : (
             <div className="divide-y divide-gray-200">
-              {jobs.map((job) => (
+              {filteredJobs.map((job) => (
                 <div key={job.id} className="py-6">
                   <div className="flex justify-between items-center">
                     <div>
@@ -199,12 +290,15 @@ const CareerPage = () => {
                         {job.title}
                       </h2>
                       <p className="text-sm text-gray-500 mt-1">
-                        General
+                        {job.department}
                       </p>
                     </div>
                     <div className="flex items-center gap-6">
-                      <div className="text-sm text-gray-500">
-                        {job.location}
+                      <div className="text-sm">
+                        <Badge variant="outline" className="flex items-center gap-1">
+                          <MapPin className="h-3 w-3" />
+                          {job.location}
+                        </Badge>
                       </div>
                       <Button 
                         variant="ghost" 
@@ -232,8 +326,13 @@ const CareerPage = () => {
                 <DialogTitle>{selectedJob.title}</DialogTitle>
                 <DialogDescription>
                   <div className="flex items-center gap-2 mt-1">
-                    <MapPin className="h-4 w-4 text-muted-foreground" />
-                    <span>{selectedJob.location}</span>
+                    <Badge variant="outline" className="flex items-center gap-1">
+                      <MapPin className="h-3 w-3" />
+                      {selectedJob.location}
+                    </Badge>
+                    <span className="text-sm text-muted-foreground">
+                      {selectedJob.department}
+                    </span>
                   </div>
                   <div className="mt-2">
                     Posted on {new Date(selectedJob.created_at).toLocaleDateString()}

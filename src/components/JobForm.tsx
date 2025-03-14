@@ -9,6 +9,13 @@ import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "
 import { toast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2 } from "lucide-react";
+import { 
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface JobFormProps {
   onSuccess: () => void;
@@ -17,6 +24,7 @@ interface JobFormProps {
     title: string;
     description: string;
     location: string;
+    department: string;
   };
 }
 
@@ -24,7 +32,22 @@ interface JobFormValues {
   title: string;
   description: string;
   location: string;
+  department: string;
 }
+
+const DEPARTMENTS = [
+  "Engineering",
+  "Design",
+  "Product",
+  "Marketing",
+  "Sales",
+  "Customer Support",
+  "Operations",
+  "Human Resources",
+  "Finance",
+  "Legal",
+  "General"
+];
 
 const JobForm = ({ onSuccess, initialData }: JobFormProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -35,6 +58,7 @@ const JobForm = ({ onSuccess, initialData }: JobFormProps) => {
       title: initialData?.title || "",
       description: initialData?.description || "",
       location: initialData?.location || "Remote",
+      department: initialData?.department || "General",
     },
   });
 
@@ -49,6 +73,7 @@ const JobForm = ({ onSuccess, initialData }: JobFormProps) => {
             title: values.title,
             description: values.description,
             location: values.location,
+            department: values.department,
             updated_at: new Date().toISOString(),
           })
           .eq("id", initialData.id);
@@ -66,6 +91,7 @@ const JobForm = ({ onSuccess, initialData }: JobFormProps) => {
             title: values.title,
             description: values.description,
             location: values.location,
+            department: values.department,
             created_by: (await supabase.auth.getUser()).data.user?.id,
           });
 
@@ -103,6 +129,34 @@ const JobForm = ({ onSuccess, initialData }: JobFormProps) => {
               <FormControl>
                 <Input {...field} placeholder="e.g. Senior React Developer" />
               </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        
+        <FormField
+          control={form.control}
+          name="department"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Department</FormLabel>
+              <Select 
+                onValueChange={field.onChange} 
+                defaultValue={field.value}
+              >
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a department" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {DEPARTMENTS.map((dept) => (
+                    <SelectItem key={dept} value={dept}>
+                      {dept}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           )}

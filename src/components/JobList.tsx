@@ -31,6 +31,7 @@ export interface Job {
   title: string;
   description: string;
   location: string;
+  department: string;
   created_at: string;
   updated_at: string;
   created_by: string;
