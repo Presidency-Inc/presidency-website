@@ -13,6 +13,7 @@ import ServicesDatabricks from "./pages/ServicesDatabricks";
 import ServicesAI from "./pages/ServicesAI";
 import ServicesData from "./pages/ServicesData";
 import Talent from "./pages/Talent";
+import TalentNearshore from "./pages/TalentNearshore";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,7 @@ const App = () => (
           <Route path="/services/ai" element={<ServicesAI />} />
           <Route path="/services/data" element={<ServicesData />} />
           <Route path="/talent" element={<Talent />} />
+          <Route path="/talent/nearshore" element={<TalentNearshore />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

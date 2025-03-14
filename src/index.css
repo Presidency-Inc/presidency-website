@@ -149,3 +149,12 @@
 .mobile-data-services-layout .mobile-section:nth-child(even) {
   background-color: theme('colors.white');
 }
+
+/* Talent Nearshore Page - Alternating sections */
+.mobile-talent-nearshore-layout .mobile-section:nth-child(odd) {
+  background-color: theme('colors.blue.50');
+}
+
+.mobile-talent-nearshore-layout .mobile-section:nth-child(even) {
+  background-color: theme('colors.white');
+}
