@@ -27,6 +27,65 @@ export type Database = {
         }
         Relationships: []
       }
+      job_applicants: {
+        Row: {
+          id: string
+          job_id: string
+          name: string
+          resume_url: string
+          submitted_at: string
+        }
+        Insert: {
+          id?: string
+          job_id: string
+          name: string
+          resume_url: string
+          submitted_at?: string
+        }
+        Update: {
+          id?: string
+          job_id?: string
+          name?: string
+          resume_url?: string
+          submitted_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "job_applicants_job_id_fkey"
+            columns: ["job_id"]
+            isOneToOne: false
+            referencedRelation: "job_postings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      job_postings: {
+        Row: {
+          created_at: string
+          created_by: string
+          description: string
+          id: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          description: string
+          id?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          description?: string
+          id?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_profiles: {
         Row: {
           avatar_url: string | null

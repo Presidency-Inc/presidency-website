@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 import StatusBar from "@/components/StatusBar";
 import ScrollProgress from "@/components/ScrollProgress";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { User, FileText, Newspaper, Flag, Edit, Save } from "lucide-react";
+import { User, FileText, Newspaper, Flag, Edit, Save, Plus } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
@@ -16,6 +16,10 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
+import JobList, { Job } from "@/components/JobList";
+import JobForm from "@/components/JobForm";
+import JobDetail from "@/components/JobDetail";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 interface UserProfile {
   name: string;
@@ -37,6 +41,10 @@ const Admin = () => {
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
   const [savingProfile, setSavingProfile] = useState(false);
+  
+  const [jobView, setJobView] = useState<"list" | "create" | "edit" | "detail">("list");
+  const [selectedJob, setSelectedJob] = useState<Job | null>(null);
+  const [isJobDialogOpen, setIsJobDialogOpen] = useState(false);
   
   const navigate = useNavigate();
 
@@ -176,7 +184,6 @@ const Admin = () => {
     try {
       setSavingProfile(true);
       
-      // Upload avatar if a new one was selected
       let avatarUrl = profile.avatarUrl;
       if (avatarFile) {
         const uploadedUrl = await uploadAvatar(user.id, avatarFile);
@@ -185,7 +192,6 @@ const Admin = () => {
         }
       }
       
-      // Update or insert the profile in Supabase
       const { error } = await supabase
         .from('user_profiles')
         .upsert({
@@ -207,7 +213,6 @@ const Admin = () => {
         return;
       }
 
-      // Update local state
       const updatedProfile = {
         ...data,
         avatarUrl: avatarUrl,
@@ -234,6 +239,33 @@ const Admin = () => {
     } finally {
       setSavingProfile(false);
     }
+  };
+
+  const handleCreateJob = () => {
+    setJobView("create");
+    setIsJobDialogOpen(true);
+  };
+
+  const handleEditJob = (job: Job) => {
+    setSelectedJob(job);
+    setJobView("edit");
+    setIsJobDialogOpen(true);
+  };
+
+  const handleViewJob = (job: Job) => {
+    setSelectedJob(job);
+    setJobView("detail");
+  };
+
+  const handleJobFormSuccess = () => {
+    setIsJobDialogOpen(false);
+    setJobView("list");
+    setSelectedJob(null);
+  };
+
+  const handleBackToList = () => {
+    setJobView("list");
+    setSelectedJob(null);
   };
 
   if (loading) {
@@ -442,14 +474,51 @@ const Admin = () => {
                 
                 <TabsContent value="jobs" className="mt-6">
                   <Card>
-                    <CardHeader>
-                      <CardTitle>Job Postings</CardTitle>
-                      <CardDescription>Manage job listings and applications.</CardDescription>
+                    <CardHeader className="flex flex-row items-center justify-between">
+                      <div>
+                        <CardTitle>Job Postings</CardTitle>
+                        <CardDescription>Manage job listings and applications.</CardDescription>
+                      </div>
+                      {jobView === "list" && (
+                        <Button 
+                          onClick={handleCreateJob}
+                          className="flex items-center gap-2"
+                        >
+                          <Plus className="h-4 w-4" />
+                          Create Job
+                        </Button>
+                      )}
                     </CardHeader>
                     <CardContent>
-                      <p className="text-gray-700">Job postings management content will go here.</p>
+                      {jobView === "list" && (
+                        <JobList 
+                          onEdit={handleEditJob} 
+                          onView={handleViewJob} 
+                        />
+                      )}
+                      
+                      {jobView === "detail" && selectedJob && (
+                        <JobDetail 
+                          jobId={selectedJob.id} 
+                          onBack={handleBackToList} 
+                        />
+                      )}
                     </CardContent>
                   </Card>
+                  
+                  <Dialog open={isJobDialogOpen} onOpenChange={setIsJobDialogOpen}>
+                    <DialogContent className="max-w-2xl">
+                      <DialogHeader>
+                        <DialogTitle>
+                          {jobView === "create" ? "Create New Job Posting" : "Edit Job Posting"}
+                        </DialogTitle>
+                      </DialogHeader>
+                      <JobForm 
+                        onSuccess={handleJobFormSuccess}
+                        initialData={jobView === "edit" ? selectedJob : undefined}
+                      />
+                    </DialogContent>
+                  </Dialog>
                 </TabsContent>
                 
                 <TabsContent value="blog" className="mt-6">
