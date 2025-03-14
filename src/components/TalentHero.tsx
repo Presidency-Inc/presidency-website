@@ -2,16 +2,29 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 
 const TalentHero = () => {
+  // Preload the background image
+  useEffect(() => {
+    const heroImage = new Image();
+    heroImage.src = "/public/lovable-uploads/aeec63a9-b351-48eb-9182-6c8e04b32c08.png";
+    
+    // Optional: Add loading metadata to help with performance
+    heroImage.loading = "eager";
+    heroImage.fetchPriority = "high";
+  }, []);
+
   return (
     <section className="relative pt-40 pb-20 md:pt-40 md:pb-24 overflow-hidden">
-      {/* Background Image */}
+      {/* Background Image with caching attributes */}
       <div className="absolute inset-0 z-0">
         <img 
           src="/public/lovable-uploads/aeec63a9-b351-48eb-9182-6c8e04b32c08.png" 
           alt="Abstract digital art with blue and purple hues" 
           className="w-full h-full object-cover"
+          loading="eager"
+          fetchpriority="high"
         />
         <div className="absolute inset-0 bg-black/40 mix-blend-multiply"></div>
       </div>
