@@ -60,7 +60,7 @@ const DatabricksHero = () => {
             className="text-center lg:text-left"
           >
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-6">
-              Databricks Services <span className="bg-gradient-to-r from-blue-500 to-indigo-600 bg-clip-text text-transparent">Reimagined</span>
+              Unlock the full potential of <span className="bg-gradient-to-r from-blue-500 to-indigo-600 bg-clip-text text-transparent">Databricks</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto lg:mx-0">
               Our proprietary accelerators overcome Databricks' inherent limitations, enabling faster, more efficient data processing jobs. Accelerate your data workflows and enhance performance like never before.
