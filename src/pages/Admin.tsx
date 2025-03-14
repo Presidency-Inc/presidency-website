@@ -8,6 +8,9 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StatusBar from "@/components/StatusBar";
 import ScrollProgress from "@/components/ScrollProgress";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { User, FileText, Newspaper, Flag } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 const Admin = () => {
   const [loading, setLoading] = useState(true);
@@ -78,10 +81,76 @@ const Admin = () => {
                 Sign out
               </Button>
             </div>
+            
             <div className="border-t border-gray-200 px-4 py-5 sm:p-6">
-              <p className="text-gray-700">
-                This is a placeholder admin dashboard. In a real application, you would have admin controls here.
-              </p>
+              <Tabs defaultValue="profile" className="w-full">
+                <TabsList className="grid w-full grid-cols-4">
+                  <TabsTrigger value="profile" className="flex items-center gap-2">
+                    <User size={16} />
+                    <span>Your Profile</span>
+                  </TabsTrigger>
+                  <TabsTrigger value="jobs" className="flex items-center gap-2">
+                    <FileText size={16} />
+                    <span>Job Postings</span>
+                  </TabsTrigger>
+                  <TabsTrigger value="blog" className="flex items-center gap-2">
+                    <Newspaper size={16} />
+                    <span>Blog</span>
+                  </TabsTrigger>
+                  <TabsTrigger value="banner" className="flex items-center gap-2">
+                    <Flag size={16} />
+                    <span>Blue Banner</span>
+                  </TabsTrigger>
+                </TabsList>
+                
+                <TabsContent value="profile" className="mt-6">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Your Profile</CardTitle>
+                      <CardDescription>Manage your profile information here.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-gray-700">Profile management content will go here.</p>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+                
+                <TabsContent value="jobs" className="mt-6">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Job Postings</CardTitle>
+                      <CardDescription>Manage job listings and applications.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-gray-700">Job postings management content will go here.</p>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+                
+                <TabsContent value="blog" className="mt-6">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Blog</CardTitle>
+                      <CardDescription>Manage blog posts and content.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-gray-700">Blog management content will go here.</p>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+                
+                <TabsContent value="banner" className="mt-6">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Blue Banner</CardTitle>
+                      <CardDescription>Manage site-wide banner content.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-gray-700">Banner management content will go here.</p>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+              </Tabs>
             </div>
           </div>
         </div>
