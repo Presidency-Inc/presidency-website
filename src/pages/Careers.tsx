@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
@@ -200,7 +199,7 @@ const CareerPage = () => {
                         {job.title}
                       </h2>
                       <p className="text-sm text-gray-500 mt-1">
-                        {job.department || "General"}
+                        General
                       </p>
                     </div>
                     <div className="flex items-center gap-6">
