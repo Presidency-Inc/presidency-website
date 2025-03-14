@@ -10,6 +10,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StatusBar from "@/components/StatusBar";
 import ScrollProgress from "@/components/ScrollProgress";
+import { Lock } from "lucide-react";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -105,6 +106,7 @@ const Login = () => {
                 className="w-full"
                 disabled={loading}
               >
+                <Lock className="mr-2" size={18} />
                 {loading ? "Signing in..." : "Sign in"}
               </Button>
             </div>
