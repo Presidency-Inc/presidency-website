@@ -134,3 +134,12 @@
 .mobile-ai-services-layout .mobile-section:nth-child(even) {
   background-color: theme('colors.white');
 }
+
+/* Data Services Page - Alternating sections */
+.mobile-data-services-layout .mobile-section:nth-child(odd) {
+  background-color: theme('colors.blue.50');
+}
+
+.mobile-data-services-layout .mobile-section:nth-child(even) {
+  background-color: theme('colors.white');
+}
