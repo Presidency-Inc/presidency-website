@@ -390,12 +390,16 @@ const Navbar = () => {
                     </Link>
                   </li>
                   <li>
-                    <a href="#cloud" className="flex items-start group">
+                    <Link
+                      to="/products/kube8r"
+                      className="flex items-start group"
+                      onClick={() => setServicesOpen(false)}
+                    >
                       <div>
                         <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Cloud Modernization</h4>
                         <p className="text-sm text-gray-600">Upgrade your infrastructure</p>
                       </div>
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -424,8 +428,8 @@ const Navbar = () => {
               <div className="col-span-1">
                 <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mt-6 mb-4">TALENT</h3>
                 <ul className="space-y-3">
-                  <li><a href="#extended-teams" className="text-gray-600 hover:text-blue-600">Extended Teams</a></li>
-                  <li><a href="#nearshore" className="text-gray-600 hover:text-blue-600">Nearshore</a></li>
+                  <li><Link to="/talent" className="text-gray-600 hover:text-blue-600">Extended Teams</Link></li>
+                  <li><Link to="/talent/nearshore" className="text-gray-600 hover:text-blue-600">Nearshore</Link></li>
                 </ul>
               </div>
             </div>
@@ -683,10 +687,17 @@ const Navbar = () => {
                       </Link>
                     </li>
                     <li>
-                      <a href="#cloud" className="block py-2">
+                      <Link
+                        to="/products/kube8r"
+                        className="block py-2"
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          setMobileSubmenuOpen(null);
+                        }}
+                      >
                         <span className="font-medium text-gray-900">Cloud Modernization</span>
                         <p className="text-sm text-gray-600">Upgrade your infrastructure</p>
-                      </a>
+                      </Link>
                     </li>
                   </ul>
                   
@@ -712,8 +723,30 @@ const Navbar = () => {
                   
                   <h3 className="font-bold text-gray-900 mt-6 mb-3">Talent</h3>
                   <ul className="space-y-3 mb-6">
-                    <li><a href="#extended-teams" className="block py-2 text-gray-900">Extended Teams</a></li>
-                    <li><a href="#nearshore" className="block py-2 text-gray-900">Nearshore</a></li>
+                    <li>
+                      <Link 
+                        to="/talent" 
+                        className="block py-2 text-gray-900"
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          setMobileSubmenuOpen(null);
+                        }}
+                      >
+                        Extended Teams
+                      </Link>
+                    </li>
+                    <li>
+                      <Link 
+                        to="/talent/nearshore" 
+                        className="block py-2 text-gray-900"
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          setMobileSubmenuOpen(null);
+                        }}
+                      >
+                        Nearshore
+                      </Link>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -733,4 +766,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
