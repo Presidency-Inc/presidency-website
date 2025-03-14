@@ -36,16 +36,16 @@ const ServicesAI = () => {
       <Navbar />
       <ScrollProgress />
       <Hero />
-      <div id="full-stack-ai" className="mobile-section">
+      <div id="full-stack-ai-engineering" className="mobile-section">
         <FullStackAISection />
       </div>
-      <div id="custom-rag" className="mobile-section">
+      <div id="custom-rag-development" className="mobile-section">
         <CustomRAGSection />
       </div>
       <div id="agent-development" className="mobile-section">
         <AgentDevelopmentSection />
       </div>
-      <div id="voice-ai" className="mobile-section">
+      <div id="voice-ai-development" className="mobile-section">
         <VoiceAISection />
       </div>
       <div id="model-finetuning" className="mobile-section">

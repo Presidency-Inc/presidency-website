@@ -308,12 +308,12 @@ const Navbar = () => {
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Our Services</h3>
                 <ul className="space-y-4">
                   <li>
-                    <a href="#ai" className="flex items-start group">
+                    <Link to="/services/ai" className="flex items-start group">
                       <div>
                         <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Artificial Intelligence</h4>
                         <p className="text-sm text-gray-600">Enhanced efficiency for your business</p>
                       </div>
-                    </a>
+                    </Link>
                   </li>
                   <li>
                     <a href="#data-engineering" className="flex items-start group">
@@ -349,11 +349,11 @@ const Navbar = () => {
               <div className="col-span-1">
                 <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">AI</h3>
                 <ul className="space-y-3">
-                  <li><a href="#full-stack-ai" className="text-gray-600 hover:text-blue-600">Full Stack AI Engineering</a></li>
-                  <li><a href="#custom-rag" className="text-gray-600 hover:text-blue-600">Custom RAG Development</a></li>
-                  <li><a href="#agent-development" className="text-gray-600 hover:text-blue-600">Agent Development</a></li>
-                  <li><a href="#voice-ai" className="text-gray-600 hover:text-blue-600">Voice AI Development</a></li>
-                  <li><a href="#model-finetuning" className="text-gray-600 hover:text-blue-600">Business Focused Model Finetuning</a></li>
+                  <li><Link to="/services/ai#full-stack-ai-engineering" className="text-gray-600 hover:text-blue-600">Full Stack AI Engineering</Link></li>
+                  <li><Link to="/services/ai#custom-rag-development" className="text-gray-600 hover:text-blue-600">Custom RAG Development</Link></li>
+                  <li><Link to="/services/ai#agent-development" className="text-gray-600 hover:text-blue-600">Agent Development</Link></li>
+                  <li><Link to="/services/ai#voice-ai-development" className="text-gray-600 hover:text-blue-600">Voice AI Development</Link></li>
+                  <li><Link to="/services/ai#model-finetuning" className="text-gray-600 hover:text-blue-600">Business Focused Model Finetuning</Link></li>
                 </ul>
               </div>
 
@@ -605,10 +605,13 @@ const Navbar = () => {
                   <h3 className="font-bold text-gray-900 mb-3">Our Services</h3>
                   <ul className="space-y-3">
                     <li>
-                      <a href="#ai" className="block py-2">
+                      <Link to="/services/ai" className="block py-2" onClick={() => {
+                        setMobileMenuOpen(false);
+                        setMobileSubmenuOpen(null);
+                      }}>
                         <span className="font-medium text-gray-900">Artificial Intelligence</span>
                         <p className="text-sm text-gray-600">Enhanced efficiency for your business</p>
-                      </a>
+                      </Link>
                     </li>
                     <li>
                       <a href="#data-engineering" className="block py-2">
@@ -639,11 +642,26 @@ const Navbar = () => {
                   
                   <h3 className="font-bold text-gray-900 mt-6 mb-3">AI</h3>
                   <ul className="space-y-3">
-                    <li><a href="#full-stack-ai" className="block py-2 text-gray-900">Full Stack AI Engineering</a></li>
-                    <li><a href="#custom-rag" className="block py-2 text-gray-900">Custom RAG Development</a></li>
-                    <li><a href="#agent-development" className="block py-2 text-gray-900">Agent Development</a></li>
-                    <li><a href="#voice-ai" className="block py-2 text-gray-900">Voice AI Development</a></li>
-                    <li><a href="#model-finetuning" className="block py-2 text-gray-900">Business Focused Model Finetuning</a></li>
+                    <li><Link to="/services/ai#full-stack-ai-engineering" className="block py-2 text-gray-900" onClick={() => {
+                      setMobileMenuOpen(false);
+                      setMobileSubmenuOpen(null);
+                    }}>Full Stack AI Engineering</Link></li>
+                    <li><Link to="/services/ai#custom-rag-development" className="block py-2 text-gray-900" onClick={() => {
+                      setMobileMenuOpen(false);
+                      setMobileSubmenuOpen(null);
+                    }}>Custom RAG Development</Link></li>
+                    <li><Link to="/services/ai#agent-development" className="block py-2 text-gray-900" onClick={() => {
+                      setMobileMenuOpen(false);
+                      setMobileSubmenuOpen(null);
+                    }}>Agent Development</Link></li>
+                    <li><Link to="/services/ai#voice-ai-development" className="block py-2 text-gray-900" onClick={() => {
+                      setMobileMenuOpen(false);
+                      setMobileSubmenuOpen(null);
+                    }}>Voice AI Development</Link></li>
+                    <li><Link to="/services/ai#model-finetuning" className="block py-2 text-gray-900" onClick={() => {
+                      setMobileMenuOpen(false);
+                      setMobileSubmenuOpen(null);
+                    }}>Business Focused Model Finetuning</Link></li>
                   </ul>
                   
                   <h3 className="font-bold text-gray-900 mt-6 mb-3">Data</h3>

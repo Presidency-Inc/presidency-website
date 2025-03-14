@@ -1,6 +1,6 @@
 
 import { motion } from "framer-motion";
-import { Mic, Radio, Waveform, Headphones } from "lucide-react";
+import { Mic, Radio, Voicemail, Headphones } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const VoiceAISection = () => {
@@ -31,7 +31,7 @@ const VoiceAISection = () => {
                   description: "Custom voice assistants that handle complex conversations and tasks",
                 },
                 {
-                  icon: <Waveform className="h-6 w-6 text-teal-600" />,
+                  icon: <Voicemail className="h-6 w-6 text-teal-600" />,
                   title: "Text-to-Speech Systems",
                   description: "Natural-sounding voices for content, announcements, and interactive experiences",
                 },
@@ -124,7 +124,7 @@ const VoiceAISection = () => {
               <div className="mt-8 pt-4 border-t flex items-center gap-4">
                 <div className="flex-1">
                   <div className="bg-gray-100 h-10 rounded-full flex items-center justify-center">
-                    <Waveform className="h-5 w-5 text-teal-600" />
+                    <Voicemail className="h-5 w-5 text-teal-600" />
                     <span className="ml-2 text-gray-500 text-sm">Tap to speak...</span>
                   </div>
                 </div>
