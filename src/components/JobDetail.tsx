@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
-import { Loader2, DownloadCloud, User, MapPin } from "lucide-react";
+import { Loader2, DownloadCloud, User, MapPin, Mail } from "lucide-react";
 import { marked } from "marked";
 import { Job } from "./JobList";
 
@@ -16,6 +16,7 @@ interface JobDetailProps {
 interface Applicant {
   id: string;
   name: string;
+  email: string;
   resume_url: string;
   submitted_at: string;
 }
@@ -186,7 +187,11 @@ const JobDetail = ({ jobId, onBack }: JobDetailProps) => {
                 >
                   <div>
                     <div className="font-medium">{applicant.name}</div>
-                    <div className="text-sm text-muted-foreground">
+                    <div className="flex items-center text-sm text-muted-foreground mt-1">
+                      <Mail className="mr-1 h-3 w-3" />
+                      {applicant.email || "No email provided"}
+                    </div>
+                    <div className="text-sm text-muted-foreground mt-1">
                       Applied on {new Date(applicant.submitted_at).toLocaleDateString()}
                     </div>
                   </div>

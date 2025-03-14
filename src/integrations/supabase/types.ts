@@ -29,6 +29,7 @@ export type Database = {
       }
       job_applicants: {
         Row: {
+          email: string
           id: string
           job_id: string
           name: string
@@ -36,6 +37,7 @@ export type Database = {
           submitted_at: string
         }
         Insert: {
+          email: string
           id?: string
           job_id: string
           name: string
@@ -43,6 +45,7 @@ export type Database = {
           submitted_at?: string
         }
         Update: {
+          email?: string
           id?: string
           job_id?: string
           name?: string
