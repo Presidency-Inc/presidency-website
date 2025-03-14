@@ -125,3 +125,12 @@
 .rotate-x-\[60deg\].rotate-z-\[-45deg\] {
   transform: rotateX(60deg) rotateZ(-45deg);
 }
+
+/* AI Services Page - Alternating sections */
+.mobile-ai-services-layout .mobile-section:nth-child(odd) {
+  background-color: theme('colors.blue.50');
+}
+
+.mobile-ai-services-layout .mobile-section:nth-child(even) {
+  background-color: theme('colors.white');
+}

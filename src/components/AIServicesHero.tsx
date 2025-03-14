@@ -7,7 +7,7 @@ const AIServicesHero = () => {
   return (
     <div className="relative pt-16 md:pt-24 min-h-[50vh] flex items-center justify-center overflow-hidden">
       {/* Pattern Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-50 to-indigo-50 z-0">
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-50 z-0">
         <svg
           className="absolute inset-0 w-full h-full opacity-30"
           xmlns="http://www.w3.org/2000/svg"
@@ -18,9 +18,9 @@ const AIServicesHero = () => {
         >
           <defs>
             <linearGradient id="ai-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0.2" />
-              <stop offset="50%" stopColor="#6366F1" stopOpacity="0.1" />
-              <stop offset="100%" stopColor="#4F46E5" stopOpacity="0.2" />
+              <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.2" />
+              <stop offset="50%" stopColor="#2563EB" stopOpacity="0.1" />
+              <stop offset="100%" stopColor="#1D4ED8" stopOpacity="0.2" />
             </linearGradient>
           </defs>
           {/* Neural Network Pattern */}
@@ -52,7 +52,7 @@ const AIServicesHero = () => {
           </h1>
           
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-8 leading-tight">
-            <span className="bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">
               Services
             </span>
           </h2>
@@ -62,7 +62,7 @@ const AIServicesHero = () => {
           </p>
 
           <div>
-            <Button variant="default" size="lg" className="bg-[#8B5CF6] text-white hover:bg-[#8B5CF6]/90">
+            <Button variant="default" size="lg" className="bg-blue-600 text-white hover:bg-blue-700">
               CONTACT US
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>

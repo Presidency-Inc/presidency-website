@@ -17,7 +17,7 @@ const FullStackAIEngineeringSection = () => {
         >
           <div className="order-2 lg:order-1">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              Full Stack AI <span className="text-purple-600">Engineering</span>
+              Full Stack AI <span className="text-blue-600">Engineering</span>
             </h2>
             <p className="text-lg text-gray-600 mb-6">
               Our full stack AI engineering services provide end-to-end solutions for developing, deploying, and scaling AI applications.
@@ -40,9 +40,9 @@ const FullStackAIEngineeringSection = () => {
                 >
                   <div className={cn(
                     "mt-1 flex h-5 w-5 items-center justify-center rounded-full",
-                    "bg-purple-100 text-purple-600"
+                    "bg-blue-100 text-blue-600"
                   )}>
-                    <div className="h-2 w-2 rounded-full bg-purple-600" />
+                    <div className="h-2 w-2 rounded-full bg-blue-600" />
                   </div>
                   <span className="text-gray-700">{item}</span>
                 </motion.li>
@@ -50,7 +50,7 @@ const FullStackAIEngineeringSection = () => {
             </ul>
             <Button 
               variant="outline" 
-              className="border-purple-600 text-purple-600 hover:bg-purple-50"
+              className="border-blue-600 text-blue-600 hover:bg-blue-50"
             >
               Learn More
             </Button>
@@ -62,16 +62,16 @@ const FullStackAIEngineeringSection = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
-              className="relative bg-gradient-to-br from-purple-50 to-indigo-50 p-6 rounded-2xl shadow-lg max-w-md mx-auto"
+              className="relative bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-2xl shadow-lg max-w-md mx-auto"
             >
               <div className="grid grid-cols-2 gap-6">
                 <div className="bg-white p-4 rounded-xl shadow-sm">
-                  <Code className="h-10 w-10 text-purple-600 mb-3" />
+                  <Code className="h-10 w-10 text-blue-600 mb-3" />
                   <h3 className="font-semibold mb-2">Frontend</h3>
                   <p className="text-sm text-gray-600">Intuitive interfaces for AI interactions</p>
                 </div>
                 <div className="bg-white p-4 rounded-xl shadow-sm">
-                  <Server className="h-10 w-10 text-indigo-600 mb-3" />
+                  <Server className="h-10 w-10 text-blue-600 mb-3" />
                   <h3 className="font-semibold mb-2">Backend</h3>
                   <p className="text-sm text-gray-600">Robust APIs and services</p>
                 </div>
@@ -81,7 +81,7 @@ const FullStackAIEngineeringSection = () => {
                   <p className="text-sm text-gray-600">Custom model integration</p>
                 </div>
                 <div className="bg-white p-4 rounded-xl shadow-sm">
-                  <svg className="h-10 w-10 text-purple-500 mb-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg className="h-10 w-10 text-blue-600 mb-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M21 8V15.75C21 17.5449 19.5449 19 17.75 19H6.25C4.45507 19 3 17.5449 3 15.75V8M21 8L12 3L3 8M21 8L12 13L3 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                   <h3 className="font-semibold mb-2">Infrastructure</h3>
@@ -89,7 +89,7 @@ const FullStackAIEngineeringSection = () => {
                 </div>
               </div>
 
-              <div className="absolute -top-6 -right-6 bg-purple-600 text-white p-3 rounded-xl shadow-lg text-sm font-medium">
+              <div className="absolute -top-6 -right-6 bg-blue-600 text-white p-3 rounded-xl shadow-lg text-sm font-medium">
                 Full Stack AI
               </div>
             </motion.div>

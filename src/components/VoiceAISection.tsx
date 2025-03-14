@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 
 const VoiceAISection = () => {
   return (
-    <section className="py-16 md:py-24 bg-gray-50">
+    <section className="py-16 md:py-24 bg-blue-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div
@@ -16,7 +16,7 @@ const VoiceAISection = () => {
           >
             <div className="mb-10">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Voice AI <span className="text-teal-600">Development</span>
+                Voice AI <span className="text-blue-600">Development</span>
               </h2>
               <p className="text-lg text-gray-600 mb-6">
                 Create natural, engaging voice experiences that transform how your customers interact with your business.
@@ -26,22 +26,22 @@ const VoiceAISection = () => {
             <div className="space-y-6">
               {[
                 {
-                  icon: <Mic className="h-6 w-6 text-teal-600" />,
+                  icon: <Mic className="h-6 w-6 text-blue-600" />,
                   title: "Voice Assistants",
                   description: "Custom voice assistants that handle complex conversations and tasks",
                 },
                 {
-                  icon: <Voicemail className="h-6 w-6 text-teal-600" />,
+                  icon: <Voicemail className="h-6 w-6 text-blue-600" />,
                   title: "Text-to-Speech Systems",
                   description: "Natural-sounding voices for content, announcements, and interactive experiences",
                 },
                 {
-                  icon: <Radio className="h-6 w-6 text-teal-600" />,
+                  icon: <Radio className="h-6 w-6 text-blue-600" />,
                   title: "Voice Recognition Systems",
                   description: "Accurate speech recognition optimized for your industry terminology",
                 },
                 {
-                  icon: <Headphones className="h-6 w-6 text-teal-600" />,
+                  icon: <Headphones className="h-6 w-6 text-blue-600" />,
                   title: "Audio Content Analysis",
                   description: "Extract insights from calls, meetings, and other audio content",
                 }
@@ -54,7 +54,7 @@ const VoiceAISection = () => {
                   viewport={{ once: true }}
                   className="flex gap-4"
                 >
-                  <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
                     {item.icon}
                   </div>
                   <div>
@@ -66,7 +66,7 @@ const VoiceAISection = () => {
             </div>
 
             <div className="mt-10">
-              <Button className="bg-teal-600 hover:bg-teal-700 text-white">
+              <Button className="bg-blue-600 hover:bg-blue-700 text-white">
                 Explore Voice Solutions
               </Button>
             </div>
@@ -91,7 +91,7 @@ const VoiceAISection = () => {
 
               <div className="space-y-4">
                 <div className="flex gap-3 items-start">
-                  <div className="bg-teal-100 w-8 h-8 rounded-full flex items-center justify-center text-teal-600 flex-shrink-0">
+                  <div className="bg-blue-100 w-8 h-8 rounded-full flex items-center justify-center text-blue-600 flex-shrink-0">
                     <Mic className="h-4 w-4" />
                   </div>
                   <div className="bg-gray-100 rounded-lg p-3 text-sm">
@@ -100,7 +100,7 @@ const VoiceAISection = () => {
                 </div>
 
                 <div className="flex gap-3 items-start justify-end">
-                  <div className="bg-teal-50 rounded-lg p-3 text-sm">
+                  <div className="bg-blue-50 rounded-lg p-3 text-sm">
                     I'd like to check the status of my recent order.
                   </div>
                   <div className="bg-gray-200 w-8 h-8 rounded-full flex items-center justify-center text-gray-600 flex-shrink-0">
@@ -112,7 +112,7 @@ const VoiceAISection = () => {
                 </div>
 
                 <div className="flex gap-3 items-start">
-                  <div className="bg-teal-100 w-8 h-8 rounded-full flex items-center justify-center text-teal-600 flex-shrink-0">
+                  <div className="bg-blue-100 w-8 h-8 rounded-full flex items-center justify-center text-blue-600 flex-shrink-0">
                     <Mic className="h-4 w-4" />
                   </div>
                   <div className="bg-gray-100 rounded-lg p-3 text-sm">
@@ -124,17 +124,17 @@ const VoiceAISection = () => {
               <div className="mt-8 pt-4 border-t flex items-center gap-4">
                 <div className="flex-1">
                   <div className="bg-gray-100 h-10 rounded-full flex items-center justify-center">
-                    <Voicemail className="h-5 w-5 text-teal-600" />
+                    <Voicemail className="h-5 w-5 text-blue-600" />
                     <span className="ml-2 text-gray-500 text-sm">Tap to speak...</span>
                   </div>
                 </div>
-                <Button className="w-10 h-10 rounded-full p-0 bg-teal-600">
+                <Button className="w-10 h-10 rounded-full p-0 bg-blue-600">
                   <Mic className="h-5 w-5" />
                 </Button>
               </div>
             </div>
             
-            <div className="absolute top-6 -left-6 -right-6 bottom-6 bg-gradient-to-r from-teal-500/20 to-cyan-500/20 rounded-2xl -z-10"></div>
+            <div className="absolute top-6 -left-6 -right-6 bottom-6 bg-gradient-to-r from-blue-500/20 to-blue-500/20 rounded-2xl -z-10"></div>
           </motion.div>
         </div>
       </div>
