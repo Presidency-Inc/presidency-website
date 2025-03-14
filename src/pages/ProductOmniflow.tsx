@@ -5,7 +5,6 @@ import StatusBar from "@/components/StatusBar";
 import Footer from "@/components/Footer";
 import ScrollProgress from "@/components/ScrollProgress";
 import ScrollToTop from "@/components/ScrollToTop";
-import OmniflowFeatures from "@/components/OmniflowFeatures";
 import EnterpriseETLSection from "@/components/EnterpriseETLSection";
 import EnterpriseIntegrationsSection from "@/components/EnterpriseIntegrationsSection";
 import AnySourceTargetSection from "@/components/AnySourceTargetSection";
@@ -38,7 +37,6 @@ const ProductOmniflow = () => {
       <ScrollProgress />
       <Hero />
       <OmniflowFeaturesSelector />
-      <OmniflowFeatures />
       <div id="enterprise-etl" className="mobile-section">
         <EnterpriseETLSection />
       </div>
