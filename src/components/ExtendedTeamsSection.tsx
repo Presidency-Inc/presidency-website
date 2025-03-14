@@ -50,25 +50,7 @@ const ExtendedTeamsSection = () => {
           </motion.div>
         </div>
         
-        <div className="text-center mb-16">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-5xl md:text-6xl font-bold mb-6"
-          >
-            Hire <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">AI Engineers</span>
-          </motion.h2>
-          
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-gray-600 max-w-2xl mx-auto text-lg"
-          >
-            Extend your teams with AI experts to lead in technology and innovation.
-          </motion.p>
-        </div>
+        {/* Removed the "Hire AI Engineers" section that was here */}
         
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -207,7 +189,6 @@ const ExtendedTeamsSection = () => {
           </div>
         </div>
         
-        {/* Added increased margin-top (mt-40 instead of no explicit mt) to create more spacing */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
