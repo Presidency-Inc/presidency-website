@@ -1,198 +1,214 @@
 
 import { motion } from "framer-motion";
-import { Globe, Cloud, Database, Server } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { Globe, Database, Server, Link } from "lucide-react";
 
 const EnterpriseIntegrationsSection = () => {
+  const isMobile = useIsMobile();
+  
   return (
-    <section className="py-20 bg-gray-50 overflow-hidden">
+    <section className="py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Graphic */}
+        <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${!isMobile && 'mobile-reverse'}`}>
+          {/* Content */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ duration: 0.5 }}
             viewport={{ once: true }}
+            className="space-y-6"
           >
-            <div className="relative">
-              <div className="bg-gradient-to-r from-blue-100 to-indigo-100 rounded-3xl p-8">
-                <div className="bg-white rounded-2xl shadow-lg p-6">
-                  <div className="flex items-center justify-between mb-6 border-b pb-4">
-                    <div className="flex items-center">
-                      <div className="w-8 h-8 bg-blue-600 rounded-md flex items-center justify-center text-white mr-3">
-                        <Globe className="w-4 h-4" />
-                      </div>
-                      <h3 className="font-semibold text-lg">Integration Hub</h3>
-                    </div>
-                    <div className="text-xs text-gray-500">Connected: 24/28</div>
-                  </div>
-                  
-                  <div className="space-y-6">
-                    {/* Integration Map */}
-                    <div className="relative h-64 bg-gray-50 rounded-lg p-4 flex items-center justify-center">
-                      {/* Central Node */}
-                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-indigo-100 rounded-full flex items-center justify-center z-10 border-4 border-white">
-                        <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full flex items-center justify-center text-white">
-                          <span className="text-xs font-bold">OMNIFLOW</span>
-                        </div>
-                      </div>
-                      
-                      {/* Connection Lines */}
-                      {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((angle) => (
-                        <div 
-                          key={angle}
-                          className="absolute top-1/2 left-1/2 bg-gray-200 h-0.5"
-                          style={{
-                            width: '35%',
-                            transformOrigin: '0 0',
-                            transform: `rotate(${angle}deg)`,
-                          }}
-                        >
-                          <div 
-                            className="absolute right-0 w-1.5 h-1.5 rounded-full bg-blue-500"
-                            style={{
-                              boxShadow: '0 0 5px rgba(59, 130, 246, 0.6)',
-                              animation: 'pulse 1.5s infinite',
-                              animationDelay: `${angle / 100}s`
-                            }}
-                          ></div>
-                        </div>
-                      ))}
-                      
-                      {/* External Nodes - Cloud Services */}
-                      <div className="absolute top-[15%] left-[15%] bg-blue-100 p-2 rounded-lg shadow-sm">
-                        <Cloud className="h-5 w-5 text-blue-600" />
-                        <span className="text-xs block mt-1">AWS</span>
-                      </div>
-                      
-                      <div className="absolute top-[20%] right-[20%] bg-blue-100 p-2 rounded-lg shadow-sm">
-                        <Cloud className="h-5 w-5 text-blue-600" />
-                        <span className="text-xs block mt-1">Azure</span>
-                      </div>
-                      
-                      <div className="absolute bottom-[20%] left-[25%] bg-indigo-100 p-2 rounded-lg shadow-sm">
-                        <Database className="h-5 w-5 text-indigo-600" />
-                        <span className="text-xs block mt-1">BigQuery</span>
-                      </div>
-                      
-                      <div className="absolute bottom-[25%] right-[15%] bg-blue-100 p-2 rounded-lg shadow-sm">
-                        <Database className="h-5 w-5 text-blue-600" />
-                        <span className="text-xs block mt-1">Snowflake</span>
-                      </div>
-                      
-                      <div className="absolute top-[50%] left-[10%] bg-indigo-100 p-2 rounded-lg shadow-sm">
-                        <Server className="h-5 w-5 text-indigo-600" />
-                        <span className="text-xs block mt-1">APIs</span>
-                      </div>
-                      
-                      <div className="absolute bottom-[10%] right-[45%] bg-blue-100 p-2 rounded-lg shadow-sm">
-                        <Database className="h-5 w-5 text-blue-600" />
-                        <span className="text-xs block mt-1">MongoDB</span>
-                      </div>
-                    </div>
-                    
-                    {/* Integration Categories */}
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                      <div className="bg-blue-50 p-3 rounded-lg text-center">
-                        <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 mb-2">
-                          <Cloud className="h-4 w-4 text-blue-600" />
-                        </div>
-                        <div className="text-xs text-gray-700">Cloud Services</div>
-                        <div className="text-sm font-semibold text-gray-900">8</div>
-                      </div>
-                      <div className="bg-indigo-50 p-3 rounded-lg text-center">
-                        <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-indigo-100 mb-2">
-                          <Database className="h-4 w-4 text-indigo-600" />
-                        </div>
-                        <div className="text-xs text-gray-700">Databases</div>
-                        <div className="text-sm font-semibold text-gray-900">12</div>
-                      </div>
-                      <div className="bg-indigo-50 p-3 rounded-lg text-center">
-                        <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-indigo-100 mb-2">
-                          <Server className="h-4 w-4 text-indigo-600" />
-                        </div>
-                        <div className="text-xs text-gray-700">APIs</div>
-                        <div className="text-sm font-semibold text-gray-900">6</div>
-                      </div>
-                      <div className="bg-blue-50 p-3 rounded-lg text-center">
-                        <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 mb-2">
-                          <Globe className="h-4 w-4 text-blue-600" />
-                        </div>
-                        <div className="text-xs text-gray-700">Services</div>
-                        <div className="text-sm font-semibold text-gray-900">4</div>
-                      </div>
-                    </div>
-                  </div>
+            <h2 className="text-4xl font-bold tracking-tight text-gray-900 leading-tight">
+              Source & Target <span className="bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent">Integrations</span>
+            </h2>
+            
+            <p className="text-xl text-gray-600 max-w-lg">
+              Connect to any source or target with pre-built connectors and extensible APIs for seamless data flow across your enterprise.
+            </p>
+            
+            <div className="grid grid-cols-2 gap-6 pt-4">
+              <div className="flex items-start space-x-3">
+                <div className="bg-indigo-100 p-2 rounded-lg text-indigo-600">
+                  <Database size={24} />
+                </div>
+                <div>
+                  <h3 className="font-semibold">Databases</h3>
+                  <p className="text-sm text-gray-500">SQL & NoSQL</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start space-x-3">
+                <div className="bg-purple-100 p-2 rounded-lg text-purple-600">
+                  <Server size={24} />
+                </div>
+                <div>
+                  <h3 className="font-semibold">Cloud Platforms</h3>
+                  <p className="text-sm text-gray-500">AWS, Azure, GCP</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start space-x-3">
+                <div className="bg-blue-100 p-2 rounded-lg text-blue-600">
+                  <Globe size={24} />
+                </div>
+                <div>
+                  <h3 className="font-semibold">SaaS Applications</h3>
+                  <p className="text-sm text-gray-500">200+ integrations</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start space-x-3">
+                <div className="bg-teal-100 p-2 rounded-lg text-teal-600">
+                  <Link size={24} />
+                </div>
+                <div>
+                  <h3 className="font-semibold">APIs & Services</h3>
+                  <p className="text-sm text-gray-500">REST, GraphQL, gRPC</p>
                 </div>
               </div>
             </div>
           </motion.div>
           
-          {/* Content */}
+          {/* Visualization */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">
-              Enterprise <span className="bg-gradient-to-r from-blue-500 to-indigo-600 bg-clip-text text-transparent">Integrations</span>
-            </h2>
-            <p className="text-xl text-gray-600 mb-8">
-              Connect this agent to databases, cloud services like AWS or Azure, and platforms like Google BigQuery or Snowflake for streamlined data handling.
-            </p>
-            
-            <div className="grid grid-cols-1 gap-6 mt-8">
-              <div className="bg-white p-5 rounded-xl shadow-sm">
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 bg-blue-100 p-2 rounded-lg text-blue-600 mr-4">
-                    <Cloud className="w-6 h-6" />
+            <div className="bg-gradient-to-r from-indigo-50 to-purple-50 p-8 rounded-3xl shadow-sm">
+              <div className="relative">
+                {/* Integration hub visualization */}
+                <div className="aspect-square relative flex items-center justify-center">
+                  {/* Center hub */}
+                  <div className="absolute w-24 h-24 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center z-10 shadow-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
+                      <path d="M12 5v14"></path>
+                      <path d="M5 12h14"></path>
+                    </svg>
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-2">Cloud Service Providers</h3>
-                    <p className="text-gray-600 mb-3">Seamlessly connect to all major cloud providers including AWS, Azure, Google Cloud, and more.</p>
-                    <div className="flex flex-wrap gap-2">
-                      <span className="bg-blue-50 text-blue-700 text-xs px-2 py-1 rounded">AWS</span>
-                      <span className="bg-blue-50 text-blue-700 text-xs px-2 py-1 rounded">Azure</span>
-                      <span className="bg-blue-50 text-blue-700 text-xs px-2 py-1 rounded">GCP</span>
-                      <span className="bg-blue-50 text-blue-700 text-xs px-2 py-1 rounded">IBM Cloud</span>
+                  
+                  {/* Connecting lines */}
+                  <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 400">
+                    <g stroke="#a5b4fc" strokeWidth="2" strokeDasharray="5,5" fill="none">
+                      <path d="M200,200 L100,100" />
+                      <path d="M200,200 L300,100" />
+                      <path d="M200,200 L300,300" />
+                      <path d="M200,200 L100,300" />
+                      <path d="M200,200 L50,200" />
+                      <path d="M200,200 L350,200" />
+                      <path d="M200,200 L200,50" />
+                      <path d="M200,200 L200,350" />
+                    </g>
+                  </svg>
+                  
+                  {/* Surrounding systems */}
+                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <div className="bg-white p-3 rounded-lg shadow-md flex items-center space-x-2">
+                      <div className="bg-blue-100 p-2 rounded-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-600">
+                          <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                          <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                          <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                          <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                        </svg>
+                      </div>
+                      <span>Cloud Services</span>
                     </div>
                   </div>
-                </div>
-              </div>
-              
-              <div className="bg-white p-5 rounded-xl shadow-sm">
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 bg-indigo-100 p-2 rounded-lg text-indigo-600 mr-4">
-                    <Database className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-2">Data Warehouse Platforms</h3>
-                    <p className="text-gray-600 mb-3">Integrate with modern data warehouses to centralize your organization's data assets.</p>
-                    <div className="flex flex-wrap gap-2">
-                      <span className="bg-indigo-50 text-indigo-700 text-xs px-2 py-1 rounded">Snowflake</span>
-                      <span className="bg-indigo-50 text-indigo-700 text-xs px-2 py-1 rounded">BigQuery</span>
-                      <span className="bg-indigo-50 text-indigo-700 text-xs px-2 py-1 rounded">Redshift</span>
-                      <span className="bg-indigo-50 text-indigo-700 text-xs px-2 py-1 rounded">Databricks</span>
+                  
+                  <div className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2">
+                    <div className="bg-white p-3 rounded-lg shadow-md flex items-center space-x-2">
+                      <div className="bg-indigo-100 p-2 rounded-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-indigo-600">
+                          <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                          <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                          <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                        </svg>
+                      </div>
+                      <span>Databases</span>
                     </div>
                   </div>
-                </div>
-              </div>
-              
-              <div className="bg-white p-5 rounded-xl shadow-sm">
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 bg-blue-100 p-2 rounded-lg text-blue-600 mr-4">
-                    <Server className="w-6 h-6" />
+                  
+                  <div className="absolute right-0 top-1/2 transform translate-x-1/2 -translate-y-1/2">
+                    <div className="bg-white p-3 rounded-lg shadow-md flex items-center space-x-2">
+                      <div className="bg-purple-100 p-2 rounded-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-purple-600">
+                          <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
+                          <rect x="9" y="9" width="6" height="6"></rect>
+                          <line x1="9" y1="1" x2="9" y2="4"></line>
+                          <line x1="15" y1="1" x2="15" y2="4"></line>
+                          <line x1="9" y1="20" x2="9" y2="23"></line>
+                          <line x1="15" y1="20" x2="15" y2="23"></line>
+                          <line x1="20" y1="9" x2="23" y2="9"></line>
+                          <line x1="20" y1="14" x2="23" y2="14"></line>
+                          <line x1="1" y1="9" x2="4" y2="9"></line>
+                          <line x1="1" y1="14" x2="4" y2="14"></line>
+                        </svg>
+                      </div>
+                      <span>APIs</span>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-2">Database Systems</h3>
-                    <p className="text-gray-600 mb-3">Connect to both SQL and NoSQL databases to centralize data from various sources.</p>
-                    <div className="flex flex-wrap gap-2">
-                      <span className="bg-blue-50 text-blue-700 text-xs px-2 py-1 rounded">PostgreSQL</span>
-                      <span className="bg-blue-50 text-blue-700 text-xs px-2 py-1 rounded">MySQL</span>
-                      <span className="bg-blue-50 text-blue-700 text-xs px-2 py-1 rounded">MongoDB</span>
-                      <span className="bg-blue-50 text-blue-700 text-xs px-2 py-1 rounded">Oracle</span>
-                      <span className="bg-blue-50 text-blue-700 text-xs px-2 py-1 rounded">SQL Server</span>
+                  
+                  <div className="absolute bottom-0 right-0 transform translate-x-1/2 translate-y-1/2">
+                    <div className="bg-white p-3 rounded-lg shadow-md flex items-center space-x-2">
+                      <div className="bg-teal-100 p-2 rounded-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-teal-600">
+                          <path d="M4 11a9 9 0 0 1 9 9"></path>
+                          <path d="M4 4a16 16 0 0 1 16 16"></path>
+                          <circle cx="5" cy="19" r="1"></circle>
+                        </svg>
+                      </div>
+                      <span>Event Streams</span>
+                    </div>
+                  </div>
+                  
+                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2">
+                    <div className="bg-white p-3 rounded-lg shadow-md flex items-center space-x-2">
+                      <div className="bg-amber-100 p-2 rounded-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-amber-600">
+                          <path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.09 3 12.25c0 2.22 1.8 4.05 4 4.05z"></path>
+                          <path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"></path>
+                        </svg>
+                      </div>
+                      <span>Data Lakes</span>
+                    </div>
+                  </div>
+                  
+                  <div className="absolute bottom-0 left-0 transform -translate-x-1/2 translate-y-1/2">
+                    <div className="bg-white p-3 rounded-lg shadow-md flex items-center space-x-2">
+                      <div className="bg-red-100 p-2 rounded-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-red-600">
+                          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                          <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                          <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                        </svg>
+                      </div>
+                      <span>File Systems</span>
+                    </div>
+                  </div>
+                  
+                  <div className="absolute left-0 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <div className="bg-white p-3 rounded-lg shadow-md flex items-center space-x-2">
+                      <div className="bg-green-100 p-2 rounded-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-600">
+                          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                          <line x1="8" y1="21" x2="16" y2="21"></line>
+                          <line x1="12" y1="17" x2="12" y2="21"></line>
+                        </svg>
+                      </div>
+                      <span>SaaS Apps</span>
+                    </div>
+                  </div>
+                  
+                  <div className="absolute top-0 left-0 transform -translate-x-1/2 -translate-y-1/2">
+                    <div className="bg-white p-3 rounded-lg shadow-md flex items-center space-x-2">
+                      <div className="bg-sky-100 p-2 rounded-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-sky-600">
+                          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                      </div>
+                      <span>Real-time Data</span>
                     </div>
                   </div>
                 </div>

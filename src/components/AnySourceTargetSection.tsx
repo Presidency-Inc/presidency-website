@@ -1,228 +1,180 @@
 
 import { motion } from "framer-motion";
-import { ArrowRightLeft, Database, FileText, Wifi, Server, CloudCog } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { BarChart, FileText, FileCode, Workflow } from "lucide-react";
 
 const AnySourceTargetSection = () => {
+  const isMobile = useIsMobile();
+  
   return (
-    <section className="py-20 bg-white overflow-hidden">
+    <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Content */}
+        <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${!isMobile && 'mobile-reverse'}`}>
+          {/* Visualization */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="order-2 lg:order-1"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">
-              <span className="bg-gradient-to-r from-blue-500 to-indigo-600 bg-clip-text text-transparent">Any Source</span> to <span className="bg-gradient-to-r from-indigo-500 to-blue-600 bg-clip-text text-transparent">Any Target</span>
-            </h2>
-            <p className="text-xl text-gray-600 mb-8">
-              From DBs, Streaming, APIs to basic filesystems, you can configure your ETL source and targets with ease.
-            </p>
-            
-            <div className="space-y-6 mt-8">
-              <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Supported Source Types</h3>
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="flex items-center">
-                    <div className="bg-blue-100 p-1.5 rounded text-blue-600 mr-3">
-                      <Database className="w-4 h-4" />
+            <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-8 rounded-3xl shadow-sm">
+              <div className="relative">
+                <div className="bg-white rounded-xl shadow-md p-6">
+                  <div className="flex items-center mb-6">
+                    <div className="w-10 h-10 bg-blue-500 rounded-md flex items-center justify-center text-white mr-3">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M12 8V16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M8 12H16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
                     </div>
-                    <span className="text-gray-700 text-sm">Databases</span>
+                    <h3 className="font-semibold text-lg">Multimodal Data Pipeline</h3>
                   </div>
-                  <div className="flex items-center">
-                    <div className="bg-indigo-100 p-1.5 rounded text-indigo-600 mr-3">
-                      <FileText className="w-4 h-4" />
+                  
+                  {/* Data Pipeline Visualization */}
+                  <div className="space-y-6">
+                    {/* Input Data Types */}
+                    <div className="grid grid-cols-4 gap-2">
+                      <div className="bg-blue-50 p-3 rounded-md flex flex-col items-center justify-center text-center">
+                        <FileText className="h-6 w-6 text-blue-500 mb-2" />
+                        <span className="text-xs font-medium">Text</span>
+                      </div>
+                      <div className="bg-blue-50 p-3 rounded-md flex flex-col items-center justify-center text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 text-blue-500 mb-2">
+                          <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                          <circle cx="8.5" cy="8.5" r="1.5" />
+                          <polyline points="21 15 16 10 5 21" />
+                        </svg>
+                        <span className="text-xs font-medium">Images</span>
+                      </div>
+                      <div className="bg-blue-50 p-3 rounded-md flex flex-col items-center justify-center text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 text-blue-500 mb-2">
+                          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                          <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                          <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+                        </svg>
+                        <span className="text-xs font-medium">Audio</span>
+                      </div>
+                      <div className="bg-blue-50 p-3 rounded-md flex flex-col items-center justify-center text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 text-blue-500 mb-2">
+                          <polygon points="23 7 16 12 23 17 23 7" />
+                          <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+                        </svg>
+                        <span className="text-xs font-medium">Video</span>
+                      </div>
                     </div>
-                    <span className="text-gray-700 text-sm">File Systems</span>
-                  </div>
-                  <div className="flex items-center">
-                    <div className="bg-blue-100 p-1.5 rounded text-blue-600 mr-3">
-                      <Wifi className="w-4 h-4" />
+                    
+                    {/* Processing Flow */}
+                    <div className="relative">
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-full h-1 bg-blue-100 relative">
+                          <div className="absolute inset-0 bg-blue-500 w-3/4"></div>
+                        </div>
+                      </div>
+                      <div className="relative flex justify-between">
+                        <div className="flex flex-col items-center">
+                          <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white mb-2">1</div>
+                          <span className="text-xs">Ingest</span>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white mb-2">2</div>
+                          <span className="text-xs">Transform</span>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white mb-2">3</div>
+                          <span className="text-xs">Enrich</span>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white mb-2">4</div>
+                          <span className="text-xs">Analyze</span>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-white mb-2">5</div>
+                          <span className="text-xs">Deliver</span>
+                        </div>
+                      </div>
                     </div>
-                    <span className="text-gray-700 text-sm">Streaming APIs</span>
-                  </div>
-                  <div className="flex items-center">
-                    <div className="bg-indigo-100 p-1.5 rounded text-indigo-600 mr-3">
-                      <Server className="w-4 h-4" />
+                    
+                    {/* Pipeline Code */}
+                    <div className="bg-gray-900 p-4 rounded-md text-gray-100 text-sm font-mono">
+                      <div><span className="text-pink-400">pipeline</span>.<span className="text-blue-400">from</span>(<span className="text-green-400">"s3://data-lake"</span>)</div>
+                      <div>&nbsp;&nbsp;.<span className="text-blue-400">transform</span>(<span className="text-pink-400">DataTransformers</span>.<span className="text-blue-400">normalize</span>())</div>
+                      <div>&nbsp;&nbsp;.<span className="text-blue-400">enrich</span>(<span className="text-pink-400">EnrichmentService</span>.<span className="text-blue-400">metadata</span>())</div>
+                      <div>&nbsp;&nbsp;.<span className="text-blue-400">analyze</span>(<span className="text-pink-400">ML</span>.<span className="text-blue-400">sentiment</span>())</div>
+                      <div>&nbsp;&nbsp;.<span className="text-blue-400">to</span>(<span className="text-green-400">"bigquery://analytics"</span>)</div>
                     </div>
-                    <span className="text-gray-700 text-sm">REST/GraphQL</span>
+                    
+                    {/* Status */}
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-blue-50 p-3 rounded-lg">
+                        <div className="text-xs text-gray-500 mb-1">Processing Rate</div>
+                        <div className="text-xl font-bold text-gray-900">243 MB/s</div>
+                      </div>
+                      <div className="bg-green-50 p-3 rounded-lg">
+                        <div className="text-xs text-gray-500 mb-1">Success Rate</div>
+                        <div className="text-xl font-bold text-gray-900">99.7%</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              
-              <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Supported Target Types</h3>
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="flex items-center">
-                    <div className="bg-blue-100 p-1.5 rounded text-blue-600 mr-3">
-                      <Database className="w-4 h-4" />
-                    </div>
-                    <span className="text-gray-700 text-sm">Data Warehouses</span>
-                  </div>
-                  <div className="flex items-center">
-                    <div className="bg-indigo-100 p-1.5 rounded text-indigo-600 mr-3">
-                      <FileText className="w-4 h-4" />
-                    </div>
-                    <span className="text-gray-700 text-sm">Storage Services</span>
-                  </div>
-                  <div className="flex items-center">
-                    <div className="bg-blue-100 p-1.5 rounded text-blue-600 mr-3">
-                      <CloudCog className="w-4 h-4" />
-                    </div>
-                    <span className="text-gray-700 text-sm">Cloud Services</span>
-                  </div>
-                  <div className="flex items-center">
-                    <div className="bg-indigo-100 p-1.5 rounded text-indigo-600 mr-3">
-                      <ArrowRightLeft className="w-4 h-4" />
-                    </div>
-                    <span className="text-gray-700 text-sm">Analytics Tools</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="pt-4">
-                <p className="text-gray-600">
-                  Configure your data pipeline once and deploy to any infrastructure. Our flexible architecture ensures compatibility with both legacy systems and modern cloud platforms.
-                </p>
               </div>
             </div>
           </motion.div>
           
-          {/* Graphic */}
+          {/* Content */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
             viewport={{ once: true }}
-            className="order-1 lg:order-2"
+            className="space-y-6"
           >
-            <div className="relative">
-              <div className="bg-gradient-to-r from-blue-100 to-indigo-100 rounded-3xl p-8">
-                <div className="bg-white rounded-2xl shadow-lg p-6">
-                  <div className="flex items-center justify-between mb-6 border-b pb-4">
-                    <div className="flex items-center">
-                      <div className="w-8 h-8 bg-blue-600 rounded-md flex items-center justify-center text-white mr-3">
-                        <ArrowRightLeft className="w-4 h-4" />
-                      </div>
-                      <h3 className="font-semibold text-lg">Data Flow Designer</h3>
-                    </div>
-                    <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs">Active</div>
-                  </div>
-                  
-                  <div className="space-y-6">
-                    {/* Data Flow Diagram */}
-                    <div className="relative h-72 bg-gray-50 rounded-lg p-4">
-                      {/* Sources Column */}
-                      <div className="absolute left-6 top-4 bottom-4 w-[28%]">
-                        <div className="bg-blue-50 rounded-lg p-3 h-full flex flex-col">
-                          <div className="text-sm font-medium text-gray-700 mb-3 text-center pb-2 border-b border-blue-100">
-                            Sources
-                          </div>
-                          <div className="space-y-3 overflow-auto flex-1 pr-1">
-                            {[
-                              { name: 'PostgreSQL DB', icon: <Database className="w-4 h-4" />, color: 'blue' },
-                              { name: 'REST API', icon: <Server className="w-4 h-4" />, color: 'indigo' },
-                              { name: 'CSV Files', icon: <FileText className="w-4 h-4" />, color: 'blue' },
-                              { name: 'Message Queue', icon: <Wifi className="w-4 h-4" />, color: 'indigo' },
-                            ].map((source, idx) => (
-                              <div key={idx} className={`bg-${source.color}-100 p-2 rounded flex items-center shadow-sm`}>
-                                <div className={`text-${source.color}-600 mr-2`}>
-                                  {source.icon}
-                                </div>
-                                <span className="text-xs">{source.name}</span>
-                                <div className="ml-auto h-2 w-2 rounded-full bg-green-500"></div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                      
-                      {/* Transformation Column */}
-                      <div className="absolute left-[36%] top-4 bottom-4 w-[28%]">
-                        <div className="bg-indigo-50 rounded-lg p-3 h-full flex flex-col">
-                          <div className="text-sm font-medium text-gray-700 mb-3 text-center pb-2 border-b border-indigo-100">
-                            Transformations
-                          </div>
-                          <div className="flex flex-col justify-center items-center h-full space-y-4">
-                            <div className="relative w-full h-[70%] border-2 border-dashed border-indigo-300 rounded-lg flex items-center justify-center p-3">
-                              <div className="absolute -top-3 bg-indigo-50 px-2 text-xs text-indigo-700 font-medium">
-                                OmniLang Transformation
-                              </div>
-                              <div className="text-xs text-gray-500 text-center">
-                                <div className="font-mono bg-white p-2 rounded mb-2 text-left text-[10px] overflow-hidden">
-                                  <div className="text-blue-600">transform (data) {`{`}</div>
-                                  <div className="pl-3 text-gray-700">join(data.users, data.orders);</div>
-                                  <div className="pl-3 text-gray-700">filter(x =&gt; x.status == "active");</div>
-                                  <div className="pl-3 text-gray-700">aggregate(sum, "total");</div>
-                                  <div className="text-blue-600">{`}`}</div>
-                                </div>
-                                Data is currently being processed
-                              </div>
-                            </div>
-                            <div className="w-full flex justify-center items-center">
-                              <div className="h-1 bg-indigo-200 w-2/3 relative">
-                                <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0">
-                                  <div className="h-2 w-2 rounded-full bg-indigo-500 animate-pulse"></div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      {/* Targets Column */}
-                      <div className="absolute right-6 top-4 bottom-4 w-[28%]">
-                        <div className="bg-blue-50 rounded-lg p-3 h-full flex flex-col">
-                          <div className="text-sm font-medium text-gray-700 mb-3 text-center pb-2 border-b border-blue-100">
-                            Targets
-                          </div>
-                          <div className="space-y-3 overflow-auto flex-1 pr-1">
-                            {[
-                              { name: 'Snowflake DW', icon: <Database className="w-4 h-4" />, color: 'blue' },
-                              { name: 'S3 Storage', icon: <CloudCog className="w-4 h-4" />, color: 'indigo' },
-                              { name: 'Analytics API', icon: <ArrowRightLeft className="w-4 h-4" />, color: 'blue' },
-                              { name: 'Tableau', icon: <FileText className="w-4 h-4" />, color: 'indigo' },
-                            ].map((target, idx) => (
-                              <div key={idx} className={`bg-${target.color}-100 p-2 rounded flex items-center shadow-sm`}>
-                                <div className={`text-${target.color}-600 mr-2`}>
-                                  {target.icon}
-                                </div>
-                                <span className="text-xs">{target.name}</span>
-                                <div className="ml-auto h-2 w-2 rounded-full bg-yellow-500"></div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                      
-                      {/* Flow Arrows */}
-                      <div className="absolute left-[32%] top-1/2 w-[4%] h-0.5 bg-indigo-300 transform -translate-y-1/2">
-                        <div className="absolute right-0 h-2 w-2 bg-indigo-500 rounded-full transform translate-x-1/2 -translate-y-1/2"></div>
-                      </div>
-                      <div className="absolute left-[64%] top-1/2 w-[4%] h-0.5 bg-blue-300 transform -translate-y-1/2">
-                        <div className="absolute right-0 h-2 w-2 bg-blue-500 rounded-full transform translate-x-1/2 -translate-y-1/2"></div>
-                      </div>
-                    </div>
-                    
-                    {/* Status Information */}
-                    <div className="grid grid-cols-3 gap-3">
-                      <div className="bg-gray-100 rounded-lg p-3 text-center">
-                        <div className="text-xs text-gray-500 mb-1">Sources</div>
-                        <div className="text-sm font-semibold">4/4 Active</div>
-                      </div>
-                      <div className="bg-gray-100 rounded-lg p-3 text-center">
-                        <div className="text-xs text-gray-500 mb-1">Processing</div>
-                        <div className="text-sm font-semibold">2.3M Records</div>
-                      </div>
-                      <div className="bg-gray-100 rounded-lg p-3 text-center">
-                        <div className="text-xs text-gray-500 mb-1">Targets</div>
-                        <div className="text-sm font-semibold">4/4 Ready</div>
-                      </div>
-                    </div>
-                  </div>
+            <h2 className="text-4xl font-bold tracking-tight text-gray-900 leading-tight">
+              Multimodal <span className="bg-gradient-to-r from-blue-500 to-cyan-600 bg-clip-text text-transparent">Data Pipelines</span>
+            </h2>
+            
+            <p className="text-xl text-gray-600 max-w-lg">
+              Process any data type with unified pipelines that handle structured, unstructured, and streaming data with the same simplified interface.
+            </p>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
+              <div className="flex items-start">
+                <div className="flex-shrink-0 bg-blue-100 p-2 rounded-lg text-blue-600 mr-4">
+                  <BarChart className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-1">Unified Processing</h3>
+                  <p className="text-gray-600">Handle all data types with a single processing framework</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start">
+                <div className="flex-shrink-0 bg-cyan-100 p-2 rounded-lg text-cyan-600 mr-4">
+                  <FileText className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-1">Content Extraction</h3>
+                  <p className="text-gray-600">Extract structured data from unstructured content</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start">
+                <div className="flex-shrink-0 bg-indigo-100 p-2 rounded-lg text-indigo-600 mr-4">
+                  <FileCode className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-1">Code-First Design</h3>
+                  <p className="text-gray-600">Define pipelines in code for version control and CI/CD</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start">
+                <div className="flex-shrink-0 bg-purple-100 p-2 rounded-lg text-purple-600 mr-4">
+                  <Workflow className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-1">Parallel Processing</h3>
+                  <p className="text-gray-600">Scale horizontally for high-throughput workloads</p>
                 </div>
               </div>
             </div>

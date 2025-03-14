@@ -73,3 +73,35 @@
     order: 2;
   }
 }
+
+/* Mobile layout for Omniflow product page */
+@media (max-width: 768px) {
+  .mobile-omniflow-layout .mobile-section .mobile-reverse {
+    flex-direction: column-reverse !important;
+  }
+
+  /* Make sure all section content appears in the same order on mobile */
+  .mobile-omniflow-layout [id^="enterprise-etl"] .grid,
+  .mobile-omniflow-layout [id^="source-target"] .grid,
+  .mobile-omniflow-layout [id^="multimodal-data"] .grid,
+  .mobile-omniflow-layout [id^="governance"] .grid {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* Text content always comes first on mobile */
+  .mobile-omniflow-layout [id^="enterprise-etl"] .grid > div:first-child,
+  .mobile-omniflow-layout [id^="source-target"] .grid > div:first-child,
+  .mobile-omniflow-layout [id^="multimodal-data"] .grid > div:first-child,
+  .mobile-omniflow-layout [id^="governance"] .grid > div:first-child {
+    order: 1;
+  }
+
+  /* Image/graphic content always comes second on mobile */
+  .mobile-omniflow-layout [id^="enterprise-etl"] .grid > div:last-child,
+  .mobile-omniflow-layout [id^="source-target"] .grid > div:last-child,
+  .mobile-omniflow-layout [id^="multimodal-data"] .grid > div:last-child,
+  .mobile-omniflow-layout [id^="governance"] .grid > div:last-child {
+    order: 2;
+  }
+}
