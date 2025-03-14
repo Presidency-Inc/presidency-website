@@ -29,8 +29,13 @@ const ServicesData = () => {
     };
   }, [isMobile]);
   
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-white" id="top">
       <StatusBar />
       <Navbar />
       <ScrollProgress />

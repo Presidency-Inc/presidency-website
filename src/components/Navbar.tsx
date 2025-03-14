@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown, ChevronUp, X, ArrowLeft, Menu } from "lucide-react";
@@ -316,12 +317,12 @@ const Navbar = () => {
                     </Link>
                   </li>
                   <li>
-                    <a href="#data-engineering" className="flex items-start group">
+                    <Link to="/services/data" className="flex items-start group">
                       <div>
                         <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Data Engineering</h4>
                         <p className="text-sm text-gray-600">Optimize your data operations</p>
                       </div>
-                    </a>
+                    </Link>
                   </li>
                   <li>
                     <Link
@@ -360,9 +361,9 @@ const Navbar = () => {
               <div className="col-span-1">
                 <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">Data</h3>
                 <ul className="space-y-3">
-                  <li><a href="#enterprise-etl" className="text-gray-600 hover:text-blue-600">Enterprise ETL</a></li>
-                  <li><a href="#pipeline-development" className="text-gray-600 hover:text-blue-600">Pipeline Development</a></li>
-                  <li><a href="#data-infrastructure" className="text-gray-600 hover:text-blue-600">Data Infrastructure Setup</a></li>
+                  <li><Link to="/services/data#enterprise-etl" className="text-gray-600 hover:text-blue-600">Enterprise ETL</Link></li>
+                  <li><Link to="/services/data#pipeline-development" className="text-gray-600 hover:text-blue-600">Pipeline Development</Link></li>
+                  <li><Link to="/services/data#data-infrastructure" className="text-gray-600 hover:text-blue-600">Data Infrastructure Setup</Link></li>
                   <li><Link to="/services/databricks" className="text-gray-600 hover:text-blue-600" onClick={() => setServicesOpen(false)}>Databricks Services</Link></li>
                 </ul>
               </div>
@@ -614,10 +615,13 @@ const Navbar = () => {
                       </Link>
                     </li>
                     <li>
-                      <a href="#data-engineering" className="block py-2">
+                      <Link to="/services/data" className="block py-2" onClick={() => {
+                        setMobileMenuOpen(false);
+                        setMobileSubmenuOpen(null);
+                      }}>
                         <span className="font-medium text-gray-900">Data Engineering</span>
                         <p className="text-sm text-gray-600">Optimize your data operations</p>
-                      </a>
+                      </Link>
                     </li>
                     <li>
                       <Link
@@ -666,9 +670,18 @@ const Navbar = () => {
                   
                   <h3 className="font-bold text-gray-900 mt-6 mb-3">Data</h3>
                   <ul className="space-y-3">
-                    <li><a href="#enterprise-etl" className="block py-2 text-gray-900">Enterprise ETL</a></li>
-                    <li><a href="#pipeline-development" className="block py-2 text-gray-900">Pipeline Development</a></li>
-                    <li><a href="#data-infrastructure" className="block py-2 text-gray-900">Data Infrastructure Setup</a></li>
+                    <li><Link to="/services/data#enterprise-etl" className="block py-2 text-gray-900" onClick={() => {
+                      setMobileMenuOpen(false);
+                      setMobileSubmenuOpen(null);
+                    }}>Enterprise ETL</Link></li>
+                    <li><Link to="/services/data#pipeline-development" className="block py-2 text-gray-900" onClick={() => {
+                      setMobileMenuOpen(false);
+                      setMobileSubmenuOpen(null);
+                    }}>Pipeline Development</Link></li>
+                    <li><Link to="/services/data#data-infrastructure" className="block py-2 text-gray-900" onClick={() => {
+                      setMobileMenuOpen(false);
+                      setMobileSubmenuOpen(null);
+                    }}>Data Infrastructure Setup</Link></li>
                     <li><Link to="/services/databricks" className="block py-2 text-gray-900" onClick={() => {
                         setMobileMenuOpen(false);
                         setMobileSubmenuOpen(null);
