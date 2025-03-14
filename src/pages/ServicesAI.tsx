@@ -1,0 +1,61 @@
+
+import Navbar from "@/components/Navbar";
+import Hero from "@/components/AIServicesHero";
+import StatusBar from "@/components/StatusBar";
+import Footer from "@/components/Footer";
+import ScrollProgress from "@/components/ScrollProgress";
+import ScrollToTop from "@/components/ScrollToTop";
+import FullStackAISection from "@/components/FullStackAIEngineeringSection";
+import CustomRAGSection from "@/components/CustomRAGSection";
+import AgentDevelopmentSection from "@/components/AgentDevelopmentSection";
+import VoiceAISection from "@/components/VoiceAISection";
+import ModelFinetuningSection from "@/components/ModelFinetuningSection";
+import AIServicesCTA from "@/components/AIServicesCTA";
+import { useEffect } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
+
+const ServicesAI = () => {
+  const isMobile = useIsMobile();
+  
+  // Apply mobile-specific CSS class to the body when on mobile
+  useEffect(() => {
+    if (isMobile) {
+      document.body.classList.add('mobile-ai-services-layout');
+    } else {
+      document.body.classList.remove('mobile-ai-services-layout');
+    }
+    
+    return () => {
+      document.body.classList.remove('mobile-ai-services-layout');
+    };
+  }, [isMobile]);
+  
+  return (
+    <main className="min-h-screen bg-white">
+      <StatusBar />
+      <Navbar />
+      <ScrollProgress />
+      <Hero />
+      <div id="full-stack-ai" className="mobile-section">
+        <FullStackAISection />
+      </div>
+      <div id="custom-rag" className="mobile-section">
+        <CustomRAGSection />
+      </div>
+      <div id="agent-development" className="mobile-section">
+        <AgentDevelopmentSection />
+      </div>
+      <div id="voice-ai" className="mobile-section">
+        <VoiceAISection />
+      </div>
+      <div id="model-finetuning" className="mobile-section">
+        <ModelFinetuningSection />
+      </div>
+      <AIServicesCTA />
+      <Footer />
+      <ScrollToTop />
+    </main>
+  );
+};
+
+export default ServicesAI;
