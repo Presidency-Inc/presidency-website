@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import StatusBar from "@/components/StatusBar";
+import ScrollProgress from "@/components/ScrollProgress";
 
 const Admin = () => {
   const [loading, setLoading] = useState(true);
@@ -57,7 +59,9 @@ const Admin = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <StatusBar />
       <Navbar />
+      <ScrollProgress />
       <main className="flex-grow bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="bg-white shadow overflow-hidden sm:rounded-lg p-6">
