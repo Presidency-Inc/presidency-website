@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown, ChevronUp, X, ArrowLeft, Menu } from "lucide-react";
@@ -66,8 +65,35 @@ const Navbar = () => {
     }, 100);
   };
 
+  const handleNavigateToOmniflowSection = (sectionId: string) => {
+    navigate('/products/omniflow');
+    setProductsOpen(false);
+    setServicesOpen(false);
+    setMobileMenuOpen(false);
+    setMobileSubmenuOpen(null);
+    
+    setTimeout(() => {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  };
+
   const handleNavigateToTop = () => {
     navigate('/products/leapfrog');
+    setProductsOpen(false);
+    setServicesOpen(false);
+    setMobileMenuOpen(false);
+    setMobileSubmenuOpen(null);
+    
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 100);
+  };
+
+  const handleNavigateToOmniflowTop = () => {
+    navigate('/products/omniflow');
     setProductsOpen(false);
     setServicesOpen(false);
     setMobileMenuOpen(false);
@@ -190,7 +216,7 @@ const Navbar = () => {
                     <Link
                       to="/products/omniflow"
                       className="flex items-start group"
-                      onClick={() => setProductsOpen(false)}
+                      onClick={handleNavigateToOmniflowTop}
                     >
                       <div>
                         <h4 className="font-medium text-gray-900 group-hover:text-blue-600">OmniFlow</h4>
@@ -224,10 +250,10 @@ const Navbar = () => {
               <div className="col-span-1">
                 <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">Data</h3>
                 <ul className="space-y-3">
-                  <li><a href="#enterprise-etl" className="text-gray-600 hover:text-blue-600">Enterprise ETL Framework</a></li>
-                  <li><a href="#integrations" className="text-gray-600 hover:text-blue-600">Source & Target Integrations</a></li>
-                  <li><a href="#multimodal" className="text-gray-600 hover:text-blue-600">Multimodal Data Pipelines</a></li>
-                  <li><a href="#governance" className="text-gray-600 hover:text-blue-600">Governance & Observability</a></li>
+                  <li><button onClick={() => handleNavigateToOmniflowSection('enterprise-etl')} className="text-gray-600 hover:text-blue-600">Enterprise ETL Framework</button></li>
+                  <li><button onClick={() => handleNavigateToOmniflowSection('source-target')} className="text-gray-600 hover:text-blue-600">Source & Target Integrations</button></li>
+                  <li><button onClick={() => handleNavigateToOmniflowSection('multimodal-data')} className="text-gray-600 hover:text-blue-600">Multimodal Data Pipelines</button></li>
+                  <li><button onClick={() => handleNavigateToOmniflowSection('governance')} className="text-gray-600 hover:text-blue-600">Governance & Observability</button></li>
                 </ul>
               </div>
 
@@ -502,10 +528,10 @@ const Navbar = () => {
                   
                   <h3 className="font-bold text-gray-900 mt-6 mb-3">Data</h3>
                   <ul className="space-y-3">
-                    <li><a href="#enterprise-etl" className="block py-2 text-gray-900">Enterprise ETL Framework</a></li>
-                    <li><a href="#integrations" className="block py-2 text-gray-900">Source & Target Integrations</a></li>
-                    <li><a href="#multimodal" className="block py-2 text-gray-900">Multimodal Data Pipelines</a></li>
-                    <li><a href="#governance" className="block py-2 text-gray-900">Governance & Observability</a></li>
+                    <li><button onClick={() => handleNavigateToOmniflowSection('enterprise-etl')} className="block py-2 text-gray-900 text-left w-full">Enterprise ETL Framework</button></li>
+                    <li><button onClick={() => handleNavigateToOmniflowSection('source-target')} className="block py-2 text-gray-900 text-left w-full">Source & Target Integrations</button></li>
+                    <li><button onClick={() => handleNavigateToOmniflowSection('multimodal-data')} className="block py-2 text-gray-900 text-left w-full">Multimodal Data Pipelines</button></li>
+                    <li><button onClick={() => handleNavigateToOmniflowSection('governance')} className="block py-2 text-gray-900 text-left w-full">Governance & Observability</button></li>
                   </ul>
                   
                   <h3 className="font-bold text-gray-900 mt-6 mb-3">Modernization</h3>
