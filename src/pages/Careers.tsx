@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
@@ -23,9 +22,8 @@ import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import ReCAPTCHA from "react-google-recaptcha";
 
-// For local development, use the test key from reCAPTCHA
-// This is a special testing key provided by Google for development
-const RECAPTCHA_SITE_KEY = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
+// Your production site key for reCAPTCHA
+const RECAPTCHA_SITE_KEY = "6LfubfQqAAAAAPJ_9wkHu9RO_B4fCeWEaRzlbXts";
 
 const CareerPage = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
