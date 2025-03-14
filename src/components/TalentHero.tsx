@@ -2,29 +2,58 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const TalentHero = () => {
-  // Preload the background image
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const bgImageUrl = "/lovable-uploads/aeec63a9-b351-48eb-9182-6c8e04b32c08.png";
+  
+  // Enhanced preloading with loading state tracking
   useEffect(() => {
-    const heroImage = new Image();
-    heroImage.src = "/lovable-uploads/aeec63a9-b351-48eb-9182-6c8e04b32c08.png";
+    // Check if image is already in browser cache
+    const cachedImage = new Image();
+    cachedImage.src = bgImageUrl;
     
-    // Optional: Add loading metadata to help with performance
-    heroImage.loading = "eager";
-    heroImage.fetchPriority = "high";
+    // If image is already cached, it will load immediately
+    if (cachedImage.complete) {
+      setImageLoaded(true);
+    } else {
+      // If not cached, listen for the load event
+      cachedImage.onload = () => setImageLoaded(true);
+      
+      // Add cache control hints
+      cachedImage.setAttribute('fetchpriority', 'high');
+      cachedImage.setAttribute('decoding', 'async');
+      
+      // Preload the image in the document head for faster subsequent loads
+      const linkPreload = document.createElement('link');
+      linkPreload.rel = 'preload';
+      linkPreload.as = 'image';
+      linkPreload.href = bgImageUrl;
+      document.head.appendChild(linkPreload);
+    }
+    
+    return () => {
+      cachedImage.onload = null;
+    };
   }, []);
 
   return (
     <section className="relative pt-40 pb-20 md:pt-40 md:pb-24 overflow-hidden">
-      {/* Background Image with caching attributes */}
+      {/* Background Image with Skeleton Fallback */}
       <div className="absolute inset-0 z-0">
+        {!imageLoaded && (
+          <Skeleton className="w-full h-full bg-gray-300" />
+        )}
         <img 
-          src="/lovable-uploads/aeec63a9-b351-48eb-9182-6c8e04b32c08.png" 
+          src={bgImageUrl}
           alt="Abstract digital art with blue and purple hues" 
-          className="w-full h-full object-cover"
+          className={`w-full h-full object-cover transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
           loading="eager"
-          fetchPriority="high"
+          fetchpriority="high"
+          decoding="async"
+          onLoad={() => setImageLoaded(true)}
         />
         <div className="absolute inset-0 bg-black/40 mix-blend-multiply"></div>
       </div>

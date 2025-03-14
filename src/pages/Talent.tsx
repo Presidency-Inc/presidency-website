@@ -17,8 +17,24 @@ import { useIsMobile } from "@/hooks/use-mobile";
 const Talent = () => {
   const isMobile = useIsMobile();
   
-  // Apply mobile-specific CSS class to the body when on mobile
+  // Preload critical assets when component is mounted
   useEffect(() => {
+    // Preload the hero image at the page level
+    const preloadHeroImage = () => {
+      const imageUrl = "/lovable-uploads/aeec63a9-b351-48eb-9182-6c8e04b32c08.png";
+      
+      // Add preload link to document head
+      const link = document.createElement("link");
+      link.rel = "preload";
+      link.as = "image";
+      link.href = imageUrl;
+      link.fetchpriority = "high";
+      document.head.appendChild(link);
+    };
+    
+    preloadHeroImage();
+    
+    // Apply mobile-specific CSS class to the body when on mobile
     if (isMobile) {
       document.body.classList.add('mobile-talent-layout');
     } else {
