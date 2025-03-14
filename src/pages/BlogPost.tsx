@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -23,6 +24,7 @@ const BlogPostPage = () => {
   const [post, setPost] = useState<Blog | null>(null);
   const [loading, setLoading] = useState(true);
   const [renderedContent, setRenderedContent] = useState("");
+  const [relatedPosts, setRelatedPosts] = useState<Blog[]>([]);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -145,13 +147,13 @@ const BlogPostPage = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Helmet>
-        <title>{post.title} | Company Blog</title>
-        <meta name="description" content={post.description} />
-        <meta property="og:title" content={post.title} />
-        <meta property="og:description" content={post.description} />
-        <meta property="og:image" content={post.banner_image} />
+        <title>{post?.title || 'Blog Post'} | Company Blog</title>
+        <meta name="description" content={post?.description} />
+        <meta property="og:title" content={post?.title} />
+        <meta property="og:description" content={post?.description} />
+        <meta property="og:image" content={post?.banner_image} />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content={`/blog/${post.slug}`} />
+        <meta property="og:url" content={`/blog/${post?.slug}`} />
         <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
       
@@ -172,11 +174,11 @@ const BlogPostPage = () => {
           
           <article>
             <div className="mb-8">
-              <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
+              <h1 className="text-4xl font-bold mb-4">{post?.title}</h1>
               
               <div className="flex items-center text-gray-500 mb-6">
-                <time dateTime={post.created_at}>
-                  {new Date(post.created_at).toLocaleDateString('en-US', {
+                <time dateTime={post?.created_at}>
+                  {post?.created_at && new Date(post.created_at).toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric'
@@ -185,7 +187,7 @@ const BlogPostPage = () => {
               </div>
 
               <div className="flex flex-wrap gap-2 mb-6">
-                {post.tags?.map(tag => (
+                {post?.tags?.map(tag => (
                   <Link 
                     key={tag.id}
                     to={`/blog?tag=${tag.id}`} 
@@ -198,11 +200,13 @@ const BlogPostPage = () => {
             </div>
             
             <div className="mb-10">
-              <img 
-                src={post.banner_image} 
-                alt={post.title} 
-                className="w-full h-auto rounded-lg object-cover max-h-[500px]"
-              />
+              {post?.banner_image && (
+                <img 
+                  src={post.banner_image} 
+                  alt={post.title} 
+                  className="w-full h-auto rounded-lg object-cover max-h-[500px]"
+                />
+              )}
             </div>
             
             <div className="prose prose-lg max-w-none">
