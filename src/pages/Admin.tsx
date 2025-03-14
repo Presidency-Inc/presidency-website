@@ -62,7 +62,7 @@ const Admin = () => {
       <StatusBar />
       <Navbar />
       <ScrollProgress />
-      <main className="flex-grow bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 mt-8">
+      <main className="flex-grow bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 mt-16">
         <div className="max-w-7xl mx-auto">
           <div className="bg-white shadow overflow-hidden sm:rounded-lg p-6">
             <div className="px-4 py-5 sm:px-6 flex justify-between items-center">
