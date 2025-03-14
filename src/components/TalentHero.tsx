@@ -78,28 +78,13 @@ const TalentHero = () => {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="hidden lg:block"
           >
-            <div className="relative">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg blur opacity-50"></div>
-              <div className="relative bg-white/90 backdrop-blur-sm p-8 rounded-lg border border-blue-500/30 shadow-lg">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-blue-50 p-4 rounded-lg">
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">Faster Onboarding</h3>
-                    <p className="text-gray-700 text-sm">Start in days, not months</p>
-                  </div>
-                  <div className="bg-indigo-50 p-4 rounded-lg">
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">Cost Efficient</h3>
-                    <p className="text-gray-700 text-sm">30-40% reduction</p>
-                  </div>
-                  <div className="bg-indigo-50 p-4 rounded-lg">
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">IP Protection</h3>
-                    <p className="text-gray-700 text-sm">Secure and compliant</p>
-                  </div>
-                  <div className="bg-blue-50 p-4 rounded-lg">
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">Same Timezone</h3>
-                    <p className="text-gray-700 text-sm">Seamless collaboration</p>
-                  </div>
-                </div>
-              </div>
+            <div className="relative rounded-lg overflow-hidden aspect-[4/3] shadow-lg">
+              <img 
+                src="/public/lovable-uploads/b6318c47-997e-4f8a-b6af-e30ecbc0a5b7.png" 
+                alt="Abstract blue and purple digital art" 
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-indigo-600/20 mix-blend-overlay"></div>
             </div>
           </motion.div>
         </div>
