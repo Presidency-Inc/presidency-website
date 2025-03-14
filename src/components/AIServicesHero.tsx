@@ -7,7 +7,7 @@ const AIServicesHero = () => {
   return (
     <div className="relative pt-16 md:pt-24 min-h-[50vh] flex items-center justify-center overflow-hidden">
       {/* Pattern Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-50 z-0">
+      <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 to-blue-50 z-0">
         <svg
           className="absolute inset-0 w-full h-full opacity-30"
           xmlns="http://www.w3.org/2000/svg"
@@ -17,25 +17,37 @@ const AIServicesHero = () => {
           preserveAspectRatio="none"
         >
           <defs>
-            <linearGradient id="ai-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.2" />
-              <stop offset="50%" stopColor="#2563EB" stopOpacity="0.1" />
-              <stop offset="100%" stopColor="#1D4ED8" stopOpacity="0.2" />
+            <linearGradient id="flow-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#4f46e5" stopOpacity="0.2" />
+              <stop offset="50%" stopColor="#3b82f6" stopOpacity="0.1" />
+              <stop offset="100%" stopColor="#2563eb" stopOpacity="0.2" />
             </linearGradient>
           </defs>
-          {/* Neural Network Pattern */}
-          <pattern id="neural-pattern" width="100" height="100" patternUnits="userSpaceOnUse">
-            <circle cx="50" cy="50" r="2" fill="url(#ai-gradient)" />
-            <circle cx="25" cy="25" r="2" fill="url(#ai-gradient)" />
-            <circle cx="75" cy="25" r="2" fill="url(#ai-gradient)" />
-            <circle cx="25" cy="75" r="2" fill="url(#ai-gradient)" />
-            <circle cx="75" cy="75" r="2" fill="url(#ai-gradient)" />
-            <line x1="50" y1="50" x2="25" y2="25" stroke="url(#ai-gradient)" strokeWidth="0.5" />
-            <line x1="50" y1="50" x2="75" y2="25" stroke="url(#ai-gradient)" strokeWidth="0.5" />
-            <line x1="50" y1="50" x2="25" y2="75" stroke="url(#ai-gradient)" strokeWidth="0.5" />
-            <line x1="50" y1="50" x2="75" y2="75" stroke="url(#ai-gradient)" strokeWidth="0.5" />
+          {/* Flow Pattern */}
+          <pattern id="flow-pattern" width="100" height="100" patternUnits="userSpaceOnUse">
+            <path
+              d="M 0,50 C 20,20 40,0 50,0 C 60,0 80,20 100,50 C 120,80 140,100 150,100 C 160,100 180,80 200,50"
+              fill="none"
+              stroke="url(#flow-gradient)"
+              strokeWidth="2"
+              transform="translate(0,0)"
+            />
+            <path
+              d="M 0,50 C 20,20 40,0 50,0 C 60,0 80,20 100,50 C 120,80 140,100 150,100 C 160,100 180,80 200,50"
+              fill="none"
+              stroke="url(#flow-gradient)"
+              strokeWidth="2"
+              transform="translate(-100,25)"
+            />
+            <path
+              d="M 0,50 C 20,20 40,0 50,0 C 60,0 80,20 100,50 C 120,80 140,100 150,100 C 160,100 180,80 200,50"
+              fill="none"
+              stroke="url(#flow-gradient)"
+              strokeWidth="2"
+              transform="translate(0,50)"
+            />
           </pattern>
-          <rect width="100%" height="100%" fill="url(#neural-pattern)" />
+          <rect width="100%" height="100%" fill="url(#flow-pattern)" />
         </svg>
       </div>
 
@@ -52,7 +64,7 @@ const AIServicesHero = () => {
           </h1>
           
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-8 leading-tight">
-            <span className="bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">
               Services
             </span>
           </h2>
@@ -62,7 +74,7 @@ const AIServicesHero = () => {
           </p>
 
           <div>
-            <Button variant="default" size="lg" className="bg-blue-600 text-white hover:bg-blue-700">
+            <Button variant="default" size="lg" className="bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
               CONTACT US
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
