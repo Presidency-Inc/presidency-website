@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { supabase } from "@/integrations/supabase/client";
@@ -42,6 +43,12 @@ export interface Blog {
   tags?: Tag[];
 }
 
+// Configure marked for proper rendering of headings and line breaks
+marked.setOptions({
+  breaks: true,     // Enable line breaks
+  gfm: true,        // Enable GitHub Flavored Markdown
+});
+
 const BlogForm = ({ initialData, onSuccess, onCancel }: BlogFormProps) => {
   const [loading, setLoading] = useState(false);
   const [preview, setPreview] = useState<string>("");
@@ -66,17 +73,17 @@ const BlogForm = ({ initialData, onSuccess, onCancel }: BlogFormProps) => {
   const content = watch("content");
 
   useEffect(() => {
-    marked.setOptions({
-      breaks: true,  // Enable line breaks
-      gfm: true,     // Enable GitHub Flavored Markdown
-    });
-
     // Use a custom renderer to ensure proper heading rendering
     const renderer = new marked.Renderer();
     
-    // Ensure headers get proper HTML tags
+    // Ensure headers get proper HTML tags with appropriate styling
     renderer.heading = (text, level) => {
-      return `<h${level}>${text}</h${level}>`;
+      return `<h${level} class="mt-6 mb-4 font-bold">${text}</h${level}>`;
+    };
+    
+    // Enhance paragraph rendering for better spacing
+    renderer.paragraph = (text) => {
+      return `<p class="mb-4">${text}</p>`;
     };
     
     const rendered = marked.parse(content || "", {
@@ -335,6 +342,50 @@ const BlogForm = ({ initialData, onSuccess, onCancel }: BlogFormProps) => {
     }
   };
 
+  useEffect(() => {
+    const fetchTags = async () => {
+      const { data, error } = await supabase
+        .from('blog_tags')
+        .select('*')
+        .order('name');
+
+      if (error) {
+        console.error('Error fetching tags:', error);
+        return;
+      }
+
+      if (data) {
+        setAvailableTags(data);
+      }
+    };
+
+    fetchTags();
+
+    if (isEditing && initialData?.id) {
+      const fetchPostTags = async () => {
+        const { data, error } = await supabase
+          .from('blog_posts_tags')
+          .select('tag_id')
+          .eq('blog_post_id', initialData.id);
+
+        if (error) {
+          console.error('Error fetching post tags:', error);
+          return;
+        }
+
+        if (data) {
+          setSelectedTags(data.map(item => item.tag_id));
+        }
+      };
+
+      fetchPostTags();
+    }
+
+    if (isEditing && initialData?.banner_image) {
+      setImagePreview(initialData.banner_image);
+    }
+  }, [isEditing, initialData]);
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
@@ -489,7 +540,7 @@ const BlogForm = ({ initialData, onSuccess, onCancel }: BlogFormProps) => {
                         />
                       </FormControl>
                     </TabsContent>
-                    <TabsContent value="preview" className="border rounded-md p-4 min-h-[400px] prose max-w-none overflow-auto">
+                    <TabsContent value="preview" className="border rounded-md p-4 min-h-[400px] prose prose-headings:font-bold prose-headings:mt-6 prose-headings:mb-4 prose-p:mb-4 max-w-none overflow-auto">
                       <div dangerouslySetInnerHTML={{ __html: preview }} />
                     </TabsContent>
                   </Tabs>

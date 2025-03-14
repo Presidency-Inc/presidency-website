@@ -72,9 +72,14 @@ const BlogPostPage = () => {
           // Process markdown with marked - use custom renderer for headings
           const renderer = new marked.Renderer();
           
-          // Ensure headers get proper HTML tags
+          // Ensure headers get proper HTML tags with styling
           renderer.heading = (text, level) => {
-            return `<h${level}>${text}</h${level}>`;
+            return `<h${level} class="mt-6 mb-4 font-bold">${text}</h${level}>`;
+          };
+          
+          // Enhance paragraph rendering for better spacing
+          renderer.paragraph = (text) => {
+            return `<p class="mb-4">${text}</p>`;
           };
           
           const rendered = marked.parse(data.content, {
@@ -219,7 +224,7 @@ const BlogPostPage = () => {
               )}
             </div>
             
-            <div className="prose prose-lg max-w-none">
+            <div className="prose prose-lg prose-headings:font-bold prose-headings:mt-6 prose-headings:mb-4 prose-p:mb-4 max-w-none">
               <div dangerouslySetInnerHTML={{ __html: renderedContent }} />
             </div>
           </article>
