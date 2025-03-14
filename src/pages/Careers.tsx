@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
@@ -27,7 +26,6 @@ const CareerPage = () => {
   const [viewJobModalOpen, setViewJobModalOpen] = useState(false);
   const [applyModalOpen, setApplyModalOpen] = useState(false);
   
-  // Application form state
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [resume, setResume] = useState<File | null>(null);
@@ -72,7 +70,6 @@ const CareerPage = () => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
-      // Only accept PDF, DOC, DOCX files
       const fileType = file.type;
       if (
         fileType === "application/pdf" || 
@@ -106,7 +103,6 @@ const CareerPage = () => {
     try {
       setSubmitting(true);
       
-      // Upload resume to Supabase Storage
       const timestamp = new Date().getTime();
       const fileExt = resume.name.split('.').pop();
       const filePath = `${timestamp}-${name.replace(/\s+/g, '_')}.${fileExt}`;
@@ -117,7 +113,6 @@ const CareerPage = () => {
 
       if (uploadError) throw uploadError;
 
-      // Save applicant data to database
       const { error: applicationError } = await supabase
         .from('job_applicants')
         .insert({
@@ -129,13 +124,11 @@ const CareerPage = () => {
 
       if (applicationError) throw applicationError;
 
-      // Success
       toast({
         title: "Application submitted",
         description: "Your application has been submitted successfully",
       });
       
-      // Reset form
       setName("");
       setEmail("");
       setResume(null);
@@ -158,7 +151,7 @@ const CareerPage = () => {
       <Navbar />
       <ScrollProgress />
       
-      <main className="flex-grow">
+      <main className="flex-grow mt-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center mb-16">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
@@ -210,7 +203,6 @@ const CareerPage = () => {
 
       <Footer />
 
-      {/* View Job Details Modal */}
       <Dialog open={viewJobModalOpen} onOpenChange={setViewJobModalOpen}>
         <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
           {selectedJob && (
@@ -241,7 +233,6 @@ const CareerPage = () => {
         </DialogContent>
       </Dialog>
 
-      {/* Apply for Job Modal */}
       <Dialog open={applyModalOpen} onOpenChange={setApplyModalOpen}>
         <DialogContent className="max-w-md">
           {selectedJob && (
