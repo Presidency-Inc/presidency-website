@@ -7,7 +7,6 @@ import ScrollProgress from "@/components/ScrollProgress";
 import ScrollToTop from "@/components/ScrollToTop";
 import TalentHero from "@/components/TalentHero";
 import TalentFeatures from "@/components/TalentFeatures";
-import ExtendedTeamsSection from "@/components/ExtendedTeamsSection";
 import TalentCTA from "@/components/TalentCTA";
 import HiringProcessSection from "@/components/HiringProcessSection";
 import EngineerTypesSection from "@/components/EngineerTypesSection";
@@ -47,7 +46,6 @@ const Talent = () => {
       <div id="hiring-process" className="mobile-section">
         <HiringProcessSection />
       </div>
-      <ExtendedTeamsSection />
       <TalentCTA />
       <Footer />
       <ScrollToTop />
