@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ProductLeapfrog from "./pages/ProductLeapfrog";
 import ProductOmniflow from "./pages/ProductOmniflow";
+import ProductKube8r from "./pages/ProductKube8r";
 import ServicesDatabricks from "./pages/ServicesDatabricks";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/products/leapfrog" element={<ProductLeapfrog />} />
           <Route path="/products/omniflow" element={<ProductOmniflow />} />
+          <Route path="/products/kube8r" element={<ProductKube8r />} />
           <Route path="/services/databricks" element={<ServicesDatabricks />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

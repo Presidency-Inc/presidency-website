@@ -80,6 +80,21 @@ const Navbar = () => {
     }, 100);
   };
 
+  const handleNavigateToKube8rSection = (sectionId: string) => {
+    navigate('/products/kube8r');
+    setProductsOpen(false);
+    setServicesOpen(false);
+    setMobileMenuOpen(false);
+    setMobileSubmenuOpen(null);
+    
+    setTimeout(() => {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  };
+
   const handleNavigateToTop = () => {
     navigate('/products/leapfrog');
     setProductsOpen(false);
@@ -94,6 +109,18 @@ const Navbar = () => {
 
   const handleNavigateToOmniflowTop = () => {
     navigate('/products/omniflow');
+    setProductsOpen(false);
+    setServicesOpen(false);
+    setMobileMenuOpen(false);
+    setMobileSubmenuOpen(null);
+    
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 100);
+  };
+
+  const handleNavigateToKube8rTop = () => {
+    navigate('/products/kube8r');
     setProductsOpen(false);
     setServicesOpen(false);
     setMobileMenuOpen(false);
@@ -225,12 +252,16 @@ const Navbar = () => {
                     </Link>
                   </li>
                   <li>
-                    <a href="#kube8r" className="flex items-start group">
+                    <Link
+                      to="/products/kube8r"
+                      className="flex items-start group"
+                      onClick={handleNavigateToKube8rTop}
+                    >
                       <div>
                         <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Kube8r</h4>
                         <p className="text-sm text-gray-600">Cloud and app modernization</p>
                       </div>
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -260,8 +291,8 @@ const Navbar = () => {
               <div className="col-span-1">
                 <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">Modernization</h3>
                 <ul className="space-y-3">
-                  <li><a href="#bare-metal" className="text-gray-600 hover:text-blue-600">Bare-metal to Cloud</a></li>
-                  <li><a href="#app-stack" className="text-gray-600 hover:text-blue-600">App-stack Modernization</a></li>
+                  <li><button onClick={() => handleNavigateToKube8rSection('bare-metal')} className="text-gray-600 hover:text-blue-600">Bare-metal to Cloud</button></li>
+                  <li><button onClick={() => handleNavigateToKube8rSection('app-stack')} className="text-gray-600 hover:text-blue-600">App-stack Modernization</button></li>
                 </ul>
               </div>
             </div>
@@ -455,10 +486,17 @@ const Navbar = () => {
                       </Link>
                     </li>
                     <li>
-                      <a href="#kube8r" className="block py-2">
+                      <Link
+                        to="/products/kube8r"
+                        className="block py-2"
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          setMobileSubmenuOpen(null);
+                        }}
+                      >
                         <span className="font-medium text-gray-900">Kube8r</span>
                         <p className="text-sm text-gray-600">Cloud and app modernization</p>
-                      </a>
+                      </Link>
                     </li>
                   </ul>
                   
@@ -536,8 +574,8 @@ const Navbar = () => {
                   
                   <h3 className="font-bold text-gray-900 mt-6 mb-3">Modernization</h3>
                   <ul className="space-y-3 mb-6">
-                    <li><a href="#bare-metal" className="block py-2 text-gray-900">Bare-metal to Cloud</a></li>
-                    <li><a href="#app-stack" className="block py-2 text-gray-900">App-stack Modernization</a></li>
+                    <li><button onClick={() => handleNavigateToKube8rSection('bare-metal')} className="block py-2 text-gray-900 text-left w-full">Bare-metal to Cloud</button></li>
+                    <li><button onClick={() => handleNavigateToKube8rSection('app-stack')} className="block py-2 text-gray-900 text-left w-full">App-stack Modernization</button></li>
                   </ul>
                 </div>
               </div>
