@@ -66,20 +66,16 @@ const BlogForm = ({ initialData, onSuccess, onCancel }: BlogFormProps) => {
   const content = watch("content");
 
   useEffect(() => {
-    // Configure marked for proper rendering
     marked.setOptions({
       breaks: true,
       gfm: true,
-      headerIds: true,
     });
 
-    // Render markdown preview
-    const html = marked.parse(content || "");
-    setPreview(html);
+    const rendered = marked.parse(content || "");
+    setPreview(rendered as string);
   }, [content]);
 
   useEffect(() => {
-    // Fetch available tags
     const fetchTags = async () => {
       const { data, error } = await supabase
         .from('blog_tags')
@@ -98,7 +94,6 @@ const BlogForm = ({ initialData, onSuccess, onCancel }: BlogFormProps) => {
 
     fetchTags();
 
-    // If editing, fetch tags for this post
     if (isEditing && initialData?.id) {
       const fetchPostTags = async () => {
         const { data, error } = await supabase
@@ -119,7 +114,6 @@ const BlogForm = ({ initialData, onSuccess, onCancel }: BlogFormProps) => {
       fetchPostTags();
     }
 
-    // If editing, set image preview
     if (isEditing && initialData?.banner_image) {
       setImagePreview(initialData.banner_image);
     }
@@ -187,7 +181,6 @@ const BlogForm = ({ initialData, onSuccess, onCancel }: BlogFormProps) => {
     const title = e.target.value;
     form.setValue("title", title);
     
-    // Only auto-generate slug if it's a new post or if slug is empty
     if (!isEditing || !form.getValues("slug")) {
       form.setValue("slug", generateSlug(title));
     }
@@ -235,7 +228,6 @@ const BlogForm = ({ initialData, onSuccess, onCancel }: BlogFormProps) => {
     try {
       setLoading(true);
       
-      // Upload image if a new one is selected
       let bannerImageUrl = initialData?.banner_image || "";
       if (imageFile) {
         const uploadedUrl = await uploadBannerImage(imageFile);
@@ -243,7 +235,6 @@ const BlogForm = ({ initialData, onSuccess, onCancel }: BlogFormProps) => {
         bannerImageUrl = uploadedUrl;
       }
 
-      // Get current user
       const { data: userData } = await supabase.auth.getUser();
       if (!userData.user) {
         toast({
@@ -254,7 +245,6 @@ const BlogForm = ({ initialData, onSuccess, onCancel }: BlogFormProps) => {
         return;
       }
 
-      // Create or update blog post
       const blogData = {
         title: data.title,
         slug: data.slug,
@@ -267,7 +257,6 @@ const BlogForm = ({ initialData, onSuccess, onCancel }: BlogFormProps) => {
       let blogId: string;
 
       if (isEditing) {
-        // Update existing post
         const { error: updateError } = await supabase
           .from('blog_posts')
           .update(blogData)
@@ -279,7 +268,6 @@ const BlogForm = ({ initialData, onSuccess, onCancel }: BlogFormProps) => {
         
         blogId = initialData.id;
       } else {
-        // Create new post
         const { data: newPost, error: insertError } = await supabase
           .from('blog_posts')
           .insert({
@@ -296,7 +284,6 @@ const BlogForm = ({ initialData, onSuccess, onCancel }: BlogFormProps) => {
         blogId = newPost.id;
       }
 
-      // Handle tags - first remove all existing tags for this post if editing
       if (isEditing) {
         await supabase
           .from('blog_posts_tags')
@@ -304,7 +291,6 @@ const BlogForm = ({ initialData, onSuccess, onCancel }: BlogFormProps) => {
           .eq('blog_post_id', blogId);
       }
 
-      // Add selected tags
       if (selectedTags.length > 0) {
         const tagRelations = selectedTags.map(tagId => ({
           blog_post_id: blogId,

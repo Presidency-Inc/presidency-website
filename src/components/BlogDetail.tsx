@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -10,7 +9,6 @@ import { Blog, Tag } from "./BlogForm";
 marked.setOptions({
   breaks: true,
   gfm: true,
-  headerIds: true,
 });
 
 interface BlogDetailProps {
@@ -63,8 +61,8 @@ const BlogDetail = ({ blogId, onBack }: BlogDetailProps) => {
           setBlog(blogWithTags);
           
           // Process markdown with marked
-          const html = marked.parse(data.content);
-          setRenderedContent(html);
+          const rendered = marked.parse(data.content);
+          setRenderedContent(rendered as string);
         }
       } catch (error) {
         console.error('Error fetching blog post:', error);
@@ -147,3 +145,4 @@ const BlogDetail = ({ blogId, onBack }: BlogDetailProps) => {
 };
 
 export default BlogDetail;
+

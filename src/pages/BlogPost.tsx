@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -16,7 +15,6 @@ import { Blog, Tag } from "@/components/BlogForm";
 marked.setOptions({
   breaks: true,
   gfm: true,
-  headerIds: true,
 });
 
 const BlogPostPage = () => {
@@ -25,7 +23,6 @@ const BlogPostPage = () => {
   const [post, setPost] = useState<Blog | null>(null);
   const [loading, setLoading] = useState(true);
   const [renderedContent, setRenderedContent] = useState("");
-  const [relatedPosts, setRelatedPosts] = useState<Blog[]>([]);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -47,7 +44,6 @@ const BlogPostPage = () => {
         }
 
         if (data) {
-          // Fetch tags for this post
           const { data: tagsData } = await supabase
             .from('blog_posts_tags')
             .select('tag_id')
@@ -72,11 +68,9 @@ const BlogPostPage = () => {
           const blogWithTags = { ...data, tags };
           setPost(blogWithTags);
           
-          // Process markdown with marked
-          const html = marked.parse(data.content);
-          setRenderedContent(html);
+          const rendered = marked.parse(data.content);
+          setRenderedContent(rendered as string);
 
-          // Fetch related posts based on tags
           if (tagIds.length > 0) {
             fetchRelatedPosts(data.id, tagIds);
           }
@@ -93,7 +87,6 @@ const BlogPostPage = () => {
 
   const fetchRelatedPosts = async (currentPostId: string, tagIds: string[]) => {
     try {
-      // Get posts that share tags with the current post
       const { data: postTagRelations } = await supabase
         .from('blog_posts_tags')
         .select('blog_post_id')
@@ -101,7 +94,6 @@ const BlogPostPage = () => {
         .neq('blog_post_id', currentPostId);
 
       if (postTagRelations && postTagRelations.length > 0) {
-        // Get unique post IDs
         const relatedPostIds = [...new Set(postTagRelations.map(item => item.blog_post_id))].slice(0, 3);
         
         const { data: relatedPostsData } = await supabase
