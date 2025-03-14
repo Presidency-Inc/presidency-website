@@ -11,6 +11,7 @@ import NearshoreTeams from "@/components/NearshoreTeams";
 import NearshoreVetting from "@/components/NearshoreVetting";
 import NearshoreProcess from "@/components/NearshoreProcess";
 import NearshoreCTA from "@/components/NearshoreCTA";
+import LogoMarquee from "@/components/LogoMarquee";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const TalentNearshore = () => {
@@ -40,6 +41,7 @@ const TalentNearshore = () => {
       <Navbar />
       <ScrollProgress />
       <NearshoreHero />
+      <LogoMarquee />
       <div id="advantages" className="mobile-section">
         <NearshoreAdvantage />
       </div>

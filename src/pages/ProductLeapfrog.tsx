@@ -12,6 +12,7 @@ import BusinessLogicSection from "@/components/BusinessLogicSection";
 import AIOperationsSection from "@/components/AIOperationsSection";
 import LLMsSection from "@/components/LLMsSection";
 import LeapfrogCTA from "@/components/LeapfrogCTA";
+import LogoMarquee from "@/components/LogoMarquee";
 import { useEffect } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -37,6 +38,7 @@ const ProductLeapfrog = () => {
       <Navbar />
       <ScrollProgress />
       <Hero />
+      <LogoMarquee />
       <MultiChannelSection />
       <div id="multi-channel-experience" className="mobile-section">
         <MultiChannelExperienceSection />

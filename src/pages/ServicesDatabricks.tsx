@@ -11,6 +11,7 @@ import AcceleratorsSection from "@/components/AcceleratorsSection";
 import ServicesOfferingSection from "@/components/ServicesOfferingSection";
 import ExpertiseSection from "@/components/ExpertiseSection";
 import DatabricksCTA from "@/components/DatabricksCTA";
+import LogoMarquee from "@/components/LogoMarquee";
 
 const ServicesDatabricks = () => {
   useEffect(() => {
@@ -24,6 +25,7 @@ const ServicesDatabricks = () => {
       <Navbar />
       <ScrollProgress />
       <DatabricksHero />
+      <LogoMarquee />
       <DatabricksFeatures />
       <AcceleratorsSection />
       <ServicesOfferingSection />

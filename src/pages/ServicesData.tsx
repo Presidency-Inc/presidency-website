@@ -10,6 +10,7 @@ import PipelineDevelopmentSection from "@/components/PipelineDevelopmentSection"
 import DataInfrastructureSection from "@/components/DataInfrastructureSection";
 import DatabricksServicesSection from "@/components/DatabricksServicesSection";
 import DataServicesCTA from "@/components/DataServicesCTA";
+import LogoMarquee from "@/components/LogoMarquee";
 import { useEffect } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -40,6 +41,7 @@ const ServicesData = () => {
       <Navbar />
       <ScrollProgress />
       <DataServicesHero />
+      <LogoMarquee />
       <div id="enterprise-etl" className="mobile-section">
         <EnterpriseETLSection />
       </div>

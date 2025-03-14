@@ -8,6 +8,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import BareMetalToCloudSection from "@/components/BareMetalToCloudSection";
 import AppStackModernizationSection from "@/components/AppStackModernizationSection";
 import Kube8rCTA from "@/components/Kube8rCTA";
+import LogoMarquee from "@/components/LogoMarquee";
 import { useEffect } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -33,6 +34,7 @@ const ProductKube8r = () => {
       <Navbar />
       <ScrollProgress />
       <Hero />
+      <LogoMarquee />
       <div id="bare-metal" className="mobile-section">
         <BareMetalToCloudSection />
       </div>

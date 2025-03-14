@@ -11,6 +11,7 @@ import AgentDevelopmentSection from "@/components/AgentDevelopmentSection";
 import VoiceAISection from "@/components/VoiceAISection";
 import ModelFinetuningSection from "@/components/ModelFinetuningSection";
 import AIServicesCTA from "@/components/AIServicesCTA";
+import LogoMarquee from "@/components/LogoMarquee";
 import { useEffect } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -41,6 +42,7 @@ const ServicesAI = () => {
       <Navbar />
       <ScrollProgress />
       <Hero />
+      <LogoMarquee />
       <div id="full-stack-ai-engineering" className="mobile-section">
         <FullStackAISection />
       </div>
