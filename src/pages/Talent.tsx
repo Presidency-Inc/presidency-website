@@ -11,6 +11,7 @@ import TalentCTA from "@/components/TalentCTA";
 import HiringProcessSection from "@/components/HiringProcessSection";
 import EngineerTypesSection from "@/components/EngineerTypesSection";
 import NearshoreAdvantageSection from "@/components/NearshoreAdvantageSection";
+import LogoMarquee from "@/components/LogoMarquee";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const Talent = () => {
@@ -40,6 +41,7 @@ const Talent = () => {
       <Navbar />
       <ScrollProgress />
       <TalentHero />
+      <LogoMarquee />
       <TalentFeatures />
       <div id="engineer-types" className="mobile-section">
         <EngineerTypesSection />
