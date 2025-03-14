@@ -7,7 +7,7 @@ const TalentHero = () => {
   return (
     <section className="relative pt-40 pb-20 md:pt-40 md:pb-24 overflow-hidden">
       {/* Pattern Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-50 to-indigo-50 z-0">
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-50 z-0">
         <svg
           className="absolute inset-0 w-full h-full opacity-30"
           xmlns="http://www.w3.org/2000/svg"
@@ -18,9 +18,9 @@ const TalentHero = () => {
         >
           <defs>
             <linearGradient id="talent-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0.2" />
-              <stop offset="50%" stopColor="#6366F1" stopOpacity="0.1" />
-              <stop offset="100%" stopColor="#4F46E5" stopOpacity="0.2" />
+              <stop offset="0%" stopColor="#2563eb" stopOpacity="0.2" />
+              <stop offset="50%" stopColor="#3b82f6" stopOpacity="0.1" />
+              <stop offset="100%" stopColor="#60a5fa" stopOpacity="0.2" />
             </linearGradient>
           </defs>
           {/* Flow Pattern */}
@@ -60,13 +60,13 @@ const TalentHero = () => {
             className="text-center lg:text-left"
           >
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-6">
-              Hire <span className="bg-gradient-to-r from-purple-500 to-indigo-600 bg-clip-text text-transparent">AI & Data Engineers</span>
+              Hire <span className="bg-gradient-to-r from-blue-500 to-indigo-600 bg-clip-text text-transparent">AI & Data Engineers</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto lg:mx-0">
               Extend your team with top-tier AI and data engineering talent, fully vetted and ready to hit the ground running on your most critical projects.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button size="lg" className="bg-[#6366f1] hover:bg-[#6366f1]/90 text-white border-none">
+              <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white border-none">
                 Get Started
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
@@ -79,10 +79,10 @@ const TalentHero = () => {
             className="hidden lg:block"
           >
             <div className="relative">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-lg blur opacity-50"></div>
-              <div className="relative bg-white/90 backdrop-blur-sm p-8 rounded-lg border border-purple-500/30 shadow-lg">
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg blur opacity-50"></div>
+              <div className="relative bg-white/90 backdrop-blur-sm p-8 rounded-lg border border-blue-500/30 shadow-lg">
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-purple-50 p-4 rounded-lg">
+                  <div className="bg-blue-50 p-4 rounded-lg">
                     <h3 className="text-lg font-medium text-gray-900 mb-2">Faster Onboarding</h3>
                     <p className="text-gray-700 text-sm">Start in days, not months</p>
                   </div>
@@ -94,7 +94,7 @@ const TalentHero = () => {
                     <h3 className="text-lg font-medium text-gray-900 mb-2">IP Protection</h3>
                     <p className="text-gray-700 text-sm">Secure and compliant</p>
                   </div>
-                  <div className="bg-purple-50 p-4 rounded-lg">
+                  <div className="bg-blue-50 p-4 rounded-lg">
                     <h3 className="text-lg font-medium text-gray-900 mb-2">Same Timezone</h3>
                     <p className="text-gray-700 text-sm">Seamless collaboration</p>
                   </div>

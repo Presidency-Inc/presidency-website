@@ -37,7 +37,7 @@ const features = [
 
 const TalentFeatures = () => {
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-20 bg-blue-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <motion.h2 
@@ -70,7 +70,7 @@ const TalentFeatures = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <div className="bg-purple-50 w-12 h-12 rounded-lg flex items-center justify-center mb-4 text-purple-600">
+              <div className="bg-blue-50 w-12 h-12 rounded-lg flex items-center justify-center mb-4 text-blue-600">
                 {feature.icon}
               </div>
               <h3 className="text-xl font-semibold mb-2 text-gray-900">

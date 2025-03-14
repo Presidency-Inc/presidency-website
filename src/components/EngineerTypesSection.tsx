@@ -44,7 +44,7 @@ const engineerTypes = [
 
 const EngineerTypesSection = () => {
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-br from-gray-50 to-white">
+    <section className="py-16 md:py-24 bg-gradient-to-br from-blue-50 to-indigo-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -72,7 +72,7 @@ const EngineerTypesSection = () => {
               className="bg-white rounded-xl shadow p-6 flex flex-col h-full"
             >
               <div className="mb-6">
-                <div className="bg-purple-100 rounded-lg w-16 h-16 flex items-center justify-center text-purple-600 mb-4">
+                <div className="bg-blue-100 rounded-lg w-16 h-16 flex items-center justify-center text-blue-600 mb-4">
                   {type.icon}
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">{type.title}</h3>
@@ -85,13 +85,13 @@ const EngineerTypesSection = () => {
                   {type.skills.map((skill, i) => (
                     <span 
                       key={i} 
-                      className="text-xs bg-purple-50 text-purple-700 px-2 py-1 rounded-full"
+                      className="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded-full"
                     >
                       {skill}
                     </span>
                   ))}
                 </div>
-                <Button variant="outline" size="sm" className="w-full border-purple-200 text-purple-700 hover:bg-purple-50">
+                <Button variant="outline" size="sm" className="w-full border-blue-200 text-blue-700 hover:bg-blue-50">
                   Learn More
                 </Button>
               </div>

@@ -50,6 +50,12 @@
     --sidebar-border: 220 13% 91%;
 
     --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    /* Talent page specific colors */
+    --talent-blue: 221.2 83.2% 53.3%;
+    --talent-indigo: 226.2 100% 61.6%;
+    --talent-blue-light: 213.8 100% 96.9%;
+    --talent-indigo-light: 225.9 100% 96.7%;
   }
 
   .dark {
