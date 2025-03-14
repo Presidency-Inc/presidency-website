@@ -20,6 +20,9 @@ import { marked } from "marked";
 import { toast } from "@/components/ui/use-toast";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
+import ReCAPTCHA from "react-google-recaptcha";
+
+const RECAPTCHA_SITE_KEY = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
 
 const CareerPage = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -40,6 +43,9 @@ const CareerPage = () => {
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
   const [departments, setDepartments] = useState<string[]>([]);
   const [locations, setLocations] = useState<string[]>([]);
+
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [captchaError, setCaptchaError] = useState(false);
 
   useEffect(() => {
     fetchJobs();
@@ -128,6 +134,11 @@ const CareerPage = () => {
     }
   };
 
+  const handleCaptchaChange = (token: string | null) => {
+    setCaptchaToken(token);
+    setCaptchaError(false);
+  };
+
   const handleSubmitApplication = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -136,6 +147,16 @@ const CareerPage = () => {
       toast({
         title: "Missing required fields",
         description: "Please fill out all fields and upload a resume",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!captchaToken) {
+      setCaptchaError(true);
+      toast({
+        title: "CAPTCHA verification required",
+        description: "Please complete the CAPTCHA verification",
         variant: "destructive",
       });
       return;
@@ -173,6 +194,7 @@ const CareerPage = () => {
       setName("");
       setEmail("");
       setResume(null);
+      setCaptchaToken(null);
       setApplyModalOpen(false);
     } catch (error: any) {
       console.error("Error submitting application:", error);
@@ -426,6 +448,23 @@ const CareerPage = () => {
                     )}
                   </div>
                 </div>
+                
+                <div className="space-y-2">
+                  <Label>
+                    <div className="flex items-center mb-2">
+                      Verification
+                    </div>
+                  </Label>
+                  <div className={`flex justify-center ${captchaError ? 'border border-red-500 rounded-md p-2' : ''}`}>
+                    <ReCAPTCHA
+                      sitekey={RECAPTCHA_SITE_KEY}
+                      onChange={handleCaptchaChange}
+                    />
+                  </div>
+                  {captchaError && (
+                    <p className="text-sm text-red-500">Please complete the CAPTCHA verification</p>
+                  )}
+                </div>
 
                 <div className="flex justify-end gap-2 mt-6">
                   <Button
@@ -437,7 +476,7 @@ const CareerPage = () => {
                   </Button>
                   <Button
                     type="submit"
-                    disabled={submitting}
+                    disabled={submitting || !captchaToken}
                   >
                     {submitting ? (
                       <>
