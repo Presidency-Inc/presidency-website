@@ -12,6 +12,13 @@ import { ArrowLeft } from "lucide-react";
 import { marked } from "marked";
 import { Blog, Tag } from "@/components/BlogForm";
 
+// Configure marked for proper rendering
+marked.setOptions({
+  breaks: true,
+  gfm: true,
+  headerIds: true,
+});
+
 const BlogPostPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
@@ -64,7 +71,10 @@ const BlogPostPage = () => {
 
           const blogWithTags = { ...data, tags };
           setPost(blogWithTags);
-          setRenderedContent(marked(data.content));
+          
+          // Process markdown with marked
+          const html = marked.parse(data.content);
+          setRenderedContent(html);
 
           // Fetch related posts based on tags
           if (tagIds.length > 0) {

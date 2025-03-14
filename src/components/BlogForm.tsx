@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { supabase } from "@/integrations/supabase/client";
@@ -67,7 +66,16 @@ const BlogForm = ({ initialData, onSuccess, onCancel }: BlogFormProps) => {
   const content = watch("content");
 
   useEffect(() => {
-    setPreview(marked(content || ""));
+    // Configure marked for proper rendering
+    marked.setOptions({
+      breaks: true,
+      gfm: true,
+      headerIds: true,
+    });
+
+    // Render markdown preview
+    const html = marked.parse(content || "");
+    setPreview(html);
   }, [content]);
 
   useEffect(() => {

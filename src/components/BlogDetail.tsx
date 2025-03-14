@@ -6,6 +6,13 @@ import { marked } from "marked";
 import { ArrowLeft } from "lucide-react";
 import { Blog, Tag } from "./BlogForm";
 
+// Configure marked for proper rendering
+marked.setOptions({
+  breaks: true,
+  gfm: true,
+  headerIds: true,
+});
+
 interface BlogDetailProps {
   blogId: string;
   onBack: () => void;
@@ -54,7 +61,10 @@ const BlogDetail = ({ blogId, onBack }: BlogDetailProps) => {
 
           const blogWithTags = { ...data, tags };
           setBlog(blogWithTags);
-          setRenderedContent(marked(data.content));
+          
+          // Process markdown with marked
+          const html = marked.parse(data.content);
+          setRenderedContent(html);
         }
       } catch (error) {
         console.error('Error fetching blog post:', error);
