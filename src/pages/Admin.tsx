@@ -20,6 +20,7 @@ import JobList, { Job } from "@/components/JobList";
 import JobForm from "@/components/JobForm";
 import JobDetail from "@/components/JobDetail";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import BannerForm from "@/components/BannerForm";
 
 interface UserProfile {
   name: string;
@@ -537,10 +538,10 @@ const Admin = () => {
                   <Card>
                     <CardHeader>
                       <CardTitle>Blue Banner</CardTitle>
-                      <CardDescription>Manage site-wide banner content.</CardDescription>
+                      <CardDescription>Manage the content of the blue banner that appears at the top of the site.</CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-gray-700">Banner management content will go here.</p>
+                      <BannerForm />
                     </CardContent>
                   </Card>
                 </TabsContent>

@@ -1,15 +1,54 @@
 
 import { ArrowRight } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+
+interface BannerSettings {
+  title: string;
+  link_name: string;
+  link_url: string;
+}
 
 const StatusBar = () => {
   const isMobile = useIsMobile();
-  const location = useLocation();
-  const isProductsActive = location.pathname.startsWith('/products/');
-  const isServicesActive = location.pathname.startsWith('/services/') && location.pathname !== '/services/databricks';
-  const isDatabricksActive = location.pathname === '/services/databricks';
-  const hasActiveNav = isProductsActive || isServicesActive || isDatabricksActive;
+  const [bannerSettings, setBannerSettings] = useState<BannerSettings>({
+    title: "Join FREE AI Solutions Webinar: Maximize Enterprise Impact - June 15-16, 2023",
+    link_name: "Register Now",
+    link_url: "/register"
+  });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBannerSettings = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('banner_settings')
+          .select('*')
+          .single();
+
+        if (error) {
+          console.error('Error fetching banner settings:', error);
+          return;
+        }
+
+        if (data) {
+          setBannerSettings({
+            title: data.title,
+            link_name: data.link_name,
+            link_url: data.link_url
+          });
+        }
+      } catch (error) {
+        console.error('Error fetching banner settings:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBannerSettings();
+  }, []);
   
   if (isMobile) return null;
   
@@ -18,11 +57,15 @@ const StatusBar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center md:justify-between">
         <div className="flex items-center text-sm">
           <span className="hidden md:inline">
-            Join FREE AI Solutions Webinar: Maximize Enterprise Impact - June 15-16, 2023
+            {bannerSettings.title}
           </span>
-          <span className="md:hidden">FREE AI Webinar: June 15-16</span>
-          <Link to="/register" className="flex items-center ml-2 font-medium hover:underline">
-            Register Now
+          <span className="md:hidden">
+            {bannerSettings.title.length > 30 
+              ? `${bannerSettings.title.substring(0, 30)}...` 
+              : bannerSettings.title}
+          </span>
+          <Link to={bannerSettings.link_url} className="flex items-center ml-2 font-medium hover:underline">
+            {bannerSettings.link_name}
             <ArrowRight className="ml-1 h-3 w-3" />
           </Link>
         </div>
