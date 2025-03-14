@@ -37,6 +37,7 @@ const Admin = () => {
   });
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+  const [savingProfile, setSavingProfile] = useState(false);
   
   const navigate = useNavigate();
 
@@ -59,21 +60,7 @@ const Admin = () => {
       }
       
       setUser(data.session.user);
-
-      // For demo purposes - in a real app, this would fetch from a profiles table
-      setProfile({
-        name: data.session.user.email?.split('@')[0] || "User",
-        title: "Team Member",
-        bio: "This is my professional bio. I work at this company and contribute to various projects.",
-        avatarUrl: "",
-      });
-
-      form.reset({
-        name: data.session.user.email?.split('@')[0] || "User",
-        title: "Team Member",
-        bio: "This is my professional bio. I work at this company and contribute to various projects.",
-        avatarUrl: "",
-      });
+      await fetchUserProfile(data.session.user.id);
       
       setLoading(false);
     };
@@ -86,6 +73,7 @@ const Admin = () => {
           navigate("/login");
         } else if (session) {
           setUser(session.user);
+          await fetchUserProfile(session.user.id);
         }
       }
     );
@@ -93,7 +81,36 @@ const Admin = () => {
     return () => {
       authListener.subscription.unsubscribe();
     };
-  }, [navigate, form]);
+  }, [navigate]);
+
+  const fetchUserProfile = async (userId: string) => {
+    try {
+      const { data, error } = await supabase
+        .from("user_profiles")
+        .select("*")
+        .eq("id", userId)
+        .single();
+
+      if (error) {
+        console.error("Error fetching profile:", error);
+        return;
+      }
+
+      if (data) {
+        const profileData = {
+          name: data.name || "",
+          title: data.title || "",
+          bio: data.bio || "",
+          avatarUrl: data.avatar_url || "",
+        };
+        
+        setProfile(profileData);
+        form.reset(profileData);
+      }
+    } catch (error) {
+      console.error("Error fetching profile:", error);
+    }
+  };
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -126,20 +143,102 @@ const Admin = () => {
     }
   };
 
-  const handleProfileSubmit = (data: UserProfile) => {
-    // In a real app, this would save to the database
-    setProfile({
-      ...data,
-      avatarUrl: avatarPreview || profile.avatarUrl,
-    });
+  const uploadAvatar = async (userId: string, file: File): Promise<string | null> => {
+    try {
+      // Create a storage bucket if it doesn't exist
+      const { data: bucketData, error: bucketError } = await supabase.storage.getBucket('avatars');
+      
+      if (bucketError && bucketError.message.includes('does not exist')) {
+        await supabase.storage.createBucket('avatars', {
+          public: true,
+          fileSizeLimit: 1024 * 1024 * 2, // 2MB
+        });
+      }
+      
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${userId}-${Date.now()}.${fileExt}`;
+      
+      const { error: uploadError } = await supabase.storage
+        .from('avatars')
+        .upload(fileName, file);
+
+      if (uploadError) {
+        console.error('Error uploading avatar:', uploadError);
+        return null;
+      }
+
+      const { data } = supabase.storage.from('avatars').getPublicUrl(fileName);
+      return data.publicUrl;
+    } catch (error) {
+      console.error('Error uploading avatar:', error);
+      return null;
+    }
+  };
+
+  const handleProfileSubmit = async (data: UserProfile) => {
+    if (!user) return;
     
-    toast({
-      title: "Profile updated",
-      description: "Your profile has been updated successfully.",
-    });
-    
-    setIsEditing(false);
-    setAvatarFile(null);
+    try {
+      setSavingProfile(true);
+      
+      // Upload avatar if a new one was selected
+      let avatarUrl = profile.avatarUrl;
+      if (avatarFile) {
+        const uploadedUrl = await uploadAvatar(user.id, avatarFile);
+        if (uploadedUrl) {
+          avatarUrl = uploadedUrl;
+        }
+      }
+      
+      // Update or insert the profile in Supabase
+      const { error } = await supabase
+        .from('user_profiles')
+        .upsert({
+          id: user.id,
+          name: data.name,
+          title: data.title,
+          bio: data.bio,
+          avatar_url: avatarUrl,
+          updated_at: new Date().toISOString(),
+        });
+
+      if (error) {
+        console.error('Error saving profile:', error);
+        toast({
+          title: "Error",
+          description: "There was an error saving your profile.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Update local state
+      const updatedProfile = {
+        ...data,
+        avatarUrl: avatarUrl,
+      };
+      
+      setProfile(updatedProfile);
+      form.reset(updatedProfile);
+      
+      toast({
+        title: "Profile updated",
+        description: "Your profile has been updated successfully.",
+      });
+      
+      setIsEditing(false);
+      setAvatarFile(null);
+      setAvatarPreview(null);
+    } catch (error) {
+      console.error('Error saving profile:', error);
+      toast({
+        title: "Error",
+        description: "There was an error saving your profile.",
+        variant: "destructive",
+      });
+    } finally {
+      setSavingProfile(false);
+    }
   };
 
   if (loading) {
@@ -201,6 +300,7 @@ const Admin = () => {
                         size="sm" 
                         onClick={handleEditToggle}
                         className="flex items-center gap-2"
+                        disabled={savingProfile}
                       >
                         {isEditing ? (
                           <>
@@ -293,9 +393,22 @@ const Admin = () => {
                               />
                             </div>
                             
-                            <Button type="submit" className="w-full flex items-center gap-2">
-                              <Save className="h-4 w-4" />
-                              Save Changes
+                            <Button 
+                              type="submit" 
+                              className="w-full flex items-center gap-2"
+                              disabled={savingProfile}
+                            >
+                              {savingProfile ? (
+                                <>
+                                  <div className="w-4 h-4 border-t-2 border-b-2 border-white rounded-full animate-spin" />
+                                  Saving...
+                                </>
+                              ) : (
+                                <>
+                                  <Save className="h-4 w-4" />
+                                  Save Changes
+                                </>
+                              )}
                             </Button>
                           </form>
                         </Form>
