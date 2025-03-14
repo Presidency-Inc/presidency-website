@@ -22,7 +22,7 @@ import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import ReCAPTCHA from "react-google-recaptcha";
 
-const RECAPTCHA_SITE_KEY = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
+const RECAPTCHA_SITE_KEY = "6LfubfQqAAAAAPJ_9wkHu9RO_B4fCeWEaRzlbXts";
 
 const CareerPage = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
