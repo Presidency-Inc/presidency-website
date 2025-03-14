@@ -21,6 +21,9 @@ import JobForm from "@/components/JobForm";
 import JobDetail from "@/components/JobDetail";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import BannerForm from "@/components/BannerForm";
+import BlogList from "@/components/BlogList";
+import BlogForm, { Blog } from "@/components/BlogForm";
+import BlogDetail from "@/components/BlogDetail";
 
 interface UserProfile {
   name: string;
@@ -46,6 +49,10 @@ const Admin = () => {
   const [jobView, setJobView] = useState<"list" | "create" | "edit" | "detail">("list");
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [isJobDialogOpen, setIsJobDialogOpen] = useState(false);
+  
+  const [blogView, setBlogView] = useState<"list" | "create" | "edit" | "detail">("list");
+  const [selectedBlog, setSelectedBlog] = useState<Blog | null>(null);
+  const [isBlogDialogOpen, setIsBlogDialogOpen] = useState(false);
   
   const navigate = useNavigate();
 
@@ -267,6 +274,33 @@ const Admin = () => {
   const handleBackToList = () => {
     setJobView("list");
     setSelectedJob(null);
+  };
+
+  const handleCreateBlog = () => {
+    setBlogView("create");
+    setIsBlogDialogOpen(true);
+  };
+
+  const handleEditBlog = (blog: Blog) => {
+    setSelectedBlog(blog);
+    setBlogView("edit");
+    setIsBlogDialogOpen(true);
+  };
+
+  const handleViewBlog = (blog: Blog) => {
+    setSelectedBlog(blog);
+    setBlogView("detail");
+  };
+
+  const handleBlogFormSuccess = () => {
+    setIsBlogDialogOpen(false);
+    setBlogView("list");
+    setSelectedBlog(null);
+  };
+
+  const handleBackToBlogList = () => {
+    setBlogView("list");
+    setSelectedBlog(null);
   };
 
   if (loading) {
@@ -524,14 +558,52 @@ const Admin = () => {
                 
                 <TabsContent value="blog" className="mt-6">
                   <Card>
-                    <CardHeader>
-                      <CardTitle>Blog</CardTitle>
-                      <CardDescription>Manage blog posts and content.</CardDescription>
+                    <CardHeader className="flex flex-row items-center justify-between">
+                      <div>
+                        <CardTitle>Blog</CardTitle>
+                        <CardDescription>Manage blog posts and content.</CardDescription>
+                      </div>
+                      {blogView === "list" && (
+                        <Button 
+                          onClick={handleCreateBlog}
+                          className="flex items-center gap-2"
+                        >
+                          <Plus className="h-4 w-4" />
+                          Create Blog Post
+                        </Button>
+                      )}
                     </CardHeader>
                     <CardContent>
-                      <p className="text-gray-700">Blog management content will go here.</p>
+                      {blogView === "list" && (
+                        <BlogList 
+                          onEdit={handleEditBlog} 
+                          onView={handleViewBlog} 
+                        />
+                      )}
+                      
+                      {blogView === "detail" && selectedBlog && (
+                        <BlogDetail 
+                          blogId={selectedBlog.id} 
+                          onBack={handleBackToBlogList} 
+                        />
+                      )}
                     </CardContent>
                   </Card>
+                  
+                  <Dialog open={isBlogDialogOpen} onOpenChange={setIsBlogDialogOpen}>
+                    <DialogContent className="max-w-5xl max-h-[90vh] overflow-auto">
+                      <DialogHeader>
+                        <DialogTitle>
+                          {blogView === "create" ? "Create New Blog Post" : "Edit Blog Post"}
+                        </DialogTitle>
+                      </DialogHeader>
+                      <BlogForm 
+                        onSuccess={handleBlogFormSuccess}
+                        onCancel={() => setIsBlogDialogOpen(false)}
+                        initialData={blogView === "edit" ? selectedBlog : undefined}
+                      />
+                    </DialogContent>
+                  </Dialog>
                 </TabsContent>
                 
                 <TabsContent value="banner" className="mt-6">
@@ -556,3 +628,4 @@ const Admin = () => {
 };
 
 export default Admin;
+

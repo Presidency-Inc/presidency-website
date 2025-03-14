@@ -54,6 +54,87 @@ export type Database = {
         }
         Relationships: []
       }
+      blog_posts: {
+        Row: {
+          banner_image: string
+          content: string
+          created_at: string
+          created_by: string
+          description: string
+          id: string
+          slug: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          banner_image: string
+          content: string
+          created_at?: string
+          created_by: string
+          description: string
+          id?: string
+          slug: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          banner_image?: string
+          content?: string
+          created_at?: string
+          created_by?: string
+          description?: string
+          id?: string
+          slug?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      blog_posts_tags: {
+        Row: {
+          blog_post_id: string
+          tag_id: string
+        }
+        Insert: {
+          blog_post_id: string
+          tag_id: string
+        }
+        Update: {
+          blog_post_id?: string
+          tag_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blog_posts_tags_blog_post_id_fkey"
+            columns: ["blog_post_id"]
+            isOneToOne: false
+            referencedRelation: "blog_posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "blog_posts_tags_tag_id_fkey"
+            columns: ["tag_id"]
+            isOneToOne: false
+            referencedRelation: "blog_tags"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      blog_tags: {
+        Row: {
+          id: string
+          name: string
+        }
+        Insert: {
+          id?: string
+          name: string
+        }
+        Update: {
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
       job_applicants: {
         Row: {
           email: string
