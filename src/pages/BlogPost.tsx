@@ -78,8 +78,7 @@ const BlogPostPage = () => {
           };
           
           const rendered = marked.parse(data.content, {
-            renderer: renderer,
-            sanitize: false  // Don't sanitize HTML to allow headings and formatting
+            renderer: renderer
           });
           
           setRenderedContent(rendered as string);

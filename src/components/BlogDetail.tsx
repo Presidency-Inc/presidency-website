@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -61,7 +60,7 @@ const BlogDetail = ({ blogId, onBack }: BlogDetailProps) => {
           const blogWithTags = { ...data, tags };
           setBlog(blogWithTags);
           
-          // Process markdown with marked - use sanitize:false to preserve HTML
+          // Process markdown with marked using a custom renderer
           const renderer = new marked.Renderer();
           // Ensure headers get proper HTML tags
           renderer.heading = (text, level) => {
@@ -69,8 +68,7 @@ const BlogDetail = ({ blogId, onBack }: BlogDetailProps) => {
           };
           
           const rendered = marked.parse(data.content, {
-            renderer: renderer,
-            sanitize: false
+            renderer: renderer
           });
           setRenderedContent(rendered as string);
         }
@@ -112,7 +110,7 @@ const BlogDetail = ({ blogId, onBack }: BlogDetailProps) => {
           Back to List
         </Button>
         <a 
-          href={`/blog/${blog.slug}`} 
+          href={`/blog/${blog?.slug}`} 
           target="_blank" 
           rel="noopener noreferrer"
           className="text-sm text-blue-600 hover:underline"
@@ -124,26 +122,26 @@ const BlogDetail = ({ blogId, onBack }: BlogDetailProps) => {
       <div className="space-y-4">
         <div className="rounded-lg overflow-hidden">
           <img 
-            src={blog.banner_image} 
-            alt={blog.title} 
+            src={blog?.banner_image} 
+            alt={blog?.title} 
             className="w-full h-64 object-cover"
           />
         </div>
 
         <div className="flex flex-wrap gap-2 my-4">
-          {blog.tags?.map((tag) => (
+          {blog?.tags?.map((tag) => (
             <span key={tag.id} className="px-3 py-1 rounded-full bg-gray-100 text-sm">
               {tag.name}
             </span>
           ))}
         </div>
 
-        <h1 className="text-3xl font-bold">{blog.title}</h1>
+        <h1 className="text-3xl font-bold">{blog?.title}</h1>
         
         <div className="flex items-center text-sm text-gray-500">
-          <span>{new Date(blog.created_at).toLocaleDateString()}</span>
+          <span>{blog?.created_at && new Date(blog.created_at).toLocaleDateString()}</span>
           <span className="mx-2">•</span>
-          <span>Slug: {blog.slug}</span>
+          <span>Slug: {blog?.slug}</span>
         </div>
 
         <div className="prose max-w-none">

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { supabase } from "@/integrations/supabase/client";
@@ -81,8 +80,7 @@ const BlogForm = ({ initialData, onSuccess, onCancel }: BlogFormProps) => {
     };
     
     const rendered = marked.parse(content || "", {
-      renderer: renderer,
-      sanitize: false  // Don't sanitize HTML to allow headings and formatting
+      renderer: renderer
     });
     
     setPreview(rendered as string);
