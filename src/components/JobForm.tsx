@@ -16,12 +16,14 @@ interface JobFormProps {
     id: string;
     title: string;
     description: string;
+    location: string;
   };
 }
 
 interface JobFormValues {
   title: string;
   description: string;
+  location: string;
 }
 
 const JobForm = ({ onSuccess, initialData }: JobFormProps) => {
@@ -32,6 +34,7 @@ const JobForm = ({ onSuccess, initialData }: JobFormProps) => {
     defaultValues: {
       title: initialData?.title || "",
       description: initialData?.description || "",
+      location: initialData?.location || "Remote",
     },
   });
 
@@ -45,6 +48,7 @@ const JobForm = ({ onSuccess, initialData }: JobFormProps) => {
           .update({
             title: values.title,
             description: values.description,
+            location: values.location,
             updated_at: new Date().toISOString(),
           })
           .eq("id", initialData.id);
@@ -61,6 +65,7 @@ const JobForm = ({ onSuccess, initialData }: JobFormProps) => {
           .insert({
             title: values.title,
             description: values.description,
+            location: values.location,
             created_by: (await supabase.auth.getUser()).data.user?.id,
           });
 
@@ -97,6 +102,20 @@ const JobForm = ({ onSuccess, initialData }: JobFormProps) => {
               <FormLabel>Job Title</FormLabel>
               <FormControl>
                 <Input {...field} placeholder="e.g. Senior React Developer" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        
+        <FormField
+          control={form.control}
+          name="location"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Location</FormLabel>
+              <FormControl>
+                <Input {...field} placeholder="e.g. Remote, New York, London" />
               </FormControl>
               <FormMessage />
             </FormItem>

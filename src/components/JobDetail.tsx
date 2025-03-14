@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
-import { Loader2, DownloadCloud, User } from "lucide-react";
+import { Loader2, DownloadCloud, User, MapPin } from "lucide-react";
 import { marked } from "marked";
 import { Job } from "./JobList";
 
@@ -139,9 +139,15 @@ const JobDetail = ({ jobId, onBack }: JobDetailProps) => {
         <CardHeader>
           <CardTitle>{job.title}</CardTitle>
           <CardDescription>
-            Posted on {new Date(job.created_at).toLocaleDateString()} 
-            {job.updated_at !== job.created_at && 
-              ` • Updated on ${new Date(job.updated_at).toLocaleDateString()}`}
+            <div className="flex items-center gap-2 mt-1">
+              <MapPin className="h-4 w-4 text-muted-foreground" />
+              <span>{job.location}</span>
+            </div>
+            <div className="mt-2">
+              Posted on {new Date(job.created_at).toLocaleDateString()} 
+              {job.updated_at !== job.created_at && 
+                ` • Updated on ${new Date(job.updated_at).toLocaleDateString()}`}
+            </div>
           </CardDescription>
         </CardHeader>
         <CardContent>

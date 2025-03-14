@@ -24,12 +24,13 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Search, Edit, Trash2, Eye, Loader2 } from "lucide-react";
+import { Search, Edit, Trash2, Eye, Loader2, MapPin } from "lucide-react";
 
 export interface Job {
   id: string;
   title: string;
   description: string;
+  location: string;
   created_at: string;
   updated_at: string;
   created_by: string;
@@ -55,7 +56,8 @@ const JobList = ({ onEdit, onView }: JobListProps) => {
     if (searchTerm) {
       const filtered = jobs.filter(job => 
         job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        job.description.toLowerCase().includes(searchTerm.toLowerCase())
+        job.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        job.location.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setFilteredJobs(filtered);
     } else {
@@ -153,6 +155,7 @@ const JobList = ({ onEdit, onView }: JobListProps) => {
             <TableHeader>
               <TableRow>
                 <TableHead>Title</TableHead>
+                <TableHead>Location</TableHead>
                 <TableHead>Created</TableHead>
                 <TableHead>Updated</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
@@ -162,6 +165,12 @@ const JobList = ({ onEdit, onView }: JobListProps) => {
               {filteredJobs.map((job) => (
                 <TableRow key={job.id}>
                   <TableCell className="font-medium">{job.title}</TableCell>
+                  <TableCell>
+                    <div className="flex items-center">
+                      <MapPin className="mr-1 h-3 w-3 text-muted-foreground" />
+                      {job.location}
+                    </div>
+                  </TableCell>
                   <TableCell>{new Date(job.created_at).toLocaleDateString()}</TableCell>
                   <TableCell>{new Date(job.updated_at).toLocaleDateString()}</TableCell>
                   <TableCell className="text-right">
