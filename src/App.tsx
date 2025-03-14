@@ -12,6 +12,7 @@ import ProductKube8r from "./pages/ProductKube8r";
 import ServicesDatabricks from "./pages/ServicesDatabricks";
 import ServicesAI from "./pages/ServicesAI";
 import ServicesData from "./pages/ServicesData";
+import Talent from "./pages/Talent";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/services/databricks" element={<ServicesDatabricks />} />
           <Route path="/services/ai" element={<ServicesAI />} />
           <Route path="/services/data" element={<ServicesData />} />
+          <Route path="/talent" element={<Talent />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
