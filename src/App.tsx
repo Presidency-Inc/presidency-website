@@ -14,6 +14,8 @@ import ServicesAI from "./pages/ServicesAI";
 import ServicesData from "./pages/ServicesData";
 import Talent from "./pages/Talent";
 import TalentNearshore from "./pages/TalentNearshore";
+import Login from "./pages/Login";
+import Admin from "./pages/Admin";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +35,8 @@ const App = () => (
           <Route path="/services/data" element={<ServicesData />} />
           <Route path="/talent" element={<Talent />} />
           <Route path="/talent/nearshore" element={<TalentNearshore />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/admin" element={<Admin />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

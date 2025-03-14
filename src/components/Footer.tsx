@@ -1,4 +1,6 @@
+
 import { Facebook, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
+import { Link } from "react-router-dom";
 import Logo from "./Logo";
 
 const Footer = () => {
@@ -72,6 +74,7 @@ const Footer = () => {
               <li><a href="#partners" className="text-gray-300 hover:text-white text-sm">Partner Portal</a></li>
               <li><a href="#press" className="text-gray-300 hover:text-white text-sm">Press</a></li>
               <li><a href="#security" className="text-gray-300 hover:text-white text-sm">Security</a></li>
+              <li><Link to="/login" className="text-gray-300 hover:text-white text-sm">Admin Login</Link></li>
             </ul>
           </div>
 
