@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -123,7 +122,6 @@ const Admin = () => {
 
   const handleEditToggle = () => {
     if (isEditing) {
-      // Cancel edit
       form.reset(profile);
       setAvatarPreview(null);
       setAvatarFile(null);
@@ -145,25 +143,22 @@ const Admin = () => {
 
   const uploadAvatar = async (userId: string, file: File): Promise<string | null> => {
     try {
-      // Create a storage bucket if it doesn't exist
-      const { data: bucketData, error: bucketError } = await supabase.storage.getBucket('avatars');
-      
-      if (bucketError && bucketError.message.includes('does not exist')) {
-        await supabase.storage.createBucket('avatars', {
-          public: true,
-          fileSizeLimit: 1024 * 1024 * 2, // 2MB
-        });
-      }
-      
       const fileExt = file.name.split('.').pop();
       const fileName = `${userId}-${Date.now()}.${fileExt}`;
       
       const { error: uploadError } = await supabase.storage
         .from('avatars')
-        .upload(fileName, file);
+        .upload(fileName, file, {
+          upsert: true
+        });
 
       if (uploadError) {
         console.error('Error uploading avatar:', uploadError);
+        toast({
+          title: "Upload Error",
+          description: `Failed to upload avatar: ${uploadError.message}`,
+          variant: "destructive",
+        });
         return null;
       }
 
