@@ -18,14 +18,16 @@ const products = [
     title: "Streamline DataOps with",
     highlight: "Presidency OmniFlow",
     description: "Make smarter decisions by harnessing the power of your data",
-    label: "Data Operations"
+    label: "Data Operations",
+    link: "/products/omniflow"
   },
   {
     id: "03",
     title: "App & Cloud Modernization with",
     highlight: "Kube8r",
     description: "Extend your teams with AI experts to lead in technology and innovation.",
-    label: "Extended Teams"
+    label: "Extended Teams",
+    link: "/products/kube8r"
   }
 ];
 
