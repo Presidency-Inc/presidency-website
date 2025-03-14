@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown, ChevronUp, X, ArrowLeft, Menu } from "lucide-react";
@@ -129,6 +128,21 @@ const Navbar = () => {
     
     setTimeout(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 100);
+  };
+
+  const handleNavigateToDataSection = (sectionId: string) => {
+    navigate('/services/data');
+    setProductsOpen(false);
+    setServicesOpen(false);
+    setMobileMenuOpen(false);
+    setMobileSubmenuOpen(null);
+    
+    setTimeout(() => {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
     }, 100);
   };
 
@@ -317,7 +331,7 @@ const Navbar = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link to="/services/data" className="flex items-start group">
+                    <Link to="/services/data" className="flex items-start group" onClick={() => setServicesOpen(false)}>
                       <div>
                         <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Data Engineering</h4>
                         <p className="text-sm text-gray-600">Optimize your data operations</p>
@@ -361,9 +375,9 @@ const Navbar = () => {
               <div className="col-span-1">
                 <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">Data</h3>
                 <ul className="space-y-3">
-                  <li><Link to="/services/data#enterprise-etl" className="text-gray-600 hover:text-blue-600">Enterprise ETL</Link></li>
-                  <li><Link to="/services/data#pipeline-development" className="text-gray-600 hover:text-blue-600">Pipeline Development</Link></li>
-                  <li><Link to="/services/data#data-infrastructure" className="text-gray-600 hover:text-blue-600">Data Infrastructure Setup</Link></li>
+                  <li><button onClick={() => handleNavigateToDataSection('enterprise-etl')} className="text-gray-600 hover:text-blue-600 text-left">Enterprise ETL</button></li>
+                  <li><button onClick={() => handleNavigateToDataSection('pipeline-development')} className="text-gray-600 hover:text-blue-600 text-left">Pipeline Development</button></li>
+                  <li><button onClick={() => handleNavigateToDataSection('data-infrastructure')} className="text-gray-600 hover:text-blue-600 text-left">Data Infrastructure Setup</button></li>
                   <li><Link to="/services/databricks" className="text-gray-600 hover:text-blue-600" onClick={() => setServicesOpen(false)}>Databricks Services</Link></li>
                 </ul>
               </div>
@@ -670,18 +684,9 @@ const Navbar = () => {
                   
                   <h3 className="font-bold text-gray-900 mt-6 mb-3">Data</h3>
                   <ul className="space-y-3">
-                    <li><Link to="/services/data#enterprise-etl" className="block py-2 text-gray-900" onClick={() => {
-                      setMobileMenuOpen(false);
-                      setMobileSubmenuOpen(null);
-                    }}>Enterprise ETL</Link></li>
-                    <li><Link to="/services/data#pipeline-development" className="block py-2 text-gray-900" onClick={() => {
-                      setMobileMenuOpen(false);
-                      setMobileSubmenuOpen(null);
-                    }}>Pipeline Development</Link></li>
-                    <li><Link to="/services/data#data-infrastructure" className="block py-2 text-gray-900" onClick={() => {
-                      setMobileMenuOpen(false);
-                      setMobileSubmenuOpen(null);
-                    }}>Data Infrastructure Setup</Link></li>
+                    <li><button onClick={() => handleNavigateToDataSection('enterprise-etl')} className="block py-2 text-gray-900 text-left w-full">Enterprise ETL</button></li>
+                    <li><button onClick={() => handleNavigateToDataSection('pipeline-development')} className="block py-2 text-gray-900 text-left w-full">Pipeline Development</button></li>
+                    <li><button onClick={() => handleNavigateToDataSection('data-infrastructure')} className="block py-2 text-gray-900 text-left w-full">Data Infrastructure Setup</button></li>
                     <li><Link to="/services/databricks" className="block py-2 text-gray-900" onClick={() => {
                         setMobileMenuOpen(false);
                         setMobileSubmenuOpen(null);
@@ -697,17 +702,3 @@ const Navbar = () => {
               </div>
               
               <div className="mt-auto p-4 border-t border-gray-100 bg-white sticky bottom-0">
-                <Button variant="default" className="w-full bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
-                  GET SOLUTIONS
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-          ) : null}
-        </div>
-      )}
-    </nav>
-  );
-};
-
-export default Navbar;
