@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -13,10 +12,9 @@ import { marked } from "marked";
 import { Blog, Tag } from "@/components/BlogForm";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-// Configure marked for proper rendering of headings and line breaks
 marked.setOptions({
-  breaks: true,  // Enable line breaks
-  gfm: true,     // Enable GitHub Flavored Markdown
+  breaks: true,
+  gfm: true,
 });
 
 interface Author {
@@ -79,7 +77,6 @@ const BlogPostPage = () => {
           const blogWithTags = { ...data, tags };
           setPost(blogWithTags);
           
-          // Fetch author information
           const { data: authorData, error: authorError } = await supabase
             .from('user_profiles')
             .select('id, name, avatar_url, title')
@@ -90,15 +87,12 @@ const BlogPostPage = () => {
             setAuthor(authorData);
           }
           
-          // Process markdown with marked - use custom renderer for headings
           const renderer = new marked.Renderer();
           
-          // Ensure headers get proper HTML tags with styling
           renderer.heading = (text, level) => {
             return `<h${level} class="mt-6 mb-4 font-bold">${text}</h${level}>`;
           };
           
-          // Enhance paragraph rendering for better spacing
           renderer.paragraph = (text) => {
             return `<p class="mb-4">${text}</p>`;
           };
@@ -154,7 +148,7 @@ const BlogPostPage = () => {
       <div className="min-h-screen flex flex-col">
         <StatusBar />
         <Navbar />
-        <main className="flex-grow flex items-center justify-center mt-24">
+        <main className="flex-grow flex items-center justify-center mt-16 md:mt-24">
           <div className="w-12 h-12 border-t-4 border-b-4 border-blue-500 rounded-full animate-spin"></div>
         </main>
         <Footer />
@@ -167,7 +161,7 @@ const BlogPostPage = () => {
       <div className="min-h-screen flex flex-col">
         <StatusBar />
         <Navbar />
-        <main className="flex-grow flex items-center justify-center mt-24">
+        <main className="flex-grow flex items-center justify-center mt-16 md:mt-24">
           <div className="text-center">
             <h2 className="text-2xl font-bold mb-4">Blog post not found</h2>
             <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white">
@@ -197,7 +191,7 @@ const BlogPostPage = () => {
       <Navbar />
       <ScrollProgress />
       
-      <main className="flex-grow bg-gradient-to-br from-white to-blue-50 py-16 mt-24">
+      <main className="flex-grow bg-gradient-to-br from-white to-blue-50 py-16 mt-16 md:mt-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
             <Button variant="outline" asChild>

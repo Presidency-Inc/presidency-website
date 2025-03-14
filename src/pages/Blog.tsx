@@ -201,7 +201,7 @@ const BlogPage = () => {
       <Navbar />
       <ScrollProgress />
       
-      <main className="flex-grow bg-gradient-to-br from-blue-50 to-indigo-50 py-16 mt-24">
+      <main className="flex-grow bg-gradient-to-br from-blue-50 to-indigo-50 py-16 mt-24 md:mt-24 mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">Stories</h1>
