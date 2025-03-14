@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown, ChevronUp, X, ArrowLeft, Menu } from "lucide-react";
@@ -143,6 +144,18 @@ const Navbar = () => {
       if (section) {
         section.scrollIntoView({ behavior: 'smooth' });
       }
+    }, 100);
+  };
+
+  const handleNavigateToDataTop = () => {
+    navigate('/services/data');
+    setProductsOpen(false);
+    setServicesOpen(false);
+    setMobileMenuOpen(false);
+    setMobileSubmenuOpen(null);
+    
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 100);
   };
 
@@ -331,7 +344,7 @@ const Navbar = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link to="/services/data" className="flex items-start group" onClick={() => setServicesOpen(false)}>
+                    <Link to="/services/data" className="flex items-start group" onClick={handleNavigateToDataTop}>
                       <div>
                         <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Data Engineering</h4>
                         <p className="text-sm text-gray-600">Optimize your data operations</p>
@@ -615,7 +628,6 @@ const Navbar = () => {
                   </button>
                 </div>
                 
-                
                 <div className="mt-6">
                   <h3 className="font-bold text-gray-900 mb-3">Our Services</h3>
                   <ul className="space-y-3">
@@ -629,10 +641,7 @@ const Navbar = () => {
                       </Link>
                     </li>
                     <li>
-                      <Link to="/services/data" className="block py-2" onClick={() => {
-                        setMobileMenuOpen(false);
-                        setMobileSubmenuOpen(null);
-                      }}>
+                      <Link to="/services/data" className="block py-2" onClick={handleNavigateToDataTop}>
                         <span className="font-medium text-gray-900">Data Engineering</span>
                         <p className="text-sm text-gray-600">Optimize your data operations</p>
                       </Link>
@@ -702,3 +711,17 @@ const Navbar = () => {
               </div>
               
               <div className="mt-auto p-4 border-t border-gray-100 bg-white sticky bottom-0">
+                <Button variant="default" className="w-full bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
+                  GET SOLUTIONS
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          ) : null}
+        </div>
+      )}
+    </nav>
+  );
+};
+
+export default Navbar;
