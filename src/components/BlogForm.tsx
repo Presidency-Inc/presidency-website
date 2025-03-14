@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { supabase } from "@/integrations/supabase/client";
@@ -67,13 +68,23 @@ const BlogForm = ({ initialData, onSuccess, onCancel }: BlogFormProps) => {
 
   useEffect(() => {
     marked.setOptions({
-      breaks: true,
-      gfm: true,
-      mangle: false,
-      headerIds: false
+      breaks: true,  // Enable line breaks
+      gfm: true,     // Enable GitHub Flavored Markdown
     });
 
-    const rendered = marked.parse(content || "");
+    // Use a custom renderer to ensure proper heading rendering
+    const renderer = new marked.Renderer();
+    
+    // Ensure headers get proper HTML tags
+    renderer.heading = (text, level) => {
+      return `<h${level}>${text}</h${level}>`;
+    };
+    
+    const rendered = marked.parse(content || "", {
+      renderer: renderer,
+      sanitize: false  // Don't sanitize HTML to allow headings and formatting
+    });
+    
     setPreview(rendered as string);
   }, [content]);
 

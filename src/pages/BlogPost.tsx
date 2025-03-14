@@ -13,10 +13,8 @@ import { Blog, Tag } from "@/components/BlogForm";
 
 // Configure marked for proper rendering of headings and line breaks
 marked.setOptions({
-  breaks: true,     // Enable line breaks
-  gfm: true,        // Enable GitHub Flavored Markdown
-  mangle: false,    // Don't escape HTML
-  headerIds: false  // Don't add IDs to headers
+  breaks: true,  // Enable line breaks
+  gfm: true,     // Enable GitHub Flavored Markdown
 });
 
 const BlogPostPage = () => {
@@ -71,7 +69,19 @@ const BlogPostPage = () => {
           const blogWithTags = { ...data, tags };
           setPost(blogWithTags);
           
-          const rendered = marked.parse(data.content);
+          // Process markdown with marked - use custom renderer for headings
+          const renderer = new marked.Renderer();
+          
+          // Ensure headers get proper HTML tags
+          renderer.heading = (text, level) => {
+            return `<h${level}>${text}</h${level}>`;
+          };
+          
+          const rendered = marked.parse(data.content, {
+            renderer: renderer,
+            sanitize: false  // Don't sanitize HTML to allow headings and formatting
+          });
+          
           setRenderedContent(rendered as string);
 
           if (tagIds.length > 0) {

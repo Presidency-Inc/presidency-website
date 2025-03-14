@@ -10,8 +10,6 @@ import { Blog, Tag } from "./BlogForm";
 marked.setOptions({
   breaks: true,     // Enable line breaks
   gfm: true,        // Enable GitHub Flavored Markdown
-  mangle: false,    // Don't escape HTML
-  headerIds: false  // Don't add IDs to headers
 });
 
 interface BlogDetailProps {
@@ -63,8 +61,17 @@ const BlogDetail = ({ blogId, onBack }: BlogDetailProps) => {
           const blogWithTags = { ...data, tags };
           setBlog(blogWithTags);
           
-          // Process markdown with marked
-          const rendered = marked.parse(data.content);
+          // Process markdown with marked - use sanitize:false to preserve HTML
+          const renderer = new marked.Renderer();
+          // Ensure headers get proper HTML tags
+          renderer.heading = (text, level) => {
+            return `<h${level}>${text}</h${level}>`;
+          };
+          
+          const rendered = marked.parse(data.content, {
+            renderer: renderer,
+            sanitize: false
+          });
           setRenderedContent(rendered as string);
         }
       } catch (error) {
