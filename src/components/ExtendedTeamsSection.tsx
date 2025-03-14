@@ -124,70 +124,7 @@ const ExtendedTeamsSection = () => {
           </div>
         </motion.div>
         
-        <div className="mt-32 relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-50 to-indigo-50">
-          <div className="absolute inset-0 opacity-30">
-            <svg
-              className="absolute inset-0 w-full h-full"
-              xmlns="http://www.w3.org/2000/svg"
-              width="100%"
-              height="100%"
-              viewBox="0 0 1200 800"
-              preserveAspectRatio="none"
-            >
-              <defs>
-                <linearGradient id="wave-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#1a46e5" stopOpacity="0.2" />
-                  <stop offset="50%" stopColor="#6366f1" stopOpacity="0.1" />
-                  <stop offset="100%" stopColor="#818cf8" stopOpacity="0.2" />
-                </linearGradient>
-              </defs>
-              {Array.from({ length: 20 }).map((_, i) => (
-                <path
-                  key={i}
-                  d={`M0,${40 + i * 40} C300,${10 + i * 40} 600,${60 + i * 40} 1200,${30 + i * 40} V800 H0 Z`}
-                  fill="none"
-                  stroke="url(#wave-gradient)"
-                  strokeWidth="1.5"
-                />
-              ))}
-            </svg>
-          </div>
-          
-          <div className="relative px-8 py-16 text-center max-w-3xl mx-auto">
-            <motion.h2 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400"
-            >
-              Nearshore Advantage
-            </motion.h2>
-            
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-gray-600 text-lg mb-8"
-            >
-              Choosing nearshore models offers significant advantages in terms of time 
-              zone alignment for easier communication, cultural similarities for better teamwork, 
-              and cost-effectiveness without compromising on quality.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <Button 
-                variant="default"
-                className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-8 py-6 h-auto text-lg font-medium"
-              >
-                Explore Nearshore Options
-              </Button>
-            </motion.div>
-          </div>
-        </div>
+        {/* Removed the "Nearshore Advantage" section that was here */}
         
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
