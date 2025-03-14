@@ -1,8 +1,11 @@
+
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Job } from "@/components/JobList";
+import StatusBar from "@/components/StatusBar";
+import ScrollProgress from "@/components/ScrollProgress";
 import { 
   Dialog, 
   DialogContent, 
@@ -151,7 +154,9 @@ const CareerPage = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
+      <StatusBar />
       <Navbar />
+      <ScrollProgress />
       
       <main className="flex-grow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
