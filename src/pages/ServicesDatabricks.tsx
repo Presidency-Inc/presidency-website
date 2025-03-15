@@ -20,7 +20,7 @@ const ServicesDatabricks = () => {
   }, []);
 
   return (
-    <main className="min-h-screen bg-white" id="top">
+    <main className="min-h-screen bg-white overflow-x-hidden" id="top">
       <StatusBar />
       <Navbar />
       <ScrollProgress />
