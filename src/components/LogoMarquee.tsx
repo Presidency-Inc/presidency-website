@@ -39,11 +39,11 @@ const LogoMarquee = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [enableSticky]);
 
-  const logoWidth = 180; // Reduced from 220
-  const logoPadding = 5; // Reduced from 10
+  const logoWidth = isMobile ? 140 : 180; // Smaller on mobile
+  const logoPadding = isMobile ? 4 : 5; // Smaller padding on mobile
   const totalLogoWidth = logoWidth + (logoPadding * 2); // Total width per logo item
   const totalWidth = customerLogos.length * totalLogoWidth;
-  const animationDuration = 35; // Reduced from 40 to increase speed
+  const animationDuration = isMobile ? 30 : 35; // Faster on mobile
 
   return (
     <div 
@@ -58,7 +58,7 @@ const LogoMarquee = () => {
               <h3 className="text-white text-lg font-bold">Trusted by the Enterprise</h3>
             </div>
           )}
-          <div className={isMobile ? "w-full h-full" : "flex-1 pl-8 relative overflow-hidden h-full"}>
+          <div className={isMobile ? "w-full h-full overflow-hidden" : "flex-1 pl-8 relative overflow-hidden h-full"}>
             <div className="flex items-center h-full">
               <motion.div
                 className="flex items-center"
@@ -85,7 +85,7 @@ const LogoMarquee = () => {
                     <img
                       src={logo.logo}
                       alt={logo.name}
-                      className="max-h-[44px] max-w-full object-contain w-auto"
+                      className="max-h-[36px] max-w-full object-contain w-auto"
                     />
                   </div>
                 ))}
@@ -116,7 +116,7 @@ const LogoMarquee = () => {
                     <img
                       src={logo.logo}
                       alt={logo.name}
-                      className="max-h-[44px] max-w-full object-contain w-auto"
+                      className="max-h-[36px] max-w-full object-contain w-auto"
                     />
                   </div>
                 ))}
