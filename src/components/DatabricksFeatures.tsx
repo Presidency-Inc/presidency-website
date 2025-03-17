@@ -14,6 +14,11 @@ const features = [
     description: "End-to-end ML/AI pipelines built on Databricks to operationalize your machine learning workflows and models."
   },
   {
+    icon: <GraduationCap className="w-6 h-6 md:w-8 md:h-8" />,
+    title: "Nearshore Databricks Talent",
+    description: "Access skilled Databricks engineers in nearshore locations for cost-effective team extension with timezone alignment."
+  },
+  {
     icon: <Zap className="w-6 h-6 md:w-8 md:h-8" />,
     title: "Performance Optimization",
     description: "Advanced tuning and optimization services to maximize the performance of your Databricks investments."
@@ -27,11 +32,6 @@ const features = [
     icon: <Users className="w-6 h-6 md:w-8 md:h-8" />,
     title: "Expert Team",
     description: "Certified Databricks professionals with real-world experience solving complex data challenges."
-  },
-  {
-    icon: <GraduationCap className="w-6 h-6 md:w-8 md:h-8" />,
-    title: "Nearshore Databricks Talent",
-    description: "Access skilled Databricks engineers in nearshore locations for cost-effective team extension with timezone alignment."
   }
 ];
 
