@@ -1,6 +1,6 @@
 
 import { motion } from "framer-motion";
-import { Rocket, Zap, Shield, Users, Database } from "lucide-react";
+import { Rocket, Zap, Shield, Users, Database, GraduationCap } from "lucide-react";
 
 const features = [
   {
@@ -27,6 +27,11 @@ const features = [
     icon: <Users className="w-6 h-6 md:w-8 md:h-8" />,
     title: "Expert Team",
     description: "Certified Databricks professionals with real-world experience solving complex data challenges."
+  },
+  {
+    icon: <GraduationCap className="w-6 h-6 md:w-8 md:h-8" />,
+    title: "Nearshore Databricks Talent",
+    description: "Access skilled Databricks engineers in nearshore locations for cost-effective team extension with timezone alignment."
   }
 ];
 
