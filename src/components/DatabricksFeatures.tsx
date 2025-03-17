@@ -1,12 +1,17 @@
 
 import { motion } from "framer-motion";
-import { Rocket, Zap, Shield, Users } from "lucide-react";
+import { Rocket, Zap, Shield, Users, Database } from "lucide-react";
 
 const features = [
   {
     icon: <Rocket className="w-6 h-6 md:w-8 md:h-8" />,
     title: "Proprietary Accelerators",
     description: "Overcome Databricks limitations with our custom accelerators designed for maximum performance and efficiency."
+  },
+  {
+    icon: <Database className="w-6 h-6 md:w-8 md:h-8" />,
+    title: "AI Pipelines for Databricks",
+    description: "End-to-end ML/AI pipelines built on Databricks to operationalize your machine learning workflows and models."
   },
   {
     icon: <Zap className="w-6 h-6 md:w-8 md:h-8" />,
@@ -29,7 +34,7 @@ const DatabricksFeatures = () => {
   return (
     <section className="py-16 md:py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
