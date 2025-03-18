@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
@@ -24,7 +23,6 @@ import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import ReCAPTCHA from "react-google-recaptcha";
 
-// Use Google's test key for development
 const RECAPTCHA_SITE_KEY = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
 
 const CareerPage = () => {
@@ -53,7 +51,6 @@ const CareerPage = () => {
   useEffect(() => {
     fetchJobs();
     
-    // Scroll to top when component mounts
     window.scrollTo(0, 0);
   }, []);
 
@@ -226,7 +223,6 @@ const CareerPage = () => {
       <Navbar />
       <ScrollProgress />
       
-      {/* New Hero Section */}
       <CareerHero />
       
       <main className="flex-grow">

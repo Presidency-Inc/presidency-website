@@ -81,14 +81,14 @@ const CareerHero = () => {
   }, [stars]);
   
   const handleScrollToJobs = () => {
-    const joinTeamSection = document.querySelector('h1.text-4xl');
-    if (joinTeamSection) {
-      joinTeamSection.scrollIntoView({ behavior: 'smooth' });
+    const jobSection = document.querySelector('.job-listings');
+    if (jobSection) {
+      jobSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
   
   return (
-    <div className="relative min-h-[90vh] flex items-center overflow-hidden bg-gradient-to-b from-[#01070e] to-[#0a1a2d]">
+    <div className="relative h-[calc(100vh-4rem)] flex items-center overflow-hidden bg-gradient-to-b from-[#01070e] to-[#0a1a2d]">
       {/* Animated stars canvas */}
       <canvas 
         ref={canvasRef} 
