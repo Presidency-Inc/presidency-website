@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -37,7 +38,6 @@ import {
   Home
 } from "lucide-react";
 import { DialogTitle } from "@/components/ui/dialog";
-import { Skeleton } from "@/components/ui/skeleton";
 
 type SearchResult = {
   id: string;
@@ -48,6 +48,7 @@ type SearchResult = {
   iconName?: string;
 };
 
+// Create a singleton pattern to access the command search from anywhere
 let openSearchFn: (() => void) | null = null;
 
 export const openCommandSearch = () => {
@@ -82,6 +83,7 @@ const CommandSearch = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
+  // Register the open function with our singleton
   useEffect(() => {
     openSearchFn = () => setOpen(true);
     return () => {
@@ -94,19 +96,9 @@ const CommandSearch = () => {
   }, []);
 
   useEffect(() => {
-    if (!open) {
-      const timer = setTimeout(() => {
-        setSearchQuery("");
-        setResults([]);
-      }, 500);
-      return () => clearTimeout(timer);
-    }
-  }, [open]);
-
-  useEffect(() => {
-    if (searchQuery.length > 0) {
+    if (searchQuery.trim().length > 0) {
       searchResults();
-    } else if (searchQuery.length === 0) {
+    } else {
       setResults([]);
     }
   }, [searchQuery]);
@@ -140,7 +132,6 @@ const CommandSearch = () => {
           type: 'tag' as const
         }));
         setTags(formattedTags);
-        console.log('Fetched tags:', formattedTags.length);
       }
     } catch (error) {
       console.error('Error fetching tags:', error);
@@ -148,21 +139,20 @@ const CommandSearch = () => {
   };
 
   const searchBlogPosts = async () => {
-    if (searchQuery.length === 0) return [];
+    if (searchQuery.trim().length === 0) return [];
     
+    setLoading(true);
     try {
       const { data, error } = await supabase
         .from('blog_posts')
         .select('id, title, description, slug')
-        .or(`title.ilike.%${searchQuery}%,description.ilike.%${searchQuery}%`);
+        .or(`title.ilike.%${searchQuery}%,description.ilike.%${searchQuery}%`)
+        .limit(5);
       
       if (error) {
         console.error('Error searching blog posts:', error);
         return [];
       }
-      
-      console.log('Blog search query:', searchQuery);
-      console.log('Blog search results:', data?.length || 0);
       
       const blogResults = data ? data.map(post => ({
         id: post.id,
@@ -177,6 +167,8 @@ const CommandSearch = () => {
     } catch (error) {
       console.error('Error searching blog posts:', error);
       return [];
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -184,20 +176,23 @@ const CommandSearch = () => {
     setLoading(true);
     
     try {
-      console.log('Searching with query:', searchQuery);
-      
+      // Filter pages
       const filteredPages = pages.filter(page => 
         page.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
       
+      // Filter tags
       const filteredTags = tags.filter(tag => 
         tag.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
       
+      // Get blog posts
       const blogResults = await searchBlogPosts();
       
+      // Combine all results
       const combinedResults = [...filteredPages, ...blogResults, ...filteredTags];
       
+      // Log for debugging
       console.log('Search query:', searchQuery);
       console.log('Pages results:', filteredPages.length);
       console.log('Tags results:', filteredTags.length);
@@ -275,113 +270,6 @@ const CommandSearch = () => {
     }
   };
 
-  const renderSearchResults = () => {
-    console.log('RENDER CHECK - Query:', searchQuery, 'Results:', results.length, 'Loading:', loading);
-    
-    if (loading) {
-      return (
-        <div className="flex items-center justify-center py-6">
-          <div className="h-5 w-5 animate-spin rounded-full border-t-2 border-blue-500"></div>
-          <span className="ml-2 text-sm text-muted-foreground">Searching...</span>
-        </div>
-      );
-    }
-
-    if (searchQuery.length === 0) {
-      return (
-        <div className="py-6 text-center text-sm">
-          <p className="text-muted-foreground">Start typing to search...</p>
-          <p className="mt-2 text-xs text-muted-foreground">
-            Search for pages, blog posts, or tags
-          </p>
-        </div>
-      );
-    }
-
-    if (results.length > 0) {
-      const pageResults = results.filter(r => r.type === 'page');
-      const blogResults = results.filter(r => r.type === 'blog');
-      const tagResults = results.filter(r => r.type === 'tag');
-
-      return (
-        <>
-          {pageResults.length > 0 && (
-            <CommandGroup heading="Pages">
-              {pageResults.map(result => (
-                <CommandItem
-                  key={`page-${result.id}`}
-                  onSelect={() => handleSelect(result)}
-                  className="flex items-center justify-between py-2"
-                >
-                  <div className="flex items-center">
-                    {renderIcon(result)}
-                    <span>{result.title}</span>
-                  </div>
-                  <ArrowRight className="h-3 w-3 text-muted-foreground" />
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          )}
-          
-          {blogResults.length > 0 && (
-            <>
-              {pageResults.length > 0 && <CommandSeparator />}
-              <CommandGroup heading="Blog Posts">
-                {blogResults.map(result => (
-                  <CommandItem
-                    key={`blog-${result.id}`}
-                    onSelect={() => handleSelect(result)}
-                    className="flex items-center justify-between py-2"
-                  >
-                    <div className="flex items-center">
-                      <FileText className="mr-2 h-4 w-4" />
-                      <div className="flex flex-col">
-                        <span>{result.title}</span>
-                        {result.description && (
-                          <span className="text-xs text-muted-foreground line-clamp-1">
-                            {result.description}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                    <ArrowRight className="h-3 w-3 text-muted-foreground" />
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-            </>
-          )}
-          
-          {tagResults.length > 0 && (
-            <>
-              {(pageResults.length > 0 || blogResults.length > 0) && <CommandSeparator />}
-              <CommandGroup heading="Tags">
-                {tagResults.map(result => (
-                  <CommandItem
-                    key={`tag-${result.id}`}
-                    onSelect={() => handleSelect(result)}
-                    className="flex items-center justify-between py-2"
-                  >
-                    <div className="flex items-center">
-                      <Tag className="mr-2 h-4 w-4" />
-                      <span>{result.title}</span>
-                    </div>
-                    <ArrowRight className="h-3 w-3 text-muted-foreground" />
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-            </>
-          )}
-        </>
-      );
-    }
-
-    return (
-      <CommandEmpty>
-        <p className="p-4 text-center text-sm">No results found for "{searchQuery}".</p>
-      </CommandEmpty>
-    );
-  };
-
   return (
     <CommandDialog open={open} onOpenChange={setOpen}>
       <DialogTitle className="sr-only">Search</DialogTitle>
@@ -391,8 +279,103 @@ const CommandSearch = () => {
           value={searchQuery}
           onValueChange={setSearchQuery}
         />
-        <CommandList className="max-h-[400px] overflow-y-auto">
-          {renderSearchResults()}
+        <CommandList>
+          <CommandEmpty>
+            {loading ? (
+              <div className="flex items-center justify-center py-6">
+                <div className="h-5 w-5 animate-spin rounded-full border-t-2 border-blue-500"></div>
+                <span className="ml-2 text-sm text-muted-foreground">Searching...</span>
+              </div>
+            ) : (
+              <p className="p-4 text-center text-sm">No results found.</p>
+            )}
+          </CommandEmpty>
+          
+          {results.length > 0 && (
+            <>
+              {results.filter(r => r.type === 'page').length > 0 && (
+                <CommandGroup heading="Pages">
+                  {results
+                    .filter(result => result.type === 'page')
+                    .map(result => (
+                      <CommandItem
+                        key={result.id}
+                        onSelect={() => handleSelect(result)}
+                        className="flex items-center justify-between py-2"
+                      >
+                        <div className="flex items-center">
+                          {renderIcon(result)}
+                          <span>{result.title}</span>
+                        </div>
+                        <ArrowRight className="h-3 w-3 text-muted-foreground" />
+                      </CommandItem>
+                    ))}
+                </CommandGroup>
+              )}
+              
+              {results.filter(r => r.type === 'blog').length > 0 && (
+                <>
+                  <CommandSeparator />
+                  <CommandGroup heading="Blog Posts">
+                    {results
+                      .filter(result => result.type === 'blog')
+                      .map(result => (
+                        <CommandItem
+                          key={result.id}
+                          onSelect={() => handleSelect(result)}
+                          className="flex items-center justify-between py-2"
+                        >
+                          <div className="flex items-center">
+                            <FileText className="mr-2 h-4 w-4" />
+                            <div className="flex flex-col">
+                              <span>{result.title}</span>
+                              {result.description && (
+                                <span className="text-xs text-muted-foreground line-clamp-1">
+                                  {result.description}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <ArrowRight className="h-3 w-3 text-muted-foreground" />
+                        </CommandItem>
+                      ))}
+                  </CommandGroup>
+                </>
+              )}
+              
+              {results.filter(r => r.type === 'tag').length > 0 && (
+                <>
+                  <CommandSeparator />
+                  <CommandGroup heading="Tags">
+                    {results
+                      .filter(result => result.type === 'tag')
+                      .map(result => (
+                        <CommandItem
+                          key={result.id}
+                          onSelect={() => handleSelect(result)}
+                          className="flex items-center justify-between py-2"
+                        >
+                          <div className="flex items-center">
+                            <Tag className="mr-2 h-4 w-4" />
+                            <span>{result.title}</span>
+                          </div>
+                          <ArrowRight className="h-3 w-3 text-muted-foreground" />
+                        </CommandItem>
+                      ))}
+                  </CommandGroup>
+                </>
+              )}
+            </>
+          )}
+          
+          {searchQuery.length === 0 && (
+            <div className="py-6 text-center text-sm">
+              <p className="text-muted-foreground">Start typing to search...</p>
+              <p className="mt-2 text-xs text-muted-foreground">
+                Search for pages, blog posts, or tags
+              </p>
+            </div>
+          )}
         </CommandList>
       </Command>
     </CommandDialog>
