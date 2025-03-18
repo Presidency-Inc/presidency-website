@@ -1,4 +1,3 @@
-
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import StatusBar from "@/components/StatusBar";
@@ -10,7 +9,6 @@ import TalentOverviewSection from "@/components/TalentOverviewSection";
 import Footer from "@/components/Footer";
 import ScrollProgress from "@/components/ScrollProgress";
 import ScrollToTop from "@/components/ScrollToTop";
-import CommandSearch from "@/components/CommandSearch";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet";
 
@@ -55,7 +53,6 @@ const Index = () => {
       <StatusBar />
       <Navbar />
       <ScrollProgress />
-      <CommandSearch />
       <Hero />
       <LogoMarquee />
       <FeaturesSection />
