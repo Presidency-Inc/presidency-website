@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Check, ArrowRight } from "lucide-react";
 import Logo from "@/components/Logo";
@@ -27,13 +28,13 @@ const ServicesInterestForm = () => {
           {/* Left side with iframe */}
           <div className="w-1/2 h-full">
             <iframe 
-              width="100%" 
-              height="100%" 
-              src="https://sibforms.com/serve/MUIFANIXyCZDk1Oq2tyMyBA9iGrk-vtob662x_EavnMg6d9VtJzkD7aKMYPFKt8Jh4yJVgNzMK2D_h_BOSMi4UTeFW6tIC4yIdHUQWt93Jc_1mRLEStc2jubBGWScZmhwm8FxsUVmKWPWNeuSxOJrcNk7I_A1xMjGE3UElMkbaoMPeX8NN_7FLDZZkSsoBbw5V808WyM7ak79GwA" 
+              width="540" 
+              height="305" 
+              src="https://sibforms.com/serve/MUIFALoismGoy3tBJGGNQHt_dnw3VzzYp_X1VRcLNwdqRdPrh6vRCEYzJcpBBPatu6VJPvH2qNowLqcvQG8zi5GQtYi6gsMgPMPNf2oyDBvq_5y4IMZEzSUw5_mlyhbF2RjLM1ceN-46yZqyz-FWmFn7FO4uLESxQYoJVrtxVquBSudySmQzii3U3_ZA4w7ZZpTacr80M28joNSI" 
               frameBorder="0" 
               scrolling="auto" 
               allowFullScreen 
-              style={{ display: "block" }}
+              style={{ display: "block", marginLeft: "auto", marginRight: "auto", maxWidth: "100%" }}
             />
           </div>
           
@@ -180,13 +181,13 @@ const ServicesInterestForm = () => {
           {currentStep === 2 && (
             <div className="h-screen w-full">
               <iframe 
-                width="100%" 
-                height="100%" 
-                src="https://sibforms.com/serve/MUIFANIXyCZDk1Oq2tyMyBA9iGrk-vtob662x_EavnMg6d9VtJzkD7aKMYPFKt8Jh4yJVgNzMK2D_h_BOSMi4UTeFW6tIC4yIdHUQWt93Jc_1mRLEStc2jubBGWScZmhwm8FxsUVmKWPWNeuSxOJrcNk7I_A1xMjGE3UElMkbaoMPeX8NN_7FLDZZkSsoBbw5V808WyM7ak79GwA" 
+                width="540" 
+                height="305" 
+                src="https://sibforms.com/serve/MUIFALoismGoy3tBJGGNQHt_dnw3VzzYp_X1VRcLNwdqRdPrh6vRCEYzJcpBBPatu6VJPvH2qNowLqcvQG8zi5GQtYi6gsMgPMPNf2oyDBvq_5y4IMZEzSUw5_mlyhbF2RjLM1ceN-46yZqyz-FWmFn7FO4uLESxQYoJVrtxVquBSudySmQzii3U3_ZA4w7ZZpTacr80M28joNSI" 
                 frameBorder="0" 
                 scrolling="auto" 
                 allowFullScreen 
-                style={{ display: "block" }}
+                style={{ display: "block", marginLeft: "auto", marginRight: "auto", maxWidth: "100%" }}
               />
             </div>
           )}
