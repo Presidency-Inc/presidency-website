@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -79,6 +79,7 @@ const CommandSearch = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [tags, setTags] = useState<SearchResult[]>([]);
   const navigate = useNavigate();
+  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Register open function
   useEffect(() => {
@@ -171,7 +172,6 @@ const CommandSearch = () => {
       
       // Set all results
       const allResults = [...filteredPages, ...blogResults, ...filteredTags];
-      console.log('Search results:', allResults);
       setSearchResults(allResults);
     } catch (error) {
       console.error('Search error:', error);
@@ -186,11 +186,19 @@ const CommandSearch = () => {
   useEffect(() => {
     if (!open) return;
     
-    const timer = setTimeout(() => {
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
+    
+    searchTimeoutRef.current = setTimeout(() => {
       performSearch(searchInput);
     }, 300);
     
-    return () => clearTimeout(timer);
+    return () => {
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
+      }
+    };
   }, [searchInput, open, performSearch]);
 
   // Reset on dialog close
@@ -201,13 +209,13 @@ const CommandSearch = () => {
         setSearchInput("");
       }, 300);
       return () => clearTimeout(timer);
+    } else {
+      // When opening, show initial results
+      performSearch("");
     }
-  }, [open]);
+  }, [open, performSearch]);
 
   const handleSelect = useCallback((result: SearchResult) => {
-    // Close the dialog
-    setOpen(false);
-    
     // Track the search if analytics available
     if (window.gtag) {
       window.gtag('event', 'search_navigation', {
@@ -217,9 +225,12 @@ const CommandSearch = () => {
       });
     }
     
-    // Navigate after a slight delay to allow the dialog to close first
+    // Navigate after dialog is closed
+    navigate(result.url);
+    
+    // Close dialog after a slight delay to ensure user sees their selection
     setTimeout(() => {
-      navigate(result.url);
+      setOpen(false);
     }, 100);
   }, [navigate, searchInput]);
 
@@ -298,15 +309,13 @@ const CommandSearch = () => {
                     <CommandItem
                       key={`page-${result.id}`}
                       onSelect={() => handleSelect(result)}
-                      className="cursor-pointer"
+                      className="flex cursor-pointer items-center justify-between w-full"
                     >
-                      <div className="flex items-center justify-between w-full">
-                        <div className="flex items-center">
-                          {getIcon(result)}
-                          <span>{result.title}</span>
-                        </div>
-                        <ArrowRight className="h-3 w-3 text-muted-foreground" />
+                      <div className="flex items-center">
+                        {getIcon(result)}
+                        <span>{result.title}</span>
                       </div>
+                      <ArrowRight className="h-3 w-3 text-muted-foreground" />
                     </CommandItem>
                   ))}
                 </CommandGroup>
@@ -322,22 +331,20 @@ const CommandSearch = () => {
                     <CommandItem
                       key={`blog-${result.id}`}
                       onSelect={() => handleSelect(result)}
-                      className="cursor-pointer"
+                      className="flex cursor-pointer items-center justify-between w-full"
                     >
-                      <div className="flex items-center justify-between w-full">
-                        <div className="flex items-center">
-                          <FileText className="mr-2 h-4 w-4" />
-                          <div className="flex flex-col">
-                            <span>{result.title}</span>
-                            {result.description && (
-                              <span className="text-xs text-muted-foreground line-clamp-1">
-                                {result.description}
-                              </span>
-                            )}
-                          </div>
+                      <div className="flex items-center">
+                        <FileText className="mr-2 h-4 w-4" />
+                        <div className="flex flex-col">
+                          <span>{result.title}</span>
+                          {result.description && (
+                            <span className="text-xs text-muted-foreground line-clamp-1">
+                              {result.description}
+                            </span>
+                          )}
                         </div>
-                        <ArrowRight className="h-3 w-3 text-muted-foreground" />
                       </div>
+                      <ArrowRight className="h-3 w-3 text-muted-foreground" />
                     </CommandItem>
                   ))}
                 </CommandGroup>
@@ -353,15 +360,13 @@ const CommandSearch = () => {
                     <CommandItem
                       key={`tag-${result.id}`}
                       onSelect={() => handleSelect(result)}
-                      className="cursor-pointer"
+                      className="flex cursor-pointer items-center justify-between w-full"
                     >
-                      <div className="flex items-center justify-between w-full">
-                        <div className="flex items-center">
-                          <Tag className="mr-2 h-4 w-4" />
-                          <span>{result.title}</span>
-                        </div>
-                        <ArrowRight className="h-3 w-3 text-muted-foreground" />
+                      <div className="flex items-center">
+                        <Tag className="mr-2 h-4 w-4" />
+                        <span>{result.title}</span>
                       </div>
+                      <ArrowRight className="h-3 w-3 text-muted-foreground" />
                     </CommandItem>
                   ))}
                 </CommandGroup>
