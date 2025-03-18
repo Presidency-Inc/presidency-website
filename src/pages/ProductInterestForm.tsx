@@ -68,7 +68,7 @@ const ProductInterestForm = () => {
             </div>
             
             <h2 className="text-3xl md:text-4xl font-bold mb-8">
-              Create innovation with our platforms
+              Leverage our platforms to drive innovation.
             </h2>
             
             <p className="text-lg mb-10">
@@ -160,7 +160,7 @@ const ProductInterestForm = () => {
               </div>
               
               <h2 className="text-3xl font-bold mb-6">
-                Create innovation with our platforms
+                Leverage our platforms to drive innovation.
               </h2>
               
               <p className="text-lg mb-8">
