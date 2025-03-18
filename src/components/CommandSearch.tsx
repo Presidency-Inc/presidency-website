@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -94,20 +93,16 @@ const CommandSearch = () => {
     fetchTags();
   }, []);
 
-  // Reset search query when dialog is closed
   useEffect(() => {
     if (!open) {
-      // Use a delay to ensure the dialog is fully closed before resetting
       const timer = setTimeout(() => {
         setSearchQuery("");
         setResults([]);
-      }, 300); // Slightly longer delay to ensure the dialog is fully closed
-      
+      }, 500);
       return () => clearTimeout(timer);
     }
   }, [open]);
 
-  // This effect will trigger the search whenever the query changes
   useEffect(() => {
     if (searchQuery.length > 0) {
       searchResults();
@@ -189,7 +184,6 @@ const CommandSearch = () => {
     setLoading(true);
     
     try {
-      // Log the search query to help debug
       console.log('Searching with query:', searchQuery);
       
       const filteredPages = pages.filter(page => 
@@ -282,11 +276,7 @@ const CommandSearch = () => {
   };
 
   const renderSearchResults = () => {
-    // Always log what we're rendering to help debug the issue
-    console.log('Rendering search results:', 
-      'query:', searchQuery, 
-      'results:', results.length, 
-      'loading:', loading);
+    console.log('RENDER CHECK - Query:', searchQuery, 'Results:', results.length, 'Loading:', loading);
     
     if (loading) {
       return (
@@ -308,88 +298,87 @@ const CommandSearch = () => {
       );
     }
 
-    if (results.length === 0 && !loading) {
+    if (results.length > 0) {
+      const pageResults = results.filter(r => r.type === 'page');
+      const blogResults = results.filter(r => r.type === 'blog');
+      const tagResults = results.filter(r => r.type === 'tag');
+
       return (
-        <CommandEmpty>
-          <p className="p-4 text-center text-sm">No results found.</p>
-        </CommandEmpty>
-      );
-    }
-
-    // Only proceed to render groups if we have actual results
-    const pageResults = results.filter(r => r.type === 'page');
-    const blogResults = results.filter(r => r.type === 'blog');
-    const tagResults = results.filter(r => r.type === 'tag');
-
-    return (
-      <>
-        {pageResults.length > 0 && (
-          <CommandGroup heading="Pages">
-            {pageResults.map(result => (
-              <CommandItem
-                key={result.id}
-                onSelect={() => handleSelect(result)}
-                className="flex items-center justify-between py-2"
-              >
-                <div className="flex items-center">
-                  {renderIcon(result)}
-                  <span>{result.title}</span>
-                </div>
-                <ArrowRight className="h-3 w-3 text-muted-foreground" />
-              </CommandItem>
-            ))}
-          </CommandGroup>
-        )}
-        
-        {blogResults.length > 0 && (
-          <>
-            {pageResults.length > 0 && <CommandSeparator />}
-            <CommandGroup heading="Blog Posts">
-              {blogResults.map(result => (
+        <>
+          {pageResults.length > 0 && (
+            <CommandGroup heading="Pages">
+              {pageResults.map(result => (
                 <CommandItem
-                  key={result.id}
+                  key={`page-${result.id}`}
                   onSelect={() => handleSelect(result)}
                   className="flex items-center justify-between py-2"
                 >
                   <div className="flex items-center">
-                    <FileText className="mr-2 h-4 w-4" />
-                    <div className="flex flex-col">
-                      <span>{result.title}</span>
-                      {result.description && (
-                        <span className="text-xs text-muted-foreground line-clamp-1">
-                          {result.description}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                  <ArrowRight className="h-3 w-3 text-muted-foreground" />
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          </>
-        )}
-        
-        {tagResults.length > 0 && (
-          <>
-            {(pageResults.length > 0 || blogResults.length > 0) && <CommandSeparator />}
-            <CommandGroup heading="Tags">
-              {tagResults.map(result => (
-                <CommandItem
-                  key={result.id}
-                  onSelect={() => handleSelect(result)}
-                  className="flex items-center justify-between py-2"
-                >
-                  <div className="flex items-center">
-                    <Tag className="mr-2 h-4 w-4" />
+                    {renderIcon(result)}
                     <span>{result.title}</span>
                   </div>
                   <ArrowRight className="h-3 w-3 text-muted-foreground" />
                 </CommandItem>
               ))}
             </CommandGroup>
-          </>
-        )}
-      </>
+          )}
+          
+          {blogResults.length > 0 && (
+            <>
+              {pageResults.length > 0 && <CommandSeparator />}
+              <CommandGroup heading="Blog Posts">
+                {blogResults.map(result => (
+                  <CommandItem
+                    key={`blog-${result.id}`}
+                    onSelect={() => handleSelect(result)}
+                    className="flex items-center justify-between py-2"
+                  >
+                    <div className="flex items-center">
+                      <FileText className="mr-2 h-4 w-4" />
+                      <div className="flex flex-col">
+                        <span>{result.title}</span>
+                        {result.description && (
+                          <span className="text-xs text-muted-foreground line-clamp-1">
+                            {result.description}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <ArrowRight className="h-3 w-3 text-muted-foreground" />
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </>
+          )}
+          
+          {tagResults.length > 0 && (
+            <>
+              {(pageResults.length > 0 || blogResults.length > 0) && <CommandSeparator />}
+              <CommandGroup heading="Tags">
+                {tagResults.map(result => (
+                  <CommandItem
+                    key={`tag-${result.id}`}
+                    onSelect={() => handleSelect(result)}
+                    className="flex items-center justify-between py-2"
+                  >
+                    <div className="flex items-center">
+                      <Tag className="mr-2 h-4 w-4" />
+                      <span>{result.title}</span>
+                    </div>
+                    <ArrowRight className="h-3 w-3 text-muted-foreground" />
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </>
+          )}
+        </>
+      );
+    }
+
+    return (
+      <CommandEmpty>
+        <p className="p-4 text-center text-sm">No results found for "{searchQuery}".</p>
+      </CommandEmpty>
     );
   };
 
@@ -402,7 +391,7 @@ const CommandSearch = () => {
           value={searchQuery}
           onValueChange={setSearchQuery}
         />
-        <CommandList>
+        <CommandList className="max-h-[400px] overflow-y-auto">
           {renderSearchResults()}
         </CommandList>
       </Command>
