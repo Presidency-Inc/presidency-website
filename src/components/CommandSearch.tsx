@@ -44,6 +44,7 @@ type SearchResult = {
   iconName?: string;
 };
 
+// Pre-defined pages for search
 const pages: SearchResult[] = [
   { id: 'home', title: 'Home', url: '/', type: 'page', iconName: 'Home' },
   { id: 'about', title: 'About Us', url: '/about', type: 'page', iconName: 'Building2' },
@@ -61,6 +62,16 @@ const pages: SearchResult[] = [
   { id: 'book-call', title: 'Book a Call', url: '/book-a-call', type: 'page', iconName: 'Calendar' },
 ];
 
+// Create a singleton pattern to ensure only one instance of the dialog can be open
+let globalOpenState = false;
+let setGlobalOpenState: ((open: boolean) => void) | null = null;
+
+export const toggleCommandSearch = () => {
+  if (setGlobalOpenState) {
+    setGlobalOpenState(!globalOpenState);
+  }
+};
+
 const CommandSearch = () => {
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -69,6 +80,12 @@ const CommandSearch = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  // Setup global state control
+  useEffect(() => {
+    globalOpenState = open;
+    setGlobalOpenState = setOpen;
+  }, [open]);
 
   useEffect(() => {
     fetchTags();
