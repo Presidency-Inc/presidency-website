@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { Code, Network, Users } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -27,13 +28,13 @@ const GetStarted = () => {
     forText: "For enterprises and startups",
     title: "I need to enhance my technology stack using advanced AI and Data platforms",
     description: "Leverage presidency's products to drive innovation within your technology stack and make your business more efficient",
-    cta: "Get a model assessment",
+    cta: "Leverage our platforms",
     link: "/services-interest-form"
   }, {
     id: 3,
     icon: <Users className="h-12 w-12 text-white" />,
     forText: "For enterprises and startups",
-    title: "I need top AI talent for mission-critical projects",
+    title: "I need to hire AI talent for my initiatives",
     description: "Access a global network of elite AI professionals through Turing Jobs—vetted experts ready to accelerate your AI initiatives.",
     cta: "Start hiring talent",
     link: "/talent"
