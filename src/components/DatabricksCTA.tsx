@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { MessageSquare } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const DatabricksCTA = () => {
   return (
@@ -61,9 +62,12 @@ const DatabricksCTA = () => {
                     <Button 
                       className="bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90 shadow-lg"
                       size="lg"
+                      asChild
                     >
-                      Schedule a Consultation
-                      <MessageSquare className="ml-2 h-5 w-5" />
+                      <Link to="/databricks-interest-form">
+                        Schedule a Consultation
+                        <MessageSquare className="ml-2 h-5 w-5" />
+                      </Link>
                     </Button>
                   </div>
                   
