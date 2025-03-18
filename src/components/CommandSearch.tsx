@@ -98,11 +98,12 @@ const CommandSearch = () => {
     };
   }, []);
 
+  // Fetch tags once when component mounts
   useEffect(() => {
     fetchTags();
   }, []);
 
-  // Set initial results when dialog opens
+  // Set initial results and handle dialog open/close
   useEffect(() => {
     console.log("[DEBUG] Dialog open state changed:", open);
     if (open) {
@@ -111,14 +112,16 @@ const CommandSearch = () => {
         const initialResults = pages.slice(0, 5);
         console.log("[DEBUG] Setting initial results:", initialResults.length);
         setResults(initialResults);
+        setLoading(false);
       }
     } else {
       // Reset search when dialog closes
       setSearchQuery("");
+      setResults([]);
     }
   }, [open]);
 
-  // Effect for handling search queries with debounce
+  // Handle search query changes with debounce
   useEffect(() => {
     console.log("[DEBUG] searchQuery changed:", searchQuery, "| open:", open, "| current results:", results.length);
     
@@ -133,23 +136,24 @@ const CommandSearch = () => {
       return;
     }
 
-    // Set loading state immediately for non-empty queries
-    if (searchQuery.trim() !== "") {
-      console.log("[DEBUG] Non-empty query, setting loading state");
-      setLoading(true);
-      
-      // Debounce search to prevent too many requests
-      searchTimeoutRef.current = setTimeout(() => {
-        console.log("[DEBUG] Debounce timeout reached, performing search");
-        searchResults();
-      }, 300);
-    } else {
-      // For empty queries, show initial results
+    // For empty queries, show initial results
+    if (searchQuery.trim() === "") {
       const initialResults = pages.slice(0, 5);
       console.log("[DEBUG] Empty query, showing initial results:", initialResults.length);
       setResults(initialResults);
       setLoading(false);
+      return;
     }
+    
+    // Set loading state immediately for non-empty queries
+    console.log("[DEBUG] Non-empty query, setting loading state");
+    setLoading(true);
+    
+    // Debounce search to prevent too many requests
+    searchTimeoutRef.current = setTimeout(() => {
+      console.log("[DEBUG] Debounce timeout reached, performing search");
+      searchResults();
+    }, 300);
 
     return () => {
       if (searchTimeoutRef.current) {
@@ -158,6 +162,7 @@ const CommandSearch = () => {
     };
   }, [searchQuery, open]);
 
+  // Keyboard shortcut to open/close search
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if ((e.key === "k" && (e.metaKey || e.ctrlKey)) || e.key === "/") {
@@ -233,17 +238,17 @@ const CommandSearch = () => {
     setLoading(true);
     
     try {
-      // Filter pages
+      // Filter pages based on search query
       const filteredPages = pages.filter(page => 
         page.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
       
-      // Filter tags
+      // Filter tags based on search query
       const filteredTags = tags.filter(tag => 
         tag.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
       
-      // Get blog posts
+      // Get blog posts matching search query
       const blogResults = await searchBlogPosts();
       
       // Combine all results
@@ -261,7 +266,6 @@ const CommandSearch = () => {
     } catch (error) {
       console.error('[ERROR] Error searching:', error);
       // Set empty results to prevent stale results from showing
-      console.log("[DEBUG] Error in search, setting empty results");
       setResults([]);
     } finally {
       setLoading(false);
@@ -334,6 +338,12 @@ const CommandSearch = () => {
 
   const renderResults = () => {
     console.log("[DEBUG] renderResults called with", results.length, "results");
+    
+    // If no results, return early
+    if (results.length === 0) {
+      return null;
+    }
+    
     const pageResults = results.filter(result => result.type === 'page');
     const blogResults = results.filter(result => result.type === 'blog');
     const tagResults = results.filter(result => result.type === 'tag');
@@ -438,29 +448,17 @@ const CommandSearch = () => {
             </div>
           ) : (
             <>
-              {/* Empty state only when we have a query but no results */}
               {searchQuery.trim().length > 0 && results.length === 0 ? (
                 <CommandEmpty>No results found.</CommandEmpty>
-              ) : null}
-              
-              {/* Render initial state when opening search without query */}
-              {searchQuery.trim().length === 0 && results.length === 0 ? (
+              ) : searchQuery.trim().length === 0 && results.length === 0 ? (
                 <div className="py-6 text-center text-sm">
                   <p className="text-muted-foreground">Start typing to search...</p>
                   <p className="mt-2 text-xs text-muted-foreground">
                     Search for pages, blog posts, or tags
                   </p>
                 </div>
-              ) : null}
-              
-              {/* Always render results if we have any */}
-              {results.length > 0 ? (
-                <>
-                  {console.log("[DEBUG] Rendering", results.length, "results in CommandList")}
-                  {renderResults()}
-                </>
               ) : (
-                console.log("[DEBUG] No results to render")
+                renderResults()
               )}
             </>
           )}
