@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -22,7 +21,6 @@ const LogoMarquee = () => {
   const isMobile = useIsMobile();
   const location = useLocation();
   
-  // Only enable sticky behavior on the homepage
   const enableSticky = location.pathname === "/" || location.pathname === "";
 
   useEffect(() => {
@@ -32,22 +30,21 @@ const LogoMarquee = () => {
       setIsSticky(window.scrollY === 0);
     };
 
-    // Initial state
     setIsSticky(window.scrollY === 0);
     
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [enableSticky]);
 
-  const logoWidth = isMobile ? 140 : 180; // Smaller on mobile
-  const logoPadding = isMobile ? 4 : 5; // Smaller padding on mobile
-  const totalLogoWidth = logoWidth + (logoPadding * 2); // Total width per logo item
+  const logoWidth = isMobile ? 160 : 220;
+  const logoPadding = isMobile ? 6 : 8;
+  const totalLogoWidth = logoWidth + (logoPadding * 2);
   const totalWidth = customerLogos.length * totalLogoWidth;
-  const animationDuration = isMobile ? 30 : 35; // Faster on mobile
+  const animationDuration = isMobile ? 35 : 40;
 
   return (
     <div 
-      className={`w-full bg-black h-16 z-30 ${
+      className={`w-full bg-black h-20 z-30 ${ 
         enableSticky && isSticky ? "fixed bottom-0 left-0" : ""
       }`}
     >
@@ -85,7 +82,7 @@ const LogoMarquee = () => {
                     <img
                       src={logo.logo}
                       alt={logo.name}
-                      className="max-h-[36px] max-w-full object-contain w-auto"
+                      className="max-h-[44px] max-w-full object-contain w-auto"
                     />
                   </div>
                 ))}
@@ -116,7 +113,7 @@ const LogoMarquee = () => {
                     <img
                       src={logo.logo}
                       alt={logo.name}
-                      className="max-h-[36px] max-w-full object-contain w-auto"
+                      className="max-h-[44px] max-w-full object-contain w-auto"
                     />
                   </div>
                 ))}
