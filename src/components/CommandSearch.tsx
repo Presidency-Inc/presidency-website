@@ -38,6 +38,7 @@ import {
   Home
 } from "lucide-react";
 import { DialogTitle } from "@/components/ui/dialog";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type SearchResult = {
   id: string;
@@ -96,19 +97,21 @@ const CommandSearch = () => {
   // Reset search query when dialog is closed
   useEffect(() => {
     if (!open) {
-      setSearchQuery("");
-      setResults([]);
+      setTimeout(() => {
+        setSearchQuery("");
+        setResults([]);
+      }, 100); // Small delay to ensure the dialog is fully closed
     }
   }, [open]);
 
   // This effect will trigger the search whenever the query changes
   useEffect(() => {
-    if (open && searchQuery.length > 0) {
+    if (searchQuery.length > 0) {
       searchResults();
-    } else if (open && searchQuery.length === 0) {
+    } else if (searchQuery.length === 0) {
       setResults([]);
     }
-  }, [searchQuery, open]);
+  }, [searchQuery]);
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
