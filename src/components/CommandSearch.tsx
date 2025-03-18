@@ -281,29 +281,23 @@ const CommandSearch = () => {
           onValueChange={setSearchQuery}
         />
         <CommandList>
-          {loading && (
+          {loading ? (
             <div className="flex items-center justify-center py-6">
               <div className="h-5 w-5 animate-spin rounded-full border-t-2 border-blue-500"></div>
               <span className="ml-2 text-sm text-muted-foreground">Searching...</span>
             </div>
-          )}
-          
-          {!loading && results.length === 0 && searchQuery.length > 0 && (
-            <CommandEmpty>
-              <p className="p-4 text-center text-sm">No results found.</p>
-            </CommandEmpty>
-          )}
-          
-          {searchQuery.length === 0 && (
+          ) : searchQuery.length === 0 ? (
             <div className="py-6 text-center text-sm">
               <p className="text-muted-foreground">Start typing to search...</p>
               <p className="mt-2 text-xs text-muted-foreground">
                 Search for pages, blog posts, or tags
               </p>
             </div>
-          )}
-          
-          {!loading && results.length > 0 && (
+          ) : results.length === 0 ? (
+            <CommandEmpty>
+              <p className="p-4 text-center text-sm">No results found.</p>
+            </CommandEmpty>
+          ) : (
             <>
               {results.filter(r => r.type === 'page').length > 0 && (
                 <CommandGroup heading="Pages">
