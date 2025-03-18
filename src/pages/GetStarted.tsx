@@ -35,7 +35,7 @@ const GetStarted = () => {
     icon: <Users className="h-12 w-12 text-white" />,
     forText: "For enterprises and startups",
     title: "I need to hire AI talent for my initiatives",
-    description: "Access a global network of elite AI professionals through Turing Jobs—vetted experts ready to accelerate your AI initiatives.",
+    description: "Extend your team with capable AI or Data talent to accelerate your mission-critical projects",
     cta: "Start hiring talent",
     link: "/talent"
   }];
