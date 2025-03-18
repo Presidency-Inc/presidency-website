@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -45,6 +46,15 @@ type SearchResult = {
   iconName?: string;
 };
 
+// Create a singleton pattern to access the command search from anywhere
+let openSearchFn: (() => void) | null = null;
+
+export const openCommandSearch = () => {
+  if (openSearchFn) {
+    openSearchFn();
+  }
+};
+
 const pages: SearchResult[] = [
   { id: 'home', title: 'Home', url: '/', type: 'page', iconName: 'Home' },
   { id: 'about', title: 'About Us', url: '/about', type: 'page', iconName: 'Building2' },
@@ -70,6 +80,14 @@ const CommandSearch = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  // Register the open function with our singleton
+  useEffect(() => {
+    openSearchFn = () => setOpen(true);
+    return () => {
+      openSearchFn = null;
+    };
+  }, []);
 
   useEffect(() => {
     fetchTags();
