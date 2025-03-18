@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Mail } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const AIServicesCTA = () => {
   return (
@@ -60,9 +61,12 @@ const AIServicesCTA = () => {
                     <Button 
                       className="bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90 shadow-lg"
                       size="lg"
+                      asChild
                     >
-                      Schedule Consultation
-                      <Mail className="ml-2 h-5 w-5" />
+                      <Link to="/services-interest-form">
+                        TALK TO AN EXPERT
+                        <Mail className="ml-2 h-5 w-5" />
+                      </Link>
                     </Button>
                   </div>
                   

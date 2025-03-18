@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { Mic, Radio, Voicemail, Headphones } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const VoiceAISection = () => {
   return (
@@ -66,8 +67,10 @@ const VoiceAISection = () => {
             </div>
 
             <div className="mt-10">
-              <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-                Explore Voice Solutions
+              <Button className="bg-blue-600 hover:bg-blue-700 text-white" asChild>
+                <Link to="/services-interest-form">
+                  TALK TO AN EXPERT
+                </Link>
               </Button>
             </div>
           </motion.div>

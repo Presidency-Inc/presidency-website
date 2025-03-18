@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { Brain, MessageSquareCode, Bot, Workflow } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const agentTypes = [
   {
@@ -161,6 +163,18 @@ const AgentDevelopmentSection = () => {
             </TabsContent>
           ))}
         </Tabs>
+        
+        <div className="mt-12 text-center">
+          <Button 
+            className="bg-blue-600 hover:bg-blue-700 text-white" 
+            size="lg" 
+            asChild
+          >
+            <Link to="/services-interest-form">
+              TALK TO AN EXPERT
+            </Link>
+          </Button>
+        </div>
       </div>
     </section>
   );

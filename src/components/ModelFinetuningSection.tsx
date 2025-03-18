@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { Brain, Bot, Database, PenTool } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const ModelFinetuningSection = () => {
   return (
@@ -116,8 +117,10 @@ const ModelFinetuningSection = () => {
               </div>
             </div>
             
-            <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-              Explore Fine-tuning Services
+            <Button className="bg-blue-600 hover:bg-blue-700 text-white" asChild>
+              <Link to="/services-interest-form">
+                TALK TO AN EXPERT
+              </Link>
             </Button>
           </motion.div>
         </div>
