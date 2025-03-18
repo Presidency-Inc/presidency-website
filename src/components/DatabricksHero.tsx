@@ -73,7 +73,7 @@ const DatabricksHero = () => {
                 asChild
               >
                 <Link to="/databricks-interest-form">
-                  Schedule a Consultation
+                  Talk to an expert
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>

@@ -1,6 +1,6 @@
 
 import { motion } from "framer-motion";
-import { Database, Code, BarChart3, Terminal } from "lucide-react";
+import { Database, Code, BarChart3, Terminal, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -64,14 +64,28 @@ const DatabricksServicesSection = () => {
               </div>
             </div>
             
-            <Button 
-              variant="default" 
-              size="lg" 
-              className="bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90"
-              asChild
-            >
-              <Link to="/databricks-interest-form">See Databricks Solutions</Link>
-            </Button>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Button 
+                variant="default" 
+                size="lg" 
+                className="bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90"
+                asChild
+              >
+                <Link to="/databricks-interest-form">See Databricks Solutions</Link>
+              </Button>
+              
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="border-[#1a46e5] text-[#1a46e5] hover:bg-[#1a46e5]/10"
+                asChild
+              >
+                <Link to="/databricks-interest-form">
+                  Talk to an expert
+                  <MessageSquare className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+            </div>
           </motion.div>
         </div>
       </div>

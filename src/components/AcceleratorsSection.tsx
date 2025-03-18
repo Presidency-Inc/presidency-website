@@ -1,7 +1,9 @@
 
 import { motion } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, MessageSquare } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const AcceleratorsSection = () => {
   return (
@@ -26,6 +28,26 @@ const AcceleratorsSection = () => {
           >
             Overcome Databricks' inherent limitations and achieve unprecedented performance with our custom-built accelerators
           </motion.p>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="mt-6"
+          >
+            <Button 
+              variant="default" 
+              size="lg" 
+              className="bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90"
+              asChild
+            >
+              <Link to="/databricks-interest-form">
+                Talk to an expert
+                <MessageSquare className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+          </motion.div>
         </div>
 
         <motion.div

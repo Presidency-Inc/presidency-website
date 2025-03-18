@@ -1,6 +1,8 @@
 
 import { motion } from "framer-motion";
-import { Trophy, Award, BadgeCheck } from "lucide-react";
+import { Trophy, Award, BadgeCheck, MessageSquare } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const ExpertiseSection = () => {
   return (
@@ -31,10 +33,29 @@ const ExpertiseSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
             viewport={{ once: true }}
-            className="text-lg text-gray-600"
+            className="text-lg text-gray-600 mb-6"
           >
             Our team combines deep Databricks knowledge with proprietary technologies to deliver solutions that exceed expectations
           </motion.p>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            <Button 
+              variant="default" 
+              size="lg" 
+              className="bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90"
+              asChild
+            >
+              <Link to="/databricks-interest-form">
+                Talk to an expert
+                <MessageSquare className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+          </motion.div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-12">
