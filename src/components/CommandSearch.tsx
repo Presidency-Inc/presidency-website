@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -80,8 +79,7 @@ const CommandSearch = () => {
   const [tags, setTags] = useState<SearchResult[]>([]);
   const navigate = useNavigate();
   const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const searchPerformedRef = useRef(false);
-  const searchInProgressRef = useRef(false);
+  const resultsExistRef = useRef(false);
 
   // Register open function
   useEffect(() => {
@@ -130,14 +128,13 @@ const CommandSearch = () => {
     return () => document.removeEventListener("keydown", down);
   }, []);
 
-  // Search function with stable results
+  // Search function
   const performSearch = useCallback(async (query: string) => {
+    // Critical: Only run search if dialog is open
     if (!open) return;
     
     console.log("Performing search for:", query);
     setIsLoading(true);
-    searchPerformedRef.current = true;
-    searchInProgressRef.current = true;
     
     try {
       // Always include default pages if no query
@@ -179,17 +176,19 @@ const CommandSearch = () => {
       const allResults = [...filteredPages, ...blogResults, ...filteredTags];
       console.log("Search results:", allResults);
       
-      // Only update if the dialog is still open
+      // Ensure dialog is still open before updating state
       if (open) {
         setSearchResults(allResults);
+        resultsExistRef.current = allResults.length > 0;
       }
     } catch (error) {
       console.error('Search error:', error);
       // If error, just show default pages
-      setSearchResults(pages.slice(0, 5));
+      const defaultResults = pages.slice(0, 5);
+      setSearchResults(defaultResults);
+      resultsExistRef.current = defaultResults.length > 0;
     } finally {
       setIsLoading(false);
-      searchInProgressRef.current = false;
     }
   }, [open, tags]);
 
@@ -197,33 +196,36 @@ const CommandSearch = () => {
   const handleInputChange = (value: string) => {
     setSearchInput(value);
     
+    // Clear previous timeout if it exists
     if (searchTimeoutRef.current) {
       clearTimeout(searchTimeoutRef.current);
     }
     
-    searchTimeoutRef.current = setTimeout(() => {
-      if (open) {  // Only perform search if dialog is still open
+    // Only start a new search if the dialog is open
+    if (open) {
+      searchTimeoutRef.current = setTimeout(() => {
         performSearch(value);
-      }
-    }, 300);
+      }, 300);
+    }
   };
 
-  // Manage dialog open/close and initial search
+  // Handle dialog open/close and initial search
   useEffect(() => {
     if (open) {
-      // When opening, show initial results if no search was performed yet
-      if (!searchPerformedRef.current) {
-        performSearch("");
-      }
+      // When dialog opens, either:
+      // 1. Perform initial search if no input exists
+      // 2. Perform search with current input if it exists
+      performSearch(searchInput);
     } else {
-      // When closing, reset search state after a slight delay
+      // When dialog closes, just reset the input, but keep the results
+      // so they don't flash/disappear when reopening
       const timer = setTimeout(() => {
         setSearchInput("");
-        // Don't reset searchPerformedRef here to avoid flashing empty results
       }, 300);
+      
       return () => clearTimeout(timer);
     }
-  }, [open, performSearch]);
+  }, [open, performSearch, searchInput]);
 
   const handleSelect = useCallback((result: SearchResult) => {
     // Track the search if analytics available
@@ -300,6 +302,15 @@ const CommandSearch = () => {
           placeholder="Search pages, blog posts, and tags..." 
           value={searchInput}
           onValueChange={handleInputChange}
+          onKeyDown={(e) => {
+            // Ensure pressing Enter triggers immediate search
+            if (e.key === 'Enter') {
+              if (searchTimeoutRef.current) {
+                clearTimeout(searchTimeoutRef.current);
+              }
+              performSearch(searchInput);
+            }
+          }}
         />
         <CommandList>
           {isLoading ? (
