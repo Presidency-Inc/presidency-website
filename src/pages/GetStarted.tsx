@@ -40,7 +40,7 @@ const GetStarted = () => {
     link: "/talent"
   }];
 
-  return <main className="min-h-screen bg-gray-900 overflow-x-hidden">
+  return <main className="min-h-screen bg-gray-800 overflow-x-hidden">
       <StatusBar />
       <Navbar />
       
