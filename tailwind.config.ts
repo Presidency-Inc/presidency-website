@@ -38,8 +38,6 @@ export default {
 					'200': '#E5E7EB',
 					'250': '#D9DCE1',  // Custom intermediate gray
 					'300': '#D1D5DB',
-					'800': '#1F2937',  // Added for dark overlay
-					'900': '#111827',  // Added for dark overlay
 				},
 				blue: {
 					// Using much lighter blue shades
