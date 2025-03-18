@@ -177,7 +177,7 @@ const BlogPostPage = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Helmet>
-        <title>{post?.title || 'Blog Post'} | Company Blog</title>
+        <title>{post?.title || 'Blog Post'} | Presidency Solutions</title>
         <meta name="description" content={post?.description} />
         <meta property="og:title" content={post?.title} />
         <meta property="og:description" content={post?.description} />
