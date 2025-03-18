@@ -24,6 +24,7 @@ import ProductInterestForm from "./pages/ProductInterestForm";
 import DatabricksInterestForm from "./pages/DatabricksInterestForm";
 import GetStarted from "./pages/GetStarted";
 import BookACall from "./pages/BookACall";
+import About from "./pages/About";
 
 const queryClient = new QueryClient();
 
@@ -53,6 +54,7 @@ const App = () => (
           <Route path="/databricks-interest-form" element={<DatabricksInterestForm />} />
           <Route path="/get-started" element={<GetStarted />} />
           <Route path="/book-a-call" element={<BookACall />} />
+          <Route path="/about" element={<About />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

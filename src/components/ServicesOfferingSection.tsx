@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -37,6 +38,10 @@ const services = [
 ];
 
 const ServicesOfferingSection = () => {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <section className="py-16 md:py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -89,7 +94,7 @@ const ServicesOfferingSection = () => {
                   className="w-full justify-between border-blue-500 text-blue-600 hover:bg-blue-50"
                   asChild
                 >
-                  <Link to="/databricks-interest-form">
+                  <Link to="/databricks-interest-form" onClick={scrollToTop}>
                     Book a call
                     <Phone className="h-4 w-4" />
                   </Link>
