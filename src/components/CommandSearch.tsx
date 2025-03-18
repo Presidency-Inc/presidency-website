@@ -38,6 +38,7 @@ import {
   Home
 } from "lucide-react";
 import { DialogTitle } from "@/components/ui/dialog";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type SearchResult = {
   id: string;
@@ -192,7 +193,6 @@ const CommandSearch = () => {
       // Combine all results
       const combinedResults = [...filteredPages, ...blogResults, ...filteredTags];
       
-      // Log for debugging
       console.log('Search query:', searchQuery);
       console.log('Pages results:', filteredPages.length);
       console.log('Tags results:', filteredTags.length);
@@ -270,6 +270,81 @@ const CommandSearch = () => {
     }
   };
 
+  const renderResults = () => {
+    const pageResults = results.filter(result => result.type === 'page');
+    const blogResults = results.filter(result => result.type === 'blog');
+    const tagResults = results.filter(result => result.type === 'tag');
+
+    return (
+      <>
+        {pageResults.length > 0 && (
+          <CommandGroup heading="Pages">
+            {pageResults.map(result => (
+              <CommandItem
+                key={`page-${result.id}`}
+                onSelect={() => handleSelect(result)}
+                className="flex items-center justify-between py-2"
+              >
+                <div className="flex items-center">
+                  {renderIcon(result)}
+                  <span>{result.title}</span>
+                </div>
+                <ArrowRight className="h-3 w-3 text-muted-foreground" />
+              </CommandItem>
+            ))}
+          </CommandGroup>
+        )}
+        
+        {pageResults.length > 0 && blogResults.length > 0 && <CommandSeparator />}
+        
+        {blogResults.length > 0 && (
+          <CommandGroup heading="Blog Posts">
+            {blogResults.map(result => (
+              <CommandItem
+                key={`blog-${result.id}`}
+                onSelect={() => handleSelect(result)}
+                className="flex items-center justify-between py-2"
+              >
+                <div className="flex items-center">
+                  <FileText className="mr-2 h-4 w-4" />
+                  <div className="flex flex-col">
+                    <span>{result.title}</span>
+                    {result.description && (
+                      <span className="text-xs text-muted-foreground line-clamp-1">
+                        {result.description}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <ArrowRight className="h-3 w-3 text-muted-foreground" />
+              </CommandItem>
+            ))}
+          </CommandGroup>
+        )}
+        
+        {(pageResults.length > 0 || blogResults.length > 0) && tagResults.length > 0 && <CommandSeparator />}
+        
+        {tagResults.length > 0 && (
+          <CommandGroup heading="Tags">
+            {tagResults.map(result => (
+              <CommandItem
+                key={`tag-${result.id}`}
+                onSelect={() => handleSelect(result)}
+                className="flex items-center justify-between py-2"
+              >
+                <div className="flex items-center">
+                  <Tag className="mr-2 h-4 w-4" />
+                  <span>{result.title}</span>
+                </div>
+                <ArrowRight className="h-3 w-3 text-muted-foreground" />
+              </CommandItem>
+            ))}
+          </CommandGroup>
+        )}
+      </>
+    );
+  };
+
   return (
     <CommandDialog open={open} onOpenChange={setOpen}>
       <DialogTitle className="sr-only">Search</DialogTitle>
@@ -279,102 +354,34 @@ const CommandSearch = () => {
           value={searchQuery}
           onValueChange={setSearchQuery}
         />
-        <CommandList>
-          <CommandEmpty>
-            {loading ? (
-              <div className="flex items-center justify-center py-6">
-                <div className="h-5 w-5 animate-spin rounded-full border-t-2 border-blue-500"></div>
-                <span className="ml-2 text-sm text-muted-foreground">Searching...</span>
-              </div>
-            ) : (
-              <p className="p-4 text-center text-sm">No results found.</p>
-            )}
-          </CommandEmpty>
-          
-          {results.length > 0 && (
+        <CommandList className="max-h-[60vh] overflow-y-auto">
+          {loading ? (
+            <div className="p-4">
+              <Skeleton className="h-8 w-full mb-2" />
+              <Skeleton className="h-8 w-full mb-2" />
+              <Skeleton className="h-8 w-full" />
+            </div>
+          ) : (
             <>
-              {results.filter(r => r.type === 'page').length > 0 && (
-                <CommandGroup heading="Pages">
-                  {results
-                    .filter(result => result.type === 'page')
-                    .map(result => (
-                      <CommandItem
-                        key={result.id}
-                        onSelect={() => handleSelect(result)}
-                        className="flex items-center justify-between py-2"
-                      >
-                        <div className="flex items-center">
-                          {renderIcon(result)}
-                          <span>{result.title}</span>
-                        </div>
-                        <ArrowRight className="h-3 w-3 text-muted-foreground" />
-                      </CommandItem>
-                    ))}
-                </CommandGroup>
-              )}
+              <CommandEmpty>
+                {searchQuery.length > 0 ? (
+                  <p className="p-4 text-center text-sm">No results found.</p>
+                ) : null}
+              </CommandEmpty>
               
-              {results.filter(r => r.type === 'blog').length > 0 && (
-                <>
-                  <CommandSeparator />
-                  <CommandGroup heading="Blog Posts">
-                    {results
-                      .filter(result => result.type === 'blog')
-                      .map(result => (
-                        <CommandItem
-                          key={result.id}
-                          onSelect={() => handleSelect(result)}
-                          className="flex items-center justify-between py-2"
-                        >
-                          <div className="flex items-center">
-                            <FileText className="mr-2 h-4 w-4" />
-                            <div className="flex flex-col">
-                              <span>{result.title}</span>
-                              {result.description && (
-                                <span className="text-xs text-muted-foreground line-clamp-1">
-                                  {result.description}
-                                </span>
-                              )}
-                            </div>
-                          </div>
-                          <ArrowRight className="h-3 w-3 text-muted-foreground" />
-                        </CommandItem>
-                      ))}
-                  </CommandGroup>
-                </>
-              )}
-              
-              {results.filter(r => r.type === 'tag').length > 0 && (
-                <>
-                  <CommandSeparator />
-                  <CommandGroup heading="Tags">
-                    {results
-                      .filter(result => result.type === 'tag')
-                      .map(result => (
-                        <CommandItem
-                          key={result.id}
-                          onSelect={() => handleSelect(result)}
-                          className="flex items-center justify-between py-2"
-                        >
-                          <div className="flex items-center">
-                            <Tag className="mr-2 h-4 w-4" />
-                            <span>{result.title}</span>
-                          </div>
-                          <ArrowRight className="h-3 w-3 text-muted-foreground" />
-                        </CommandItem>
-                      ))}
-                  </CommandGroup>
-                </>
+              {results.length > 0 ? (
+                renderResults()
+              ) : (
+                searchQuery.length === 0 && (
+                  <div className="py-6 text-center text-sm">
+                    <p className="text-muted-foreground">Start typing to search...</p>
+                    <p className="mt-2 text-xs text-muted-foreground">
+                      Search for pages, blog posts, or tags
+                    </p>
+                  </div>
+                )
               )}
             </>
-          )}
-          
-          {searchQuery.length === 0 && (
-            <div className="py-6 text-center text-sm">
-              <p className="text-muted-foreground">Start typing to search...</p>
-              <p className="mt-2 text-xs text-muted-foreground">
-                Search for pages, blog posts, or tags
-              </p>
-            </div>
           )}
         </CommandList>
       </Command>
