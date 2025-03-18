@@ -2,6 +2,7 @@
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { Button } from "./ui/button";
 
 const featureItems = [{
   id: "01",
@@ -136,6 +137,20 @@ const FeaturesSection = () => {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
 Presidency Solutions</span>
           </h2>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="mt-6"
+          >
+            <Link to="/get-started">
+              <Button variant="outline" className="bg-transparent border-2 border-purple-500 text-white hover:bg-purple-500/20 text-base px-6 py-5">
+                Get Started
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+          </motion.div>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
