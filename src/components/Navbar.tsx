@@ -1,9 +1,10 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown, ChevronUp, X, ArrowLeft, Menu } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import Logo from "./Logo";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { OverlayContext } from "../App";
 
 const Navbar = () => {
   const [productsOpen, setProductsOpen] = useState(false);
@@ -14,6 +15,7 @@ const Navbar = () => {
   const navRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const { openOverlay } = useContext(OverlayContext);
   
   const isProductsActive = location.pathname.startsWith('/products/');
   const isServicesActive = location.pathname.startsWith('/services/') && location.pathname !== '/services/databricks';
@@ -187,6 +189,14 @@ const Navbar = () => {
     }, 100);
   };
 
+  const handleGetStarted = (e: React.MouseEvent) => {
+    e.preventDefault();
+    openOverlay();
+    if (mobileMenuOpen) {
+      setMobileMenuOpen(false);
+    }
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (navRef.current && !navRef.current.contains(event.target as Node)) {
@@ -282,7 +292,11 @@ const Navbar = () => {
           </div>
           
           <div className="flex items-center">
-            <Button variant="default" className="hidden md:inline-flex items-center bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
+            <Button 
+              variant="default" 
+              className="hidden md:inline-flex items-center bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90"
+              onClick={handleGetStarted}
+            >
               GET STARTED
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
@@ -524,7 +538,11 @@ const Navbar = () => {
               </div>
               
               <div className="mt-auto p-4 border-t border-gray-100 bg-white sticky bottom-0">
-                <Button variant="default" className="w-full bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
+                <Button 
+                  variant="default" 
+                  className="w-full bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90"
+                  onClick={handleGetStarted}
+                >
                   GET STARTED
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -665,7 +683,11 @@ const Navbar = () => {
               </div>
               
               <div className="mt-auto p-4 border-t border-gray-100 bg-white sticky bottom-0">
-                <Button variant="default" className="w-full bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
+                <Button 
+                  variant="default" 
+                  className="w-full bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90"
+                  onClick={handleGetStarted}
+                >
                   GET STARTED
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -778,7 +800,11 @@ const Navbar = () => {
               </div>
               
               <div className="mt-auto p-4 border-t border-gray-100 bg-white sticky bottom-0">
-                <Button variant="default" className="w-full bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
+                <Button 
+                  variant="default" 
+                  className="w-full bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90"
+                  onClick={handleGetStarted}
+                >
                   GET STARTED
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
