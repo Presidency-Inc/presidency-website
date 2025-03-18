@@ -50,6 +50,30 @@ const GetStarted = () => {
       <Navbar />
       
       <section className="relative pt-52 pb-20 min-h-[calc(100vh-120px)] flex flex-col justify-center">
+        {/* Top Left Crystal Image */}
+        <div className="absolute top-0 left-0 z-10 w-28 sm:w-32 md:w-40 lg:w-48 pointer-events-none">
+          <img 
+            src="/lovable-uploads/3d61ba69-c1e5-4d40-980d-e8aec7ee6a1b.png" 
+            alt="Prismatic crystal top" 
+            className="w-full h-auto max-w-full"
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+          />
+        </div>
+
+        {/* Bottom Right Crystal Image */}
+        <div className="absolute bottom-0 right-0 z-10 w-28 sm:w-32 md:w-40 lg:w-48 pointer-events-none">
+          <img 
+            src="/lovable-uploads/3505d22d-17d9-44da-99ac-94f3b9cde259.png" 
+            alt="Prismatic crystal" 
+            className="w-full h-auto max-w-full"
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+          />
+        </div>
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             className="text-center mb-16"
