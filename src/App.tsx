@@ -21,6 +21,7 @@ import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import ServicesInterestForm from "./pages/ServicesInterestForm";
 import GetStarted from "./pages/GetStarted";
+import BookACall from "./pages/BookACall";
 
 const queryClient = new QueryClient();
 
@@ -47,6 +48,7 @@ const App = () => (
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/services-interest-form" element={<ServicesInterestForm />} />
           <Route path="/get-started" element={<GetStarted />} />
+          <Route path="/book-a-call" element={<BookACall />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
