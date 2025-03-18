@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { Brain, MessageSquareCode, Bot, Workflow } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -50,7 +49,7 @@ const agentTypes = [
 
 const AgentDevelopmentSection = () => {
   return (
-    <section className="py-16 md:py-24 bg-white">
+    <section className="py-16 md:py-24 bg-blue-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -171,7 +170,7 @@ const AgentDevelopmentSection = () => {
             asChild
           >
             <Link to="/services-interest-form">
-              TALK TO AN EXPERT
+              Talk to an Expert
             </Link>
           </Button>
         </div>

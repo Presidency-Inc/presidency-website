@@ -64,7 +64,7 @@ const AIServicesCTA = () => {
                       asChild
                     >
                       <Link to="/services-interest-form">
-                        TALK TO AN EXPERT
+                        Talk to an Expert
                         <Mail className="ml-2 h-5 w-5" />
                       </Link>
                     </Button>

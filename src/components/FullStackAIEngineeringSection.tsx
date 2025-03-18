@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { Code, Server, Layers } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -55,7 +54,7 @@ const FullStackAIEngineeringSection = () => {
               asChild
             >
               <Link to="/services-interest-form">
-                TALK TO AN EXPERT
+                Talk to an Expert
               </Link>
             </Button>
           </div>

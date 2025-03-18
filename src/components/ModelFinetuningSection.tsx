@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { Brain, Bot, Database, PenTool } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -63,7 +62,6 @@ const ModelFinetuningSection = () => {
                 ))}
               </div>
               
-              {/* Example KPIs */}
               <div className="mt-8 pt-6 border-t border-gray-100">
                 <h4 className="font-semibold mb-4">Typical Improvements</h4>
                 <div className="grid grid-cols-2 gap-4">
@@ -119,7 +117,7 @@ const ModelFinetuningSection = () => {
             
             <Button className="bg-blue-600 hover:bg-blue-700 text-white" asChild>
               <Link to="/services-interest-form">
-                TALK TO AN EXPERT
+                Talk to an Expert
               </Link>
             </Button>
           </motion.div>

@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { Database, Search, FileText, Workflow } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -66,7 +65,7 @@ const CustomRAGSection = () => {
             
             <Button className="bg-blue-600 hover:bg-blue-700 text-white" asChild>
               <Link to="/services-interest-form">
-                TALK TO AN EXPERT
+                Talk to an Expert
               </Link>
             </Button>
           </motion.div>
