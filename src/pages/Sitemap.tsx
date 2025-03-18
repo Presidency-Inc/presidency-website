@@ -21,6 +21,7 @@ const Sitemap = () => {
         <meta property="og:image" content="/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:image" content="/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png" />
+        <link rel="canonical" href="https://presidencysolutions.com/sitemap" />
       </Helmet>
       <ScrollToTop />
       <StatusBar />
@@ -31,6 +32,13 @@ const Sitemap = () => {
         <div className="container mx-auto px-4 py-12">
           <h1 className="text-3xl md:text-4xl font-bold mb-8 text-center">Sitemap</h1>
           
+          <div className="mb-8 text-center">
+            <p className="text-gray-600 max-w-3xl mx-auto">
+              Welcome to our sitemap. This page provides a complete overview of all pages available on the Presidency Solutions website.
+              For search engines, our <a href="/sitemap.xml" className="text-blue-600 hover:text-blue-800">XML sitemap</a> is also available.
+            </p>
+          </div>
+          
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Services Section */}
             <div className="bg-white p-6 rounded-lg shadow-md">
@@ -40,6 +48,7 @@ const Sitemap = () => {
                 <li><Link to="/services/data" className="text-blue-600 hover:text-blue-800">Data Engineering</Link></li>
                 <li><Link to="/services/databricks" className="text-blue-600 hover:text-blue-800">Databricks Solutions</Link></li>
                 <li><Link to="/products/kube8r" className="text-blue-600 hover:text-blue-800">Cloud Modernization</Link></li>
+                <li><Link to="/services-interest-form" className="text-blue-600 hover:text-blue-800">Services Interest Form</Link></li>
               </ul>
             </div>
             
@@ -50,6 +59,7 @@ const Sitemap = () => {
                 <li><Link to="/products/leapfrog" className="text-blue-600 hover:text-blue-800">Leapfrog</Link></li>
                 <li><Link to="/products/omniflow" className="text-blue-600 hover:text-blue-800">Omniflow</Link></li>
                 <li><Link to="/products/kube8r" className="text-blue-600 hover:text-blue-800">Kube8r</Link></li>
+                <li><Link to="/product-interest-form" className="text-blue-600 hover:text-blue-800">Product Interest Form</Link></li>
               </ul>
             </div>
             
@@ -60,6 +70,7 @@ const Sitemap = () => {
                 <li><Link to="/talent" className="text-blue-600 hover:text-blue-800">Talent Solutions</Link></li>
                 <li><Link to="/talent/nearshore" className="text-blue-600 hover:text-blue-800">Nearshore</Link></li>
                 <li><Link to="/talent-interest-form" className="text-blue-600 hover:text-blue-800">Talent Interest Form</Link></li>
+                <li><Link to="/careers" className="text-blue-600 hover:text-blue-800">Careers at Presidency</Link></li>
               </ul>
             </div>
             
@@ -79,6 +90,7 @@ const Sitemap = () => {
               <h2 className="text-xl font-semibold text-gray-900 mb-4 border-b pb-2">Resources</h2>
               <ul className="space-y-2">
                 <li><Link to="/blog" className="text-blue-600 hover:text-blue-800">Blog & Media</Link></li>
+                <li><Link to="/get-started" className="text-blue-600 hover:text-blue-800">Get Started Guide</Link></li>
               </ul>
             </div>
             
@@ -89,6 +101,7 @@ const Sitemap = () => {
                 <li><Link to="/services-interest-form" className="text-blue-600 hover:text-blue-800">Services Interest Form</Link></li>
                 <li><Link to="/product-interest-form" className="text-blue-600 hover:text-blue-800">Product Interest Form</Link></li>
                 <li><Link to="/databricks-interest-form" className="text-blue-600 hover:text-blue-800">Databricks Interest Form</Link></li>
+                <li><Link to="/talent-interest-form" className="text-blue-600 hover:text-blue-800">Talent Interest Form</Link></li>
               </ul>
             </div>
             
