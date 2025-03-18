@@ -282,10 +282,12 @@ const Navbar = () => {
           </div>
           
           <div className="flex items-center">
-            <Button variant="default" className="hidden md:inline-flex items-center bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
-              GET STARTED
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
+            <Link to="/get-started">
+              <Button variant="default" className="hidden md:inline-flex items-center bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
+                GET STARTED
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
             
             <button onClick={toggleMobileMenu} className="md:hidden p-2 text-gray-700">
               <Menu className="h-6 w-6" />
@@ -524,10 +526,12 @@ const Navbar = () => {
               </div>
               
               <div className="mt-auto p-4 border-t border-gray-100 bg-white sticky bottom-0">
-                <Button variant="default" className="w-full bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
-                  GET STARTED
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
+                <Link to="/get-started" onClick={() => setMobileMenuOpen(false)}>
+                  <Button variant="default" className="w-full bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
+                    GET STARTED
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
               </div>
             </div>
           ) : mobileSubmenuOpen === "products" ? (
@@ -665,10 +669,15 @@ const Navbar = () => {
               </div>
               
               <div className="mt-auto p-4 border-t border-gray-100 bg-white sticky bottom-0">
-                <Button variant="default" className="w-full bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
-                  GET STARTED
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
+                <Link to="/get-started" onClick={() => {
+                  setMobileMenuOpen(false);
+                  setMobileSubmenuOpen(null);
+                }}>
+                  <Button variant="default" className="w-full bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
+                    GET STARTED
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
               </div>
             </div>
           ) : mobileSubmenuOpen === "services" ? (
@@ -778,10 +787,15 @@ const Navbar = () => {
               </div>
               
               <div className="mt-auto p-4 border-t border-gray-100 bg-white sticky bottom-0">
-                <Button variant="default" className="w-full bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
-                  GET STARTED
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
+                <Link to="/get-started" onClick={() => {
+                  setMobileMenuOpen(false);
+                  setMobileSubmenuOpen(null);
+                }}>
+                  <Button variant="default" className="w-full bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
+                    GET STARTED
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
               </div>
             </div>
           ) : null}
