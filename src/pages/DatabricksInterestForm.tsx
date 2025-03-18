@@ -24,6 +24,22 @@ const DatabricksInterestForm = () => {
     }
   }, [isMobile]);
 
+  // Add meta tag for iOS status bar when on step 1 (black section)
+  useEffect(() => {
+    if (isMobile && currentStep === 1) {
+      // Set meta tag for iOS status bar to match dark theme
+      const metaTag = document.createElement('meta');
+      metaTag.name = 'apple-mobile-web-app-status-bar-style';
+      metaTag.content = 'black-translucent';
+      document.head.appendChild(metaTag);
+      
+      return () => {
+        // Clean up when unmounting or moving to step 2
+        document.head.removeChild(metaTag);
+      };
+    }
+  }, [isMobile, currentStep]);
+
   const handleContinue = () => {
     setCurrentStep(2);
   };
@@ -138,7 +154,7 @@ const DatabricksInterestForm = () => {
       {isMobile && (
         <div className="h-screen w-full">
           {currentStep === 1 && (
-            <div className="bg-gray-900 text-white p-6 flex flex-col h-full pb-12">
+            <div className="bg-gray-900 text-white p-6 flex flex-col h-full">
               {/* Back navigation */}
               <div className="mb-4">
                 <Breadcrumb>
@@ -167,7 +183,16 @@ const DatabricksInterestForm = () => {
                 Our proprietary accelerators overcome Databricks' inherent limitations, enabling faster, more efficient data processing jobs.
               </p>
               
-              <div className="space-y-6 mb-6">
+              {/* Continue button now above bullet points */}
+              <Button 
+                onClick={handleContinue}
+                className="w-full mb-8 py-6 bg-blue-500 hover:bg-blue-600"
+                size="lg"
+              >
+                Continue <ArrowRight className="ml-2" />
+              </Button>
+              
+              <div className="space-y-6 mb-6 flex-grow">
                 <div className="flex items-start gap-4">
                   <div className="mt-1 flex-shrink-0">
                     <Check className="h-6 w-6 text-blue-400" />
@@ -205,15 +230,7 @@ const DatabricksInterestForm = () => {
                 </div>
               </div>
               
-              <Button 
-                onClick={handleContinue}
-                className="w-full mt-4 mb-4 py-6 bg-blue-500 hover:bg-blue-600"
-                size="lg"
-              >
-                Continue <ArrowRight className="ml-2" />
-              </Button>
-              
-              <div className="mt-2">
+              <div className="mt-auto pb-6">
                 <div className="flex flex-wrap justify-center gap-4 items-center">
                   {customerLogos.map((logo, index) => (
                     <div key={index} className="flex items-center justify-center">
@@ -226,7 +243,7 @@ const DatabricksInterestForm = () => {
                   ))}
                 </div>
                 
-                <p className="text-center mt-3 mb-4 text-sm">
+                <p className="text-center mt-3 mb-0 text-sm">
                   Trusted by the Enterprise
                 </p>
               </div>
