@@ -23,20 +23,42 @@ const About = () => {
       <ScrollProgress />
       
       <div className="relative overflow-hidden">
-        {/* Background pattern */}
+        {/* Topographic contour lines background */}
         <div className="absolute inset-0 -z-10 overflow-hidden">
           <svg
             className="absolute w-full h-full opacity-10"
-            viewBox="0 0 1000 1000"
+            viewBox="0 0 1200 1200"
             xmlns="http://www.w3.org/2000/svg"
           >
-            {Array.from({ length: 10 }).map((_, i) => (
+            {/* Creating multiple contour lines with varying paths */}
+            {Array.from({ length: 20 }).map((_, i) => (
               <path
                 key={i}
-                d={`M0,${200 + i * 60} C200,${150 + i * 60} 300,${250 + i * 60} 500,${180 + i * 60} C700,${220 + i * 60} 800,${150 + i * 60} 1000,${250 + i * 60}`}
+                d={`M0,${400 + i * 30 - Math.sin(i * 0.5) * 50} 
+                   C300,${350 + i * 25 + Math.cos(i * 0.3) * 40} 
+                   600,${450 + i * 20 - Math.sin(i * 0.4) * 60} 
+                   900,${380 + i * 30 + Math.cos(i * 0.6) * 50} 
+                   L1200,${420 + i * 25 - Math.sin(i * 0.5) * 30} 
+                   L1200,1200 L0,1200 Z`}
                 fill="none"
                 stroke="#1a46e5"
                 strokeWidth="1"
+                strokeOpacity={0.7 - i * 0.03}
+              />
+            ))}
+            {/* Additional cross contour lines */}
+            {Array.from({ length: 15 }).map((_, i) => (
+              <path
+                key={`cross-${i}`}
+                d={`M${100 + i * 80},0 
+                   C${150 + i * 70 + Math.sin(i * 0.4) * 30},300 
+                   ${50 + i * 90 - Math.cos(i * 0.5) * 40},600 
+                   ${120 + i * 80 + Math.sin(i * 0.3) * 50},900 
+                   L${80 + i * 85},1200`}
+                fill="none"
+                stroke="#1a46e5"
+                strokeWidth="1"
+                strokeOpacity={0.5 - i * 0.02}
               />
             ))}
           </svg>
