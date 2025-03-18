@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { Code, Network, Users } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -61,7 +62,12 @@ const GetStarted = () => {
         }} transition={{
           duration: 0.5
         }}>
-            <h1 className="text-3xl md:text-5xl font-bold mb-4 text-white">How do you want to create an impact?</h1>
+            <h1 className="text-3xl md:text-5xl font-bold mb-4">
+              <span className="text-white">How do you want to </span>
+              <span className="bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">
+                create an impact?
+              </span>
+            </h1>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
