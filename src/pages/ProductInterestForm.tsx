@@ -89,7 +89,7 @@ const ProductInterestForm = () => {
                     <img
                       src={logo.logo}
                       alt={logo.name}
-                      className="max-h-[36px] max-w-[100px] object-contain w-auto filter brightness-0 invert opacity-80"
+                      className="max-h-[36px] max-w-[100px] object-contain w-auto"
                     />
                   </div>
                 ))}
@@ -165,7 +165,7 @@ const ProductInterestForm = () => {
                       <img
                         src={logo.logo}
                         alt={logo.name}
-                        className="max-h-[32px] max-w-[80px] object-contain w-auto filter brightness-0 invert opacity-80"
+                        className="max-h-[32px] max-w-[80px] object-contain w-auto"
                       />
                     </div>
                   ))}
