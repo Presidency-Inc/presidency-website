@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -11,7 +10,6 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-  CommandTitle,
 } from "@/components/ui/command";
 import { useToast } from "@/components/ui/use-toast";
 import {
@@ -47,7 +45,6 @@ type SearchResult = {
   iconName?: string;
 };
 
-// Static pages data
 const pages: SearchResult[] = [
   { id: 'home', title: 'Home', url: '/', type: 'page', iconName: 'Home' },
   { id: 'about', title: 'About Us', url: '/about', type: 'page', iconName: 'Building2' },
@@ -74,12 +71,10 @@ const CommandSearch = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  // Initialize tag data on component mount
   useEffect(() => {
     fetchTags();
   }, []);
 
-  // Search for blog posts and filter results when query changes
   useEffect(() => {
     if (searchQuery.trim().length > 1) {
       searchBlogPosts();
@@ -88,7 +83,6 @@ const CommandSearch = () => {
     }
   }, [searchQuery]);
 
-  // Handle keyboard shortcut (Command+K / Ctrl+K)
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if ((e.key === "k" && (e.metaKey || e.ctrlKey)) || e.key === "/") {
@@ -101,7 +95,6 @@ const CommandSearch = () => {
     return () => document.removeEventListener("keydown", down);
   }, []);
 
-  // Fetch all available tags
   const fetchTags = async () => {
     try {
       const { data, error } = await supabase.from('blog_tags').select('*');
@@ -125,7 +118,6 @@ const CommandSearch = () => {
     }
   };
 
-  // Search for blog posts based on query
   const searchBlogPosts = async () => {
     if (searchQuery.trim().length <= 1) return;
     
@@ -142,17 +134,14 @@ const CommandSearch = () => {
         return;
       }
 
-      // Filter pages based on search query
       const filteredPages = pages.filter(page => 
         page.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
       
-      // Filter tags based on search query
       const filteredTags = tags.filter(tag => 
         tag.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
       
-      // Prepare blog results if data exists
       const blogResults = data ? data.map(post => ({
         id: post.id,
         title: post.title,
@@ -161,7 +150,6 @@ const CommandSearch = () => {
         type: 'blog' as const
       })) : [];
       
-      // Combine all results
       setResults([...filteredPages, ...blogResults, ...filteredTags]);
       
     } catch (error) {
@@ -171,12 +159,10 @@ const CommandSearch = () => {
     }
   };
 
-  // Handle selecting a search result
   const handleSelect = (result: SearchResult) => {
     setOpen(false);
     navigate(result.url);
     
-    // Track the search via analytics
     if (window.gtag) {
       window.gtag('event', 'search_navigation', {
         search_term: searchQuery,
@@ -185,11 +171,9 @@ const CommandSearch = () => {
       });
     }
     
-    // Reset search state
     setSearchQuery("");
   };
 
-  // Get the appropriate icon component for a given icon name
   const getIconComponent = (iconName: string) => {
     const iconMap: Record<string, React.ReactNode> = {
       Home: <Home className="mr-2 h-4 w-4" />,
@@ -213,7 +197,6 @@ const CommandSearch = () => {
     return iconMap[iconName] || <PanelLeft className="mr-2 h-4 w-4" />;
   };
 
-  // Render icon based on result type
   const renderIcon = (result: SearchResult) => {
     switch (result.type) {
       case 'blog':
@@ -274,7 +257,6 @@ const CommandSearch = () => {
             
             {results.length > 0 && (
               <>
-                {/* Pages */}
                 {results.filter(r => r.type === 'page').length > 0 && (
                   <CommandGroup heading="Pages">
                     {results
@@ -295,7 +277,6 @@ const CommandSearch = () => {
                   </CommandGroup>
                 )}
                 
-                {/* Blog Posts */}
                 {results.filter(r => r.type === 'blog').length > 0 && (
                   <>
                     <CommandSeparator />
@@ -326,7 +307,6 @@ const CommandSearch = () => {
                   </>
                 )}
                 
-                {/* Tags */}
                 {results.filter(r => r.type === 'tag').length > 0 && (
                   <>
                     <CommandSeparator />
