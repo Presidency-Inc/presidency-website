@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 import StatusBar from "@/components/StatusBar";
 import ScrollProgress from "@/components/ScrollProgress";
 import ScrollToTop from "@/components/ScrollToTop";
+import TimelineSection from "@/components/TimelineSection";
 import { Helmet } from "react-helmet";
 
 const About = () => {
@@ -152,6 +153,9 @@ const About = () => {
           </div>
         </div>
       </div>
+      
+      {/* Timeline Section */}
+      <TimelineSection />
 
       <Footer />
       <ScrollToTop />
