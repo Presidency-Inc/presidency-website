@@ -1,9 +1,16 @@
-
 import { useState, useEffect } from "react";
-import { Check, ArrowRight } from "lucide-react";
+import { Check, ArrowRight, ArrowLeft } from "lucide-react";
 import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Link } from "react-router-dom";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 const ServicesInterestForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -22,6 +29,22 @@ const ServicesInterestForm = () => {
 
   return (
     <div className="min-h-screen w-full bg-white">
+      {/* Back navigation */}
+      <div className="p-4 md:p-6">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link to="/" className="flex items-center text-gray-600 hover:text-gray-900">
+                  <ArrowLeft className="h-4 w-4 mr-2" />
+                  Back to Home
+                </Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </div>
+      
       {/* Desktop view - side by side layout */}
       {!isMobile && (
         <div className="flex h-screen">
