@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -79,7 +80,7 @@ const CommandSearch = () => {
   const [tags, setTags] = useState<SearchResult[]>([]);
   const navigate = useNavigate();
   const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const previousSearchRef = useRef<string>("");
+  const initialLoadDone = useRef(false);
 
   // Register open function
   useEffect(() => {
@@ -132,12 +133,7 @@ const CommandSearch = () => {
   const performSearch = useCallback(async (query: string) => {
     if (!open) return;
     
-    // Only search if query has changed
-    if (query === previousSearchRef.current) {
-      return;
-    }
-    
-    previousSearchRef.current = query;
+    console.log("Performing search for:", query);
     setIsLoading(true);
     
     try {
@@ -178,6 +174,7 @@ const CommandSearch = () => {
       
       // Set all results
       const allResults = [...filteredPages, ...blogResults, ...filteredTags];
+      console.log("Search results:", allResults);
       setSearchResults(allResults);
     } catch (error) {
       console.error('Search error:', error);
@@ -201,18 +198,15 @@ const CommandSearch = () => {
     }, 300);
   };
 
-  // Reset on dialog close
+  // When opening, load initial results
   useEffect(() => {
-    if (!open) {
-      // Delay clearing results to prevent flash during close animation
-      const timer = setTimeout(() => {
-        setSearchInput("");
-        previousSearchRef.current = "";
-      }, 300);
-      return () => clearTimeout(timer);
-    } else {
-      // When opening, show initial results
+    if (open && !initialLoadDone.current) {
       performSearch("");
+      initialLoadDone.current = true;
+    } else if (!open) {
+      // Reset when closed
+      initialLoadDone.current = false;
+      setSearchInput("");
     }
   }, [open, performSearch]);
 
