@@ -240,9 +240,12 @@ const CommandSearch = () => {
       console.log('Blog results:', blogResults.length);
       console.log('Combined results:', combinedResults.length);
       
+      // Important: This must run even if search returns nothing
       setResults(combinedResults);
     } catch (error) {
       console.error('Error searching:', error);
+      // Set empty results to prevent stale results from showing
+      setResults([]);
     } finally {
       setLoading(false);
     }
