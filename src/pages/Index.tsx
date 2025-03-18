@@ -21,6 +21,15 @@ const Index = () => {
     // Add a class to the body for iOS Safari detection
     document.body.classList.add('ios-fix');
     
+    // Track page view
+    if (window.gtag) {
+      window.gtag('event', 'page_view', {
+        page_title: 'Home',
+        page_location: window.location.href,
+        page_path: window.location.pathname
+      });
+    }
+    
     return () => {
       document.body.classList.remove('ios-fix');
     };
