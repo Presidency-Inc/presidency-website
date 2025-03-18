@@ -192,6 +192,11 @@ const Navbar = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleTalentClick = () => {
+    setMobileMenuOpen(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (navRef.current && !navRef.current.contains(event.target as Node)) {
@@ -271,6 +276,7 @@ const Navbar = () => {
                   ? "text-gray-900 font-medium bg-gray-100 px-3 py-1 rounded-md" 
                   : "text-gray-700 hover:text-gray-900"
               }`}
+              onClick={handleTalentClick}
             >
               Need Talent?
             </Link>
@@ -516,6 +522,7 @@ const Navbar = () => {
                     <Link 
                       to="/talent" 
                       className={`block py-4 ${isTalentActive ? "text-blue-600" : "text-gray-900"} font-medium`}
+                      onClick={handleTalentClick}
                     >
                       Need Talent?
                     </Link>
