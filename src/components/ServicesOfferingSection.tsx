@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const services = [
   {
@@ -84,9 +85,11 @@ const ServicesOfferingSection = () => {
                 </ul>
               </div>
               <div className="mt-auto p-6 pt-0">
-                <Button variant="outline" className="w-full justify-between border-blue-500 text-blue-600 hover:bg-blue-50">
-                  Book a call
-                  <Phone className="h-4 w-4" />
+                <Button variant="outline" className="w-full justify-between border-blue-500 text-blue-600 hover:bg-blue-50" asChild>
+                  <Link to="/services-interest-form">
+                    Talk to an Expert
+                    <Phone className="h-4 w-4" />
+                  </Link>
                 </Button>
               </div>
             </motion.div>

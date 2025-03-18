@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Mail } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const DataServicesCTA = () => {
   return (
@@ -60,9 +61,12 @@ const DataServicesCTA = () => {
                     <Button 
                       className="bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90 shadow-lg"
                       size="lg"
+                      asChild
                     >
-                      Schedule Consultation
-                      <Mail className="ml-2 h-5 w-5" />
+                      <Link to="/services-interest-form">
+                        Talk to an Expert
+                        <Mail className="ml-2 h-5 w-5" />
+                      </Link>
                     </Button>
                   </div>
                   
