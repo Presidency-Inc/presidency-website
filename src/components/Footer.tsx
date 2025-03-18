@@ -41,12 +41,12 @@ const Footer = () => {
           <div>
             <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-4">Services</h3>
             <ul className="space-y-3">
-              <li><Link to="/services/ai" className="text-gray-300 hover:text-white text-sm">Artificial Intelligence</Link></li>
-              <li><Link to="/services/data" className="text-gray-300 hover:text-white text-sm">Data Engineering</Link></li>
-              <li><Link to="/services/databricks" className="text-gray-300 hover:text-white text-sm">Databricks Solutions</Link></li>
-              <li><Link to="/products/kube8r" className="text-gray-300 hover:text-white text-sm">Cloud Modernization</Link></li>
-              <li><Link to="/talent" className="text-gray-300 hover:text-white text-sm">Talent</Link></li>
-              <li><Link to="/talent/nearshore" className="text-gray-300 hover:text-white text-sm">Nearshore</Link></li>
+              <li><Link to="/services/ai" onClick={scrollToTop} className="text-gray-300 hover:text-white text-sm">Artificial Intelligence</Link></li>
+              <li><Link to="/services/data" onClick={scrollToTop} className="text-gray-300 hover:text-white text-sm">Data Engineering</Link></li>
+              <li><Link to="/services/databricks" onClick={scrollToTop} className="text-gray-300 hover:text-white text-sm">Databricks Solutions</Link></li>
+              <li><Link to="/products/kube8r" onClick={scrollToTop} className="text-gray-300 hover:text-white text-sm">Cloud Modernization</Link></li>
+              <li><Link to="/talent" onClick={scrollToTop} className="text-gray-300 hover:text-white text-sm">Talent</Link></li>
+              <li><Link to="/talent/nearshore" onClick={scrollToTop} className="text-gray-300 hover:text-white text-sm">Nearshore</Link></li>
             </ul>
           </div>
 
@@ -54,9 +54,9 @@ const Footer = () => {
           <div>
             <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-4">Products</h3>
             <ul className="space-y-3">
-              <li><Link to="/products/leapfrog" className="text-gray-300 hover:text-white text-sm">Leapfrog</Link></li>
-              <li><Link to="/products/omniflow" className="text-gray-300 hover:text-white text-sm">Omniflow</Link></li>
-              <li><Link to="/products/kube8r" className="text-gray-300 hover:text-white text-sm">Kube8r</Link></li>
+              <li><Link to="/products/leapfrog" onClick={scrollToTop} className="text-gray-300 hover:text-white text-sm">Leapfrog</Link></li>
+              <li><Link to="/products/omniflow" onClick={scrollToTop} className="text-gray-300 hover:text-white text-sm">Omniflow</Link></li>
+              <li><Link to="/products/kube8r" onClick={scrollToTop} className="text-gray-300 hover:text-white text-sm">Kube8r</Link></li>
             </ul>
           </div>
 
@@ -64,14 +64,14 @@ const Footer = () => {
           <div>
             <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-4">Company</h3>
             <ul className="space-y-3">
-              <li><Link to="/about" className="text-gray-300 hover:text-white text-sm">About</Link></li>
-              <li><Link to="/careers" className="text-gray-300 hover:text-white text-sm">Careers</Link></li>
-              <li><Link to="/book-a-call" className="text-gray-300 hover:text-white text-sm">Contact</Link></li>
+              <li><Link to="/about" onClick={scrollToTop} className="text-gray-300 hover:text-white text-sm">About</Link></li>
+              <li><Link to="/careers" onClick={scrollToTop} className="text-gray-300 hover:text-white text-sm">Careers</Link></li>
+              <li><Link to="/book-a-call" onClick={scrollToTop} className="text-gray-300 hover:text-white text-sm">Contact</Link></li>
               <li>
                 <Link 
                   to="/admin" 
-                  className="text-gray-300 hover:text-white text-sm"
                   onClick={scrollToTop}
+                  className="text-gray-300 hover:text-white text-sm"
                 >
                   Admin Login
                 </Link>
@@ -83,9 +83,9 @@ const Footer = () => {
           <div>
             <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-4">Resources</h3>
             <ul className="space-y-3">
-              <li><Link to="/blog" className="text-gray-300 hover:text-white text-sm">Blog & Media</Link></li>
-              <li><Link to="/legal" className="text-gray-300 hover:text-white text-sm">Legal</Link></li>
-              <li><Link to="/privacy" className="text-gray-300 hover:text-white text-sm">Privacy</Link></li>
+              <li><Link to="/blog" onClick={scrollToTop} className="text-gray-300 hover:text-white text-sm">Blog & Media</Link></li>
+              <li><Link to="/legal" onClick={scrollToTop} className="text-gray-300 hover:text-white text-sm">Legal</Link></li>
+              <li><Link to="/privacy" onClick={scrollToTop} className="text-gray-300 hover:text-white text-sm">Privacy</Link></li>
             </ul>
           </div>
         </div>
@@ -96,9 +96,9 @@ const Footer = () => {
             © {new Date().getFullYear()} Presidency Solutions. All rights reserved.
           </div>
           <div className="flex space-x-6">
-            <a href="#terms" className="text-gray-400 hover:text-white text-sm">Terms</a>
-            <a href="#privacy" className="text-gray-400 hover:text-white text-sm">Privacy</a>
-            <a href="#cookies" className="text-gray-400 hover:text-white text-sm">Cookies</a>
+            <Link to="/terms" onClick={scrollToTop} className="text-gray-400 hover:text-white text-sm">Terms</Link>
+            <Link to="/privacy" onClick={scrollToTop} className="text-gray-400 hover:text-white text-sm">Privacy</Link>
+            <Link to="/cookies" onClick={scrollToTop} className="text-gray-400 hover:text-white text-sm">Cookies</Link>
           </div>
         </div>
       </div>
