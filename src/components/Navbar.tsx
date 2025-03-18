@@ -283,7 +283,7 @@ const Navbar = () => {
           
           <div className="flex items-center">
             <Button variant="default" className="hidden md:inline-flex items-center bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
-              GET SOLUTIONS
+              GET STARTED
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
             
@@ -525,7 +525,7 @@ const Navbar = () => {
               
               <div className="mt-auto p-4 border-t border-gray-100 bg-white sticky bottom-0">
                 <Button variant="default" className="w-full bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
-                  GET SOLUTIONS
+                  GET STARTED
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>
@@ -666,7 +666,7 @@ const Navbar = () => {
               
               <div className="mt-auto p-4 border-t border-gray-100 bg-white sticky bottom-0">
                 <Button variant="default" className="w-full bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
-                  GET SOLUTIONS
+                  GET STARTED
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>
@@ -779,7 +779,7 @@ const Navbar = () => {
               
               <div className="mt-auto p-4 border-t border-gray-100 bg-white sticky bottom-0">
                 <Button variant="default" className="w-full bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
-                  GET SOLUTIONS
+                  GET STARTED
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>
