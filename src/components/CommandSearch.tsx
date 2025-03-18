@@ -100,7 +100,7 @@ const CommandSearch = () => {
       setTimeout(() => {
         setSearchQuery("");
         setResults([]);
-      }, 100); // Small delay to ensure the dialog is fully closed
+      }, 200); // Slightly longer delay to ensure the dialog is fully closed
     }
   }, [open]);
 
@@ -186,6 +186,9 @@ const CommandSearch = () => {
     setLoading(true);
     
     try {
+      // Log the search query to help debug
+      console.log('Searching with query:', searchQuery);
+      
       const filteredPages = pages.filter(page => 
         page.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
@@ -276,6 +279,12 @@ const CommandSearch = () => {
   };
 
   const renderSearchResults = () => {
+    // Always log what we're rendering to help debug the issue
+    console.log('Rendering search results:', 
+      'query:', searchQuery, 
+      'results:', results.length, 
+      'loading:', loading);
+    
     if (loading) {
       return (
         <div className="flex items-center justify-center py-6">
@@ -392,7 +401,7 @@ const CommandSearch = () => {
           value={searchQuery}
           onValueChange={setSearchQuery}
         />
-        <CommandList>
+        <CommandList className="max-h-[300px] overflow-y-auto">
           {renderSearchResults()}
         </CommandList>
       </Command>
