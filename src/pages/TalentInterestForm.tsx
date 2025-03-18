@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Check, ArrowRight, ArrowLeft, UserCheck, Clock, Globe, Shield } from "lucide-react";
 import Logo from "@/components/Logo";
@@ -57,9 +56,9 @@ const TalentInterestForm = () => {
                 <BreadcrumbList>
                   <BreadcrumbItem>
                     <BreadcrumbLink asChild>
-                      <Link to="/" className="flex items-center text-gray-600 hover:text-gray-900">
+                      <Link to="/talent" className="flex items-center text-gray-600 hover:text-gray-900">
                         <ArrowLeft className="h-4 w-4 mr-2" />
-                        Back to Home
+                        Back to Talent
                       </Link>
                     </BreadcrumbLink>
                   </BreadcrumbItem>
@@ -161,9 +160,9 @@ const TalentInterestForm = () => {
                   <BreadcrumbList>
                     <BreadcrumbItem>
                       <BreadcrumbLink asChild>
-                        <Link to="/" className="flex items-center text-gray-300 hover:text-white">
+                        <Link to="/talent" className="flex items-center text-gray-300 hover:text-white">
                           <ArrowLeft className="h-4 w-4 mr-2" />
-                          Back to Home
+                          Back to Talent
                         </Link>
                       </BreadcrumbLink>
                     </BreadcrumbItem>
@@ -258,9 +257,9 @@ const TalentInterestForm = () => {
                   <BreadcrumbList>
                     <BreadcrumbItem>
                       <BreadcrumbLink asChild>
-                        <Link to="/" className="flex items-center text-gray-600 hover:text-gray-900">
+                        <Link to="/talent" className="flex items-center text-gray-600 hover:text-gray-900">
                           <ArrowLeft className="h-4 w-4 mr-2" />
-                          Back to Home
+                          Back to Talent
                         </Link>
                       </BreadcrumbLink>
                     </BreadcrumbItem>

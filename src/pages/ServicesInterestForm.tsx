@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Check, ArrowRight, ArrowLeft } from "lucide-react";
 import Logo from "@/components/Logo";
