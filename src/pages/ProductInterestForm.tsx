@@ -4,15 +4,15 @@ import Logo from "@/components/Logo";
 
 const ProductInterestForm = () => {
   return (
-    <div className="min-h-screen w-full bg-white">
+    <div className="min-h-screen w-full bg-white flex flex-col">
       {/* Logo at the top */}
-      <div className="pt-8 px-8 max-w-7xl mx-auto">
+      <div className="pt-8 px-8 max-w-7xl mx-auto w-full">
         <Logo />
       </div>
       
-      <div className="flex flex-col lg:flex-row max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 gap-8">
+      <div className="flex flex-col lg:flex-row max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 gap-8 flex-1">
         {/* Left side with iframe */}
-        <div className="w-full lg:w-1/2 h-full">
+        <div className="w-full lg:w-1/2 h-full flex-1">
           <div className="w-full h-full">
             <iframe 
               width="100%" 
@@ -21,14 +21,14 @@ const ProductInterestForm = () => {
               frameBorder="0" 
               scrolling="auto" 
               allowFullScreen 
-              className="max-w-full min-h-[600px]"
+              className="max-w-full min-h-[700px] h-full"
               style={{ display: "block", marginLeft: "auto", marginRight: "auto" }}
             />
           </div>
         </div>
         
         {/* Right side with how it works */}
-        <div className="w-full lg:w-1/2 bg-gray-900 text-white p-8 rounded-lg">
+        <div className="w-full lg:w-1/2 bg-gray-900 text-white p-8 rounded-lg flex-1 flex flex-col">
           <h2 className="text-3xl md:text-4xl font-bold mb-8">
             How does it work?
           </h2>
@@ -67,7 +67,7 @@ const ProductInterestForm = () => {
           </div>
           
           {/* Logos section */}
-          <div className="mt-16">
+          <div className="mt-auto pt-8">
             <div className="flex flex-wrap justify-center gap-8 items-center">
               {/* Using customer logos from LogoMarquee */}
               {customerLogos.map((logo, index) => (
