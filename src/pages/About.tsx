@@ -26,7 +26,7 @@ const About = () => {
         {/* Topographic contour lines background */}
         <div className="absolute inset-0 -z-10 overflow-hidden">
           <svg
-            className="absolute w-full h-full opacity-10"
+            className="absolute w-full h-full opacity-20"
             viewBox="0 0 1200 1200"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -42,8 +42,8 @@ const About = () => {
                    L1200,1200 L0,1200 Z`}
                 fill="none"
                 stroke="#1a46e5"
-                strokeWidth="1"
-                strokeOpacity={0.7 - i * 0.03}
+                strokeWidth="1.5"
+                strokeOpacity={0.8 - i * 0.02}
               />
             ))}
             {/* Additional cross contour lines */}
@@ -57,8 +57,8 @@ const About = () => {
                    L${80 + i * 85},1200`}
                 fill="none"
                 stroke="#1a46e5"
-                strokeWidth="1"
-                strokeOpacity={0.5 - i * 0.02}
+                strokeWidth="1.5"
+                strokeOpacity={0.7 - i * 0.02}
               />
             ))}
           </svg>
