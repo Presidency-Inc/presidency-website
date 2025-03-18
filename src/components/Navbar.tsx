@@ -4,7 +4,7 @@ import { ArrowRight, ChevronDown, ChevronUp, X, ArrowLeft, Menu, Search } from "
 import { useIsMobile } from "@/hooks/use-mobile";
 import Logo from "./Logo";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { toggleCommandSearch } from "./CommandSearch";
+import CommandSearch, { toggleCommandSearch } from "./CommandSearch";
 
 const Navbar = () => {
   const [productsOpen, setProductsOpen] = useState(false);
@@ -299,6 +299,7 @@ const Navbar = () => {
           </div>
           
           <div className="flex items-center space-x-2">
+            <CommandSearch />
             <button 
               onClick={handleSearchClick}
               aria-label="Search"
