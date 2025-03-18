@@ -1,18 +1,17 @@
 
 import { motion } from "framer-motion";
-import { Database, ArrowRight, RefreshCw, Zap, BarChart3 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Database, RefreshCw, Zap, BarChart3 } from "lucide-react";
 
 const EnterpriseETLSection = () => {
   return (
-    <section className="py-16 md:py-24 bg-white">
+    <section className="py-20 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Content */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
             viewport={{ once: true }}
             className="order-2 lg:order-1"
           >
@@ -64,19 +63,9 @@ const EnterpriseETLSection = () => {
                 </div>
               </div>
             </div>
-            
-            <div className="mt-8">
-              <Button 
-                className="bg-blue-600 hover:bg-blue-700 text-white" 
-                asChild
-              >
-                <Link to="/services-interest-form">
-                  Talk to an Expert
-                </Link>
-              </Button>
-            </div>
           </motion.div>
           
+          {/* Graphic */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -98,8 +87,10 @@ const EnterpriseETLSection = () => {
                   </div>
                   
                   <div className="space-y-4">
+                    {/* ETL Flow Diagram */}
                     <div className="relative h-48 bg-gray-50 rounded-lg p-4">
                       <div className="flex justify-between items-center h-full">
+                        {/* Sources */}
                         <div className="space-y-2">
                           {["CRM", "ERP", "API"].map((source, i) => (
                             <div key={source} className="bg-blue-100 text-blue-700 px-3 py-2 rounded-md text-sm flex items-center">
@@ -109,6 +100,7 @@ const EnterpriseETLSection = () => {
                           ))}
                         </div>
                         
+                        {/* Flow Arrows */}
                         <div className="flex-1 px-6 relative">
                           <div className="absolute top-1/2 left-0 right-0 h-1 bg-gray-300 transform -translate-y-1/2"></div>
                           {[0, 1, 2].map(i => (
@@ -125,6 +117,7 @@ const EnterpriseETLSection = () => {
                           ))}
                         </div>
                         
+                        {/* Targets */}
                         <div className="space-y-2">
                           {["Data Warehouse", "Analytics", "Reporting"].map((target, i) => (
                             <div key={target} className="bg-indigo-100 text-indigo-700 px-3 py-2 rounded-md text-sm flex items-center">
@@ -136,6 +129,7 @@ const EnterpriseETLSection = () => {
                       </div>
                     </div>
                     
+                    {/* Job Status */}
                     <div className="grid grid-cols-3 gap-4">
                       <div className="bg-green-50 p-3 rounded-lg">
                         <div className="text-xs text-gray-500 mb-1">Completed</div>
@@ -151,6 +145,7 @@ const EnterpriseETLSection = () => {
                       </div>
                     </div>
                     
+                    {/* Progress bars */}
                     <div className="space-y-3">
                       <div>
                         <div className="flex justify-between text-xs mb-1">
