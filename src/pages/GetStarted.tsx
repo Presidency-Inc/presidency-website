@@ -81,7 +81,7 @@ const GetStarted = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className="text-4xl md:text-6xl font-bold mb-4 text-white">
+            <h1 className="text-3xl md:text-5xl font-bold mb-4 text-white">
               How do you want to innovate?
             </h1>
           </motion.div>
@@ -90,7 +90,7 @@ const GetStarted = () => {
             {optionCards.map((card, index) => (
               <motion.div
                 key={card.id}
-                className="relative bg-zinc-900 rounded-xl overflow-hidden p-8 flex flex-col h-full"
+                className="relative bg-zinc-900/80 backdrop-blur-sm rounded-xl overflow-hidden p-8 flex flex-col h-full"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
