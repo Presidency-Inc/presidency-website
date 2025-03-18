@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { Code, Network, Users } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -16,7 +17,7 @@ const GetStarted = () => {
     icon: <Code className="h-12 w-12 text-white" />,
     forText: "For enterprises and startups",
     title: "I need AI solutions for real-world implementation",
-    description: "Leverage Turing Intelligence capabilities to integrate AI into your operations, enhance automation, and optimize cloud migration for scalable impact.",
+    description: "Utilize Presidency Intelligence capabilities to embed AI into your operations, boost automation, and streamline cloud migration for scalable results.",
     cta: "Talk to an expert",
     link: "/services-interest-form"
   }, {
