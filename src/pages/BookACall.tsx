@@ -3,6 +3,8 @@ import { Helmet } from "react-helmet";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import StatusBar from "@/components/StatusBar";
+import ScrollProgress from "@/components/ScrollProgress";
 
 const BookACall = () => {
   return (
@@ -12,9 +14,11 @@ const BookACall = () => {
         <meta name="description" content="Schedule a consultation with our experts" />
       </Helmet>
       <ScrollToTop />
+      <StatusBar />
       <Navbar />
+      <ScrollProgress />
       
-      <main className="pt-16 min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
+      <main className="pt-24 min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
         <div className="container mx-auto px-4 py-12">
           <h1 className="text-3xl md:text-4xl font-bold mb-8 text-center">Book a Call With Our Team</h1>
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
