@@ -1,7 +1,8 @@
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Mail, MessageSquare } from "lucide-react";
+import { MessageSquare } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const OmniflowCTA = () => {
   return (
@@ -61,18 +62,12 @@ const OmniflowCTA = () => {
                     <Button 
                       className="bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90 shadow-lg"
                       size="lg"
+                      asChild
                     >
-                      Schedule a Demo
-                      <MessageSquare className="ml-2 h-5 w-5" />
-                    </Button>
-                    
-                    <Button 
-                      variant="outline"
-                      className="border-[#1a46e5] text-[#1a46e5] hover:bg-[#1a46e5] hover:text-white transition-all"
-                      size="lg"
-                    >
-                      Contact Sales
-                      <Mail className="ml-2 h-5 w-5" />
+                      <Link to="/product-interest-form">
+                        Contact Sales
+                        <MessageSquare className="ml-2 h-5 w-5" />
+                      </Link>
                     </Button>
                   </div>
                   

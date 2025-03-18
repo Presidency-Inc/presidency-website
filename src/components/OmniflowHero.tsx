@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const OmniflowHero = () => {
   return (
@@ -74,9 +75,16 @@ const OmniflowHero = () => {
           </p>
 
           <div>
-            <Button variant="default" size="lg" className="bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
-              EXPLORE OMNIFLOW
-              <ArrowRight className="ml-2 h-5 w-5" />
+            <Button 
+              variant="default" 
+              size="lg" 
+              className="bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90"
+              asChild
+            >
+              <Link to="/product-interest-form">
+                Contact Sales
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
             </Button>
           </div>
         </motion.div>

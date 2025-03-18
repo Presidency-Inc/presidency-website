@@ -1,7 +1,9 @@
 
 import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Globe, Database, Server, Link } from "lucide-react";
+import { Globe, Database, Server, Link, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Link as RouterLink } from "react-router-dom";
 
 const EnterpriseIntegrationsSection = () => {
   const isMobile = useIsMobile();
@@ -66,6 +68,15 @@ const EnterpriseIntegrationsSection = () => {
                   <p className="text-sm text-gray-500">REST, GraphQL, gRPC</p>
                 </div>
               </div>
+            </div>
+            
+            <div className="pt-6">
+              <Button variant="outline" className="border-indigo-500 text-indigo-600 hover:bg-indigo-50" asChild>
+                <RouterLink to="/product-interest-form">
+                  Contact Sales
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </RouterLink>
+              </Button>
             </div>
           </motion.div>
           

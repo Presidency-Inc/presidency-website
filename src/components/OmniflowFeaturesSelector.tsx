@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 
 const cards = [
   {
@@ -146,14 +147,28 @@ const OmniflowFeaturesSelector = () => {
                 </Card>
               </div>
               
-              <Button 
-                className="bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90"
-                size="lg"
-                onClick={() => handleScrollToSection(cards[selectedCardIndex].scrollToId)}
-              >
-                Learn More
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+              <div className="flex gap-4">
+                <Button 
+                  className="bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90"
+                  size="lg"
+                  onClick={() => handleScrollToSection(cards[selectedCardIndex].scrollToId)}
+                >
+                  Learn More
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+                
+                <Button 
+                  variant="outline" 
+                  className="border-[#1a46e5] text-[#1a46e5] hover:bg-[#1a46e5] hover:text-white"
+                  size="lg"
+                  asChild
+                >
+                  <Link to="/product-interest-form">
+                    Contact Sales
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Link>
+                </Button>
+              </div>
             </motion.div>
           </div>
         </div>

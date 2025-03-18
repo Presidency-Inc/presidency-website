@@ -68,8 +68,8 @@ const EnterpriseETLSection = () => {
 
             <div className="mt-8">
               <Button variant="outline" className="border-blue-500 text-blue-600 hover:bg-blue-50" asChild>
-                <Link to="/services-interest-form">
-                  Talk to an Expert
+                <Link to="/product-interest-form">
+                  Contact Sales
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>

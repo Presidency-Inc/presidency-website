@@ -46,10 +46,10 @@ const ProductOmniflow = () => {
         <EnterpriseIntegrationsSection />
       </div>
       <div id="multimodal-data" className="mobile-section">
-        <AnySourceTargetSection />
+        <AnySourceTargetSection showContactCTA={true} />
       </div>
       <div id="governance" className="mobile-section">
-        <OmniLangSection />
+        <OmniLangSection showContactCTA={true} />
       </div>
       <OmniflowCTA />
       <Footer />
