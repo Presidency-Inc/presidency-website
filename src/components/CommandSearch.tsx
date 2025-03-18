@@ -336,11 +336,13 @@ const CommandSearch = () => {
     }
   };
 
+  // This function will group and display the search results
   const renderResults = () => {
     console.log("[DEBUG] renderResults called with", results.length, "results");
     
-    // If no results, return early
+    // If no results, return null (will be handled by CommandEmpty component)
     if (results.length === 0) {
+      console.log("[DEBUG] No results to render");
       return null;
     }
     
@@ -448,6 +450,9 @@ const CommandSearch = () => {
             </div>
           ) : (
             <>
+              {/* Added explicit debugging message for UI rendering */}
+              {console.log("[DEBUG] Rendering", results.length, "results in CommandList")}
+              
               {searchQuery.trim().length > 0 && results.length === 0 ? (
                 <CommandEmpty>No results found.</CommandEmpty>
               ) : searchQuery.trim().length === 0 && results.length === 0 ? (
