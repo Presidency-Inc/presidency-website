@@ -52,7 +52,7 @@ const ProductInterestForm = () => {
               We're excited to address your inquiries and develop your tailored tech solution.
             </p>
             
-            <div className="space-y-8">
+            <div className="space-y-8 mb-8">
               <div className="flex items-start gap-4">
                 <div className="mt-1 flex-shrink-0">
                   <Check className="h-6 w-6 text-blue-400" />
@@ -81,8 +81,8 @@ const ProductInterestForm = () => {
               </div>
             </div>
             
-            {/* Logos section - moved up with less space between points */}
-            <div className="mt-auto pt-4">
+            {/* Logos section - moved up with more space reduction */}
+            <div className="mt-auto pt-2">
               <div className="flex flex-wrap justify-center gap-8 items-center">
                 {customerLogos.map((logo, index) => (
                   <div key={index} className="flex items-center justify-center">
@@ -95,7 +95,7 @@ const ProductInterestForm = () => {
                 ))}
               </div>
               
-              <p className="text-center mt-6 mb-4 text-lg">
+              <p className="text-center mt-4 mb-6 text-lg">
                 Trusted by the Enterprise
               </p>
             </div>
@@ -120,7 +120,7 @@ const ProductInterestForm = () => {
                 We're excited to address your inquiries and develop your tailored tech solution.
               </p>
               
-              <div className="space-y-6 mb-8">
+              <div className="space-y-6 mb-6">
                 <div className="flex items-start gap-4">
                   <div className="mt-1 flex-shrink-0">
                     <Check className="h-6 w-6 text-blue-400" />
@@ -151,27 +151,27 @@ const ProductInterestForm = () => {
               
               <Button 
                 onClick={handleContinue}
-                className="w-full mt-4 mb-6 py-6 bg-blue-500 hover:bg-blue-600"
+                className="w-full mt-4 mb-4 py-6 bg-blue-500 hover:bg-blue-600"
                 size="lg"
               >
                 Continue <ArrowRight className="ml-2" />
               </Button>
               
-              {/* Logos section - moved up with less space */}
-              <div className="mt-auto">
+              {/* Logos section - moved up and showing all logos */}
+              <div className="mt-2">
                 <div className="flex flex-wrap justify-center gap-4 items-center">
-                  {customerLogos.slice(0, 3).map((logo, index) => (
+                  {customerLogos.map((logo, index) => (
                     <div key={index} className="flex items-center justify-center">
                       <img
                         src={logo.logo}
                         alt={logo.name}
-                        className="max-h-[40px] max-w-[100px] object-contain w-auto"
+                        className="max-h-[35px] max-w-[90px] object-contain w-auto my-1"
                       />
                     </div>
                   ))}
                 </div>
                 
-                <p className="text-center mt-4 mb-2 text-sm">
+                <p className="text-center mt-3 mb-4 text-sm">
                   Trusted by the Enterprise
                 </p>
               </div>
