@@ -426,7 +426,7 @@ const CommandSearch = () => {
   console.log("[DEBUG] Rendering CommandSearch component - Dialog open:", open, "| Results:", results.length, "| Loading:", loading);
 
   return (
-    <CommandDialog open={open} onOpenChange={setOpen}>
+    <CommandDialog open={open} onOpenChange={setOpen} className="overflow-visible">
       <DialogTitle className="sr-only">Search</DialogTitle>
       <DialogDescription className="sr-only">
         Search for pages, blog posts, and tags
