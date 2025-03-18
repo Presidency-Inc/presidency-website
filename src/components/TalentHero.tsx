@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Link } from "react-router-dom";
 
 const TalentHero = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -71,10 +72,12 @@ const TalentHero = () => {
             <p className="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
               Extend your team with top-tier AI and data engineering talent, fully vetted and ready to hit the ground running on your most critical projects.
             </p>
-            <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white border-none">
-              Get Started
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
+            <Link to="/talent-interest-form">
+              <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white border-none">
+                Hire Talent
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
           </motion.div>
         </div>
       </div>
