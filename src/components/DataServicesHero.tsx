@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const DataServicesHero = () => {
   return (
@@ -74,9 +75,11 @@ const DataServicesHero = () => {
           </p>
 
           <div>
-            <Button variant="default" size="lg" className="bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
-              CONTACT US
-              <ArrowRight className="ml-2 h-5 w-5" />
+            <Button variant="default" size="lg" className="bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90" asChild>
+              <Link to="/services-interest-form">
+                Talk to an Expert
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
             </Button>
           </div>
         </motion.div>

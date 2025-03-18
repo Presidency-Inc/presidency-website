@@ -1,6 +1,8 @@
 
 import { motion } from "framer-motion";
-import { Database, RefreshCw, Zap, BarChart3 } from "lucide-react";
+import { Database, RefreshCw, Zap, BarChart3, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const EnterpriseETLSection = () => {
   return (
@@ -62,6 +64,15 @@ const EnterpriseETLSection = () => {
                   <p className="text-gray-600">Track and visualize data flow performance</p>
                 </div>
               </div>
+            </div>
+
+            <div className="mt-8">
+              <Button variant="outline" className="border-blue-500 text-blue-600 hover:bg-blue-50" asChild>
+                <Link to="/services-interest-form">
+                  Talk to an Expert
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
             </div>
           </motion.div>
           
