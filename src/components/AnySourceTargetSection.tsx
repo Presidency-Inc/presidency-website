@@ -1,8 +1,8 @@
 
 import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { BarChart, FileText, FileCode, Workflow } from "lucide-react";
-import { Link } from "react-router-dom";
+import { BarChart, FileText, FileCode, Workflow, ArrowRight } from "lucide-react";
+import { Link as RouterLink } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 interface AnySourceTargetSectionProps {
@@ -186,11 +186,12 @@ const AnySourceTargetSection = ({ showContactCTA = false }: AnySourceTargetSecti
             </div>
             
             {showContactCTA && (
-              <div className="mt-8">
-                <Button asChild className="bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
-                  <Link to="/product-interest-form">
+              <div className="pt-6">
+                <Button variant="outline" className="border-blue-500 text-blue-600 hover:bg-blue-50" asChild>
+                  <RouterLink to="/product-interest-form">
                     Contact Sales
-                  </Link>
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </RouterLink>
                 </Button>
               </div>
             )}

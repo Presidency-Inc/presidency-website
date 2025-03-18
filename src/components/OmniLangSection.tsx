@@ -1,8 +1,8 @@
 
 import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { ShieldCheck, Eye, PieChart, TrendingUp } from "lucide-react";
-import { Link } from "react-router-dom";
+import { ShieldCheck, Eye, PieChart, TrendingUp, ArrowRight } from "lucide-react";
+import { Link as RouterLink } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 interface OmniLangSectionProps {
@@ -75,11 +75,12 @@ const OmniLangSection = ({ showContactCTA = false }: OmniLangSectionProps) => {
             </div>
             
             {showContactCTA && (
-              <div className="mt-8">
-                <Button asChild className="bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
-                  <Link to="/product-interest-form">
+              <div className="pt-6">
+                <Button variant="outline" className="border-emerald-500 text-emerald-600 hover:bg-emerald-50" asChild>
+                  <RouterLink to="/product-interest-form">
                     Contact Sales
-                  </Link>
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </RouterLink>
                 </Button>
               </div>
             )}
