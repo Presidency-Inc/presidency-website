@@ -96,13 +96,26 @@ const CommandSearch = () => {
     fetchTags();
   }, []);
 
+  // Update this effect to properly handle search
   useEffect(() => {
-    if (searchQuery.trim().length > 0) {
-      searchResults();
+    if (open) {
+      // Set initial results when dialog opens - show pages
+      if (searchQuery.trim() === "") {
+        setResults(pages.slice(0, 5)); // Show first 5 pages as initial results
+        setLoading(false);
+        return;
+      }
+      
+      // Only search when we have a query
+      if (searchQuery.trim().length > 0) {
+        searchResults();
+      }
     } else {
+      // Reset search when dialog closes
+      setSearchQuery("");
       setResults([]);
     }
-  }, [searchQuery]);
+  }, [searchQuery, open]);
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -142,7 +155,6 @@ const CommandSearch = () => {
   const searchBlogPosts = async () => {
     if (searchQuery.trim().length === 0) return [];
     
-    setLoading(true);
     try {
       const { data, error } = await supabase
         .from('blog_posts')
@@ -168,8 +180,6 @@ const CommandSearch = () => {
     } catch (error) {
       console.error('Error searching blog posts:', error);
       return [];
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -271,6 +281,11 @@ const CommandSearch = () => {
   };
 
   const renderResults = () => {
+    // Only proceed if we have results
+    if (results.length === 0) {
+      return null;
+    }
+
     const pageResults = results.filter(result => result.type === 'page');
     const blogResults = results.filter(result => result.type === 'blog');
     const tagResults = results.filter(result => result.type === 'tag');
@@ -353,8 +368,9 @@ const CommandSearch = () => {
           placeholder="Search pages, blog posts, and tags..."
           value={searchQuery}
           onValueChange={setSearchQuery}
+          autoFocus
         />
-        <CommandList className="max-h-[60vh] overflow-y-auto">
+        <CommandList className="max-h-[70vh] overflow-y-auto">
           {loading ? (
             <div className="p-4">
               <Skeleton className="h-8 w-full mb-2" />
@@ -363,24 +379,23 @@ const CommandSearch = () => {
             </div>
           ) : (
             <>
-              <CommandEmpty>
-                {searchQuery.length > 0 ? (
-                  <p className="p-4 text-center text-sm">No results found.</p>
-                ) : null}
-              </CommandEmpty>
+              {/* Show empty state only when we have a query but no results */}
+              {searchQuery.trim().length > 0 && results.length === 0 ? (
+                <CommandEmpty>No results found.</CommandEmpty>
+              ) : null}
               
-              {results.length > 0 ? (
-                renderResults()
-              ) : (
-                searchQuery.length === 0 && (
-                  <div className="py-6 text-center text-sm">
-                    <p className="text-muted-foreground">Start typing to search...</p>
-                    <p className="mt-2 text-xs text-muted-foreground">
-                      Search for pages, blog posts, or tags
-                    </p>
-                  </div>
-                )
-              )}
+              {/* Initial state when opening search */}
+              {searchQuery.trim().length === 0 && results.length === 0 ? (
+                <div className="py-6 text-center text-sm">
+                  <p className="text-muted-foreground">Start typing to search...</p>
+                  <p className="mt-2 text-xs text-muted-foreground">
+                    Search for pages, blog posts, or tags
+                  </p>
+                </div>
+              ) : null}
+              
+              {/* Render results if we have any */}
+              {results.length > 0 && renderResults()}
             </>
           )}
         </CommandList>
