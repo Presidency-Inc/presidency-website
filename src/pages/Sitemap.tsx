@@ -6,6 +6,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import StatusBar from "@/components/StatusBar";
 import ScrollProgress from "@/components/ScrollProgress";
 import { Link } from "react-router-dom";
+import SitemapViewer from "@/components/SitemapViewer";
 
 const Sitemap = () => {
   return (
@@ -39,7 +40,7 @@ const Sitemap = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
             {/* Services Section */}
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h2 className="text-xl font-semibold text-gray-900 mb-4 border-b pb-2">Services</h2>
@@ -124,6 +125,12 @@ const Sitemap = () => {
                 <li><Link to="/sitemap" className="text-blue-600 hover:text-blue-800">Sitemap</Link></li>
               </ul>
             </div>
+          </div>
+          
+          {/* XML Sitemap Viewer */}
+          <div className="mt-8">
+            <h2 className="text-2xl font-semibold mb-4">XML Sitemap</h2>
+            <SitemapViewer />
           </div>
         </div>
       </main>
