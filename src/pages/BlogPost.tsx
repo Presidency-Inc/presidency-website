@@ -180,13 +180,16 @@ const BlogPostPage = () => {
       <Helmet>
         <title>{post?.title || 'Blog Post'} | Presidency Solutions</title>
         <meta name="description" content={post?.description} />
+        <meta name="keywords" content={post?.tags?.map(tag => tag.name).join(', ')} />
         <meta property="og:title" content={post?.title} />
         <meta property="og:description" content={post?.description} />
-        <meta property="og:image" content={post?.banner_image || "/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png"} />
+        <meta property="og:image" content={post?.banner_image} />
         <meta property="og:type" content="article" />
         <meta property="og:url" content={`/blog/${post?.slug}`} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content={post?.banner_image || "/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png"} />
+        <meta name="twitter:title" content={post?.title} />
+        <meta name="twitter:description" content={post?.description} />
+        <meta name="twitter:image" content={post?.banner_image} />
       </Helmet>
       
       <StatusBar />
