@@ -17,7 +17,9 @@ const BookACall = () => {
         <meta property="og:description" content="Schedule a consultation with our AI and data engineering experts to discuss your business needs." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="/book-a-call" />
+        <meta property="og:image" content="/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png" />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png" />
       </Helmet>
       <ScrollToTop />
       <StatusBar />

@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -181,10 +182,11 @@ const BlogPostPage = () => {
         <meta name="description" content={post?.description} />
         <meta property="og:title" content={post?.title} />
         <meta property="og:description" content={post?.description} />
-        <meta property="og:image" content={post?.banner_image} />
+        <meta property="og:image" content={post?.banner_image || "/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png"} />
         <meta property="og:type" content="article" />
         <meta property="og:url" content={`/blog/${post?.slug}`} />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content={post?.banner_image || "/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png"} />
       </Helmet>
       
       <StatusBar />

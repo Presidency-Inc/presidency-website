@@ -36,7 +36,9 @@ const Index = () => {
         <meta property="og:description" content="Presidency Solutions helps organizations maximize their impact with AI, Data Engineering, Databricks Solutions, Cloud Modernization, and Talent Solutions." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="/" />
+        <meta property="og:image" content="/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png" />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png" />
       </Helmet>
       <StatusBar />
       <Navbar />

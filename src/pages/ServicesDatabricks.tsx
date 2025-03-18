@@ -30,7 +30,9 @@ const ServicesDatabricks = () => {
         <meta property="og:description" content="Maximize the power of Databricks with our expert solutions. We help enterprises implement, optimize, and scale their Databricks platform for AI and data workloads." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="/services/databricks" />
+        <meta property="og:image" content="/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png" />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png" />
       </Helmet>
       <StatusBar />
       <Navbar />

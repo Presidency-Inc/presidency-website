@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
@@ -23,6 +24,7 @@ import { toast } from "@/components/ui/use-toast";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import ReCAPTCHA from "react-google-recaptcha";
+import { Helmet } from "react-helmet";
 
 const RECAPTCHA_SITE_KEY = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
 
@@ -220,6 +222,18 @@ const CareerPage = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
+      <Helmet>
+        <title>Careers | Presidency Solutions</title>
+        <meta name="description" content="Join our team at Presidency Solutions and help organizations maximize their impact with AI and data engineering. Explore exciting career opportunities." />
+        <meta name="keywords" content="careers, jobs, AI careers, data engineering jobs, technology careers" />
+        <meta property="og:title" content="Careers | Presidency Solutions" />
+        <meta property="og:description" content="Join our team at Presidency Solutions and help organizations maximize their impact with AI and data engineering." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="/careers" />
+        <meta property="og:image" content="/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png" />
+      </Helmet>
       <StatusBar />
       <Navbar />
       <ScrollProgress />

@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/pagination";
 import { ArrowRight, Search } from "lucide-react";
 import { Blog, Tag } from "@/components/BlogForm";
+import { Helmet } from "react-helmet";
 
 const POSTS_PER_PAGE = 9;
 
@@ -197,6 +198,18 @@ const BlogPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <Helmet>
+        <title>Blog | Presidency Solutions</title>
+        <meta name="description" content="Stories and insights on AI adoption, industry shifts, and real-world impact from Presidency Solutions." />
+        <meta name="keywords" content="AI blog, data engineering blog, industry insights, tech stories, digital transformation" />
+        <meta property="og:title" content="Blog | Presidency Solutions" />
+        <meta property="og:description" content="Stories and insights on AI adoption, industry shifts, and real-world impact from Presidency Solutions." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="/blog" />
+        <meta property="og:image" content="/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png" />
+      </Helmet>
       <StatusBar />
       <Navbar />
       <ScrollProgress />
