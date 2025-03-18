@@ -30,6 +30,7 @@ import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import Sitemap from "./pages/Sitemap";
 import Cookies from "./pages/Cookies";
+import CommandSearch from "./components/CommandSearch";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +40,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <CommandSearch />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/products/leapfrog" element={<ProductLeapfrog />} />

@@ -5,7 +5,7 @@ import { Command as CommandPrimitive } from "cmdk"
 import { Search } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { Dialog, DialogContent } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
 
 const Command = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive>,
@@ -29,8 +29,8 @@ const CommandDialog = ({ children, ...props }: CommandDialogProps) => {
     <Dialog {...props}>
       <DialogContent 
         className="overflow-hidden p-0 shadow-lg max-w-lg max-h-[80vh]"
-        aria-label="Command menu" // Add accessibility label
       >
+        <DialogTitle className="sr-only">Command Menu</DialogTitle>
         {children}
       </DialogContent>
     </Dialog>
