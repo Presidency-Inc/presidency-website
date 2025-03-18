@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -81,12 +81,18 @@ const CommandSearch = () => {
   const [results, setResults] = useState<SearchResult[]>([]);
   const [tags, setTags] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
+  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const navigate = useNavigate();
   const { toast } = useToast();
 
   // Register the open function with our singleton
   useEffect(() => {
-    openSearchFn = () => setOpen(true);
+    openSearchFn = () => {
+      setOpen(true);
+      // Set initial results when dialog opens
+      setResults(pages.slice(0, 5)); // Show first 5 pages as initial results
+    };
+    
     return () => {
       openSearchFn = null;
     };
@@ -96,25 +102,50 @@ const CommandSearch = () => {
     fetchTags();
   }, []);
 
-  // Update this effect to properly handle search
+  // Separate effect for handling the modal opening/closing
   useEffect(() => {
     if (open) {
-      // Set initial results when dialog opens - show pages
+      // Set initial results when dialog opens (if no query)
       if (searchQuery.trim() === "") {
         setResults(pages.slice(0, 5)); // Show first 5 pages as initial results
-        setLoading(false);
-        return;
-      }
-      
-      // Only search when we have a query
-      if (searchQuery.trim().length > 0) {
-        searchResults();
       }
     } else {
       // Reset search when dialog closes
       setSearchQuery("");
       setResults([]);
     }
+  }, [open]);
+
+  // Effect for handling search queries with debounce
+  useEffect(() => {
+    // Clear any existing timeout
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
+
+    // Don't search if modal is closed
+    if (!open) return;
+
+    // Don't perform search for empty query, but show initial results
+    if (searchQuery.trim() === "") {
+      setResults(pages.slice(0, 5)); // Show first 5 pages as initial results
+      setLoading(false);
+      return;
+    }
+
+    // Set loading state immediately
+    setLoading(true);
+    
+    // Debounce search to prevent too many requests
+    searchTimeoutRef.current = setTimeout(() => {
+      searchResults();
+    }, 300);
+
+    return () => {
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
+      }
+    };
   }, [searchQuery, open]);
 
   useEffect(() => {
@@ -281,11 +312,6 @@ const CommandSearch = () => {
   };
 
   const renderResults = () => {
-    // Only proceed if we have results
-    if (results.length === 0) {
-      return null;
-    }
-
     const pageResults = results.filter(result => result.type === 'page');
     const blogResults = results.filter(result => result.type === 'blog');
     const tagResults = results.filter(result => result.type === 'tag');
@@ -395,7 +421,7 @@ const CommandSearch = () => {
               ) : null}
               
               {/* Render results if we have any */}
-              {results.length > 0 && renderResults()}
+              {results.length > 0 ? renderResults() : null}
             </>
           )}
         </CommandList>
