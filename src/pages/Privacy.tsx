@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import StatusBar from "@/components/StatusBar";
+import ScrollProgress from "@/components/ScrollProgress";
 
 const Privacy = () => {
   const [activeSection, setActiveSection] = useState("section1");
@@ -20,7 +22,9 @@ const Privacy = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      <StatusBar />
       <Navbar />
+      <ScrollProgress />
       
       <div className="bg-gray-100 py-3 px-4">
         <div className="max-w-7xl mx-auto">
@@ -28,8 +32,8 @@ const Privacy = () => {
         </div>
       </div>
       
-      <main className="max-w-7xl mx-auto px-4 py-12 md:py-16">
-        <h1 className="text-4xl md:text-5xl font-bold mb-16">Privacy Policy</h1>
+      <main className="max-w-7xl mx-auto px-4 py-16 md:py-24">
+        <h1 className="text-4xl md:text-5xl font-bold mb-16 pt-8">Privacy Policy</h1>
         
         <div className="flex flex-col md:flex-row gap-8">
           {/* Navigation Sidebar */}
