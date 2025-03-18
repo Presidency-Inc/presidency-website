@@ -13,13 +13,6 @@ const ProductInterestForm = () => {
       <div className="flex flex-col lg:flex-row max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 gap-8">
         {/* Left side with iframe */}
         <div className="w-full lg:w-1/2">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-            Build & deploy custom tech products
-          </h2>
-          <p className="text-lg text-gray-600 mb-8">
-            To start building your innovation strategy, we need to know you better.
-          </p>
-          
           <div className="w-full">
             <iframe 
               width="100%" 
