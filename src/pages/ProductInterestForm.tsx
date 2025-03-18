@@ -90,7 +90,16 @@ const ProductInterestForm = () => {
                   <Check className="h-6 w-6 text-blue-400" />
                 </div>
                 <p className="text-lg">
-                  Our enterprise grade ETL platforms to streamline your data needs
+                  Enterprise grade ETL platform to streamline your data needs
+                </p>
+              </div>
+              
+              <div className="flex items-start gap-4">
+                <div className="mt-1 flex-shrink-0">
+                  <Check className="h-6 w-6 text-blue-400" />
+                </div>
+                <p className="text-lg">
+                  Cloud modernization technology to upgrade your technical infrastructure
                 </p>
               </div>
               
@@ -173,7 +182,16 @@ const ProductInterestForm = () => {
                     <Check className="h-6 w-6 text-blue-400" />
                   </div>
                   <p className="text-base">
-                    Our enterprise grade ETL platforms to streamline your data needs
+                    Enterprise grade ETL platform to streamline your data needs
+                  </p>
+                </div>
+                
+                <div className="flex items-start gap-4">
+                  <div className="mt-1 flex-shrink-0">
+                    <Check className="h-6 w-6 text-blue-400" />
+                  </div>
+                  <p className="text-base">
+                    Cloud modernization technology to upgrade your technical infrastructure
                   </p>
                 </div>
                 
