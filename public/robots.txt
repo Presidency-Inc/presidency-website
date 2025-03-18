@@ -1,0 +1,25 @@
+
+# robots.txt for presidencysolutions.com
+User-agent: *
+Allow: /
+
+# Important pages
+Allow: /about
+Allow: /services/ai
+Allow: /services/data
+Allow: /services/databricks
+Allow: /products/leapfrog
+Allow: /products/omniflow
+Allow: /products/kube8r
+Allow: /talent
+Allow: /careers
+Allow: /blog
+Allow: /get-started
+Allow: /book-a-call
+
+# Sitemap location
+Sitemap: https://presidencysolutions.com/sitemap.xml
+
+# Disallow admin areas
+Disallow: /admin
+Disallow: /login
