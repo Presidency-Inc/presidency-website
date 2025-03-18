@@ -298,7 +298,7 @@ const CommandSearch = () => {
               <p className="p-4 text-center text-sm">No results found.</p>
             </CommandEmpty>
           ) : (
-            <>
+            <div className="py-2">
               {results.filter(r => r.type === 'page').length > 0 && (
                 <CommandGroup heading="Pages">
                   {results
@@ -321,7 +321,7 @@ const CommandSearch = () => {
               
               {results.filter(r => r.type === 'blog').length > 0 && (
                 <>
-                  <CommandSeparator />
+                  {results.filter(r => r.type === 'page').length > 0 && <CommandSeparator />}
                   <CommandGroup heading="Blog Posts">
                     {results
                       .filter(result => result.type === 'blog')
@@ -351,7 +351,8 @@ const CommandSearch = () => {
               
               {results.filter(r => r.type === 'tag').length > 0 && (
                 <>
-                  <CommandSeparator />
+                  {(results.filter(r => r.type === 'page').length > 0 || 
+                    results.filter(r => r.type === 'blog').length > 0) && <CommandSeparator />}
                   <CommandGroup heading="Tags">
                     {results
                       .filter(result => result.type === 'tag')
@@ -371,7 +372,7 @@ const CommandSearch = () => {
                   </CommandGroup>
                 </>
               )}
-            </>
+            </div>
           )}
         </CommandList>
       </Command>
