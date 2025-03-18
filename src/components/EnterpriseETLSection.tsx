@@ -1,5 +1,6 @@
+
 import { motion } from "framer-motion";
-import { Database, ArrowRight } from "lucide-react";
+import { Database, ArrowRight, RefreshCw, Zap, BarChart3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
