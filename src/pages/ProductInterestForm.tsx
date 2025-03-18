@@ -4,87 +4,84 @@ import Logo from "@/components/Logo";
 
 const ProductInterestForm = () => {
   return (
-    <div className="min-h-screen w-full bg-white flex flex-col">
-      {/* Logo at the top */}
-      <div className="pt-8 px-8 max-w-7xl mx-auto w-full">
-        <Logo />
+    <div className="min-h-screen w-full bg-white flex">
+      {/* Left side with iframe */}
+      <div className="w-full lg:w-1/2 h-screen">
+        <div className="w-full h-full">
+          <iframe 
+            width="100%" 
+            height="100%" 
+            src="https://sibforms.com/serve/MUIFANIXyCZDk1Oq2tyMyBA9iGrk-vtob662x_EavnMg6d9VtJzkD7aKMYPFKt8Jh4yJVgNzMK2D_h_BOSMi4UTeFW6tIC4yIdHUQWt93Jc_1mRLEStc2jubBGWScZmhwm8FxsUVmKWPWNeuSxOJrcNk7I_A1xMjGE3UElMkbaoMPeX8NN_7FLDZZkSsoBbw5V808WyM7ak79GwA" 
+            frameBorder="0" 
+            scrolling="auto" 
+            allowFullScreen 
+            className="h-screen"
+            style={{ display: "block" }}
+          />
+        </div>
       </div>
       
-      <div className="flex flex-col lg:flex-row max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 gap-8 flex-1">
-        {/* Left side with iframe */}
-        <div className="w-full lg:w-1/2 h-full flex-1">
-          <div className="w-full h-full">
-            <iframe 
-              width="100%" 
-              height="100%" 
-              src="https://sibforms.com/serve/MUIFANIXyCZDk1Oq2tyMyBA9iGrk-vtob662x_EavnMg6d9VtJzkD7aKMYPFKt8Jh4yJVgNzMK2D_h_BOSMi4UTeFW6tIC4yIdHUQWt93Jc_1mRLEStc2jubBGWScZmhwm8FxsUVmKWPWNeuSxOJrcNk7I_A1xMjGE3UElMkbaoMPeX8NN_7FLDZZkSsoBbw5V808WyM7ak79GwA" 
-              frameBorder="0" 
-              scrolling="auto" 
-              allowFullScreen 
-              className="max-w-full min-h-[700px] h-full"
-              style={{ display: "block", marginLeft: "auto", marginRight: "auto" }}
-            />
+      {/* Right side with how it works */}
+      <div className="w-full lg:w-1/2 bg-gray-900 text-white p-8 h-screen flex flex-col">
+        <div className="mb-6">
+          <Logo />
+        </div>
+        
+        <h2 className="text-3xl md:text-4xl font-bold mb-8">
+          How does it work?
+        </h2>
+        
+        <p className="text-lg mb-10">
+          We're happy to answer questions and build your custom tech product.
+        </p>
+        
+        <div className="space-y-8">
+          <div className="flex items-start gap-4">
+            <div className="mt-1 flex-shrink-0">
+              <Check className="h-6 w-6 text-blue-400" />
+            </div>
+            <p className="text-lg">
+              We build a comprehensive tech roadmap.
+            </p>
+          </div>
+          
+          <div className="flex items-start gap-4">
+            <div className="mt-1 flex-shrink-0">
+              <Check className="h-6 w-6 text-blue-400" />
+            </div>
+            <p className="text-lg">
+              We orchestrate and execute technology projects and programs across various domains, including GenAI, AI/Data, Cloud, and more.
+            </p>
+          </div>
+          
+          <div className="flex items-start gap-4">
+            <div className="mt-1 flex-shrink-0">
+              <Check className="h-6 w-6 text-blue-400" />
+            </div>
+            <p className="text-lg">
+              We get the right people for the job with the quality, speed, and cost effectiveness of our human intelligence platform.
+            </p>
           </div>
         </div>
         
-        {/* Right side with how it works */}
-        <div className="w-full lg:w-1/2 bg-gray-900 text-white p-8 rounded-lg flex-1 flex flex-col">
-          <h2 className="text-3xl md:text-4xl font-bold mb-8">
-            How does it work?
-          </h2>
+        {/* Logos section */}
+        <div className="mt-auto pt-8">
+          <div className="flex flex-wrap justify-center gap-8 items-center">
+            {/* Using customer logos from LogoMarquee */}
+            {customerLogos.map((logo, index) => (
+              <div key={index} className="flex items-center justify-center">
+                <img
+                  src={logo.logo}
+                  alt={logo.name}
+                  className="max-h-[36px] max-w-[100px] object-contain w-auto filter brightness-0 invert opacity-80"
+                />
+              </div>
+            ))}
+          </div>
           
-          <p className="text-lg mb-10">
-            We're happy to answer questions and build your custom tech product.
+          <p className="text-center mt-8 text-lg">
+            Trusted by leading AI hyperscalers, research labs, and Fortune 500 companies
           </p>
-          
-          <div className="space-y-8">
-            <div className="flex items-start gap-4">
-              <div className="mt-1 flex-shrink-0">
-                <Check className="h-6 w-6 text-blue-400" />
-              </div>
-              <p className="text-lg">
-                We build a comprehensive tech roadmap.
-              </p>
-            </div>
-            
-            <div className="flex items-start gap-4">
-              <div className="mt-1 flex-shrink-0">
-                <Check className="h-6 w-6 text-blue-400" />
-              </div>
-              <p className="text-lg">
-                We orchestrate and execute technology projects and programs across various domains, including GenAI, AI/Data, Cloud, and more.
-              </p>
-            </div>
-            
-            <div className="flex items-start gap-4">
-              <div className="mt-1 flex-shrink-0">
-                <Check className="h-6 w-6 text-blue-400" />
-              </div>
-              <p className="text-lg">
-                We get the right people for the job with the quality, speed, and cost effectiveness of our human intelligence platform.
-              </p>
-            </div>
-          </div>
-          
-          {/* Logos section */}
-          <div className="mt-auto pt-8">
-            <div className="flex flex-wrap justify-center gap-8 items-center">
-              {/* Using customer logos from LogoMarquee */}
-              {customerLogos.map((logo, index) => (
-                <div key={index} className="flex items-center justify-center">
-                  <img
-                    src={logo.logo}
-                    alt={logo.name}
-                    className="max-h-[36px] max-w-[100px] object-contain w-auto filter brightness-0 invert opacity-80"
-                  />
-                </div>
-              ))}
-            </div>
-            
-            <p className="text-center mt-8 text-lg">
-              Trusted by leading AI hyperscalers, research labs, and Fortune 500 companies
-            </p>
-          </div>
         </div>
       </div>
     </div>
