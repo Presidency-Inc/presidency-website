@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { Code, Network, Users } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -24,7 +23,7 @@ const GetStarted = () => {
     id: 2,
     icon: <Network className="h-12 w-12 text-white" />,
     forText: "For LLM companies and research organizations",
-    title: "I need AI model training & post-training optimization",
+    title: "I need to enhance my technology stack using advanced AI and Data platforms",
     description: "Advance foundation model research and improve LLM reasoning, coding, and multimodal capabilities with Turing AGI Advancement.",
     cta: "Get a model assessment",
     link: "/services-interest-form"
