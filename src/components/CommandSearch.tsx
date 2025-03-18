@@ -80,6 +80,7 @@ const CommandSearch = () => {
   const [tags, setTags] = useState<SearchResult[]>([]);
   const navigate = useNavigate();
   const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const previousSearchRef = useRef<string>("");
 
   // Register open function
   useEffect(() => {
@@ -132,6 +133,12 @@ const CommandSearch = () => {
   const performSearch = useCallback(async (query: string) => {
     if (!open) return;
     
+    // Only search if query has changed
+    if (query === previousSearchRef.current) {
+      return;
+    }
+    
+    previousSearchRef.current = query;
     setIsLoading(true);
     
     try {
@@ -182,24 +189,18 @@ const CommandSearch = () => {
     }
   }, [open, tags]);
 
-  // Debounced search effect
-  useEffect(() => {
-    if (!open) return;
+  // Handle input change
+  const handleInputChange = (value: string) => {
+    setSearchInput(value);
     
     if (searchTimeoutRef.current) {
       clearTimeout(searchTimeoutRef.current);
     }
     
     searchTimeoutRef.current = setTimeout(() => {
-      performSearch(searchInput);
+      performSearch(value);
     }, 300);
-    
-    return () => {
-      if (searchTimeoutRef.current) {
-        clearTimeout(searchTimeoutRef.current);
-      }
-    };
-  }, [searchInput, open, performSearch]);
+  };
 
   // Reset on dialog close
   useEffect(() => {
@@ -207,6 +208,7 @@ const CommandSearch = () => {
       // Delay clearing results to prevent flash during close animation
       const timer = setTimeout(() => {
         setSearchInput("");
+        previousSearchRef.current = "";
       }, 300);
       return () => clearTimeout(timer);
     } else {
@@ -289,7 +291,7 @@ const CommandSearch = () => {
         <CommandInput 
           placeholder="Search pages, blog posts, and tags..." 
           value={searchInput}
-          onValueChange={setSearchInput}
+          onValueChange={handleInputChange}
         />
         <CommandList>
           {isLoading ? (
@@ -380,3 +382,4 @@ const CommandSearch = () => {
 };
 
 export default CommandSearch;
+
