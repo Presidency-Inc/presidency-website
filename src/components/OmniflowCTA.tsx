@@ -71,7 +71,7 @@ const OmniflowCTA = () => {
                     </Button>
                   </div>
                   
-                  <div className="pt-8 border-t border-gray-100">
+                  <div className="pt-8">
                     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                       <div className="flex -space-x-2">
                         {[1, 2, 3, 4].map((i) => (
