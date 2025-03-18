@@ -79,7 +79,8 @@ const CommandSearch = () => {
   const [tags, setTags] = useState<SearchResult[]>([]);
   const navigate = useNavigate();
   const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const resultsExistRef = useRef(false);
+  const hasInitializedRef = useRef(false);
+  const dialogOpenRef = useRef(false);
 
   // Register open function
   useEffect(() => {
@@ -128,10 +129,21 @@ const CommandSearch = () => {
     return () => document.removeEventListener("keydown", down);
   }, []);
 
+  // Track dialog open state in a ref to avoid race conditions
+  useEffect(() => {
+    dialogOpenRef.current = open;
+    
+    // Load default results when dialog opens
+    if (open && !hasInitializedRef.current) {
+      performSearch("");
+      hasInitializedRef.current = true;
+    }
+  }, [open]);
+
   // Search function
   const performSearch = useCallback(async (query: string) => {
-    // Critical: Only run search if dialog is open
-    if (!open) return;
+    // Don't run if dialog is closed
+    if (!dialogOpenRef.current) return;
     
     console.log("Performing search for:", query);
     setIsLoading(true);
@@ -176,21 +188,22 @@ const CommandSearch = () => {
       const allResults = [...filteredPages, ...blogResults, ...filteredTags];
       console.log("Search results:", allResults);
       
-      // Ensure dialog is still open before updating state
-      if (open) {
+      // Only update results if dialog is still open 
+      if (dialogOpenRef.current) {
         setSearchResults(allResults);
-        resultsExistRef.current = allResults.length > 0;
       }
     } catch (error) {
       console.error('Search error:', error);
       // If error, just show default pages
-      const defaultResults = pages.slice(0, 5);
-      setSearchResults(defaultResults);
-      resultsExistRef.current = defaultResults.length > 0;
+      if (dialogOpenRef.current) {
+        setSearchResults(pages.slice(0, 5));
+      }
     } finally {
-      setIsLoading(false);
+      if (dialogOpenRef.current) {
+        setIsLoading(false);
+      }
     }
-  }, [open, tags]);
+  }, [tags]);
 
   // Handle input change with debounce
   const handleInputChange = (value: string) => {
@@ -201,31 +214,51 @@ const CommandSearch = () => {
       clearTimeout(searchTimeoutRef.current);
     }
     
-    // Only start a new search if the dialog is open
-    if (open) {
+    // Only search if dialog is open
+    if (dialogOpenRef.current) {
       searchTimeoutRef.current = setTimeout(() => {
         performSearch(value);
       }, 300);
     }
   };
 
-  // Handle dialog open/close and initial search
+  // Handle Enter key press to search immediately
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
+      }
+      performSearch(searchInput);
+    }
+  };
+
+  // Load default results when dialog opens
   useEffect(() => {
     if (open) {
-      // When dialog opens, either:
-      // 1. Perform initial search if no input exists
-      // 2. Perform search with current input if it exists
-      performSearch(searchInput);
-    } else {
-      // When dialog closes, just reset the input, but keep the results
-      // so they don't flash/disappear when reopening
+      // Use a short timeout to ensure we're really open
       const timer = setTimeout(() => {
-        setSearchInput("");
-      }, 300);
+        if (searchInput) {
+          performSearch(searchInput);
+        } else {
+          performSearch("");
+        }
+      }, 50);
       
       return () => clearTimeout(timer);
     }
   }, [open, performSearch, searchInput]);
+
+  // Keep search results when dialog closes, reset input
+  useEffect(() => {
+    if (!open) {
+      const timer = setTimeout(() => {
+        setSearchInput("");
+        // Don't clear searchResults here - keep them for next opening
+      }, 300);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [open]);
 
   const handleSelect = useCallback((result: SearchResult) => {
     // Track the search if analytics available
@@ -302,15 +335,7 @@ const CommandSearch = () => {
           placeholder="Search pages, blog posts, and tags..." 
           value={searchInput}
           onValueChange={handleInputChange}
-          onKeyDown={(e) => {
-            // Ensure pressing Enter triggers immediate search
-            if (e.key === 'Enter') {
-              if (searchTimeoutRef.current) {
-                clearTimeout(searchTimeoutRef.current);
-              }
-              performSearch(searchInput);
-            }
-          }}
+          onKeyDown={handleKeyDown}
         />
         <CommandList>
           {isLoading ? (
