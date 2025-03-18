@@ -80,7 +80,7 @@ const CommandSearch = () => {
   const [tags, setTags] = useState<SearchResult[]>([]);
   const navigate = useNavigate();
   const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const initialLoadDone = useRef(false);
+  const searchPerformedRef = useRef(false);
 
   // Register open function
   useEffect(() => {
@@ -129,12 +129,13 @@ const CommandSearch = () => {
     return () => document.removeEventListener("keydown", down);
   }, []);
 
-  // Search function
+  // Search function with stabilized results
   const performSearch = useCallback(async (query: string) => {
     if (!open) return;
     
     console.log("Performing search for:", query);
     setIsLoading(true);
+    searchPerformedRef.current = true;
     
     try {
       // Always include default pages if no query
@@ -185,7 +186,7 @@ const CommandSearch = () => {
     }
   }, [open, tags]);
 
-  // Handle input change
+  // Handle input change with debounce
   const handleInputChange = (value: string) => {
     setSearchInput(value);
     
@@ -198,15 +199,20 @@ const CommandSearch = () => {
     }, 300);
   };
 
-  // When opening, load initial results
+  // Manage dialog open/close and initial search
   useEffect(() => {
-    if (open && !initialLoadDone.current) {
-      performSearch("");
-      initialLoadDone.current = true;
-    } else if (!open) {
-      // Reset when closed
-      initialLoadDone.current = false;
-      setSearchInput("");
+    if (open) {
+      // When opening, show initial results if no search was performed yet
+      if (!searchPerformedRef.current) {
+        performSearch("");
+      }
+    } else {
+      // When closing, reset search state after a slight delay
+      const timer = setTimeout(() => {
+        setSearchInput("");
+        searchPerformedRef.current = false;
+      }, 300);
+      return () => clearTimeout(timer);
     }
   }, [open, performSearch]);
 
