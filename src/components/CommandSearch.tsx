@@ -81,6 +81,7 @@ const CommandSearch = () => {
   const navigate = useNavigate();
   const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const searchPerformedRef = useRef(false);
+  const searchInProgressRef = useRef(false);
 
   // Register open function
   useEffect(() => {
@@ -129,13 +130,14 @@ const CommandSearch = () => {
     return () => document.removeEventListener("keydown", down);
   }, []);
 
-  // Search function with stabilized results
+  // Search function with stable results
   const performSearch = useCallback(async (query: string) => {
     if (!open) return;
     
     console.log("Performing search for:", query);
     setIsLoading(true);
     searchPerformedRef.current = true;
+    searchInProgressRef.current = true;
     
     try {
       // Always include default pages if no query
@@ -176,13 +178,18 @@ const CommandSearch = () => {
       // Set all results
       const allResults = [...filteredPages, ...blogResults, ...filteredTags];
       console.log("Search results:", allResults);
-      setSearchResults(allResults);
+      
+      // Only update if the dialog is still open
+      if (open) {
+        setSearchResults(allResults);
+      }
     } catch (error) {
       console.error('Search error:', error);
       // If error, just show default pages
       setSearchResults(pages.slice(0, 5));
     } finally {
       setIsLoading(false);
+      searchInProgressRef.current = false;
     }
   }, [open, tags]);
 
@@ -195,7 +202,9 @@ const CommandSearch = () => {
     }
     
     searchTimeoutRef.current = setTimeout(() => {
-      performSearch(value);
+      if (open) {  // Only perform search if dialog is still open
+        performSearch(value);
+      }
     }, 300);
   };
 
@@ -210,7 +219,7 @@ const CommandSearch = () => {
       // When closing, reset search state after a slight delay
       const timer = setTimeout(() => {
         setSearchInput("");
-        searchPerformedRef.current = false;
+        // Don't reset searchPerformedRef here to avoid flashing empty results
       }, 300);
       return () => clearTimeout(timer);
     }
