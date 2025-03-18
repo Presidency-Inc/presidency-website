@@ -87,7 +87,9 @@ const CommandSearch = () => {
 
   // Register the open function with our singleton
   useEffect(() => {
+    console.log("[DEBUG] Initializing CommandSearch component");
     openSearchFn = () => {
+      console.log("[DEBUG] openSearchFn called - opening dialog");
       setOpen(true);
     };
     
@@ -102,10 +104,13 @@ const CommandSearch = () => {
 
   // Set initial results when dialog opens
   useEffect(() => {
+    console.log("[DEBUG] Dialog open state changed:", open);
     if (open) {
       // Show initial results when dialog opens
       if (searchQuery.trim() === "") {
-        setResults(pages.slice(0, 5));
+        const initialResults = pages.slice(0, 5);
+        console.log("[DEBUG] Setting initial results:", initialResults.length);
+        setResults(initialResults);
       }
     } else {
       // Reset search when dialog closes
@@ -115,25 +120,34 @@ const CommandSearch = () => {
 
   // Effect for handling search queries with debounce
   useEffect(() => {
+    console.log("[DEBUG] searchQuery changed:", searchQuery, "| open:", open, "| current results:", results.length);
+    
     // Clear any existing timeout
     if (searchTimeoutRef.current) {
       clearTimeout(searchTimeoutRef.current);
     }
 
     // Don't search if modal is closed
-    if (!open) return;
+    if (!open) {
+      console.log("[DEBUG] Dialog is closed, skipping search");
+      return;
+    }
 
     // Set loading state immediately for non-empty queries
     if (searchQuery.trim() !== "") {
+      console.log("[DEBUG] Non-empty query, setting loading state");
       setLoading(true);
       
       // Debounce search to prevent too many requests
       searchTimeoutRef.current = setTimeout(() => {
+        console.log("[DEBUG] Debounce timeout reached, performing search");
         searchResults();
       }, 300);
     } else {
       // For empty queries, show initial results
-      setResults(pages.slice(0, 5));
+      const initialResults = pages.slice(0, 5);
+      console.log("[DEBUG] Empty query, showing initial results:", initialResults.length);
+      setResults(initialResults);
       setLoading(false);
     }
 
@@ -158,10 +172,11 @@ const CommandSearch = () => {
 
   const fetchTags = async () => {
     try {
+      console.log("[DEBUG] Fetching tags from Supabase");
       const { data, error } = await supabase.from('blog_tags').select('*');
       
       if (error) {
-        console.error('Error fetching tags:', error);
+        console.error('[ERROR] Error fetching tags:', error);
         return;
       }
 
@@ -172,10 +187,11 @@ const CommandSearch = () => {
           url: `/blog?tag=${tag.id}`,
           type: 'tag' as const
         }));
+        console.log("[DEBUG] Tags fetched successfully:", formattedTags.length);
         setTags(formattedTags);
       }
     } catch (error) {
-      console.error('Error fetching tags:', error);
+      console.error('[ERROR] Error fetching tags:', error);
     }
   };
 
@@ -183,6 +199,7 @@ const CommandSearch = () => {
     if (searchQuery.trim().length === 0) return [];
     
     try {
+      console.log("[DEBUG] Searching blog posts with query:", searchQuery);
       const { data, error } = await supabase
         .from('blog_posts')
         .select('id, title, description, slug')
@@ -190,7 +207,7 @@ const CommandSearch = () => {
         .limit(5);
       
       if (error) {
-        console.error('Error searching blog posts:', error);
+        console.error('[ERROR] Error searching blog posts:', error);
         return [];
       }
       
@@ -202,15 +219,17 @@ const CommandSearch = () => {
         type: 'blog' as const
       })) : [];
       
+      console.log("[DEBUG] Blog posts search results:", blogResults.length);
       return blogResults;
       
     } catch (error) {
-      console.error('Error searching blog posts:', error);
+      console.error('[ERROR] Error searching blog posts:', error);
       return [];
     }
   };
 
   const searchResults = async () => {
+    console.log("[DEBUG] Starting search with query:", searchQuery);
     setLoading(true);
     
     try {
@@ -230,17 +249,19 @@ const CommandSearch = () => {
       // Combine all results
       const combinedResults = [...filteredPages, ...blogResults, ...filteredTags];
       
-      console.log('Search query:', searchQuery);
-      console.log('Pages results:', filteredPages.length);
-      console.log('Tags results:', filteredTags.length);
-      console.log('Blog results:', blogResults.length);
-      console.log('Combined results:', combinedResults.length);
+      console.log('[DEBUG] Search query:', searchQuery);
+      console.log('[DEBUG] Pages results:', filteredPages.length);
+      console.log('[DEBUG] Tags results:', filteredTags.length);
+      console.log('[DEBUG] Blog results:', blogResults.length);
+      console.log('[DEBUG] Combined results:', combinedResults.length);
       
       // Important: This must run even if search returns nothing
+      console.log("[DEBUG] Setting results state with combinedResults:", combinedResults.length);
       setResults(combinedResults);
     } catch (error) {
-      console.error('Error searching:', error);
+      console.error('[ERROR] Error searching:', error);
       // Set empty results to prevent stale results from showing
+      console.log("[DEBUG] Error in search, setting empty results");
       setResults([]);
     } finally {
       setLoading(false);
@@ -248,6 +269,7 @@ const CommandSearch = () => {
   };
 
   const handleSelect = (result: SearchResult) => {
+    console.log("[DEBUG] Result selected:", result.title, result.url);
     setOpen(false);
     navigate(result.url);
     
@@ -311,9 +333,12 @@ const CommandSearch = () => {
   };
 
   const renderResults = () => {
+    console.log("[DEBUG] renderResults called with", results.length, "results");
     const pageResults = results.filter(result => result.type === 'page');
     const blogResults = results.filter(result => result.type === 'blog');
     const tagResults = results.filter(result => result.type === 'tag');
+
+    console.log("[DEBUG] Filtered for rendering - pages:", pageResults.length, "blogs:", blogResults.length, "tags:", tagResults.length);
 
     return (
       <>
@@ -385,6 +410,9 @@ const CommandSearch = () => {
     );
   };
 
+  // Debug render
+  console.log("[DEBUG] Rendering CommandSearch component - Dialog open:", open, "| Results:", results.length, "| Loading:", loading);
+
   return (
     <CommandDialog open={open} onOpenChange={setOpen}>
       <DialogTitle className="sr-only">Search</DialogTitle>
@@ -395,7 +423,10 @@ const CommandSearch = () => {
         <CommandInput
           placeholder="Search pages, blog posts, and tags..."
           value={searchQuery}
-          onValueChange={setSearchQuery}
+          onValueChange={(value) => {
+            console.log("[DEBUG] CommandInput value changed to:", value);
+            setSearchQuery(value);
+          }}
           autoFocus
         />
         <CommandList className="max-h-[70vh] overflow-y-auto">
@@ -423,7 +454,14 @@ const CommandSearch = () => {
               ) : null}
               
               {/* Always render results if we have any */}
-              {results.length > 0 && renderResults()}
+              {results.length > 0 ? (
+                <>
+                  {console.log("[DEBUG] Rendering", results.length, "results in CommandList")}
+                  {renderResults()}
+                </>
+              ) : (
+                console.log("[DEBUG] No results to render")
+              )}
             </>
           )}
         </CommandList>
