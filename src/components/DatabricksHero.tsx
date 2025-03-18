@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const DatabricksHero = () => {
   return (
@@ -66,9 +67,15 @@ const DatabricksHero = () => {
               Our proprietary accelerators overcome Databricks' inherent limitations, enabling faster, more efficient data processing jobs. Accelerate your data workflows and enhance performance like never before.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button size="lg" className="bg-[#1a46e5] hover:bg-[#1a46e5]/90 text-white border-none">
-                Schedule a Consultation
-                <ArrowRight className="ml-2 h-5 w-5" />
+              <Button 
+                size="lg" 
+                className="bg-[#1a46e5] hover:bg-[#1a46e5]/90 text-white border-none"
+                asChild
+              >
+                <Link to="/databricks-interest-form">
+                  Schedule a Consultation
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
               </Button>
             </div>
           </motion.div>
