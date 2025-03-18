@@ -1,3 +1,4 @@
+
 import { Facebook, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
@@ -36,16 +37,6 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Products Column */}
-          <div>
-            <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-4">Products</h3>
-            <ul className="space-y-3">
-              <li><Link to="/products/leapfrog" className="text-gray-300 hover:text-white text-sm">Leapfrog</Link></li>
-              <li><Link to="/products/omniflow" className="text-gray-300 hover:text-white text-sm">Omniflow</Link></li>
-              <li><Link to="/products/kube8r" className="text-gray-300 hover:text-white text-sm">Kube8r</Link></li>
-            </ul>
-          </div>
-
           {/* Services Column */}
           <div>
             <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-4">Services</h3>
@@ -56,6 +47,16 @@ const Footer = () => {
               <li><Link to="/products/kube8r" className="text-gray-300 hover:text-white text-sm">Cloud Modernization</Link></li>
               <li><Link to="/talent" className="text-gray-300 hover:text-white text-sm">Talent</Link></li>
               <li><Link to="/talent/nearshore" className="text-gray-300 hover:text-white text-sm">Nearshore</Link></li>
+            </ul>
+          </div>
+
+          {/* Products Column */}
+          <div>
+            <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-4">Products</h3>
+            <ul className="space-y-3">
+              <li><Link to="/products/leapfrog" className="text-gray-300 hover:text-white text-sm">Leapfrog</Link></li>
+              <li><Link to="/products/omniflow" className="text-gray-300 hover:text-white text-sm">Omniflow</Link></li>
+              <li><Link to="/products/kube8r" className="text-gray-300 hover:text-white text-sm">Kube8r</Link></li>
             </ul>
           </div>
 

@@ -225,24 +225,6 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-8">
             <div className="relative">
               <button 
-                onClick={toggleProducts}
-                className={`flex items-center transition-colors ${
-                  productsOpen || isProductsActive
-                    ? "text-gray-900 bg-gray-100 px-3 py-1 rounded-md" 
-                    : "text-gray-700 hover:text-gray-900"
-                }`}
-              >
-                Products
-                {productsOpen ? (
-                  <ChevronUp className="ml-1 h-4 w-4" />
-                ) : (
-                  <ChevronDown className="ml-1 h-4 w-4" />
-                )}
-              </button>
-            </div>
-            
-            <div className="relative">
-              <button 
                 onClick={toggleServices}
                 className={`flex items-center transition-colors ${
                   servicesOpen || isServicesActive
@@ -252,6 +234,24 @@ const Navbar = () => {
               >
                 Services
                 {servicesOpen ? (
+                  <ChevronUp className="ml-1 h-4 w-4" />
+                ) : (
+                  <ChevronDown className="ml-1 h-4 w-4" />
+                )}
+              </button>
+            </div>
+            
+            <div className="relative">
+              <button 
+                onClick={toggleProducts}
+                className={`flex items-center transition-colors ${
+                  productsOpen || isProductsActive
+                    ? "text-gray-900 bg-gray-100 px-3 py-1 rounded-md" 
+                    : "text-gray-700 hover:text-gray-900"
+                }`}
+              >
+                Products
+                {productsOpen ? (
                   <ChevronUp className="ml-1 h-4 w-4" />
                 ) : (
                   <ChevronDown className="ml-1 h-4 w-4" />
@@ -492,22 +492,22 @@ const Navbar = () => {
                 <ul className="mt-6 divide-y divide-gray-100">
                   <li>
                     <button 
-                      onClick={toggleProducts}
-                      className={`flex items-center justify-between w-full py-4 text-left 
-                        ${isProductsActive ? "text-blue-600 font-medium" : "text-gray-900 font-medium"}`}
-                    >
-                      Products
-                      <ChevronDown className={`h-5 w-5 ${isProductsActive ? "text-blue-600" : "text-gray-500"}`} />
-                    </button>
-                  </li>
-                  <li>
-                    <button 
                       onClick={toggleServices}
                       className={`flex items-center justify-between w-full py-4 text-left 
                         ${isServicesActive ? "text-blue-600 font-medium" : "text-gray-900 font-medium"}`}
                     >
                       Services
                       <ChevronDown className={`h-5 w-5 ${isServicesActive ? "text-blue-600" : "text-gray-500"}`} />
+                    </button>
+                  </li>
+                  <li>
+                    <button 
+                      onClick={toggleProducts}
+                      className={`flex items-center justify-between w-full py-4 text-left 
+                        ${isProductsActive ? "text-blue-600 font-medium" : "text-gray-900 font-medium"}`}
+                    >
+                      Products
+                      <ChevronDown className={`h-5 w-5 ${isProductsActive ? "text-blue-600" : "text-gray-500"}`} />
                     </button>
                   </li>
                   <li>
