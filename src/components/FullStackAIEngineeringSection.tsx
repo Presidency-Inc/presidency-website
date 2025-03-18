@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Code, Server, Layers } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
 
 const FullStackAIEngineeringSection = () => {
   return (
@@ -51,8 +52,11 @@ const FullStackAIEngineeringSection = () => {
             <Button 
               variant="outline" 
               className="border-blue-600 text-blue-600 hover:bg-blue-50"
+              asChild
             >
-              Learn More
+              <Link to="/services-interest-form">
+                TALK TO AN EXPERT
+              </Link>
             </Button>
           </div>
           
