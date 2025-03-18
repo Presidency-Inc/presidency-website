@@ -42,7 +42,9 @@ const ProductOmniflow = () => {
         <meta property="og:description" content="Omniflow is an enterprise-grade ETL platform that enables seamless data integration from any source to any target with powerful governance features." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="/products/omniflow" />
+        <meta property="og:image" content="/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png" />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png" />
       </Helmet>
       <StatusBar />
       <Navbar />

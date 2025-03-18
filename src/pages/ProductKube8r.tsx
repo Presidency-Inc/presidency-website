@@ -39,9 +39,9 @@ const ProductKube8r = () => {
         <meta property="og:description" content="Kube8r is a powerful platform for modernizing your infrastructure, from bare metal to cloud, and optimizing your application stack for Kubernetes." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="/products/kube8r" />
-        <meta property="og:image" content="/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png" />
+        <meta property="og:image" content="/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png" />
+        <meta name="twitter:image" content="/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png" />
       </Helmet>
       <StatusBar />
       <Navbar />

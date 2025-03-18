@@ -50,9 +50,9 @@ const GetStarted = () => {
         <meta property="og:description" content="Choose how you want to create an impact with Presidency Solutions - through AI solutions, advanced technology platforms, or expert talent." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="/get-started" />
-        <meta property="og:image" content="/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png" />
+        <meta property="og:image" content="/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png" />
+        <meta name="twitter:image" content="/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png" />
       </Helmet>
       <StatusBar />
       <Navbar />

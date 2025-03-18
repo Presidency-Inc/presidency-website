@@ -17,9 +17,9 @@ const Cookies = () => {
         <meta property="og:description" content="Learn about how Presidency Solutions uses cookies and similar technologies on our website." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="/cookies" />
-        <meta property="og:image" content="/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png" />
+        <meta property="og:image" content="/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png" />
+        <meta name="twitter:image" content="/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png" />
       </Helmet>
       <ScrollToTop />
       <StatusBar />

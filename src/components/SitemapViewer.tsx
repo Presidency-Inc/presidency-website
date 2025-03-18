@@ -70,7 +70,8 @@ const SitemapViewer: React.FC = () => {
         "@type": "ContactPoint",
         "contactType": "customer support",
         "email": "support@presidencysolutions.com"
-      }
+      },
+      "image": "https://presidencysolutions.com/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png"
     };
 
     // Home page schema
@@ -82,6 +83,10 @@ const SitemapViewer: React.FC = () => {
       "description": "Presidency Solutions helps organizations maximize their impact with AI, Data Engineering, Databricks Solutions, Cloud Modernization, and Talent Solutions.",
       "isPartOf": {
         "@id": "https://presidencysolutions.com/#website"
+      },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://presidencysolutions.com/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png"
       }
     };
 
@@ -127,7 +132,8 @@ const SitemapViewer: React.FC = () => {
             }
           }
         ]
-      }
+      },
+      "image": "https://presidencysolutions.com/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png"
     };
 
     // Product pages schema
@@ -146,7 +152,8 @@ const SitemapViewer: React.FC = () => {
             "brand": {
               "@type": "Brand",
               "name": "Presidency Solutions"
-            }
+            },
+            "image": "https://presidencysolutions.com/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png"
           }
         },
         {
@@ -160,7 +167,8 @@ const SitemapViewer: React.FC = () => {
             "brand": {
               "@type": "Brand",
               "name": "Presidency Solutions"
-            }
+            },
+            "image": "https://presidencysolutions.com/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png"
           }
         },
         {
@@ -174,7 +182,8 @@ const SitemapViewer: React.FC = () => {
             "brand": {
               "@type": "Brand",
               "name": "Presidency Solutions"
-            }
+            },
+            "image": "https://presidencysolutions.com/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png"
           }
         }
       ]
@@ -194,7 +203,8 @@ const SitemapViewer: React.FC = () => {
           "@type": "ImageObject",
           "url": "https://presidencysolutions.com/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png"
         }
-      }
+      },
+      "image": "https://presidencysolutions.com/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png"
     };
 
     // About page schema
@@ -207,6 +217,10 @@ const SitemapViewer: React.FC = () => {
       "publisher": {
         "@type": "Organization",
         "name": "Presidency Solutions"
+      },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://presidencysolutions.com/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png"
       }
     };
 
@@ -220,6 +234,10 @@ const SitemapViewer: React.FC = () => {
       "publisher": {
         "@type": "Organization",
         "name": "Presidency Solutions"
+      },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://presidencysolutions.com/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png"
       }
     };
 
@@ -233,6 +251,10 @@ const SitemapViewer: React.FC = () => {
       "publisher": {
         "@type": "Organization",
         "name": "Presidency Solutions"
+      },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://presidencysolutions.com/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png"
       }
     };
 
