@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 import {
@@ -25,7 +25,6 @@ export const openCommandSearch = () => {
 
 const CommandSearch = () => {
   const [open, setOpen] = useState(false);
-  const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
   const navigate = useNavigate();
 
   // Register open function
@@ -45,27 +44,20 @@ const CommandSearch = () => {
     tagResults
   } = useCommandSearch({ isOpen: open });
 
-  // Handle input change with debounce
-  const handleInputChange = (value: string) => {
-    setSearchInput(value);
+  // Handle search with debounce
+  useEffect(() => {
+    if (!open) return;
     
-    // Clear previous timeout if it exists
-    if (debounceTimerRef.current) {
-      clearTimeout(debounceTimerRef.current);
-    }
-    
-    // Set new timeout
-    debounceTimerRef.current = setTimeout(() => {
-      performSearch(value);
+    const timerId = setTimeout(() => {
+      performSearch(searchInput);
     }, 300);
-  };
+    
+    return () => clearTimeout(timerId);
+  }, [searchInput, performSearch, open]);
 
   // Handle immediate search on Enter key
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      if (debounceTimerRef.current) {
-        clearTimeout(debounceTimerRef.current);
-      }
       performSearch(searchInput);
     }
   };
@@ -96,11 +88,7 @@ const CommandSearch = () => {
     
     // Navigate and close dialog
     navigate(result.url);
-    
-    // Close dialog after a slight delay
-    setTimeout(() => {
-      setOpen(false);
-    }, 100);
+    setOpen(false);
   }, [navigate, searchInput]);
 
   // Reset input when dialog closes
@@ -114,25 +102,13 @@ const CommandSearch = () => {
     }
   }, [open, setSearchInput]);
 
-  // Trigger search when dialog opens
-  useEffect(() => {
-    if (open) {
-      // Short delay to ensure dialog is fully open
-      const timer = setTimeout(() => {
-        performSearch(searchInput);
-      }, 50);
-      
-      return () => clearTimeout(timer);
-    }
-  }, [open, performSearch, searchInput]);
-
   return (
     <CommandDialog open={open} onOpenChange={setOpen}>
       <Command className="rounded-lg border-none">
         <CommandInput 
           placeholder="Search pages, blog posts, and tags..." 
           value={searchInput}
-          onValueChange={handleInputChange}
+          onValueChange={setSearchInput}
           onKeyDown={handleKeyDown}
         />
         <CommandList>
