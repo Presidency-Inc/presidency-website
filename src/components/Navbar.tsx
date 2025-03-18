@@ -187,6 +187,11 @@ const Navbar = () => {
     }, 100);
   };
 
+  const handleCareersClick = () => {
+    setMobileMenuOpen(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (navRef.current && !navRef.current.contains(event.target as Node)) {
@@ -276,6 +281,7 @@ const Navbar = () => {
                   ? "text-gray-900 font-medium bg-gray-100 px-3 py-1 rounded-md" 
                   : "text-gray-700 hover:text-gray-900"
               }`}
+              onClick={handleCareersClick}
             >
               Careers
             </Link>
@@ -518,6 +524,7 @@ const Navbar = () => {
                     <Link 
                       to="/careers" 
                       className={`block py-4 ${isCareersActive ? "text-blue-600" : "text-gray-900"} font-medium`}
+                      onClick={handleCareersClick}
                     >
                       Careers
                     </Link>
@@ -526,7 +533,10 @@ const Navbar = () => {
               </div>
               
               <div className="mt-auto p-4 border-t border-gray-100 bg-white sticky bottom-0">
-                <Link to="/get-started" onClick={() => setMobileMenuOpen(false)}>
+                <Link to="/get-started" onClick={() => {
+                  setMobileMenuOpen(false);
+                  setMobileSubmenuOpen(null);
+                }}>
                   <Button variant="default" className="w-full bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
                     GET STARTED
                     <ArrowRight className="ml-2 h-4 w-4" />
