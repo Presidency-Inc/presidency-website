@@ -11,6 +11,7 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
+  CommandTitle,
 } from "@/components/ui/command";
 import { useToast } from "@/components/ui/use-toast";
 import {
@@ -22,7 +23,19 @@ import {
   BookOpen,
   Tag,
   ArrowRight,
-  Package
+  Package,
+  Building2,
+  Brain,
+  Database,
+  Zap,
+  Rabbit,
+  Network,
+  Box,
+  MapPin,
+  Briefcase,
+  MessageSquare,
+  Calendar,
+  Home
 } from "lucide-react";
 
 type SearchResult = {
@@ -129,28 +142,28 @@ const CommandSearch = () => {
         return;
       }
 
-      if (data) {
-        const blogResults = data.map(post => ({
-          id: post.id,
-          title: post.title,
-          description: post.description,
-          url: `/blog/${post.slug}`,
-          type: 'blog' as const
-        }));
-        
-        // Filter pages based on search query
-        const filteredPages = pages.filter(page => 
-          page.title.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-        
-        // Filter tags based on search query
-        const filteredTags = tags.filter(tag => 
-          tag.title.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-        
-        // Combine results
-        setResults([...filteredPages, ...blogResults, ...filteredTags]);
-      }
+      // Filter pages based on search query
+      const filteredPages = pages.filter(page => 
+        page.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      
+      // Filter tags based on search query
+      const filteredTags = tags.filter(tag => 
+        tag.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      
+      // Prepare blog results if data exists
+      const blogResults = data ? data.map(post => ({
+        id: post.id,
+        title: post.title,
+        description: post.description,
+        url: `/blog/${post.slug}`,
+        type: 'blog' as const
+      })) : [];
+      
+      // Combine all results
+      setResults([...filteredPages, ...blogResults, ...filteredTags]);
+      
     } catch (error) {
       console.error('Error searching blog posts:', error);
     } finally {
@@ -176,6 +189,30 @@ const CommandSearch = () => {
     setSearchQuery("");
   };
 
+  // Get the appropriate icon component for a given icon name
+  const getIconComponent = (iconName: string) => {
+    const iconMap: Record<string, React.ReactNode> = {
+      Home: <Home className="mr-2 h-4 w-4" />,
+      Building2: <Building2 className="mr-2 h-4 w-4" />,
+      Brain: <Brain className="mr-2 h-4 w-4" />,
+      Database: <Database className="mr-2 h-4 w-4" />,
+      Zap: <Zap className="mr-2 h-4 w-4" />,
+      Rabbit: <Rabbit className="mr-2 h-4 w-4" />,
+      Network: <Network className="mr-2 h-4 w-4" />,
+      Box: <Box className="mr-2 h-4 w-4" />,
+      Users: <Users className="mr-2 h-4 w-4" />,
+      MapPin: <MapPin className="mr-2 h-4 w-4" />,
+      Briefcase: <Briefcase className="mr-2 h-4 w-4" />,
+      BookOpen: <BookOpen className="mr-2 h-4 w-4" />,
+      MessageSquare: <MessageSquare className="mr-2 h-4 w-4" />,
+      Calendar: <Calendar className="mr-2 h-4 w-4" />,
+      Package: <Package className="mr-2 h-4 w-4" />,
+      PanelLeft: <PanelLeft className="mr-2 h-4 w-4" />
+    };
+
+    return iconMap[iconName] || <PanelLeft className="mr-2 h-4 w-4" />;
+  };
+
   // Render icon based on result type
   const renderIcon = (result: SearchResult) => {
     switch (result.type) {
@@ -184,6 +221,9 @@ const CommandSearch = () => {
       case 'tag':
         return <Tag className="mr-2 h-4 w-4" />;
       case 'page':
+        if (result.iconName) {
+          return getIconComponent(result.iconName);
+        }
         if (result.url.includes('/products')) {
           return <Package className="mr-2 h-4 w-4" />;
         } else if (result.url.includes('/services')) {
