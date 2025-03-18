@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ChevronDown, ChevronUp, X, ArrowLeft, Menu } from "lucide-react";
+import { ArrowRight, ChevronDown, ChevronUp, X, ArrowLeft, Menu, Search } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import Logo from "./Logo";
 import { Link, useNavigate, useLocation } from "react-router-dom";
@@ -10,6 +10,7 @@ const Navbar = () => {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileSubmenuOpen, setMobileSubmenuOpen] = useState<string | null>(null);
+  const [searchOpen, setSearchOpen] = useState(false);
   const isMobile = useIsMobile();
   const navRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
@@ -197,6 +198,10 @@ const Navbar = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const toggleSearch = () => {
+    setSearchOpen(!searchOpen);
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (navRef.current && !navRef.current.contains(event.target as Node)) {
@@ -293,7 +298,15 @@ const Navbar = () => {
             </Link>
           </div>
           
-          <div className="flex items-center">
+          <div className="flex items-center space-x-2">
+            <button 
+              onClick={toggleSearch}
+              aria-label="Search"
+              className="p-2 text-gray-700 hover:text-gray-900 transition-colors"
+            >
+              <Search className="h-5 w-5" />
+            </button>
+            
             <Link to="/get-started">
               <Button variant="default" className="hidden md:inline-flex items-center bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
                 GET STARTED

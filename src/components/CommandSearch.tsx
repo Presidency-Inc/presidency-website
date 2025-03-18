@@ -223,44 +223,57 @@ const CommandSearch = () => {
   };
 
   return (
-    <>
-      <button
-        onClick={() => setOpen(true)}
-        className="fixed top-24 right-4 z-50 flex h-8 w-8 items-center justify-center rounded-md border border-input bg-white shadow-sm transition-all hover:bg-accent sm:right-6 md:top-28"
-        aria-label="Search"
-      >
-        <Search className="h-4 w-4" />
-      </button>
-      
-      <CommandDialog open={open} onOpenChange={setOpen}>
-        <Command className="rounded-lg border shadow-md">
-          <div className="flex items-center border-b px-3">
-            <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
-            <CommandInput
-              placeholder="Search pages, blog posts, and tags..."
-              value={searchQuery}
-              onValueChange={setSearchQuery}
-              className="flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
-            />
-          </div>
-          <CommandList>
-            <CommandEmpty>
-              {loading ? (
-                <div className="flex items-center justify-center py-6">
-                  <div className="h-5 w-5 animate-spin rounded-full border-t-2 border-blue-500"></div>
-                  <span className="ml-2 text-sm text-muted-foreground">Searching...</span>
-                </div>
-              ) : (
-                <p className="p-4 text-center text-sm">No results found.</p>
+    <CommandDialog open={open} onOpenChange={setOpen}>
+      <Command className="rounded-lg border shadow-md">
+        <div className="flex items-center border-b px-3">
+          <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
+          <CommandInput
+            placeholder="Search pages, blog posts, and tags..."
+            value={searchQuery}
+            onValueChange={setSearchQuery}
+            className="flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
+          />
+        </div>
+        <CommandList>
+          <CommandEmpty>
+            {loading ? (
+              <div className="flex items-center justify-center py-6">
+                <div className="h-5 w-5 animate-spin rounded-full border-t-2 border-blue-500"></div>
+                <span className="ml-2 text-sm text-muted-foreground">Searching...</span>
+              </div>
+            ) : (
+              <p className="p-4 text-center text-sm">No results found.</p>
+            )}
+          </CommandEmpty>
+          
+          {results.length > 0 && (
+            <>
+              {results.filter(r => r.type === 'page').length > 0 && (
+                <CommandGroup heading="Pages">
+                  {results
+                    .filter(result => result.type === 'page')
+                    .map(result => (
+                      <CommandItem
+                        key={result.id}
+                        onSelect={() => handleSelect(result)}
+                        className="flex items-center justify-between py-2"
+                      >
+                        <div className="flex items-center">
+                          {renderIcon(result)}
+                          <span>{result.title}</span>
+                        </div>
+                        <ArrowRight className="h-3 w-3 text-muted-foreground" />
+                      </CommandItem>
+                    ))}
+                </CommandGroup>
               )}
-            </CommandEmpty>
-            
-            {results.length > 0 && (
-              <>
-                {results.filter(r => r.type === 'page').length > 0 && (
-                  <CommandGroup heading="Pages">
+              
+              {results.filter(r => r.type === 'blog').length > 0 && (
+                <>
+                  <CommandSeparator />
+                  <CommandGroup heading="Blog Posts">
                     {results
-                      .filter(result => result.type === 'page')
+                      .filter(result => result.type === 'blog')
                       .map(result => (
                         <CommandItem
                           key={result.id}
@@ -268,82 +281,59 @@ const CommandSearch = () => {
                           className="flex items-center justify-between py-2"
                         >
                           <div className="flex items-center">
-                            {renderIcon(result)}
+                            <FileText className="mr-2 h-4 w-4" />
+                            <div className="flex flex-col">
+                              <span>{result.title}</span>
+                              {result.description && (
+                                <span className="text-xs text-muted-foreground line-clamp-1">
+                                  {result.description}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <ArrowRight className="h-3 w-3 text-muted-foreground" />
+                        </CommandItem>
+                      ))}
+                  </CommandGroup>
+                </>
+              )}
+              
+              {results.filter(r => r.type === 'tag').length > 0 && (
+                <>
+                  <CommandSeparator />
+                  <CommandGroup heading="Tags">
+                    {results
+                      .filter(result => result.type === 'tag')
+                      .map(result => (
+                        <CommandItem
+                          key={result.id}
+                          onSelect={() => handleSelect(result)}
+                          className="flex items-center justify-between py-2"
+                        >
+                          <div className="flex items-center">
+                            <Tag className="mr-2 h-4 w-4" />
                             <span>{result.title}</span>
                           </div>
                           <ArrowRight className="h-3 w-3 text-muted-foreground" />
                         </CommandItem>
                       ))}
                   </CommandGroup>
-                )}
-                
-                {results.filter(r => r.type === 'blog').length > 0 && (
-                  <>
-                    <CommandSeparator />
-                    <CommandGroup heading="Blog Posts">
-                      {results
-                        .filter(result => result.type === 'blog')
-                        .map(result => (
-                          <CommandItem
-                            key={result.id}
-                            onSelect={() => handleSelect(result)}
-                            className="flex items-center justify-between py-2"
-                          >
-                            <div className="flex items-center">
-                              <FileText className="mr-2 h-4 w-4" />
-                              <div className="flex flex-col">
-                                <span>{result.title}</span>
-                                {result.description && (
-                                  <span className="text-xs text-muted-foreground line-clamp-1">
-                                    {result.description}
-                                  </span>
-                                )}
-                              </div>
-                            </div>
-                            <ArrowRight className="h-3 w-3 text-muted-foreground" />
-                          </CommandItem>
-                        ))}
-                    </CommandGroup>
-                  </>
-                )}
-                
-                {results.filter(r => r.type === 'tag').length > 0 && (
-                  <>
-                    <CommandSeparator />
-                    <CommandGroup heading="Tags">
-                      {results
-                        .filter(result => result.type === 'tag')
-                        .map(result => (
-                          <CommandItem
-                            key={result.id}
-                            onSelect={() => handleSelect(result)}
-                            className="flex items-center justify-between py-2"
-                          >
-                            <div className="flex items-center">
-                              <Tag className="mr-2 h-4 w-4" />
-                              <span>{result.title}</span>
-                            </div>
-                            <ArrowRight className="h-3 w-3 text-muted-foreground" />
-                          </CommandItem>
-                        ))}
-                    </CommandGroup>
-                  </>
-                )}
-              </>
-            )}
-            
-            {searchQuery.length <= 1 && (
-              <div className="py-6 text-center text-sm">
-                <p className="text-muted-foreground">Start typing to search...</p>
-                <p className="mt-2 text-xs text-muted-foreground">
-                  Search for pages, blog posts, or tags
-                </p>
-              </div>
-            )}
-          </CommandList>
-        </Command>
-      </CommandDialog>
-    </>
+                </>
+              )}
+            </>
+          )}
+          
+          {searchQuery.length <= 1 && (
+            <div className="py-6 text-center text-sm">
+              <p className="text-muted-foreground">Start typing to search...</p>
+              <p className="mt-2 text-xs text-muted-foreground">
+                Search for pages, blog posts, or tags
+              </p>
+            </div>
+          )}
+        </CommandList>
+      </Command>
+    </CommandDialog>
   );
 };
 
