@@ -21,7 +21,7 @@ const LogoMarquee = () => {
   const isMobile = useIsMobile();
   const location = useLocation();
   
-  const enableSticky = location.pathname === "/" || location.pathname === "";
+  const enableSticky = location.pathname === "/" || location.pathname === "" || location.pathname === "/careers";
 
   useEffect(() => {
     if (!enableSticky) return;
