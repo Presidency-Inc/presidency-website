@@ -3,7 +3,7 @@ import { X, Code, Database, Users, ArrowRight } from "lucide-react";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface GetStartedOverlayProps {
   open: boolean;
@@ -11,6 +11,13 @@ interface GetStartedOverlayProps {
 }
 
 const GetStartedOverlay = ({ open, onClose }: GetStartedOverlayProps) => {
+  const navigate = useNavigate();
+
+  const handleNavigation = (path: string) => {
+    onClose();
+    navigate(path);
+  };
+
   return (
     <Sheet open={open} onOpenChange={onClose}>
       <SheetContent side="right" className="p-0 m-0 max-w-none w-full border-none">
@@ -40,9 +47,13 @@ const GetStartedOverlay = ({ open, onClose }: GetStartedOverlayProps) => {
                     enhance automation processes, and optimize your cloud infrastructure for 
                     maximum efficiency and growth.
                   </p>
-                  <Link to="/services-interest-form" className="inline-flex items-center text-white hover:underline mt-auto">
+                  <Button 
+                    variant="link" 
+                    className="inline-flex items-center text-white hover:underline mt-auto p-0"
+                    onClick={() => handleNavigation('/services-interest-form')}
+                  >
                     Connect with a specialist <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
+                  </Button>
                 </CardContent>
               </Card>
               
@@ -58,9 +69,13 @@ const GetStartedOverlay = ({ open, onClose }: GetStartedOverlayProps) => {
                     performance with our expertise in reasoning, coding, and multimodal 
                     capabilities through our specialized AI advancement techniques.
                   </p>
-                  <Link to="/services/ai" className="inline-flex items-center text-white hover:underline mt-auto">
+                  <Button 
+                    variant="link" 
+                    className="inline-flex items-center text-white hover:underline mt-auto p-0"
+                    onClick={() => handleNavigation('/services/ai')}
+                  >
                     Request a model evaluation <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
+                  </Button>
                 </CardContent>
               </Card>
               
@@ -76,9 +91,13 @@ const GetStartedOverlay = ({ open, onClose }: GetStartedOverlayProps) => {
                     thorough vetting process—experienced specialists ready to accelerate 
                     your company's AI initiatives and drive innovation.
                   </p>
-                  <Link to="/talent" className="inline-flex items-center text-white hover:underline mt-auto">
+                  <Button 
+                    variant="link" 
+                    className="inline-flex items-center text-white hover:underline mt-auto p-0"
+                    onClick={() => handleNavigation('/talent')}
+                  >
                     Begin talent acquisition <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
+                  </Button>
                 </CardContent>
               </Card>
             </div>
