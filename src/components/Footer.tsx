@@ -84,7 +84,6 @@ const Footer = () => {
             <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-4">Resources</h3>
             <ul className="space-y-3">
               <li><Link to="/blog" onClick={scrollToTop} className="text-gray-300 hover:text-white text-sm">Blog & Media</Link></li>
-              <li><Link to="/legal" onClick={scrollToTop} className="text-gray-300 hover:text-white text-sm">Legal</Link></li>
               <li><Link to="/privacy" onClick={scrollToTop} className="text-gray-300 hover:text-white text-sm">Privacy</Link></li>
             </ul>
           </div>
