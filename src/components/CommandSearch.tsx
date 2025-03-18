@@ -37,7 +37,7 @@ import {
   Calendar,
   Home
 } from "lucide-react";
-import { DialogTitle } from "@/components/ui/dialog";
+import { DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
 
 type SearchResult = {
@@ -89,8 +89,6 @@ const CommandSearch = () => {
   useEffect(() => {
     openSearchFn = () => {
       setOpen(true);
-      // Set initial results when dialog opens
-      setResults(pages.slice(0, 5)); // Show first 5 pages as initial results
     };
     
     return () => {
@@ -102,17 +100,16 @@ const CommandSearch = () => {
     fetchTags();
   }, []);
 
-  // Separate effect for handling the modal opening/closing
+  // Set initial results when dialog opens
   useEffect(() => {
     if (open) {
-      // Set initial results when dialog opens (if no query)
+      // Show initial results when dialog opens
       if (searchQuery.trim() === "") {
-        setResults(pages.slice(0, 5)); // Show first 5 pages as initial results
+        setResults(pages.slice(0, 5));
       }
     } else {
       // Reset search when dialog closes
       setSearchQuery("");
-      setResults([]);
     }
   }, [open]);
 
@@ -126,20 +123,19 @@ const CommandSearch = () => {
     // Don't search if modal is closed
     if (!open) return;
 
-    // Don't perform search for empty query, but show initial results
-    if (searchQuery.trim() === "") {
-      setResults(pages.slice(0, 5)); // Show first 5 pages as initial results
+    // Set loading state immediately for non-empty queries
+    if (searchQuery.trim() !== "") {
+      setLoading(true);
+      
+      // Debounce search to prevent too many requests
+      searchTimeoutRef.current = setTimeout(() => {
+        searchResults();
+      }, 300);
+    } else {
+      // For empty queries, show initial results
+      setResults(pages.slice(0, 5));
       setLoading(false);
-      return;
     }
-
-    // Set loading state immediately
-    setLoading(true);
-    
-    // Debounce search to prevent too many requests
-    searchTimeoutRef.current = setTimeout(() => {
-      searchResults();
-    }, 300);
 
     return () => {
       if (searchTimeoutRef.current) {
@@ -392,6 +388,9 @@ const CommandSearch = () => {
   return (
     <CommandDialog open={open} onOpenChange={setOpen}>
       <DialogTitle className="sr-only">Search</DialogTitle>
+      <DialogDescription className="sr-only">
+        Search for pages, blog posts, and tags
+      </DialogDescription>
       <Command className="rounded-lg border shadow-md">
         <CommandInput
           placeholder="Search pages, blog posts, and tags..."
@@ -408,12 +407,12 @@ const CommandSearch = () => {
             </div>
           ) : (
             <>
-              {/* Show empty state only when we have a query but no results */}
+              {/* Empty state only when we have a query but no results */}
               {searchQuery.trim().length > 0 && results.length === 0 ? (
                 <CommandEmpty>No results found.</CommandEmpty>
               ) : null}
               
-              {/* Initial state when opening search */}
+              {/* Render initial state when opening search without query */}
               {searchQuery.trim().length === 0 && results.length === 0 ? (
                 <div className="py-6 text-center text-sm">
                   <p className="text-muted-foreground">Start typing to search...</p>
@@ -423,8 +422,8 @@ const CommandSearch = () => {
                 </div>
               ) : null}
               
-              {/* Render results if we have any */}
-              {results.length > 0 ? renderResults() : null}
+              {/* Always render results if we have any */}
+              {results.length > 0 && renderResults()}
             </>
           )}
         </CommandList>
