@@ -1,6 +1,8 @@
+
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Brain, Sparkle, Database, Code } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const LLMsSection = () => {
   return (
@@ -69,9 +71,12 @@ const LLMsSection = () => {
               <Button 
                 variant="outline" 
                 className="group border-[#1a46e5] text-[#1a46e5] hover:bg-[#1a46e5] hover:text-white transition-all"
+                asChild
               >
-                Explore LLM Capabilities
-                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                <Link to="/product-interest-form">
+                  Contact Sales
+                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
               </Button>
             </div>
           </motion.div>
