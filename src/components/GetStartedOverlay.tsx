@@ -13,7 +13,7 @@ interface GetStartedOverlayProps {
 const GetStartedOverlay = ({ open, onClose }: GetStartedOverlayProps) => {
   return (
     <Sheet open={open} onOpenChange={onClose}>
-      <SheetContent side="right" className="p-0 m-0 max-w-none w-full">
+      <SheetContent side="right" className="p-0 m-0 max-w-none w-full border-none">
         <div className="fixed inset-0 bg-black/90 backdrop-blur-sm flex flex-col items-center justify-center p-4 sm:p-6 overflow-y-auto">
           <button 
             onClick={onClose} 
