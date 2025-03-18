@@ -11,6 +11,7 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
+  CommandShortcut,
 } from "@/components/ui/command";
 import { useToast } from "@/components/ui/use-toast";
 import {
@@ -36,6 +37,7 @@ import {
   Calendar,
   Home
 } from "lucide-react";
+import { DialogTitle } from "@/components/ui/dialog";
 
 type SearchResult = {
   id: string;
@@ -94,8 +96,8 @@ const CommandSearch = () => {
   }, []);
 
   useEffect(() => {
-    if (searchQuery.trim().length > 1) {
-      searchBlogPosts();
+    if (searchQuery.trim().length > 0) {
+      searchResults();
     } else {
       setResults([]);
     }
@@ -137,7 +139,7 @@ const CommandSearch = () => {
   };
 
   const searchBlogPosts = async () => {
-    if (searchQuery.trim().length <= 1) return;
+    if (searchQuery.trim().length === 0) return [];
     
     setLoading(true);
     try {
@@ -149,16 +151,8 @@ const CommandSearch = () => {
       
       if (error) {
         console.error('Error searching blog posts:', error);
-        return;
+        return [];
       }
-
-      const filteredPages = pages.filter(page => 
-        page.title.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-      
-      const filteredTags = tags.filter(tag => 
-        tag.title.toLowerCase().includes(searchQuery.toLowerCase())
-      );
       
       const blogResults = data ? data.map(post => ({
         id: post.id,
@@ -168,10 +162,46 @@ const CommandSearch = () => {
         type: 'blog' as const
       })) : [];
       
-      setResults([...filteredPages, ...blogResults, ...filteredTags]);
+      return blogResults;
       
     } catch (error) {
       console.error('Error searching blog posts:', error);
+      return [];
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const searchResults = async () => {
+    setLoading(true);
+    
+    try {
+      // Filter pages
+      const filteredPages = pages.filter(page => 
+        page.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      
+      // Filter tags
+      const filteredTags = tags.filter(tag => 
+        tag.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      
+      // Get blog posts
+      const blogResults = await searchBlogPosts();
+      
+      // Combine all results
+      const combinedResults = [...filteredPages, ...blogResults, ...filteredTags];
+      
+      // Log for debugging
+      console.log('Search query:', searchQuery);
+      console.log('Pages results:', filteredPages.length);
+      console.log('Tags results:', filteredTags.length);
+      console.log('Blog results:', blogResults.length);
+      console.log('Combined results:', combinedResults.length);
+      
+      setResults(combinedResults);
+    } catch (error) {
+      console.error('Error searching:', error);
     } finally {
       setLoading(false);
     }
@@ -242,12 +272,12 @@ const CommandSearch = () => {
 
   return (
     <CommandDialog open={open} onOpenChange={setOpen}>
+      <DialogTitle className="sr-only">Search</DialogTitle>
       <Command className="rounded-lg border shadow-md">
         <CommandInput
           placeholder="Search pages, blog posts, and tags..."
           value={searchQuery}
           onValueChange={setSearchQuery}
-          className="flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
         />
         <CommandList>
           <CommandEmpty>
@@ -338,7 +368,7 @@ const CommandSearch = () => {
             </>
           )}
           
-          {searchQuery.length <= 1 && (
+          {searchQuery.length === 0 && (
             <div className="py-6 text-center text-sm">
               <p className="text-muted-foreground">Start typing to search...</p>
               <p className="mt-2 text-xs text-muted-foreground">
