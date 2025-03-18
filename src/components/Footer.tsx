@@ -1,4 +1,3 @@
-
 import { Facebook, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
@@ -41,13 +40,9 @@ const Footer = () => {
           <div>
             <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-4">Products</h3>
             <ul className="space-y-3">
-              <li><a href="#leapfrog" className="text-gray-300 hover:text-white text-sm">Leapfrog</a></li>
-              <li><a href="#omniflow" className="text-gray-300 hover:text-white text-sm">OmniFlow</a></li>
-              <li><a href="#kube8r" className="text-gray-300 hover:text-white text-sm">Kube8r</a></li>
-              <li><a href="#ai-full-stack" className="text-gray-300 hover:text-white text-sm">AI Full Stack</a></li>
-              <li><a href="#enterprise-etl" className="text-gray-300 hover:text-white text-sm">Enterprise ETL</a></li>
-              <li><a href="#lakehouse" className="text-gray-300 hover:text-white text-sm">Lakehouse</a></li>
-              <li><a href="#bare-metal" className="text-gray-300 hover:text-white text-sm">Bare-metal to Cloud</a></li>
+              <li><Link to="/products/leapfrog" className="text-gray-300 hover:text-white text-sm">Leapfrog</Link></li>
+              <li><Link to="/products/omniflow" className="text-gray-300 hover:text-white text-sm">Omniflow</Link></li>
+              <li><Link to="/products/kube8r" className="text-gray-300 hover:text-white text-sm">Kube8r</Link></li>
             </ul>
           </div>
 
@@ -55,12 +50,12 @@ const Footer = () => {
           <div>
             <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-4">Services</h3>
             <ul className="space-y-3">
-              <li><a href="#ai" className="text-gray-300 hover:text-white text-sm">Artificial Intelligence</a></li>
-              <li><a href="#data-engineering" className="text-gray-300 hover:text-white text-sm">Data Engineering</a></li>
-              <li><a href="#databricks" className="text-gray-300 hover:text-white text-sm">Databricks Solutions</a></li>
-              <li><a href="#cloud" className="text-gray-300 hover:text-white text-sm">Cloud Modernization</a></li>
-              <li><a href="#full-stack-ai" className="text-gray-300 hover:text-white text-sm">Full Stack AI Engineering</a></li>
-              <li><a href="#enterprise-etl" className="text-gray-300 hover:text-white text-sm">Enterprise ETL</a></li>
+              <li><Link to="/services/ai" className="text-gray-300 hover:text-white text-sm">Artificial Intelligence</Link></li>
+              <li><Link to="/services/data" className="text-gray-300 hover:text-white text-sm">Data Engineering</Link></li>
+              <li><Link to="/services/databricks" className="text-gray-300 hover:text-white text-sm">Databricks Solutions</Link></li>
+              <li><Link to="/products/kube8r" className="text-gray-300 hover:text-white text-sm">Cloud Modernization</Link></li>
+              <li><Link to="/talent" className="text-gray-300 hover:text-white text-sm">Talent</Link></li>
+              <li><Link to="/talent/nearshore" className="text-gray-300 hover:text-white text-sm">Nearshore</Link></li>
             </ul>
           </div>
 
@@ -68,13 +63,18 @@ const Footer = () => {
           <div>
             <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-4">Company</h3>
             <ul className="space-y-3">
-              <li><a href="#about" className="text-gray-300 hover:text-white text-sm">About</a></li>
-              <li><a href="#careers" className="text-gray-300 hover:text-white text-sm">Careers</a></li>
-              <li><a href="#contact" className="text-gray-300 hover:text-white text-sm">Contact</a></li>
-              <li><a href="#partners" className="text-gray-300 hover:text-white text-sm">Partner Portal</a></li>
-              <li><a href="#press" className="text-gray-300 hover:text-white text-sm">Press</a></li>
-              <li><a href="#security" className="text-gray-300 hover:text-white text-sm">Security</a></li>
-              <li><Link to="/login" className="text-gray-300 hover:text-white text-sm">Admin Login</Link></li>
+              <li><Link to="/about" className="text-gray-300 hover:text-white text-sm">About</Link></li>
+              <li><Link to="/careers" className="text-gray-300 hover:text-white text-sm">Careers</Link></li>
+              <li><Link to="/book-a-call" className="text-gray-300 hover:text-white text-sm">Contact</Link></li>
+              <li>
+                <Link 
+                  to="/admin" 
+                  className="text-gray-300 hover:text-white text-sm"
+                  onClick={scrollToTop}
+                >
+                  Admin Login
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -82,12 +82,9 @@ const Footer = () => {
           <div>
             <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-4">Resources</h3>
             <ul className="space-y-3">
-              <li><a href="#docs" className="text-gray-300 hover:text-white text-sm">Documentation</a></li>
-              <li><a href="#help" className="text-gray-300 hover:text-white text-sm">Help Center</a></li>
-              <li><a href="#blog" className="text-gray-300 hover:text-white text-sm">Blog</a></li>
-              <li><a href="#extended-teams" className="text-gray-300 hover:text-white text-sm">Extended Teams</a></li>
-              <li><a href="#legal" className="text-gray-300 hover:text-white text-sm">Legal</a></li>
-              <li><a href="#privacy" className="text-gray-300 hover:text-white text-sm">Privacy</a></li>
+              <li><Link to="/blog" className="text-gray-300 hover:text-white text-sm">Blog & Media</Link></li>
+              <li><Link to="/legal" className="text-gray-300 hover:text-white text-sm">Legal</Link></li>
+              <li><Link to="/privacy" className="text-gray-300 hover:text-white text-sm">Privacy</Link></li>
             </ul>
           </div>
         </div>
