@@ -20,6 +20,7 @@ import Careers from "./pages/Careers";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import ServicesInterestForm from "./pages/ServicesInterestForm";
+import ProductInterestForm from "./pages/ProductInterestForm";
 import GetStarted from "./pages/GetStarted";
 import BookACall from "./pages/BookACall";
 
@@ -47,6 +48,7 @@ const App = () => (
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/services-interest-form" element={<ServicesInterestForm />} />
+          <Route path="/product-interest-form" element={<ProductInterestForm />} />
           <Route path="/get-started" element={<GetStarted />} />
           <Route path="/book-a-call" element={<BookACall />} />
           <Route path="*" element={<NotFound />} />
