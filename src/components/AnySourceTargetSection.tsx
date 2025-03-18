@@ -2,8 +2,14 @@
 import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { BarChart, FileText, FileCode, Workflow } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
-const AnySourceTargetSection = () => {
+interface AnySourceTargetSectionProps {
+  showContactCTA?: boolean;
+}
+
+const AnySourceTargetSection = ({ showContactCTA = false }: AnySourceTargetSectionProps) => {
   const isMobile = useIsMobile();
   
   return (
@@ -178,6 +184,16 @@ const AnySourceTargetSection = () => {
                 </div>
               </div>
             </div>
+            
+            {showContactCTA && (
+              <div className="mt-8">
+                <Button asChild className="bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
+                  <Link to="/product-interest-form">
+                    Contact Sales
+                  </Link>
+                </Button>
+              </div>
+            )}
           </motion.div>
         </div>
       </div>

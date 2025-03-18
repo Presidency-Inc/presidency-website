@@ -2,8 +2,14 @@
 import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ShieldCheck, Eye, PieChart, TrendingUp } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
-const OmniLangSection = () => {
+interface OmniLangSectionProps {
+  showContactCTA?: boolean;
+}
+
+const OmniLangSection = ({ showContactCTA = false }: OmniLangSectionProps) => {
   const isMobile = useIsMobile();
   
   return (
@@ -67,6 +73,16 @@ const OmniLangSection = () => {
                 </div>
               </div>
             </div>
+            
+            {showContactCTA && (
+              <div className="mt-8">
+                <Button asChild className="bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90">
+                  <Link to="/product-interest-form">
+                    Contact Sales
+                  </Link>
+                </Button>
+              </div>
+            )}
           </motion.div>
           
           {/* Visualization */}
