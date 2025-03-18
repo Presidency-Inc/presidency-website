@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Check, ArrowRight, ArrowLeft } from "lucide-react";
 import Logo from "@/components/Logo";
@@ -29,33 +30,33 @@ const ServicesInterestForm = () => {
 
   return (
     <div className="min-h-screen w-full bg-white">
-      {/* Back navigation */}
-      <div className="p-4 md:p-6">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link to="/" className="flex items-center text-gray-600 hover:text-gray-900">
-                  <ArrowLeft className="h-4 w-4 mr-2" />
-                  Back to Home
-                </Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-      </div>
-      
       {/* Desktop view - side by side layout */}
       {!isMobile && (
         <div className="flex h-screen">
           {/* Left side with iframe */}
-          <div className="w-1/2 h-full flex items-center justify-center">
+          <div className="w-1/2 h-full flex flex-col">
+            {/* Back navigation */}
+            <div className="p-4 md:p-6">
+              <Breadcrumb>
+                <BreadcrumbList>
+                  <BreadcrumbItem>
+                    <BreadcrumbLink asChild>
+                      <Link to="/" className="flex items-center text-gray-600 hover:text-gray-900">
+                        <ArrowLeft className="h-4 w-4 mr-2" />
+                        Back to Home
+                      </Link>
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
+            </div>
+            
             <iframe 
               src="https://sibforms.com/serve/MUIFADrhY29VPcoGY4KdrCaUUIrwDhgdoJycTqtWUm8THkq3FHgdYtl2QDAdwgDoOpDGrJGo20RJdf9RsbGFU1k4NCK70ESuo79JBrEJItIQ7AokDc7hAdguVuGcj_maKZFPbDLNJ-HdTo55alrw5MGE4qTFIerc16ycBwzo-Ywj9svmdBalFzenMHYL3n_LKuYfLQv_oZQ8D4z8" 
               frameBorder="0" 
               scrolling="auto" 
               allowFullScreen 
-              className="w-full h-full"
+              className="w-full flex-grow"
               style={{ display: "block", maxWidth: "100%" }}
             />
           </div>
@@ -129,6 +130,22 @@ const ServicesInterestForm = () => {
         <div className="h-screen w-full">
           {currentStep === 1 && (
             <div className="bg-gray-900 text-white p-6 flex flex-col h-full pb-12">
+              {/* Back navigation */}
+              <div className="mb-4">
+                <Breadcrumb>
+                  <BreadcrumbList>
+                    <BreadcrumbItem>
+                      <BreadcrumbLink asChild>
+                        <Link to="/" className="flex items-center text-gray-300 hover:text-white">
+                          <ArrowLeft className="h-4 w-4 mr-2" />
+                          Back to Home
+                        </Link>
+                      </BreadcrumbLink>
+                    </BreadcrumbItem>
+                  </BreadcrumbList>
+                </Breadcrumb>
+              </div>
+              
               <div className="mb-6">
                 <Logo />
               </div>
