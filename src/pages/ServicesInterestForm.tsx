@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Check, ArrowRight } from "lucide-react";
 import Logo from "@/components/Logo";
@@ -26,15 +25,14 @@ const ServicesInterestForm = () => {
       {!isMobile && (
         <div className="flex h-screen">
           {/* Left side with iframe */}
-          <div className="w-1/2 h-full">
+          <div className="w-1/2 h-full flex items-center justify-center">
             <iframe 
-              width="540" 
-              height="305" 
               src="https://sibforms.com/serve/MUIFALoismGoy3tBJGGNQHt_dnw3VzzYp_X1VRcLNwdqRdPrh6vRCEYzJcpBBPatu6VJPvH2qNowLqcvQG8zi5GQtYi6gsMgPMPNf2oyDBvq_5y4IMZEzSUw5_mlyhbF2RjLM1ceN-46yZqyz-FWmFn7FO4uLESxQYoJVrtxVquBSudySmQzii3U3_ZA4w7ZZpTacr80M28joNSI" 
               frameBorder="0" 
               scrolling="auto" 
               allowFullScreen 
-              style={{ display: "block", marginLeft: "auto", marginRight: "auto", maxWidth: "100%" }}
+              className="w-full h-full"
+              style={{ display: "block", maxWidth: "100%" }}
             />
           </div>
           
@@ -81,7 +79,6 @@ const ServicesInterestForm = () => {
               </div>
             </div>
             
-            {/* Logos section - moved up with more space reduction */}
             <div className="mt-auto pt-2">
               <div className="flex flex-wrap justify-center gap-8 items-center">
                 {customerLogos.map((logo, index) => (
@@ -157,7 +154,6 @@ const ServicesInterestForm = () => {
                 Continue <ArrowRight className="ml-2" />
               </Button>
               
-              {/* Logos section - moved up and showing all logos */}
               <div className="mt-2">
                 <div className="flex flex-wrap justify-center gap-4 items-center">
                   {customerLogos.map((logo, index) => (
@@ -181,13 +177,12 @@ const ServicesInterestForm = () => {
           {currentStep === 2 && (
             <div className="h-screen w-full">
               <iframe 
-                width="540" 
-                height="305" 
                 src="https://sibforms.com/serve/MUIFALoismGoy3tBJGGNQHt_dnw3VzzYp_X1VRcLNwdqRdPrh6vRCEYzJcpBBPatu6VJPvH2qNowLqcvQG8zi5GQtYi6gsMgPMPNf2oyDBvq_5y4IMZEzSUw5_mlyhbF2RjLM1ceN-46yZqyz-FWmFn7FO4uLESxQYoJVrtxVquBSudySmQzii3U3_ZA4w7ZZpTacr80M28joNSI" 
                 frameBorder="0" 
                 scrolling="auto" 
                 allowFullScreen 
-                style={{ display: "block", marginLeft: "auto", marginRight: "auto", maxWidth: "100%" }}
+                className="w-full h-full"
+                style={{ display: "block", maxWidth: "100%" }}
               />
             </div>
           )}
@@ -197,7 +192,6 @@ const ServicesInterestForm = () => {
   );
 };
 
-// Using the same logos as in the LogoMarquee component
 const customerLogos = [
   { name: "US Air Force", logo: "/lovable-uploads/c624067b-e118-4415-88dd-6d6b53f8142e.png" },
   { name: "Army National Guard", logo: "/lovable-uploads/c372ad43-c59a-49a8-ad25-4cd72be12224.png" },
