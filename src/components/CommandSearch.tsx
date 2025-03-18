@@ -204,7 +204,7 @@ const CommandSearch = () => {
     }
   }, [open]);
 
-  const handleSelect = (item: SearchResult) => {
+  const handleSelect = useCallback((result: SearchResult) => {
     // Close the dialog
     setOpen(false);
     
@@ -212,16 +212,16 @@ const CommandSearch = () => {
     if (window.gtag) {
       window.gtag('event', 'search_navigation', {
         search_term: searchInput,
-        destination: item.url,
-        result_type: item.type
+        destination: result.url,
+        result_type: result.type
       });
     }
     
     // Navigate after a slight delay to allow the dialog to close first
     setTimeout(() => {
-      navigate(item.url);
+      navigate(result.url);
     }, 100);
-  };
+  }, [navigate, searchInput]);
 
   // Get icon for search result
   const getIcon = (result: SearchResult) => {
@@ -274,104 +274,102 @@ const CommandSearch = () => {
 
   return (
     <CommandDialog open={open} onOpenChange={setOpen}>
-      <div className="overflow-hidden rounded-lg border shadow-md bg-popover">
-        <Command className="rounded-lg border-none">
-          <CommandInput 
-            placeholder="Search pages, blog posts, and tags..." 
-            value={searchInput}
-            onValueChange={setSearchInput}
-          />
-          <CommandList>
-            {isLoading ? (
-              <div className="py-6 text-center flex items-center justify-center">
-                <Loader2 className="h-4 w-4 animate-spin mr-2" />
-                <span className="text-sm text-muted-foreground">Searching...</span>
-              </div>
-            ) : searchResults.length === 0 ? (
-              <CommandEmpty>
-                {searchInput ? "No results found." : "Start typing to search..."}
-              </CommandEmpty>
-            ) : (
-              <>
-                {pageResults.length > 0 && (
-                  <CommandGroup heading="Pages">
-                    {pageResults.map((result) => (
-                      <CommandItem
-                        key={`page-${result.id}`}
-                        onSelect={() => handleSelect(result)}
-                        value={`page-${result.id}-${result.title}`}
-                      >
-                        <div className="flex items-center justify-between w-full">
-                          <div className="flex items-center">
-                            {getIcon(result)}
+      <Command className="rounded-lg border-none">
+        <CommandInput 
+          placeholder="Search pages, blog posts, and tags..." 
+          value={searchInput}
+          onValueChange={setSearchInput}
+        />
+        <CommandList>
+          {isLoading ? (
+            <div className="py-6 text-center flex items-center justify-center">
+              <Loader2 className="h-4 w-4 animate-spin mr-2" />
+              <span className="text-sm text-muted-foreground">Searching...</span>
+            </div>
+          ) : searchResults.length === 0 ? (
+            <CommandEmpty>
+              {searchInput ? "No results found." : "Start typing to search..."}
+            </CommandEmpty>
+          ) : (
+            <>
+              {pageResults.length > 0 && (
+                <CommandGroup heading="Pages">
+                  {pageResults.map((result) => (
+                    <CommandItem
+                      key={`page-${result.id}`}
+                      onSelect={() => handleSelect(result)}
+                      className="cursor-pointer"
+                    >
+                      <div className="flex items-center justify-between w-full">
+                        <div className="flex items-center">
+                          {getIcon(result)}
+                          <span>{result.title}</span>
+                        </div>
+                        <ArrowRight className="h-3 w-3 text-muted-foreground" />
+                      </div>
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              )}
+              
+              {pageResults.length > 0 && blogResults.length > 0 && (
+                <CommandSeparator />
+              )}
+              
+              {blogResults.length > 0 && (
+                <CommandGroup heading="Blog Posts">
+                  {blogResults.map((result) => (
+                    <CommandItem
+                      key={`blog-${result.id}`}
+                      onSelect={() => handleSelect(result)}
+                      className="cursor-pointer"
+                    >
+                      <div className="flex items-center justify-between w-full">
+                        <div className="flex items-center">
+                          <FileText className="mr-2 h-4 w-4" />
+                          <div className="flex flex-col">
                             <span>{result.title}</span>
+                            {result.description && (
+                              <span className="text-xs text-muted-foreground line-clamp-1">
+                                {result.description}
+                              </span>
+                            )}
                           </div>
-                          <ArrowRight className="h-3 w-3 text-muted-foreground" />
                         </div>
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                )}
-                
-                {pageResults.length > 0 && blogResults.length > 0 && (
-                  <CommandSeparator />
-                )}
-                
-                {blogResults.length > 0 && (
-                  <CommandGroup heading="Blog Posts">
-                    {blogResults.map((result) => (
-                      <CommandItem
-                        key={`blog-${result.id}`}
-                        onSelect={() => handleSelect(result)}
-                        value={`blog-${result.id}-${result.title}`}
-                      >
-                        <div className="flex items-center justify-between w-full">
-                          <div className="flex items-center">
-                            <FileText className="mr-2 h-4 w-4" />
-                            <div className="flex flex-col">
-                              <span>{result.title}</span>
-                              {result.description && (
-                                <span className="text-xs text-muted-foreground line-clamp-1">
-                                  {result.description}
-                                </span>
-                              )}
-                            </div>
-                          </div>
-                          <ArrowRight className="h-3 w-3 text-muted-foreground" />
+                        <ArrowRight className="h-3 w-3 text-muted-foreground" />
+                      </div>
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              )}
+              
+              {(pageResults.length > 0 || blogResults.length > 0) && tagResults.length > 0 && (
+                <CommandSeparator />
+              )}
+              
+              {tagResults.length > 0 && (
+                <CommandGroup heading="Tags">
+                  {tagResults.map((result) => (
+                    <CommandItem
+                      key={`tag-${result.id}`}
+                      onSelect={() => handleSelect(result)}
+                      className="cursor-pointer"
+                    >
+                      <div className="flex items-center justify-between w-full">
+                        <div className="flex items-center">
+                          <Tag className="mr-2 h-4 w-4" />
+                          <span>{result.title}</span>
                         </div>
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                )}
-                
-                {(pageResults.length > 0 || blogResults.length > 0) && tagResults.length > 0 && (
-                  <CommandSeparator />
-                )}
-                
-                {tagResults.length > 0 && (
-                  <CommandGroup heading="Tags">
-                    {tagResults.map((result) => (
-                      <CommandItem
-                        key={`tag-${result.id}`}
-                        onSelect={() => handleSelect(result)}
-                        value={`tag-${result.id}-${result.title}`}
-                      >
-                        <div className="flex items-center justify-between w-full">
-                          <div className="flex items-center">
-                            <Tag className="mr-2 h-4 w-4" />
-                            <span>{result.title}</span>
-                          </div>
-                          <ArrowRight className="h-3 w-3 text-muted-foreground" />
-                        </div>
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                )}
-              </>
-            )}
-          </CommandList>
-        </Command>
-      </div>
+                        <ArrowRight className="h-3 w-3 text-muted-foreground" />
+                      </div>
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              )}
+            </>
+          )}
+        </CommandList>
+      </Command>
     </CommandDialog>
   );
 };

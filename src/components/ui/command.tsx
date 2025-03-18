@@ -31,7 +31,9 @@ const CommandDialog = ({ children, ...props }: CommandDialogProps) => {
         className="overflow-hidden p-0 shadow-lg max-w-lg max-h-[80vh]"
       >
         <DialogTitle className="sr-only">Command Menu</DialogTitle>
-        {children}
+        <div className="overflow-hidden rounded-lg border shadow-md bg-popover">
+          {children}
+        </div>
       </DialogContent>
     </Dialog>
   )
