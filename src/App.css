@@ -1,3 +1,4 @@
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -163,5 +164,23 @@
   .mobile-kube8r-layout [id^="bare-metal"] .grid > div:last-child,
   .mobile-kube8r-layout [id^="app-stack"] .grid > div:last-child {
     order: 2;
+  }
+}
+
+/* Mobile improvements for Career hero section */
+@media (max-width: 640px) {
+  .job-listings {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  
+  /* Improve mobile spacing for career and talent pages */
+  h1.text-4xl {
+    font-size: 2.25rem;
+    line-height: 1.2;
+  }
+  
+  .space-y-6 {
+    row-gap: 1.25rem;
   }
 }

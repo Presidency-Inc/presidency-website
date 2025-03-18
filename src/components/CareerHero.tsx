@@ -99,26 +99,26 @@ const CareerHero = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#0a1a2d]/50 z-0"></div>
       
       {/* Content */}
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-white">
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24 text-white">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="space-y-6"
+          className="space-y-6 md:space-y-8"
         >
-          <h1 className="text-5xl md:text-6xl font-bold leading-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight tracking-tight">
             Join us to build the <span className="bg-gradient-to-r from-blue-400 to-indigo-300 bg-clip-text text-transparent">future</span> of <span className="bg-gradient-to-r from-blue-300 to-indigo-200 bg-clip-text text-transparent">AI, Data & Cloud</span>
           </h1>
           
-          <p className="text-xl text-blue-100 max-w-2xl">
+          <p className="text-lg sm:text-xl text-blue-100 max-w-2xl">
             We're building innovative solutions that leverage cutting-edge AI, robust data engineering, and cloud technologies to transform businesses and industries.
           </p>
           
-          <p className="text-lg text-blue-200 max-w-2xl">
+          <p className="text-base sm:text-lg text-blue-200 max-w-2xl">
             Join a team of passionate experts where your skills will contribute to exciting projects with real-world impact. Be part of our mission to deliver exceptional value through technological excellence.
           </p>
           
-          <div className="pt-4">
+          <div className="pt-4 md:pt-8">
             <Button 
               onClick={handleScrollToJobs}
               size="lg"

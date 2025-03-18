@@ -41,7 +41,7 @@ const TalentHero = () => {
   }, []);
 
   return (
-    <section className="relative pt-40 pb-20 md:pt-40 md:pb-24 overflow-hidden">
+    <section className="relative pt-20 sm:pt-32 md:pt-40 pb-16 sm:pb-20 md:pb-24 overflow-hidden">
       {/* Background Image with Skeleton Fallback */}
       <div className="absolute inset-0 z-0">
         {!imageLoaded && (
@@ -66,10 +66,10 @@ const TalentHero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight mb-4 sm:mb-6">
               Hire <span className="bg-gradient-to-r from-blue-300 to-indigo-200 bg-clip-text text-transparent">AI & Data Engineers</span>
             </h1>
-            <p className="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-6 sm:mb-8 max-w-2xl mx-auto">
               Extend your team with top-tier AI and data engineering talent, fully vetted and ready to hit the ground running on your most critical projects.
             </p>
             <Link to="/talent-interest-form">
