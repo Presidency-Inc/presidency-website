@@ -14,6 +14,7 @@ import OmniflowFeaturesSelector from "@/components/OmniflowFeaturesSelector";
 import LogoMarquee from "@/components/LogoMarquee";
 import { useEffect } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Helmet } from "react-helmet";
 
 const ProductOmniflow = () => {
   const isMobile = useIsMobile();
@@ -33,6 +34,16 @@ const ProductOmniflow = () => {
 
   return (
     <main className="min-h-screen bg-white overflow-x-hidden">
+      <Helmet>
+        <title>Omniflow | Enterprise Data Integration Platform</title>
+        <meta name="description" content="Omniflow is an enterprise-grade ETL platform that enables seamless data integration from any source to any target with powerful governance features." />
+        <meta name="keywords" content="ETL platform, data integration, enterprise ETL, data governance, data pipelines" />
+        <meta property="og:title" content="Omniflow | Enterprise Data Integration Platform" />
+        <meta property="og:description" content="Omniflow is an enterprise-grade ETL platform that enables seamless data integration from any source to any target with powerful governance features." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="/products/omniflow" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Helmet>
       <StatusBar />
       <Navbar />
       <ScrollProgress />

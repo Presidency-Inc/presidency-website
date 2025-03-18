@@ -13,6 +13,7 @@ import NearshoreProcess from "@/components/NearshoreProcess";
 import NearshoreCTA from "@/components/NearshoreCTA";
 import LogoMarquee from "@/components/LogoMarquee";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Helmet } from "react-helmet";
 
 const TalentNearshore = () => {
   const isMobile = useIsMobile();
@@ -37,6 +38,16 @@ const TalentNearshore = () => {
 
   return (
     <main className="min-h-screen bg-white" id="top">
+      <Helmet>
+        <title>Nearshore Talent Solutions | Presidency Solutions</title>
+        <meta name="description" content="Access top-tier nearshore talent for AI, data engineering, and cloud development. Our vetted professionals provide cost-effective solutions with seamless collaboration." />
+        <meta name="keywords" content="nearshore talent, AI developers, data engineers, cloud experts, talent solutions, tech recruitment" />
+        <meta property="og:title" content="Nearshore Talent Solutions | Presidency Solutions" />
+        <meta property="og:description" content="Access top-tier nearshore talent for AI, data engineering, and cloud development with our vetted professional network." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="/talent/nearshore" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Helmet>
       <StatusBar />
       <Navbar />
       <ScrollProgress />

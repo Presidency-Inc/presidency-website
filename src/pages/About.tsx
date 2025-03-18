@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 import StatusBar from "@/components/StatusBar";
 import ScrollProgress from "@/components/ScrollProgress";
 import ScrollToTop from "@/components/ScrollToTop";
+import { Helmet } from "react-helmet";
 
 const About = () => {
   useEffect(() => {
@@ -18,6 +19,16 @@ const About = () => {
 
   return (
     <main className="min-h-screen bg-white">
+      <Helmet>
+        <title>About Presidency Solutions | AI & Data Engineering Experts</title>
+        <meta name="description" content="Learn about Presidency Solutions, a leading technology company empowering organizations to maximize their impact with AI, Data Engineering, and Cloud Modernization solutions." />
+        <meta name="keywords" content="AI solutions, data engineering, cloud modernization, technology company, Presidency Solutions" />
+        <meta property="og:title" content="About Presidency Solutions" />
+        <meta property="og:description" content="Learn about Presidency Solutions, a leading technology company empowering organizations to maximize their impact with AI and Data Engineering." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="/about" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Helmet>
       <StatusBar />
       <Navbar />
       <ScrollProgress />

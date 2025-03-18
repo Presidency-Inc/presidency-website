@@ -7,6 +7,7 @@ import Navbar from "@/components/Navbar";
 import StatusBar from "@/components/StatusBar";
 import ScrollToTop from "@/components/ScrollToTop";
 import { useEffect } from "react";
+import { Helmet } from "react-helmet";
 
 const GetStarted = () => {
   useEffect(() => {
@@ -41,6 +42,16 @@ const GetStarted = () => {
   }];
 
   return <main className="min-h-screen bg-gray-800 overflow-x-hidden">
+      <Helmet>
+        <title>Get Started | Presidency Solutions</title>
+        <meta name="description" content="Choose how you want to create an impact with Presidency Solutions - through AI solutions, advanced technology platforms, or expert talent." />
+        <meta name="keywords" content="AI solutions, technology platforms, talent, hiring AI experts, data engineering" />
+        <meta property="og:title" content="Get Started | Presidency Solutions" />
+        <meta property="og:description" content="Choose how you want to create an impact with Presidency Solutions - through AI solutions, advanced technology platforms, or expert talent." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="/get-started" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Helmet>
       <StatusBar />
       <Navbar />
       

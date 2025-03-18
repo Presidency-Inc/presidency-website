@@ -11,6 +11,7 @@ import Kube8rCTA from "@/components/Kube8rCTA";
 import LogoMarquee from "@/components/LogoMarquee";
 import { useEffect } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Helmet } from "react-helmet";
 
 const ProductKube8r = () => {
   const isMobile = useIsMobile();
@@ -30,6 +31,16 @@ const ProductKube8r = () => {
   
   return (
     <main className="min-h-screen bg-white overflow-x-hidden">
+      <Helmet>
+        <title>Kube8r | Kubernetes and Cloud Modernization Platform</title>
+        <meta name="description" content="Kube8r is a powerful platform for modernizing your infrastructure, from bare metal to cloud, and optimizing your application stack for Kubernetes." />
+        <meta name="keywords" content="Kubernetes, cloud modernization, bare metal to cloud, app stack, infrastructure optimization" />
+        <meta property="og:title" content="Kube8r | Kubernetes and Cloud Modernization Platform" />
+        <meta property="og:description" content="Kube8r is a powerful platform for modernizing your infrastructure, from bare metal to cloud, and optimizing your application stack for Kubernetes." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="/products/kube8r" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Helmet>
       <StatusBar />
       <Navbar />
       <ScrollProgress />

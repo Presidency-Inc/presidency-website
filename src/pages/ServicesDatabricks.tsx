@@ -12,6 +12,7 @@ import ServicesOfferingSection from "@/components/ServicesOfferingSection";
 import ExpertiseSection from "@/components/ExpertiseSection";
 import DatabricksCTA from "@/components/DatabricksCTA";
 import LogoMarquee from "@/components/LogoMarquee";
+import { Helmet } from "react-helmet";
 
 const ServicesDatabricks = () => {
   useEffect(() => {
@@ -21,6 +22,16 @@ const ServicesDatabricks = () => {
 
   return (
     <main className="min-h-screen bg-white overflow-x-hidden" id="top">
+      <Helmet>
+        <title>Databricks Solutions | Presidency Solutions</title>
+        <meta name="description" content="Maximize the power of Databricks with our expert solutions. We help enterprises implement, optimize, and scale their Databricks platform for AI and data workloads." />
+        <meta name="keywords" content="Databricks solutions, Databricks consulting, data lakehouse, AI on Databricks, data engineering" />
+        <meta property="og:title" content="Databricks Solutions | Presidency Solutions" />
+        <meta property="og:description" content="Maximize the power of Databricks with our expert solutions. We help enterprises implement, optimize, and scale their Databricks platform for AI and data workloads." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="/services/databricks" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Helmet>
       <StatusBar />
       <Navbar />
       <ScrollProgress />

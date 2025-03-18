@@ -10,8 +10,14 @@ const BookACall = () => {
   return (
     <>
       <Helmet>
-        <title>Book a Call | Borderless AI</title>
-        <meta name="description" content="Schedule a consultation with our experts" />
+        <title>Book a Call | Presidency Solutions</title>
+        <meta name="description" content="Schedule a consultation with our AI and data engineering experts to discuss your business needs and how we can help you maximize your impact." />
+        <meta name="keywords" content="consultation, book a call, expert consultation, AI consultation, data engineering consultation" />
+        <meta property="og:title" content="Book a Call | Presidency Solutions" />
+        <meta property="og:description" content="Schedule a consultation with our AI and data engineering experts to discuss your business needs." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="/book-a-call" />
+        <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
       <ScrollToTop />
       <StatusBar />

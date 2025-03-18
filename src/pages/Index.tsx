@@ -11,6 +11,7 @@ import Footer from "@/components/Footer";
 import ScrollProgress from "@/components/ScrollProgress";
 import ScrollToTop from "@/components/ScrollToTop";
 import { useEffect } from "react";
+import { Helmet } from "react-helmet";
 
 const Index = () => {
   useEffect(() => {
@@ -27,6 +28,16 @@ const Index = () => {
   
   return (
     <main className="min-h-screen bg-white overflow-x-hidden">
+      <Helmet>
+        <title>Presidency Solutions | AI, Data Engineering & Cloud Modernization</title>
+        <meta name="description" content="Presidency Solutions helps organizations maximize their impact with AI, Data Engineering, Databricks Solutions, Cloud Modernization, and Talent Solutions." />
+        <meta name="keywords" content="AI solutions, data engineering, Databricks, cloud modernization, talent solutions, Leapfrog, Omniflow, Kube8r" />
+        <meta property="og:title" content="Presidency Solutions | AI, Data Engineering & Cloud Modernization" />
+        <meta property="og:description" content="Presidency Solutions helps organizations maximize their impact with AI, Data Engineering, Databricks Solutions, Cloud Modernization, and Talent Solutions." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="/" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Helmet>
       <StatusBar />
       <Navbar />
       <ScrollProgress />
