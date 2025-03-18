@@ -29,7 +29,7 @@ const GetStarted = () => {
     title: "I need to enhance my technology stack using advanced AI and Data platforms",
     description: "Leverage presidency's products to drive innovation within your technology stack and make your business more efficient",
     cta: "Leverage our platforms",
-    link: "/services-interest-form"
+    link: "/product-interest-form"
   }, {
     id: 3,
     icon: <Users className="h-12 w-12 text-white" />,
