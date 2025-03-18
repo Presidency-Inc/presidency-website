@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
@@ -6,6 +7,7 @@ import { Job } from "@/components/JobList";
 import StatusBar from "@/components/StatusBar";
 import ScrollProgress from "@/components/ScrollProgress";
 import CareerHero from "@/components/CareerHero";
+import LogoMarquee from "@/components/LogoMarquee";
 import { 
   Dialog, 
   DialogContent, 
@@ -336,6 +338,7 @@ const CareerPage = () => {
         </div>
       </main>
 
+      <LogoMarquee />
       <Footer />
 
       <Dialog open={viewJobModalOpen} onOpenChange={setViewJobModalOpen}>
@@ -503,3 +506,4 @@ const CareerPage = () => {
 };
 
 export default CareerPage;
+
