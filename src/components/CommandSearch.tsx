@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -34,6 +35,7 @@ import {
   Calendar,
   Home
 } from "lucide-react";
+import { DialogTitle } from "@/components/ui/dialog";
 
 type SearchResult = {
   id: string;
@@ -62,13 +64,12 @@ const pages: SearchResult[] = [
   { id: 'book-call', title: 'Book a Call', url: '/book-a-call', type: 'page', iconName: 'Calendar' },
 ];
 
-// Create a singleton pattern to ensure only one instance of the dialog can be open
-let globalOpenState = false;
-let setGlobalOpenState: ((open: boolean) => void) | null = null;
+// Create a singleton for command search dialog
+let commandInstance: ((open: boolean) => void) | null = null;
 
 export const toggleCommandSearch = () => {
-  if (setGlobalOpenState) {
-    setGlobalOpenState(!globalOpenState);
+  if (commandInstance) {
+    commandInstance(true);
   }
 };
 
@@ -81,11 +82,16 @@ const CommandSearch = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  // Setup global state control
+  // Register this instance as the singleton instance
   useEffect(() => {
-    globalOpenState = open;
-    setGlobalOpenState = setOpen;
-  }, [open]);
+    commandInstance = setOpen;
+    
+    return () => {
+      if (commandInstance === setOpen) {
+        commandInstance = null;
+      }
+    };
+  }, []);
 
   useEffect(() => {
     fetchTags();
@@ -103,7 +109,7 @@ const CommandSearch = () => {
     const down = (e: KeyboardEvent) => {
       if ((e.key === "k" && (e.metaKey || e.ctrlKey)) || e.key === "/") {
         e.preventDefault();
-        setOpen((open) => !open);
+        setOpen(true);
       }
     };
 
@@ -240,6 +246,7 @@ const CommandSearch = () => {
 
   return (
     <CommandDialog open={open} onOpenChange={setOpen}>
+      <DialogTitle className="sr-only">Search</DialogTitle>
       <Command className="rounded-lg border shadow-md">
         <CommandInput
           placeholder="Search pages, blog posts, and tags..."
