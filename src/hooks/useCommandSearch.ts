@@ -35,25 +35,15 @@ interface UseCommandSearchProps {
   isOpen: boolean;
 }
 
-interface UseCommandSearchResult {
-  isLoading: boolean;
-  searchInput: string;
-  setSearchInput: (value: string) => void;
-  searchResults: SearchResult[];
-  performSearch: (query: string) => Promise<void>;
-  pageResults: SearchResult[];
-  blogResults: SearchResult[];
-  tagResults: SearchResult[];
-}
-
-export const useCommandSearch = ({ isOpen }: UseCommandSearchProps): UseCommandSearchResult => {
+export const useCommandSearch = ({ isOpen }: UseCommandSearchProps) => {
   const [searchInput, setSearchInput] = useState("");
-  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [tags, setTags] = useState<SearchResult[]>([]);
-  const [hasInitialized, setHasInitialized] = useState(false);
+  const [pageResults, setPageResults] = useState<SearchResult[]>([]);
+  const [blogResults, setBlogResults] = useState<SearchResult[]>([]);
+  const [tagResults, setTagResults] = useState<SearchResult[]>([]);
+  const [allTags, setAllTags] = useState<SearchResult[]>([]);
 
-  // Fetch tags once when component mounts
+  // Fetch tags once
   useEffect(() => {
     const fetchTags = async () => {
       try {
@@ -71,7 +61,7 @@ export const useCommandSearch = ({ isOpen }: UseCommandSearchProps): UseCommandS
             url: `/blog?tag=${tag.id}`,
             type: 'tag' as const
           }));
-          setTags(formattedTags);
+          setAllTags(formattedTags);
         }
       } catch (error) {
         console.error('Error fetching tags:', error);
@@ -81,23 +71,25 @@ export const useCommandSearch = ({ isOpen }: UseCommandSearchProps): UseCommandS
     fetchTags();
   }, []);
 
-  // Initialize with default results when first opened
+  // Initialize with default page results when dialog opens
   useEffect(() => {
-    if (isOpen && !hasInitialized) {
-      performSearch("");
-      setHasInitialized(true);
+    if (isOpen) {
+      setPageResults(staticPages.slice(0, 5));
+      // Reset blog and tag results when dialog opens
+      setBlogResults([]);
+      setTagResults([]);
     }
   }, [isOpen]);
 
   // Search function
   const performSearch = useCallback(async (query: string) => {
-    // Don't run if dialog is closed
+    // Don't search if dialog is closed
     if (!isOpen) return;
     
     setIsLoading(true);
     
     try {
-      // Always include default pages if no query
+      // Filter pages
       const filteredPages = query.trim() === ""
         ? staticPages.slice(0, 5)
         : staticPages.filter(page => 
@@ -106,12 +98,14 @@ export const useCommandSearch = ({ isOpen }: UseCommandSearchProps): UseCommandS
       // Filter tags
       const filteredTags = query.trim() === ""
         ? []
-        : tags.filter(tag => 
+        : allTags.filter(tag => 
             tag.title.toLowerCase().includes(query.toLowerCase()));
       
-      // Search blog posts only if we have a query
-      let blogResults: SearchResult[] = [];
+      // Set initial results immediately
+      setPageResults(filteredPages);
+      setTagResults(filteredTags);
       
+      // Only search blogs if we have a query
       if (query.trim() !== "") {
         const { data, error } = await supabase
           .from('blog_posts')
@@ -119,45 +113,43 @@ export const useCommandSearch = ({ isOpen }: UseCommandSearchProps): UseCommandS
           .or(`title.ilike.%${query}%,description.ilike.%${query}%`)
           .limit(5);
         
-        if (!error && data) {
-          blogResults = data.map(post => ({
-            id: post.id,
-            title: post.title,
-            description: post.description,
-            url: `/blog/${post.slug}`,
-            type: 'blog' as const
-          }));
-        } else if (error) {
-          console.error('Error searching blog posts:', error);
+        // Only update blog results if the dialog is still open
+        if (isOpen) {
+          if (!error && data) {
+            const formattedBlogResults = data.map(post => ({
+              id: post.id,
+              title: post.title,
+              description: post.description,
+              url: `/blog/${post.slug}`,
+              type: 'blog' as const
+            }));
+            setBlogResults(formattedBlogResults);
+          } else if (error) {
+            console.error('Error searching blog posts:', error);
+            setBlogResults([]);
+          }
         }
-      }
-      
-      // Set all results (only if dialog is still open)
-      if (isOpen) {
-        const allResults = [...filteredPages, ...blogResults, ...filteredTags];
-        setSearchResults(allResults);
-        setIsLoading(false);
+      } else {
+        // Clear blog results if query is empty
+        setBlogResults([]);
       }
     } catch (error) {
       console.error('Search error:', error);
-      // If error, just show default pages
+      // Show default results on error
+      setPageResults(staticPages.slice(0, 5));
+      setBlogResults([]);
+      setTagResults([]);
+    } finally {
       if (isOpen) {
-        setSearchResults(staticPages.slice(0, 5));
         setIsLoading(false);
       }
     }
-  }, [isOpen, tags]);
-
-  // Group results by type
-  const pageResults = searchResults.filter(r => r.type === 'page');
-  const blogResults = searchResults.filter(r => r.type === 'blog');
-  const tagResults = searchResults.filter(r => r.type === 'tag');
+  }, [isOpen, allTags]);
 
   return {
     isLoading,
     searchInput,
     setSearchInput,
-    searchResults,
     performSearch,
     pageResults,
     blogResults,

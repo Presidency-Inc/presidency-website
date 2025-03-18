@@ -12,7 +12,7 @@ import {
   CommandSeparator,
 } from "@/components/ui/command";
 import { SearchResult as SearchResultComponent } from "@/components/SearchResult";
-import { useCommandSearch, SearchResult } from "@/hooks/useCommandSearch";
+import { useCommandSearch } from "@/hooks/useCommandSearch";
 
 // Create a singleton to access command search from anywhere
 let openSearchFn: (() => void) | null = null;
@@ -44,7 +44,7 @@ const CommandSearch = () => {
     tagResults
   } = useCommandSearch({ isOpen: open });
 
-  // Handle search with debounce
+  // Handle search when input changes (with debounce)
   useEffect(() => {
     if (!open) return;
     
@@ -76,7 +76,7 @@ const CommandSearch = () => {
   }, []);
 
   // Handle search result selection
-  const handleSelect = useCallback((result: SearchResult) => {
+  const handleSelect = useCallback((result: any) => {
     // Track the search if analytics available
     if (window.gtag) {
       window.gtag('event', 'search_navigation', {
@@ -86,12 +86,12 @@ const CommandSearch = () => {
       });
     }
     
-    // Navigate and close dialog
+    // Navigate and close dialog (immediately to prevent race conditions)
     navigate(result.url);
     setOpen(false);
   }, [navigate, searchInput]);
 
-  // Reset input when dialog closes
+  // Reset input when dialog closes (with delay to avoid interference)
   useEffect(() => {
     if (!open) {
       const timer = setTimeout(() => {
