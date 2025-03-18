@@ -27,9 +27,11 @@ const About = () => {
         <meta property="og:description" content="Learn about Presidency Solutions, a leading technology company empowering organizations to maximize their impact with AI and Data Engineering." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="/about" />
-        <meta property="og:image" content="/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png" />
+        <meta property="og:image" content="/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png" />
+        <meta name="twitter:title" content="About Presidency Solutions" />
+        <meta name="twitter:description" content="Learn about Presidency Solutions, a leading technology company empowering organizations to maximize their impact with AI and Data Engineering." />
+        <meta name="twitter:image" content="/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png" />
       </Helmet>
       <StatusBar />
       <Navbar />

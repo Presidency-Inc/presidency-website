@@ -19,6 +19,8 @@ const BookACall = () => {
         <meta property="og:url" content="/book-a-call" />
         <meta property="og:image" content="/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png" />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Book a Call | Presidency Solutions" />
+        <meta name="twitter:description" content="Schedule a consultation with our AI and data engineering experts to discuss your business needs." />
         <meta name="twitter:image" content="/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png" />
       </Helmet>
       <ScrollToTop />

@@ -38,6 +38,8 @@ const Index = () => {
         <meta property="og:url" content="/" />
         <meta property="og:image" content="/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png" />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Presidency Solutions | AI, Data Engineering & Cloud Modernization" />
+        <meta name="twitter:description" content="Presidency Solutions helps organizations maximize their impact with AI, Data Engineering, Databricks Solutions, Cloud Modernization, and Talent Solutions." />
         <meta name="twitter:image" content="/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png" />
       </Helmet>
       <StatusBar />
