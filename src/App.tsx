@@ -22,6 +22,7 @@ import BlogPost from "./pages/BlogPost";
 import ServicesInterestForm from "./pages/ServicesInterestForm";
 import ProductInterestForm from "./pages/ProductInterestForm";
 import DatabricksInterestForm from "./pages/DatabricksInterestForm";
+import TalentInterestForm from "./pages/TalentInterestForm";
 import GetStarted from "./pages/GetStarted";
 import BookACall from "./pages/BookACall";
 import About from "./pages/About";
@@ -52,6 +53,7 @@ const App = () => (
           <Route path="/services-interest-form" element={<ServicesInterestForm />} />
           <Route path="/product-interest-form" element={<ProductInterestForm />} />
           <Route path="/databricks-interest-form" element={<DatabricksInterestForm />} />
+          <Route path="/talent-interest-form" element={<TalentInterestForm />} />
           <Route path="/get-started" element={<GetStarted />} />
           <Route path="/book-a-call" element={<BookACall />} />
           <Route path="/about" element={<About />} />
