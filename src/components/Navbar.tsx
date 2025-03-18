@@ -4,13 +4,13 @@ import { ArrowRight, ChevronDown, ChevronUp, X, ArrowLeft, Menu, Search } from "
 import { useIsMobile } from "@/hooks/use-mobile";
 import Logo from "./Logo";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { toggleCommandSearch } from "./CommandSearch";
 
 const Navbar = () => {
   const [productsOpen, setProductsOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileSubmenuOpen, setMobileSubmenuOpen] = useState<string | null>(null);
+  const [searchOpen, setSearchOpen] = useState(false);
   const isMobile = useIsMobile();
   const navRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
@@ -198,8 +198,8 @@ const Navbar = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleSearchClick = () => {
-    toggleCommandSearch();
+  const toggleSearch = () => {
+    setSearchOpen(!searchOpen);
   };
 
   useEffect(() => {
@@ -300,7 +300,7 @@ const Navbar = () => {
           
           <div className="flex items-center space-x-2">
             <button 
-              onClick={handleSearchClick}
+              onClick={toggleSearch}
               aria-label="Search"
               className="p-2 text-gray-700 hover:text-gray-900 transition-colors"
             >
@@ -836,4 +836,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -14,6 +13,7 @@ import {
 } from "@/components/ui/command";
 import { useToast } from "@/components/ui/use-toast";
 import {
+  Search,
   FileText,
   Laptop,
   Users,
@@ -35,7 +35,6 @@ import {
   Calendar,
   Home
 } from "lucide-react";
-import { DialogTitle } from "@/components/ui/dialog";
 
 type SearchResult = {
   id: string;
@@ -46,7 +45,6 @@ type SearchResult = {
   iconName?: string;
 };
 
-// Pre-defined pages for search
 const pages: SearchResult[] = [
   { id: 'home', title: 'Home', url: '/', type: 'page', iconName: 'Home' },
   { id: 'about', title: 'About Us', url: '/about', type: 'page', iconName: 'Building2' },
@@ -64,15 +62,6 @@ const pages: SearchResult[] = [
   { id: 'book-call', title: 'Book a Call', url: '/book-a-call', type: 'page', iconName: 'Calendar' },
 ];
 
-// Create a singleton for command search dialog
-let commandInstance: ((open: boolean) => void) | null = null;
-
-export const toggleCommandSearch = () => {
-  if (commandInstance) {
-    commandInstance(true);
-  }
-};
-
 const CommandSearch = () => {
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -81,17 +70,6 @@ const CommandSearch = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
-
-  // Register this instance as the singleton instance
-  useEffect(() => {
-    commandInstance = setOpen;
-    
-    return () => {
-      if (commandInstance === setOpen) {
-        commandInstance = null;
-      }
-    };
-  }, []);
 
   useEffect(() => {
     fetchTags();
@@ -109,7 +87,7 @@ const CommandSearch = () => {
     const down = (e: KeyboardEvent) => {
       if ((e.key === "k" && (e.metaKey || e.ctrlKey)) || e.key === "/") {
         e.preventDefault();
-        setOpen(true);
+        setOpen((open) => !open);
       }
     };
 
@@ -246,14 +224,16 @@ const CommandSearch = () => {
 
   return (
     <CommandDialog open={open} onOpenChange={setOpen}>
-      <DialogTitle className="sr-only">Search</DialogTitle>
       <Command className="rounded-lg border shadow-md">
-        <CommandInput
-          placeholder="Search pages, blog posts, and tags..."
-          value={searchQuery}
-          onValueChange={setSearchQuery}
-          className="flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
-        />
+        <div className="flex items-center border-b px-3">
+          <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
+          <CommandInput
+            placeholder="Search pages, blog posts, and tags..."
+            value={searchQuery}
+            onValueChange={setSearchQuery}
+            className="flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
+          />
+        </div>
         <CommandList>
           <CommandEmpty>
             {loading ? (
