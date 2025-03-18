@@ -45,7 +45,7 @@ const GetStarted = () => {
   ];
 
   return (
-    <main className="min-h-screen bg-black overflow-x-hidden">
+    <main className="min-h-screen bg-gray-900 overflow-x-hidden">
       <StatusBar />
       <Navbar />
       
