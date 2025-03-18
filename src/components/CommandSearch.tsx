@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -48,7 +47,6 @@ type SearchResult = {
   iconName?: string;
 };
 
-// Create a singleton pattern to access the command search from anywhere
 let openSearchFn: (() => void) | null = null;
 
 export const openCommandSearch = () => {
@@ -83,7 +81,6 @@ const CommandSearch = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  // Register the open function with our singleton
   useEffect(() => {
     openSearchFn = () => setOpen(true);
     return () => {
@@ -143,7 +140,6 @@ const CommandSearch = () => {
     if (searchQuery.length === 0) return [];
     
     try {
-      // Using ilike for case-insensitive search with partial matches
       const { data, error } = await supabase
         .from('blog_posts')
         .select('id, title, description, slug')
@@ -177,23 +173,18 @@ const CommandSearch = () => {
     setLoading(true);
     
     try {
-      // Filter pages - case insensitive
       const filteredPages = pages.filter(page => 
         page.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
       
-      // Filter tags - case insensitive
       const filteredTags = tags.filter(tag => 
         tag.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
       
-      // Get blog posts
       const blogResults = await searchBlogPosts();
       
-      // Combine all results
       const combinedResults = [...filteredPages, ...blogResults, ...filteredTags];
       
-      // Log for debugging
       console.log('Search query:', searchQuery);
       console.log('Pages results:', filteredPages.length);
       console.log('Tags results:', filteredTags.length);
@@ -298,7 +289,7 @@ const CommandSearch = () => {
               <p className="p-4 text-center text-sm">No results found.</p>
             </CommandEmpty>
           ) : (
-            <div className="py-2">
+            <CommandList className="py-2">
               {results.filter(r => r.type === 'page').length > 0 && (
                 <CommandGroup heading="Pages">
                   {results
@@ -372,7 +363,7 @@ const CommandSearch = () => {
                   </CommandGroup>
                 </>
               )}
-            </div>
+            </CommandList>
           )}
         </CommandList>
       </Command>
