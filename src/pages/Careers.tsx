@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
@@ -5,6 +6,7 @@ import Footer from "@/components/Footer";
 import { Job } from "@/components/JobList";
 import StatusBar from "@/components/StatusBar";
 import ScrollProgress from "@/components/ScrollProgress";
+import CareerHero from "@/components/CareerHero";
 import { 
   Dialog, 
   DialogContent, 
@@ -50,6 +52,9 @@ const CareerPage = () => {
 
   useEffect(() => {
     fetchJobs();
+    
+    // Scroll to top when component mounts
+    window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
@@ -221,7 +226,10 @@ const CareerPage = () => {
       <Navbar />
       <ScrollProgress />
       
-      <main className="flex-grow mt-32">
+      {/* New Hero Section */}
+      <CareerHero />
+      
+      <main className="flex-grow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center mb-16">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
