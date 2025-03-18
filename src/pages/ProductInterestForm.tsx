@@ -39,7 +39,7 @@ const ProductInterestForm = () => {
           </div>
           
           {/* Right side with how it works */}
-          <div className="w-1/2 bg-gray-900 text-white p-8 h-full flex flex-col">
+          <div className="w-1/2 bg-gray-900 text-white p-8 h-full flex flex-col pb-12">
             <div className="mb-6">
               <Logo />
             </div>
@@ -49,7 +49,7 @@ const ProductInterestForm = () => {
             </h2>
             
             <p className="text-lg mb-10">
-              We're happy to answer questions and build your custom tech product.
+              We're excited to address your inquiries and develop your tailored tech solution.
             </p>
             
             <div className="space-y-8">
@@ -58,7 +58,7 @@ const ProductInterestForm = () => {
                   <Check className="h-6 w-6 text-blue-400" />
                 </div>
                 <p className="text-lg">
-                  We build a comprehensive tech roadmap.
+                  We design a detailed technology roadmap.
                 </p>
               </div>
               
@@ -67,7 +67,7 @@ const ProductInterestForm = () => {
                   <Check className="h-6 w-6 text-blue-400" />
                 </div>
                 <p className="text-lg">
-                  We orchestrate and execute technology projects and programs across various domains, including GenAI, AI/Data, Cloud, and more.
+                  We manage and implement tech initiatives and programs across multiple areas, such as GenAI, AI/Data, Cloud, and beyond.
                 </p>
               </div>
               
@@ -76,7 +76,7 @@ const ProductInterestForm = () => {
                   <Check className="h-6 w-6 text-blue-400" />
                 </div>
                 <p className="text-lg">
-                  We get the right people for the job with the quality, speed, and cost effectiveness of our human intelligence platform.
+                  We assemble the best team for the task, leveraging our human intelligence platform for quality, efficiency, and cost savings.
                 </p>
               </div>
             </div>
@@ -96,7 +96,7 @@ const ProductInterestForm = () => {
               </div>
               
               <p className="text-center mt-8 text-lg">
-                Trusted by leading AI hyperscalers, research labs, and Fortune 500 companies
+                Trusted by the Enterprise
               </p>
             </div>
           </div>
@@ -107,7 +107,7 @@ const ProductInterestForm = () => {
       {isMobile && (
         <div className="h-screen w-full">
           {currentStep === 1 && (
-            <div className="bg-gray-900 text-white p-6 flex flex-col h-full">
+            <div className="bg-gray-900 text-white p-6 flex flex-col h-full pb-12">
               <div className="mb-6">
                 <Logo />
               </div>
@@ -117,7 +117,7 @@ const ProductInterestForm = () => {
               </h2>
               
               <p className="text-lg mb-8">
-                We're happy to answer questions and build your custom tech product.
+                We're excited to address your inquiries and develop your tailored tech solution.
               </p>
               
               <div className="space-y-6 mb-8">
@@ -126,7 +126,7 @@ const ProductInterestForm = () => {
                     <Check className="h-6 w-6 text-blue-400" />
                   </div>
                   <p className="text-base">
-                    We build a comprehensive tech roadmap.
+                    We design a detailed technology roadmap.
                   </p>
                 </div>
                 
@@ -135,7 +135,7 @@ const ProductInterestForm = () => {
                     <Check className="h-6 w-6 text-blue-400" />
                   </div>
                   <p className="text-base">
-                    We orchestrate and execute technology projects and programs across various domains, including GenAI, AI/Data, Cloud, and more.
+                    We manage and implement tech initiatives and programs across multiple areas, such as GenAI, AI/Data, Cloud, and beyond.
                   </p>
                 </div>
                 
@@ -144,17 +144,17 @@ const ProductInterestForm = () => {
                     <Check className="h-6 w-6 text-blue-400" />
                   </div>
                   <p className="text-base">
-                    We get the right people for the job with the quality, speed, and cost effectiveness of our human intelligence platform.
+                    We assemble the best team for the task, leveraging our human intelligence platform for quality, efficiency, and cost savings.
                   </p>
                 </div>
               </div>
               
               <Button 
                 onClick={handleContinue}
-                className="w-full mt-4 mb-8 py-6"
+                className="w-full mt-4 mb-8 py-6 bg-blue-500 hover:bg-blue-600"
                 size="lg"
               >
-                Continue to Interest Form <ArrowRight className="ml-2" />
+                Continue <ArrowRight className="ml-2" />
               </Button>
               
               {/* Logos section */}
@@ -172,7 +172,7 @@ const ProductInterestForm = () => {
                 </div>
                 
                 <p className="text-center mt-6 text-sm">
-                  Trusted by leading AI hyperscalers, research labs, and Fortune 500 companies
+                  Trusted by the Enterprise
                 </p>
               </div>
             </div>
