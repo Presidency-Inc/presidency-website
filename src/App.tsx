@@ -19,7 +19,7 @@ import Admin from "./pages/Admin";
 import Careers from "./pages/Careers";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
-import ProductInterestForm from "./pages/ProductInterestForm";
+import ServicesInterestForm from "./pages/ServicesInterestForm";
 
 const queryClient = new QueryClient();
 
@@ -44,7 +44,7 @@ const App = () => (
           <Route path="/careers" element={<Careers />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
-          <Route path="/product-interest-form" element={<ProductInterestForm />} />
+          <Route path="/services-interest-form" element={<ServicesInterestForm />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

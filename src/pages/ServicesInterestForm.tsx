@@ -1,11 +1,10 @@
-
 import { useState, useEffect } from "react";
 import { Check, ArrowRight } from "lucide-react";
 import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 
-const ProductInterestForm = () => {
+const ServicesInterestForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const isMobile = useIsMobile();
   
@@ -207,4 +206,4 @@ const customerLogos = [
   { name: "Disney", logo: "/lovable-uploads/c8d7310f-59ce-44b3-9496-f94f0bd1f628.png" },
 ];
 
-export default ProductInterestForm;
+export default ServicesInterestForm;
