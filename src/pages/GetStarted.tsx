@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { Code, Network, Users } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -7,11 +6,13 @@ import Navbar from "@/components/Navbar";
 import StatusBar from "@/components/StatusBar";
 import ScrollToTop from "@/components/ScrollToTop";
 import { useEffect } from "react";
+
 const GetStarted = () => {
   useEffect(() => {
     // Scroll to top when component mounts
     window.scrollTo(0, 0);
   }, []);
+
   const optionCards = [{
     id: 1,
     icon: <Code className="h-12 w-12 text-white" />,
@@ -23,7 +24,7 @@ const GetStarted = () => {
   }, {
     id: 2,
     icon: <Network className="h-12 w-12 text-white" />,
-    forText: "For LLM companies and research organizations",
+    forText: "For enterprises and startups",
     title: "I need to enhance my technology stack using advanced AI and Data platforms",
     description: "Leverage presidency's products to drive innovation within your technology stack and make your business more efficient",
     cta: "Get a model assessment",
@@ -37,6 +38,7 @@ const GetStarted = () => {
     cta: "Start hiring talent",
     link: "/talent"
   }];
+
   return <main className="min-h-screen bg-gray-900 overflow-x-hidden">
       <StatusBar />
       <Navbar />
@@ -103,4 +105,5 @@ const GetStarted = () => {
       <ScrollToTop />
     </main>;
 };
+
 export default GetStarted;
