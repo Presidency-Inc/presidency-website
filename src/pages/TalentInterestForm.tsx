@@ -152,9 +152,9 @@ const TalentInterestForm = () => {
 
       {/* Mobile view - stepper format */}
       {isMobile && (
-        <div className="h-screen w-full">
+        <div className="h-full min-h-screen w-full">
           {currentStep === 1 && (
-            <div className="bg-gray-900 text-white p-6 flex flex-col h-full">
+            <div className="bg-gray-900 text-white p-6 flex flex-col min-h-screen">
               {/* Back navigation */}
               <div className="mb-4">
                 <Breadcrumb>
@@ -251,7 +251,7 @@ const TalentInterestForm = () => {
           )}
           
           {currentStep === 2 && (
-            <div className="h-screen w-full flex flex-col">
+            <div className="min-h-screen w-full flex flex-col">
               {/* Back navigation */}
               <div className="p-4 bg-white">
                 <Breadcrumb>
