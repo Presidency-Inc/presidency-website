@@ -12,16 +12,16 @@ const ProductInterestForm = () => {
       
       <div className="flex flex-col lg:flex-row max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 gap-8">
         {/* Left side with iframe */}
-        <div className="w-full lg:w-1/2">
-          <div className="w-full">
+        <div className="w-full lg:w-1/2 h-full">
+          <div className="w-full h-full">
             <iframe 
               width="100%" 
-              height="500" 
+              height="100%" 
               src="https://sibforms.com/serve/MUIFANIXyCZDk1Oq2tyMyBA9iGrk-vtob662x_EavnMg6d9VtJzkD7aKMYPFKt8Jh4yJVgNzMK2D_h_BOSMi4UTeFW6tIC4yIdHUQWt93Jc_1mRLEStc2jubBGWScZmhwm8FxsUVmKWPWNeuSxOJrcNk7I_A1xMjGE3UElMkbaoMPeX8NN_7FLDZZkSsoBbw5V808WyM7ak79GwA" 
               frameBorder="0" 
               scrolling="auto" 
               allowFullScreen 
-              className="max-w-full"
+              className="max-w-full min-h-[600px]"
               style={{ display: "block", marginLeft: "auto", marginRight: "auto" }}
             />
           </div>
