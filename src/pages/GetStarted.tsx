@@ -25,7 +25,7 @@ const GetStarted = () => {
     icon: <Network className="h-12 w-12 text-white" />,
     forText: "For LLM companies and research organizations",
     title: "I need to enhance my technology stack using advanced AI and Data platforms",
-    description: "Advance foundation model research and improve LLM reasoning, coding, and multimodal capabilities with Turing AGI Advancement.",
+    description: "Leverage presidency's products to drive innovation within your technology stack and make your business more efficient",
     cta: "Get a model assessment",
     link: "/services-interest-form"
   }, {
