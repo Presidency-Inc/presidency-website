@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Smartphone, Globe, MessageSquare, Headphones } from "lucide-react";
 import { motion } from "framer-motion";
@@ -166,7 +167,7 @@ const MultiChannelExperienceSection = () => {
                       </div>
                     </div>
                   </div>
-                }
+                </div>
                 
                 {/* Decorative elements */}
                 <div className="absolute -top-4 -left-4 w-12 h-12 bg-blue-100 rounded-full"></div>
