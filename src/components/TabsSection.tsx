@@ -1,9 +1,10 @@
-
 import { motion } from "framer-motion";
-import { BrainCircuit, UserCog, Layers, Headset, Database, GitBranch, Server, Cloud, Mic, BookOpen, Bot } from "lucide-react";
+import { BrainCircuit, UserCog, Layers, Headset, Database, GitBranch, Server, Cloud, Mic, BookOpen, Bot, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const tabData = [
   {
@@ -109,11 +110,21 @@ const TabsSection = () => {
               Exceptional Services
             </span>
           </h2>
-          <p className="text-base md:text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="text-base md:text-lg text-gray-600 max-w-3xl mx-auto mb-6">
             Our goal is to ensure top-notch quality in the services we offer, while providing a distinct 
             price advantage and exceptional value to our customers. With our customer-centric motto, 
             it's easy to see why our customers love us.
           </p>
+          <Button 
+            className="bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90 shadow-lg"
+            size="lg"
+            asChild
+          >
+            <Link to="/services-interest-form">
+              Talk to an Expert
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </Button>
         </motion.div>
 
         <div className="mb-16">
