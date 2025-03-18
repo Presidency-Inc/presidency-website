@@ -216,13 +216,29 @@ const ServicesInterestForm = () => {
           )}
           
           {currentStep === 2 && (
-            <div className="h-screen w-full">
+            <div className="h-screen w-full flex flex-col">
+              {/* Back navigation */}
+              <div className="p-4 bg-white">
+                <Breadcrumb>
+                  <BreadcrumbList>
+                    <BreadcrumbItem>
+                      <BreadcrumbLink asChild>
+                        <Link to="/" className="flex items-center text-gray-600 hover:text-gray-900">
+                          <ArrowLeft className="h-4 w-4 mr-2" />
+                          Back to Home
+                        </Link>
+                      </BreadcrumbLink>
+                    </BreadcrumbItem>
+                  </BreadcrumbList>
+                </Breadcrumb>
+              </div>
+              
               <iframe 
                 src="https://sibforms.com/serve/MUIFADrhY29VPcoGY4KdrCaUUIrwDhgdoJycTqtWUm8THkq3FHgdYtl2QDAdwgDoOpDGrJGo20RJdf9RsbGFU1k4NCK70ESuo79JBrEJItIQ7AokDc7hAdguVuGcj_maKZFPbDLNJ-HdTo55alrw5MGE4qTFIerc16ycBwzo-Ywj9svmdBalFzenMHYL3n_LKuYfLQv_oZQ8D4z8" 
                 frameBorder="0" 
                 scrolling="auto" 
                 allowFullScreen 
-                className="w-full h-full"
+                className="w-full flex-grow"
                 style={{ display: "block", maxWidth: "100%" }}
               />
             </div>
