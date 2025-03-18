@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -93,12 +94,25 @@ const CommandSearch = () => {
   }, []);
 
   useEffect(() => {
-    if (searchQuery.length > 0) {
-      searchResults();
-    } else {
-      setResults([]);
+    if (open) {
+      if (searchQuery.length > 0) {
+        searchResults();
+      } else {
+        setResults([]);
+      }
     }
-  }, [searchQuery]);
+  }, [searchQuery, open]);
+
+  // When the modal opens, reset the search and run an initial search with empty query
+  useEffect(() => {
+    if (open) {
+      if (searchQuery.length > 0) {
+        searchResults();
+      } else {
+        setResults([]);
+      }
+    }
+  }, [open]);
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -289,7 +303,7 @@ const CommandSearch = () => {
               <p className="p-4 text-center text-sm">No results found.</p>
             </CommandEmpty>
           ) : (
-            <CommandList className="py-2">
+            <>
               {results.filter(r => r.type === 'page').length > 0 && (
                 <CommandGroup heading="Pages">
                   {results
@@ -363,7 +377,7 @@ const CommandSearch = () => {
                   </CommandGroup>
                 </>
               )}
-            </CommandList>
+            </>
           )}
         </CommandList>
       </Command>
