@@ -97,6 +97,7 @@ const Footer = () => {
           <div className="flex space-x-6">
             <Link to="/terms" onClick={scrollToTop} className="text-gray-400 hover:text-white text-sm">Terms</Link>
             <Link to="/privacy" onClick={scrollToTop} className="text-gray-400 hover:text-white text-sm">Privacy</Link>
+            <Link to="/sitemap" onClick={scrollToTop} className="text-gray-400 hover:text-white text-sm">Sitemap</Link>
             <Link to="/cookies" onClick={scrollToTop} className="text-gray-400 hover:text-white text-sm">Cookies</Link>
           </div>
         </div>
