@@ -61,7 +61,16 @@ const SitemapViewer: React.FC = () => {
       "sameAs": [
         "https://www.linkedin.com/company/presidency-solutions/",
         "https://twitter.com/presidencytech"
-      ]
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "United States"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "email": "support@presidencysolutions.com"
+      }
     };
 
     // Home page schema
@@ -70,7 +79,10 @@ const SitemapViewer: React.FC = () => {
       "@type": "WebPage",
       "url": "https://presidencysolutions.com/",
       "name": "Presidency Solutions | AI, Data Engineering & Cloud Modernization",
-      "description": "Presidency Solutions helps organizations maximize their impact with AI, Data Engineering, Databricks Solutions, Cloud Modernization, and Talent Solutions."
+      "description": "Presidency Solutions helps organizations maximize their impact with AI, Data Engineering, Databricks Solutions, Cloud Modernization, and Talent Solutions.",
+      "isPartOf": {
+        "@id": "https://presidencysolutions.com/#website"
+      }
     };
 
     // Service pages schema
@@ -92,7 +104,8 @@ const SitemapViewer: React.FC = () => {
             "itemOffered": {
               "@type": "Service",
               "name": "AI Services",
-              "url": "https://presidencysolutions.com/services/ai"
+              "url": "https://presidencysolutions.com/services/ai",
+              "description": "Enterprise AI implementation, custom model development, and AI strategy consulting"
             }
           },
           {
@@ -100,7 +113,8 @@ const SitemapViewer: React.FC = () => {
             "itemOffered": {
               "@type": "Service",
               "name": "Data Engineering",
-              "url": "https://presidencysolutions.com/services/data"
+              "url": "https://presidencysolutions.com/services/data",
+              "description": "Data pipeline development, ETL solutions, and data infrastructure modernization"
             }
           },
           {
@@ -108,7 +122,8 @@ const SitemapViewer: React.FC = () => {
             "itemOffered": {
               "@type": "Service",
               "name": "Databricks Solutions",
-              "url": "https://presidencysolutions.com/services/databricks"
+              "url": "https://presidencysolutions.com/services/databricks",
+              "description": "Databricks implementation, optimization, and managed services"
             }
           }
         ]
@@ -127,7 +142,11 @@ const SitemapViewer: React.FC = () => {
             "@type": "Product",
             "name": "Leapfrog",
             "description": "AI platform for automation and intelligence",
-            "url": "https://presidencysolutions.com/products/leapfrog"
+            "url": "https://presidencysolutions.com/products/leapfrog",
+            "brand": {
+              "@type": "Brand",
+              "name": "Presidency Solutions"
+            }
           }
         },
         {
@@ -137,7 +156,11 @@ const SitemapViewer: React.FC = () => {
             "@type": "Product",
             "name": "Omniflow",
             "description": "Data transformation and workflow automation",
-            "url": "https://presidencysolutions.com/products/omniflow"
+            "url": "https://presidencysolutions.com/products/omniflow",
+            "brand": {
+              "@type": "Brand",
+              "name": "Presidency Solutions"
+            }
           }
         },
         {
@@ -147,7 +170,11 @@ const SitemapViewer: React.FC = () => {
             "@type": "Product",
             "name": "Kube8r",
             "description": "Cloud modernization platform",
-            "url": "https://presidencysolutions.com/products/kube8r"
+            "url": "https://presidencysolutions.com/products/kube8r",
+            "brand": {
+              "@type": "Brand",
+              "name": "Presidency Solutions"
+            }
           }
         }
       ]
@@ -159,7 +186,15 @@ const SitemapViewer: React.FC = () => {
       "@type": "Blog",
       "url": "https://presidencysolutions.com/blog",
       "name": "Blog | Presidency Solutions",
-      "description": "Stories and insights on AI adoption, industry shifts, and real-world impact from Presidency Solutions."
+      "description": "Stories and insights on AI adoption, industry shifts, and real-world impact from Presidency Solutions.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Presidency Solutions",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://presidencysolutions.com/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png"
+        }
+      }
     };
 
     // About page schema
@@ -168,7 +203,37 @@ const SitemapViewer: React.FC = () => {
       "@type": "AboutPage",
       "url": "https://presidencysolutions.com/about",
       "name": "About Presidency Solutions | AI & Data Engineering Experts",
-      "description": "Learn about Presidency Solutions, a leading technology company empowering organizations to maximize their impact with AI, Data Engineering, and Cloud Modernization solutions."
+      "description": "Learn about Presidency Solutions, a leading technology company empowering organizations to maximize their impact with AI, Data Engineering, and Cloud Modernization solutions.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Presidency Solutions"
+      }
+    };
+
+    // Careers page schema
+    const careersSchema = {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "url": "https://presidencysolutions.com/careers",
+      "name": "Careers | Presidency Solutions",
+      "description": "Join our team at Presidency Solutions and help organizations maximize their impact with AI and data engineering. Explore exciting career opportunities.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Presidency Solutions"
+      }
+    };
+
+    // Talent page schema
+    const talentSchema = {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "url": "https://presidencysolutions.com/talent",
+      "name": "Talent Solutions | Presidency Solutions",
+      "description": "Access top-tier AI, data, and cloud engineering talent to help your organization succeed. Our expert staffing solutions connect you with the right professionals.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Presidency Solutions"
+      }
     };
 
     // Generate schemaMarkup with proper formatting
@@ -179,7 +244,9 @@ const SitemapViewer: React.FC = () => {
       servicesSchema,
       productsSchema,
       blogSchema,
-      aboutSchema
+      aboutSchema,
+      careersSchema,
+      talentSchema
     ];
 
     const formattedSchemas = allSchemas.map(schema => 
