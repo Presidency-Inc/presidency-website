@@ -96,7 +96,7 @@ const CommandSearch = () => {
   }, []);
 
   useEffect(() => {
-    if (searchQuery.trim().length > 0) {
+    if (searchQuery.length > 0) {
       searchResults();
     } else {
       setResults([]);
@@ -132,6 +132,7 @@ const CommandSearch = () => {
           type: 'tag' as const
         }));
         setTags(formattedTags);
+        console.log('Fetched tags:', formattedTags.length);
       }
     } catch (error) {
       console.error('Error fetching tags:', error);
@@ -139,20 +140,22 @@ const CommandSearch = () => {
   };
 
   const searchBlogPosts = async () => {
-    if (searchQuery.trim().length === 0) return [];
+    if (searchQuery.length === 0) return [];
     
-    setLoading(true);
     try {
+      // Using ilike for case-insensitive search with partial matches
       const { data, error } = await supabase
         .from('blog_posts')
         .select('id, title, description, slug')
-        .or(`title.ilike.%${searchQuery}%,description.ilike.%${searchQuery}%`)
-        .limit(5);
+        .or(`title.ilike.%${searchQuery}%,description.ilike.%${searchQuery}%`);
       
       if (error) {
         console.error('Error searching blog posts:', error);
         return [];
       }
+      
+      console.log('Blog search query:', searchQuery);
+      console.log('Blog search results:', data?.length || 0);
       
       const blogResults = data ? data.map(post => ({
         id: post.id,
@@ -167,8 +170,6 @@ const CommandSearch = () => {
     } catch (error) {
       console.error('Error searching blog posts:', error);
       return [];
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -176,12 +177,12 @@ const CommandSearch = () => {
     setLoading(true);
     
     try {
-      // Filter pages
+      // Filter pages - case insensitive
       const filteredPages = pages.filter(page => 
         page.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
       
-      // Filter tags
+      // Filter tags - case insensitive
       const filteredTags = tags.filter(tag => 
         tag.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
