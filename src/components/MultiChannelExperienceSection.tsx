@@ -9,12 +9,12 @@ const MultiChannelExperienceSection = () => {
     <section className="py-24 bg-blue-25">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Right Content */}
+          {/* Left Content - Text */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="space-y-6 lg:order-2"
+            transition={{ duration: 0.6 }}
+            className="space-y-6"
           >
             <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 leading-tight">
               <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">Multi Channel</span> Experience
@@ -80,12 +80,12 @@ const MultiChannelExperienceSection = () => {
             </div>
           </motion.div>
           
-          {/* Left Content - Channels Visualization */}
+          {/* Right Content - Channels Visualization */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="relative lg:order-1"
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="relative"
           >
             <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-3xl shadow-lg">
               <div className="relative mx-auto max-w-[450px]">
