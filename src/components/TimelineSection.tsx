@@ -1,5 +1,5 @@
 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Separator } from "@/components/ui/separator";
 
@@ -117,6 +117,25 @@ const TimelineItem = ({
   // Even items go on the left, odd items on the right
   const isEven = index % 2 === 0;
   
+  // Safe check for client-side rendering
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    // Only access window in useEffect (client-side)
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    // Set initial value
+    checkMobile();
+    
+    // Add event listener for resize
+    window.addEventListener('resize', checkMobile);
+    
+    // Cleanup
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+  
   return (
     <div 
       ref={itemRef}
@@ -168,7 +187,7 @@ const TimelineItem = ({
         </div>
         
         {/* Right side content for odd items */}
-        {(!isEven || window.innerWidth < 768) && (
+        {(!isEven || isMobile) && (
           <motion.div 
             className={`${isEven ? 'md:hidden' : ''} col-span-2 md:col-span-2`}
             style={{ opacity, scale, x: isEven ? undefined : x }}
