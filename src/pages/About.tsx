@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
@@ -33,20 +32,20 @@ const About = () => {
         <meta name="twitter:title" content="About Presidency Solutions" />
         <meta name="twitter:description" content="Learn about Presidency Solutions, a leading technology company empowering organizations to maximize their impact with AI and Data Engineering." />
         <meta name="twitter:image" content="/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/lovable-uploads/e034b19d-8aef-4f26-a313-d58f10d804a6.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/lovable-uploads/eb3e8cc7-360f-45f9-b968-33a36047149b.png" />
       </Helmet>
       <StatusBar />
       <Navbar />
       <ScrollProgress />
       
       <div className="relative overflow-hidden">
-        {/* Topographic contour lines background */}
         <div className="absolute inset-0 -z-10 overflow-hidden">
           <svg
             className="absolute w-full h-full opacity-20"
             viewBox="0 0 1200 1200"
             xmlns="http://www.w3.org/2000/svg"
           >
-            {/* Creating multiple contour lines with varying paths */}
             {Array.from({ length: 20 }).map((_, i) => (
               <path
                 key={i}
@@ -62,7 +61,6 @@ const About = () => {
                 strokeOpacity={0.8 - i * 0.02}
               />
             ))}
-            {/* Additional cross contour lines */}
             {Array.from({ length: 15 }).map((_, i) => (
               <path
                 key={`cross-${i}`}
@@ -82,7 +80,6 @@ const About = () => {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-x-12 gap-y-16">
-            {/* Left column - Title and intro */}
             <div className="lg:col-span-2">
               <motion.h1 
                 initial={{ opacity: 0, y: 20 }}
@@ -94,7 +91,6 @@ const About = () => {
               </motion.h1>
             </div>
 
-            {/* Right column - Content */}
             <div className="lg:col-span-3 space-y-8 text-lg">
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}
@@ -154,7 +150,6 @@ const About = () => {
         </div>
       </div>
       
-      {/* Timeline Section */}
       <TimelineSection />
 
       <Footer />
