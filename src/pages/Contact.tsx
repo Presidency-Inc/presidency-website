@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -161,22 +162,25 @@ const Contact = () => {
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="bg-green-50 border border-green-200 p-6 rounded-xl"
+                  className="bg-green-50 border border-green-100 p-8 rounded-xl"
                 >
-                  <div className="flex items-center space-x-3 mb-3">
-                    <CheckCircle className="h-6 w-6 text-green-600" />
-                    <h3 className="text-xl font-semibold text-green-800">Message Sent!</h3>
+                  <div className="flex flex-col items-center text-center">
+                    <CheckCircle className="h-10 w-10 text-green-600 mb-4" />
+                    <h3 className="text-2xl font-semibold text-green-800 mb-4">Message Sent!</h3>
+                    <p className="text-green-700 mb-8 text-lg">
+                      Thank you for reaching out.<br />
+                      We'll get back to you as soon as possible.
+                    </p>
+                    <Button 
+                      className="bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90 w-full py-6 text-base"
+                      asChild
+                    >
+                      <Link to="/">
+                        Learn how we combine AI & Data
+                        <ArrowRight className="ml-2 h-5 w-5" />
+                      </Link>
+                    </Button>
                   </div>
-                  <p className="text-green-700 mb-4">Thank you for reaching out. We'll get back to you as soon as possible.</p>
-                  <Button 
-                    className="bg-[#1a46e5] text-white hover:bg-[#1a46e5]/90 w-full"
-                    asChild
-                  >
-                    <Link to="/">
-                      Learn how we combine AI & Data
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Link>
-                  </Button>
                 </motion.div>
               )}
 
@@ -199,7 +203,7 @@ const Contact = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="lg:col-span-2 bg-white p-6 md:p-10 rounded-xl shadow-sm border border-gray-100"
+              className={`lg:col-span-2 bg-white p-6 md:p-10 rounded-xl shadow-sm border border-gray-100 ${isSuccess ? 'hidden lg:block' : ''}`}
             >
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
