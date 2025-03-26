@@ -66,7 +66,7 @@ const Footer = () => {
             <ul className="space-y-3">
               <li><Link to="/about" onClick={scrollToTop} className="text-gray-300 hover:text-white text-sm">About</Link></li>
               <li><Link to="/careers" onClick={scrollToTop} className="text-gray-300 hover:text-white text-sm">Careers</Link></li>
-              <li><Link to="/book-a-call" onClick={scrollToTop} className="text-gray-300 hover:text-white text-sm">Contact</Link></li>
+              <li><Link to="/contact-us" onClick={scrollToTop} className="text-gray-300 hover:text-white text-sm">Contact Us</Link></li>
               <li>
                 <Link 
                   to="/admin" 

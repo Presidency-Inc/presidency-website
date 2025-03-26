@@ -554,6 +554,15 @@ const Navbar = () => {
                       Careers
                     </Link>
                   </li>
+                  <li>
+                    <Link 
+                      to="/contact-us" 
+                      className="block py-4 text-gray-900 font-medium"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Contact Us
+                    </Link>
+                  </li>
                 </ul>
               </div>
               
