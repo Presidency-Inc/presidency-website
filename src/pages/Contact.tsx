@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,7 +26,6 @@ import ScrollProgress from "@/components/ScrollProgress";
 import ScrollToTop from "@/components/ScrollToTop";
 import { supabase } from "@/integrations/supabase/client";
 
-// Define the form schema with validation
 const formSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),
   name: z.string().min(2, { message: "Name must be at least 2 characters" }),
@@ -44,7 +42,6 @@ const Contact = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  // Initialize form
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -99,7 +96,7 @@ const Contact = () => {
       <Navbar />
       <ScrollProgress />
       
-      <div className="relative overflow-hidden py-12 md:py-20">
+      <div className="relative overflow-hidden py-12 md:py-20 md:mt-16 lg:mt-24">
         <div className="absolute inset-0 -z-10 overflow-hidden">
           <svg
             className="absolute w-full h-full opacity-20"
