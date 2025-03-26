@@ -81,7 +81,7 @@ const StatusBar = () => {
         <div className="hidden md:flex space-x-6 text-sm">
           <Link to="/blog" className="hover:underline">Blog</Link>
           <Link to="/about" className="hover:underline">About</Link>
-          <Link to="/contact-us" className="hover:underline">Contact Sales</Link>
+          <Link to="/contact-us" className="hover:underline">Contact Us</Link>
         </div>
       </div>
     </div>
