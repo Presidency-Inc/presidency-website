@@ -1,5 +1,6 @@
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { Resend } from "npm:resend@2.0.0";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -14,7 +15,9 @@ interface ContactFormData {
   message: string;
 }
 
-// Function to send an email using an email service
+const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
+
+// Function to send an email using Resend
 async function sendEmail(formData: ContactFormData) {
   const { email, name, phone, company, message } = formData;
   
@@ -30,37 +33,21 @@ Message:
 ${message}
   `;
 
-  // In a real implementation, you would replace this with your actual email sending logic
-  // For now, we're just logging the message for debugging purposes
-  console.log("Email would be sent with body:", messageBody);
-  
-  // For a complete solution, you'd integrate with an email service like Resend, SendGrid, etc.
-  // Example implementation with a hypothetical email API:
-  /*
-  const response = await fetch('https://api.email-service.com/send', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${Deno.env.get('EMAIL_API_KEY')}`
-    },
-    body: JSON.stringify({
-      from: 'website@presidencysolutions.com',
-      to: 'hello@presidencysolutions.com',
+  try {
+    const emailResponse = await resend.emails.send({
+      from: "Presidency Solutions <hello@presidencysolutions.com>",
+      to: ["hello@presidencysolutions.com"],
+      reply_to: email,
       subject: `New Contact Form: ${name}`,
       text: messageBody
-    })
-  });
-  
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`Failed to send email: ${errorText}`);
+    });
+    
+    console.log("Email sent successfully:", emailResponse);
+    return emailResponse;
+  } catch (error) {
+    console.error("Error sending email:", error);
+    throw error;
   }
-  
-  return await response.json();
-  */
-  
-  // For now, return a mock successful response
-  return { success: true };
 }
 
 serve(async (req) => {
