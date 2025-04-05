@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -25,7 +24,8 @@ import Footer from "@/components/Footer";
 import StatusBar from "@/components/StatusBar";
 import ScrollProgress from "@/components/ScrollProgress";
 import ScrollToTop from "@/components/ScrollToTop";
-import { supabase } from "@/integrations/supabase/client";
+
+const CONTACT_FUNCTION_URL = "https://dyixstdknvremrjvaarx.supabase.co/functions/v1/send-contact-email";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),
@@ -60,11 +60,18 @@ const Contact = () => {
     setIsError(false);
 
     try {
-      const { data, error } = await supabase.functions.invoke("send-contact-email", {
-        body: values,
+      const response = await fetch(CONTACT_FUNCTION_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
       });
 
-      if (error) throw error;
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to send message');
+      }
 
       setIsSuccess(true);
       form.reset();
