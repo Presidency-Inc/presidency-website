@@ -22,7 +22,7 @@ function createSecureClient() {
       },
       // Disable debug logs in production
       global: {
-        fetch: (...args) => fetch(...args)
+        fetch: (url, options) => fetch(url, options)
       }
     }
   );
