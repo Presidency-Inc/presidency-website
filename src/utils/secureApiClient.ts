@@ -4,7 +4,7 @@
  * This avoids exposing API keys in the browser's network requests
  */
 
-// Base URL for Supabase Functions
+// Base URL for Supabase Functions - without exposing API keys in the URL
 const SUPABASE_FUNCTIONS_URL = "https://dyixstdknvremrjvaarx.supabase.co/functions/v1";
 
 // Generic type for API responses
@@ -28,13 +28,17 @@ export async function callFunction<T = any, P = any>(
   try {
     const url = `${SUPABASE_FUNCTIONS_URL}/${functionName}`;
     
+    // Create a clean options object without sensitive data
     const options: RequestInit = {
       method,
       headers: {
         'Content-Type': 'application/json',
       },
+      // Prevent credentials from being sent automatically
+      credentials: 'omit'
     };
     
+    // Add the payload to the body for POST and PUT requests
     if (payload && (method === 'POST' || method === 'PUT')) {
       options.body = JSON.stringify(payload);
     }

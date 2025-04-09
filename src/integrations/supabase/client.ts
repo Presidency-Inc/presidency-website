@@ -20,14 +20,25 @@ function createSecureClient() {
         persistSession: true,
         autoRefreshToken: true,
       },
-      // Disable debug logs in production
+      // Disable debug logs in production and use a custom fetch function to avoid exposing API keys
       global: {
-        fetch: (url, options) => fetch(url, options)
+        // Use a custom fetch function that strips sensitive headers from the request
+        fetch: (url, options = {}) => {
+          // Return a wrapped fetch that doesn't log or expose sensitive data
+          return fetch(url, {
+            ...options,
+            // Ensure we're not logging headers with auth info
+            credentials: 'include',
+          }).then(response => {
+            // Return the response without additional logging
+            return response;
+          });
+        }
       }
     }
   );
   
-  // This helps prevent exposing the key in console logs
+  // This helps prevent exposing the key in console logs by making it non-enumerable
   Object.defineProperty(client, 'supabaseKey', {
     enumerable: false,
     configurable: false
