@@ -31,10 +31,11 @@ import {
   SelectValue 
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ImagePlus, Image, FileText, Twitter, Facebook, Globe, RefreshCw } from "lucide-react";
+import { FileText, Twitter, Facebook, Globe, RefreshCw } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { PageMetadata } from "@/hooks/usePageMetadata";
+import ImageUploader from "@/components/ImageUploader";
 
 interface OpenGraphFormProps {
   onSuccess?: () => void;
@@ -45,7 +46,6 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
   const [selectedPage, setSelectedPage] = useState<PageMetadata | null>(null);
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [selectedTab, setSelectedTab] = useState('open-graph');
   
   const form = useForm<PageMetadata>({
@@ -125,7 +125,7 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
       console.error('Error fetching pages:', error);
       toast({
         title: "Error",
-        description: "Could not load page metadata",
+        description: "Could not load page metadata. Please make sure you have permissions to access the data.",
         variant: "destructive",
       });
     } finally {
@@ -154,6 +154,16 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
       
       if (error) {
         console.error('Error creating default metadata:', error);
+        toast({
+          title: "Error",
+          description: `Could not create metadata for route ${route}. ${error.message}`,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Success",
+          description: `Created default metadata for ${route}`,
+        });
       }
     } catch (error) {
       console.error('Error creating default metadata:', error);
@@ -171,13 +181,10 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
       og_type: page.og_type || "website",
       twitter_card: page.twitter_card || "summary_large_image",
     });
-    setImagePreview(page.image_url);
   };
   
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const url = e.target.value;
+  const handleImageChange = (url: string) => {
     form.setValue('image_url', url);
-    setImagePreview(url);
   };
 
   const onSubmit = async (data: PageMetadata) => {
@@ -251,7 +258,6 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
     };
     
     form.reset({ ...selectedPage, ...defaultValues });
-    setImagePreview(defaultValues.image_url);
   };
 
   return (
@@ -373,38 +379,22 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
                                 name="image_url"
                                 render={({ field }) => (
                                   <FormItem>
-                                    <FormLabel>Image URL</FormLabel>
+                                    <FormLabel>Image</FormLabel>
                                     <FormControl>
-                                      <div className="flex gap-2">
-                                        <Input 
-                                          {...field} 
-                                          placeholder="URL for Open Graph image"
-                                          onChange={(e) => handleImageChange(e)}
+                                      <div className="space-y-2">
+                                        <ImageUploader 
+                                          initialValue={field.value}
+                                          onChange={handleImageChange}
+                                          aspectRatio={1.91} // Facebook recommends 1.91:1
                                         />
                                       </div>
                                     </FormControl>
                                     <FormDescription>
-                                      This will be used for the og:image meta tag. Use an absolute URL or a path like /lovable-uploads/image.png
+                                      This will be used for the og:image meta tag. Facebook recommends 1200×630 pixels.
                                     </FormDescription>
                                   </FormItem>
                                 )}
                               />
-                              
-                              {imagePreview && (
-                                <div className="mt-4">
-                                  <p className="text-sm text-gray-500 mb-2">Image Preview:</p>
-                                  <div className="border rounded-md overflow-hidden max-w-xs">
-                                    <img 
-                                      src={imagePreview.startsWith('http') ? imagePreview : imagePreview} 
-                                      alt="Preview" 
-                                      className="w-full h-auto"
-                                      onError={(e) => {
-                                        (e.target as HTMLImageElement).src = '/placeholder.svg';
-                                      }}
-                                    />
-                                  </div>
-                                </div>
-                              )}
                               
                               <FormField
                                 control={form.control}
@@ -481,13 +471,13 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
                                 name="image_url"
                                 render={({ field }) => (
                                   <FormItem>
-                                    <FormLabel>Image URL</FormLabel>
+                                    <FormLabel>Image</FormLabel>
                                     <FormControl>
-                                      <div className="flex gap-2">
-                                        <Input 
-                                          {...field} 
-                                          placeholder="URL for Twitter Card image"
-                                          onChange={(e) => handleImageChange(e)}
+                                      <div className="space-y-2">
+                                        <ImageUploader 
+                                          initialValue={field.value}
+                                          onChange={handleImageChange}
+                                          aspectRatio={1.91} // Twitter also uses 1.91:1
                                         />
                                       </div>
                                     </FormControl>
@@ -497,22 +487,6 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
                                   </FormItem>
                                 )}
                               />
-                              
-                              {imagePreview && (
-                                <div className="mt-4">
-                                  <p className="text-sm text-gray-500 mb-2">Image Preview:</p>
-                                  <div className="border rounded-md overflow-hidden max-w-xs">
-                                    <img 
-                                      src={imagePreview.startsWith('http') ? imagePreview : imagePreview} 
-                                      alt="Preview" 
-                                      className="w-full h-auto"
-                                      onError={(e) => {
-                                        (e.target as HTMLImageElement).src = '/placeholder.svg';
-                                      }}
-                                    />
-                                  </div>
-                                </div>
-                              )}
                               
                               <FormField
                                 control={form.control}

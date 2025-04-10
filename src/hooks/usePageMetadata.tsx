@@ -77,10 +77,35 @@ export const usePageMetadata = (route: string) => {
           throw error;
         }
       } else if (data) {
-        setMetadata(data as PageMetadata);
+        // Check if image_url is valid
+        const imageUrl = data.image_url;
         
-        // Cache the fetched data
-        localStorage.setItem(`page_metadata_${route}`, JSON.stringify(data));
+        // Preload image to test if it exists
+        if (imageUrl && !imageUrl.startsWith('/')) {
+          const img = new Image();
+          img.src = imageUrl;
+          img.onload = () => {
+            // Image loaded successfully, use the data
+            setMetadata(data as PageMetadata);
+            // Cache the fetched data
+            localStorage.setItem(`page_metadata_${route}`, JSON.stringify(data));
+          };
+          img.onerror = () => {
+            // Image failed to load, use fallback image
+            const correctedData = {
+              ...data,
+              image_url: "/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png"
+            };
+            setMetadata(correctedData as PageMetadata);
+            // Cache the corrected data
+            localStorage.setItem(`page_metadata_${route}`, JSON.stringify(correctedData));
+          };
+        } else {
+          // Not a remote URL, just use the data
+          setMetadata(data as PageMetadata);
+          // Cache the fetched data
+          localStorage.setItem(`page_metadata_${route}`, JSON.stringify(data));
+        }
       }
     } catch (err) {
       console.error('Error fetching page metadata:', err);
@@ -100,6 +125,9 @@ export const usePageMetadata = (route: string) => {
       };
       
       setMetadata(fallbackMetadata);
+      
+      // Cache the fallback data
+      localStorage.setItem(`page_metadata_${route}`, JSON.stringify(fallbackMetadata));
     } finally {
       if (!isBackgroundFetch) {
         setLoading(false);
