@@ -1,3 +1,4 @@
+
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
@@ -10,8 +11,19 @@ import ScrollProgress from "@/components/ScrollProgress";
 import ScrollToTop from "@/components/ScrollToTop";
 import TimelineSection from "@/components/TimelineSection";
 import { Helmet } from "react-helmet";
+import { usePageMetadata } from "@/hooks/usePageMetadata";
 
 const About = () => {
+  const { metadata } = usePageMetadata("/about");
+  
+  // Prepare metadata with fallbacks
+  const title = metadata?.title || "About Presidency Solutions | AI & Data Engineering Experts";
+  const description = metadata?.description || "Learn about Presidency Solutions, a leading technology company empowering organizations to maximize their impact with AI, Data Engineering, and Cloud Modernization solutions.";
+  const ogType = metadata?.og_type || "website";
+  const ogUrl = metadata?.fullUrl || `${window.location.origin}/about`;
+  const ogImage = metadata?.image_url || `${window.location.origin}/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png`;
+  const twitterCard = metadata?.twitter_card || "summary_large_image";
+  
   useEffect(() => {
     // Scroll to top when component mounts
     window.scrollTo(0, 0);
@@ -20,18 +32,21 @@ const About = () => {
   return (
     <main className="min-h-screen bg-white">
       <Helmet>
-        <title>About Presidency Solutions | AI & Data Engineering Experts</title>
-        <meta name="description" content="Learn about Presidency Solutions, a leading technology company empowering organizations to maximize their impact with AI, Data Engineering, and Cloud Modernization solutions." />
+        <title>{title}</title>
+        <meta name="description" content={description} />
         <meta name="keywords" content="AI solutions, data engineering, cloud modernization, technology company, Presidency Solutions" />
-        <meta property="og:title" content="About Presidency Solutions" />
-        <meta property="og:description" content="Learn about Presidency Solutions, a leading technology company empowering organizations to maximize their impact with AI and Data Engineering." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="/about" />
-        <meta property="og:image" content="/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="About Presidency Solutions" />
-        <meta name="twitter:description" content="Learn about Presidency Solutions, a leading technology company empowering organizations to maximize their impact with AI and Data Engineering." />
-        <meta name="twitter:image" content="/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png" />
+        
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content={ogType} />
+        <meta property="og:url" content={ogUrl} />
+        <meta property="og:image" content={ogImage} />
+        
+        <meta name="twitter:card" content={twitterCard} />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={ogImage} />
+        
         <link rel="icon" type="image/png" sizes="32x32" href="/lovable-uploads/e034b19d-8aef-4f26-a313-d58f10d804a6.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/lovable-uploads/eb3e8cc7-360f-45f9-b968-33a36047149b.png" />
       </Helmet>

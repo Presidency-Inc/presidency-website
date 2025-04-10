@@ -52,6 +52,13 @@ const CareerPage = () => {
   const [captchaError, setCaptchaError] = useState(false);
 
   const { metadata } = usePageMetadata("/careers");
+  
+  const title = metadata?.title || "Careers | Presidency Solutions";
+  const description = metadata?.description || "Join our team at Presidency Solutions and help organizations maximize their impact with AI and data engineering. Explore exciting career opportunities.";
+  const ogType = metadata?.og_type || "website";
+  const ogUrl = metadata?.fullUrl || `${window.location.origin}/careers`;
+  const ogImage = metadata?.image_url || `${window.location.origin}/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png`;
+  const twitterCard = metadata?.twitter_card || "summary_large_image";
 
   useEffect(() => {
     fetchJobs();
@@ -241,40 +248,20 @@ const CareerPage = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Helmet>
-        {metadata ? (
-          <>
-            <title>{metadata.title}</title>
-            <meta name="description" content={metadata.description} />
-            
-            <meta property="og:title" content={metadata.title} />
-            <meta property="og:description" content={metadata.description} />
-            <meta property="og:type" content={metadata.og_type} />
-            <meta property="og:url" content={metadata.fullUrl} />
-            <meta property="og:image" content={metadata.image_url} />
-            
-            <meta name="twitter:card" content={metadata.twitter_card} />
-            <meta name="twitter:title" content={metadata.title} />
-            <meta name="twitter:description" content={metadata.description} />
-            <meta name="twitter:image" content={metadata.image_url} />
-          </>
-        ) : (
-          <>
-            <title>Careers | Presidency Solutions</title>
-            <meta name="description" content="Join our team at Presidency Solutions and help organizations maximize their impact with AI and data engineering. Explore exciting career opportunities." />
-            <meta name="keywords" content="careers, jobs, AI careers, data engineering jobs, technology careers" />
-            
-            <meta property="og:title" content="Careers | Presidency Solutions" />
-            <meta property="og:description" content="Join our team at Presidency Solutions and help organizations maximize their impact with AI and data engineering." />
-            <meta property="og:type" content="website" />
-            <meta property="og:url" content={`${window.location.origin}/careers`} />
-            <meta property="og:image" content={`${window.location.origin}/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png`} />
-            
-            <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:title" content="Careers | Presidency Solutions" />
-            <meta name="twitter:description" content="Join our team at Presidency Solutions and help organizations maximize their impact with AI and data engineering." />
-            <meta name="twitter:image" content={`${window.location.origin}/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png`} />
-          </>
-        )}
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta name="keywords" content="careers, jobs, AI careers, data engineering jobs, technology careers" />
+        
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content={ogType} />
+        <meta property="og:url" content={ogUrl} />
+        <meta property="og:image" content={ogImage} />
+        
+        <meta name="twitter:card" content={twitterCard} />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={ogImage} />
       </Helmet>
       <StatusBar />
       <Navbar />

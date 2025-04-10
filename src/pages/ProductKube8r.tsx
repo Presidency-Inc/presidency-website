@@ -31,39 +31,31 @@ const ProductKube8r = () => {
     };
   }, [isMobile]);
   
+  // Prepare metadata with fallbacks
+  const title = metadata?.title || "Kube8r | Kubernetes and Cloud Modernization Platform";
+  const description = metadata?.description || "Kube8r is a powerful platform for modernizing your infrastructure, from bare metal to cloud, and optimizing your application stack for Kubernetes.";
+  const ogType = metadata?.og_type || "website";
+  const ogUrl = metadata?.fullUrl || `${window.location.origin}/products/kube8r`;
+  const ogImage = metadata?.image_url || `${window.location.origin}/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png`;
+  const twitterCard = metadata?.twitter_card || "summary_large_image";
+  
   return (
     <main className="min-h-screen bg-white overflow-x-hidden">
       <Helmet>
-        {metadata ? (
-          <>
-            <title>{metadata.title}</title>
-            <meta name="description" content={metadata.description} />
-            
-            <meta property="og:title" content={metadata.title} />
-            <meta property="og:description" content={metadata.description} />
-            <meta property="og:type" content={metadata.og_type} />
-            <meta property="og:url" content={metadata.fullUrl} />
-            <meta property="og:image" content={metadata.image_url} />
-            
-            <meta name="twitter:card" content={metadata.twitter_card} />
-            <meta name="twitter:title" content={metadata.title} />
-            <meta name="twitter:description" content={metadata.description} />
-            <meta name="twitter:image" content={metadata.image_url} />
-          </>
-        ) : (
-          <>
-            <title>Kube8r | Kubernetes and Cloud Modernization Platform</title>
-            <meta name="description" content="Kube8r is a powerful platform for modernizing your infrastructure, from bare metal to cloud, and optimizing your application stack for Kubernetes." />
-            <meta name="keywords" content="Kubernetes, cloud modernization, bare metal to cloud, app stack, infrastructure optimization" />
-            <meta property="og:title" content="Kube8r | Kubernetes and Cloud Modernization Platform" />
-            <meta property="og:description" content="Kube8r is a powerful platform for modernizing your infrastructure, from bare metal to cloud, and optimizing your application stack for Kubernetes." />
-            <meta property="og:type" content="website" />
-            <meta property="og:url" content={`${window.location.origin}/products/kube8r`} />
-            <meta property="og:image" content={`${window.location.origin}/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png`} />
-            <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:image" content={`${window.location.origin}/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png`} />
-          </>
-        )}
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta name="keywords" content="Kubernetes, cloud modernization, bare metal to cloud, app stack, infrastructure optimization" />
+        
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content={ogType} />
+        <meta property="og:url" content={ogUrl} />
+        <meta property="og:image" content={ogImage} />
+        
+        <meta name="twitter:card" content={twitterCard} />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={ogImage} />
       </Helmet>
       <StatusBar />
       <Navbar />
