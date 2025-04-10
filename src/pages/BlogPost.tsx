@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -33,6 +32,8 @@ const BlogPostPage = () => {
   const [renderedContent, setRenderedContent] = useState("");
   const [relatedPosts, setRelatedPosts] = useState<Blog[]>([]);
   const [author, setAuthor] = useState<Author | null>(null);
+  
+  const currentUrl = `${window.location.origin}/blog/${slug}`;
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -181,11 +182,14 @@ const BlogPostPage = () => {
         <title>{post?.title || 'Blog Post'} | Presidency Solutions</title>
         <meta name="description" content={post?.description} />
         <meta name="keywords" content={post?.tags?.map(tag => tag.name).join(', ')} />
+        
+        <meta property="og:type" content="article" />
         <meta property="og:title" content={post?.title} />
         <meta property="og:description" content={post?.description} />
         <meta property="og:image" content={post?.banner_image} />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content={`/blog/${post?.slug}`} />
+        <meta property="og:url" content={currentUrl} />
+        <meta property="og:site_name" content="Presidency Solutions" />
+        
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post?.title} />
         <meta name="twitter:description" content={post?.description} />
