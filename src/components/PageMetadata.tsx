@@ -1,5 +1,6 @@
 
 import { Helmet } from "react-helmet";
+import { useEffect } from "react";
 
 interface PageMetadataProps {
   title: string;
@@ -28,13 +29,25 @@ const PageMetadata = ({
     image.startsWith('http') ? image : `${origin}${image.startsWith('/') ? '' : '/'}${image}`
   ) : `${origin}/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png`;
 
-  // Set prerenderReady to true when metadata is loaded
-  if (window.prerenderReady === false) {
-    setTimeout(() => {
-      console.log('PageMetadata: Setting prerenderReady to true');
-      window.prerenderReady = true;
-    }, 500);
-  }
+  // Use useEffect to set prerenderReady to true when metadata is loaded
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.prerenderReady === false) {
+      console.log('PageMetadata: Setting prerenderReady to true soon');
+      
+      // Set a timeout to ensure images have time to load
+      setTimeout(() => {
+        console.log('PageMetadata: Now setting prerenderReady to true');
+        window.prerenderReady = true;
+      }, 1000);
+    }
+    
+    // Log for debugging purposes
+    const isBot = /bot|googlebot|prerender/i.test(navigator.userAgent);
+    if (isBot) {
+      console.log('Bot detected in PageMetadata component');
+      console.log('Metadata being served:', { title, description, imageUrl, currentUrl });
+    }
+  }, [title, description, imageUrl, currentUrl]);
 
   return (
     <Helmet>
@@ -59,13 +72,15 @@ const PageMetadata = ({
       {/* Canonical URL */}
       <link rel="canonical" href={currentUrl} />
       
-      {/* Prerender specific meta tags with enhanced detection */}
+      {/* Enhanced Prerender specific meta tags */}
       <meta name="prerender-status-code" content="200" />
       <meta name="prerender-detection" content="Prerender.io integration active" />
       <meta name="prerender-header" content="X-Prerender-Processed: true" />
-      
-      {/* Additional prerender meta tags to help with detection */}
       <meta name="fragment" content="!" />
+      
+      {/* Additional indicators for crawlers */}
+      <meta name="robots" content="index, follow" />
+      <meta name="googlebot" content="index, follow" />
       
       {/* Allow for additional custom meta tags */}
       {children}

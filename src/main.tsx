@@ -29,9 +29,17 @@ prerenderDetection.name = 'prerender-detection';
 prerenderDetection.content = 'Prerender.io integration active';
 document.head.appendChild(prerenderDetection);
 
-// Add console logging for prerender detection
+// Add mandatory fragment meta tag for hash bang crawling support
+const fragmentMeta = document.createElement('meta');
+fragmentMeta.name = 'fragment';
+fragmentMeta.content = '!';
+document.head.appendChild(fragmentMeta);
+
+// Enhanced console logging for prerender detection
 console.log('Checking for prerender:', window.navigator.userAgent);
-if (window.__PRERENDER_STATUS) {
+if (window.navigator.userAgent.includes('prerender') || 
+    window.navigator.userAgent.includes('Prerender') ||
+    window.__PRERENDER_STATUS) {
   console.log('Page is being prerendered!');
 }
 
@@ -39,11 +47,12 @@ if (window.__PRERENDER_STATUS) {
 // This will force Prerender to wait until we explicitly set it to true
 window.prerenderReady = false;
 
-// Set prerenderReady to true after a short delay to ensure content is loaded
+// Set prerenderReady to true after a delay to ensure content is loaded
+// Use a longer timeout to ensure all dynamic content is loaded
 setTimeout(() => {
   console.log('Setting prerenderReady to true');
   window.prerenderReady = true;
-}, 2000);
+}, 3000);
 
 // In case page is 404, set appropriate status (page components can override this)
 if (window.location.pathname !== '/' && !document.querySelector('meta[name="prerender-status-code"]')) {
