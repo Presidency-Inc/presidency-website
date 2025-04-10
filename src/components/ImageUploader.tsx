@@ -7,7 +7,6 @@ import { Image, ImagePlus, Crop, Check, X, Trash } from "lucide-react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import ReactCrop, { type Crop as CropType } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
-import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/components/ui/use-toast";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
@@ -31,6 +30,11 @@ const ImageUploader = ({ initialValue, onChange, aspectRatio = 1.91 }: ImageUplo
     y: 0,
   });
   const imageRef = useRef<HTMLImageElement | null>(null);
+
+  // Update image state when initialValue changes (e.g. when switching between pages)
+  React.useEffect(() => {
+    setImage(initialValue || null);
+  }, [initialValue]);
 
   const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -101,9 +105,11 @@ const ImageUploader = ({ initialValue, onChange, aspectRatio = 1.91 }: ImageUplo
       setIsUploading(true);
       setCropDialogOpen(false);
       
-      // Store the cropped image as a base64 string to be used directly
-      // We'll save it to the database when the form is submitted
+      // Store the cropped image as a base64 string but don't call onChange yet
+      // We'll just update the local preview
       setImage(croppedImageBase64);
+      
+      // Now pass the cropped image to the parent component
       onChange(croppedImageBase64);
       
       toast({

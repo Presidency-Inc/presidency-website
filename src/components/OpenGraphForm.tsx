@@ -192,16 +192,59 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
   };
   
   const handlePageSelect = (page: PageMetadata) => {
+    // Clear previous form data before loading new page
+    form.reset();
     setSelectedPage(page);
-    form.reset({
-      id: page.id,
-      route: page.route,
-      title: page.title,
-      description: page.description,
-      image_url: page.image_url,
-      og_type: page.og_type || "website",
-      twitter_card: page.twitter_card || "summary_large_image",
-    });
+    
+    // If the page has a base64 image stored in the database, we need to fetch the latest version
+    if (page.image_url && page.image_url.startsWith('data:image')) {
+      // Fetch the latest version of the page metadata directly from the database
+      supabase
+        .from('page_metadata')
+        .select('*')
+        .eq('id', page.id)
+        .single()
+        .then(({ data, error }) => {
+          if (error) {
+            console.error('Error fetching page:', error);
+            return;
+          }
+          
+          if (data) {
+            // Update the page with the latest data
+            const updatedPage = {
+              ...data,
+              fullUrl: getFullUrl(data.route)
+            };
+            
+            // Set the form values
+            form.reset({
+              id: updatedPage.id,
+              route: updatedPage.route,
+              title: updatedPage.title,
+              description: updatedPage.description,
+              image_url: updatedPage.image_url,
+              og_type: updatedPage.og_type || "website",
+              twitter_card: updatedPage.twitter_card || "summary_large_image",
+            });
+            
+            // Update the selected page
+            setSelectedPage(updatedPage as PageMetadata);
+          }
+        });
+    } else {
+      // Set the form values for non-base64 images
+      form.reset({
+        id: page.id,
+        route: page.route,
+        title: page.title,
+        description: page.description,
+        image_url: page.image_url,
+        og_type: page.og_type || "website",
+        twitter_card: page.twitter_card || "summary_large_image",
+      });
+    }
+    
     setFormIsDirty(false); // Reset dirty state when selecting a new page
   };
   
@@ -237,7 +280,11 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
       // Update the local state to avoid unnecessary refetch
       const updatedPages = pages.map(page => {
         if (page.id === selectedPage.id) {
-          return { ...page, ...updatedFields };
+          return { 
+            ...page, 
+            ...updatedFields,
+            fullUrl: getFullUrl(page.route)
+          };
         }
         return page;
       });
@@ -245,24 +292,22 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
       setPages(updatedPages);
       
       // Update selected page
-      setSelectedPage({ ...selectedPage, ...updatedFields });
+      setSelectedPage({ 
+        ...selectedPage, 
+        ...updatedFields,
+        fullUrl: getFullUrl(selectedPage.route)
+      });
+      
       setFormIsDirty(false); // Reset dirty state after save
+      
+      // Clear the cache for this specific page to ensure fresh data on next load
+      const cachedKey = `page_metadata_${selectedPage.route}`;
+      localStorage.removeItem(cachedKey);
       
       toast({
         title: "Success",
         description: "Page metadata updated successfully",
       });
-      
-      if (data.image_url && data.image_url.startsWith('data:image')) {
-        const cachedKey = `page_metadata_${selectedPage.route}`;
-        const cached = localStorage.getItem(cachedKey);
-        if (cached) {
-          const parsed = JSON.parse(cached);
-          // Just store a reference that it's a base64 image in the cache
-          parsed.image_url = '[base64-image]';
-          localStorage.setItem(cachedKey, JSON.stringify(parsed));
-        }
-      }
       
       if (onSuccess) {
         onSuccess();
@@ -353,7 +398,7 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
                       Configure Open Graph and Twitter Card metadata for this page
                     </CardDescription>
                     <CardDescription className="text-sm mt-2 bg-muted p-2 rounded">
-                      Full URL: <code className="bg-muted-foreground/20 px-1 rounded">{getFullUrl(selectedPage.route)}</code>
+                      Full URL: <code className="bg-muted-foreground/20 px-1 rounded">{selectedPage.fullUrl}</code>
                     </CardDescription>
                   </CardHeader>
                   <CardContent>

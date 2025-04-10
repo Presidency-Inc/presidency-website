@@ -34,11 +34,18 @@ export const usePageMetadata = (route: string) => {
       try {
         // Try to use cached data first
         const parsed = JSON.parse(cachedMetadata);
-        setMetadata(parsed);
-        setLoading(false);
         
-        // Still fetch in the background to update the cache
-        fetchMetadata(true);
+        // If the cached data contains a base64 image, we need to fetch fresh data
+        if (parsed.image_url === '[base64-image]') {
+          // Skip setting cached metadata and fetch directly
+          fetchMetadata();
+        } else {
+          setMetadata(parsed);
+          setLoading(false);
+          
+          // Still fetch in the background to update the cache
+          fetchMetadata(true);
+        }
       } catch (err) {
         // If parsing fails, fetch the data
         fetchMetadata();
@@ -91,7 +98,7 @@ export const usePageMetadata = (route: string) => {
           fullUrl: getFullUrl(route)
         };
         
-        // Handle image validation: For external URLs only (not for data URLs)
+        // Handle image validation: For external URLs only (not for data URLs or local URLs)
         if (data.image_url && !data.image_url.startsWith('data:image') && !data.image_url.startsWith('/')) {
           const img = new Image();
           img.src = data.image_url;
@@ -115,10 +122,19 @@ export const usePageMetadata = (route: string) => {
             localStorage.setItem(`page_metadata_${route}`, JSON.stringify(correctedData));
           };
         } else {
-          // For data URLs or local URLs, just use the data
+          // For data URLs or local URLs, just use the data as is
           setMetadata(enhancedData as PageMetadata);
-          // Cache the fetched data
-          localStorage.setItem(`page_metadata_${route}`, JSON.stringify(enhancedData));
+          
+          // Cache the fetched data, but if it's a base64 image, just store a reference
+          if (data.image_url && data.image_url.startsWith('data:image')) {
+            const cachedData = { 
+              ...enhancedData, 
+              image_url: '[base64-image]' // Just store a reference that it's a base64 image
+            };
+            localStorage.setItem(`page_metadata_${route}`, JSON.stringify(cachedData));
+          } else {
+            localStorage.setItem(`page_metadata_${route}`, JSON.stringify(enhancedData));
+          }
         }
       }
     } catch (err) {
@@ -150,7 +166,7 @@ export const usePageMetadata = (route: string) => {
     }
   };
 
-  return { metadata, loading, error };
+  return { metadata, loading, error, refetch: fetchMetadata };
 };
 
 export default usePageMetadata;
