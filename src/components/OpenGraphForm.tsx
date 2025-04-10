@@ -250,10 +250,15 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
         return;
       }
       
+      let imageUrl = data.image_url;
+      if (imageUrl && !imageUrl.startsWith('http') && !imageUrl.startsWith('/')) {
+        imageUrl = '/' + imageUrl;
+      }
+      
       const updatedFields = {
         title: data.title,
         description: data.description,
-        image_url: data.image_url,
+        image_url: imageUrl,
         og_type: data.og_type,
         twitter_card: data.twitter_card,
         updated_at: new Date().toISOString(),
@@ -294,6 +299,13 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
           localStorage.removeItem(key);
         }
       });
+      
+      if (window.__PRELOADED_METADATA__ && selectedPage.route === window.location.pathname) {
+        window.__PRELOADED_METADATA__ = { 
+          ...updatedFields,
+          fullUrl: getFullUrl(selectedPage.route)
+        };
+      }
       
       toast({
         title: "Success",

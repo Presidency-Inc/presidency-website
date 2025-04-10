@@ -14,13 +14,18 @@ if (!document.querySelector('link[rel="icon"]')) {
 // Get the origin for absolute URLs
 const origin = window.location.origin;
 
-// Immediately set default Open Graph tags to ensure they're present for crawlers
-const title = "Presidency Solutions | AI & Data Engineering Experts";
-const description = "Presidency Solutions helps organizations maximize their impact with AI, Data Engineering, Databricks Solutions, Cloud Modernization, and Talent Solutions.";
-const imageUrl = `${origin}/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png`;
+// Check if we already have metadata from the preload script
+const preloadedMetadata = window.__PRELOADED_METADATA__;
+
+// Fallback metadata values if not preloaded
+const title = String(preloadedMetadata?.title || "Presidency Solutions | AI & Data Engineering Experts");
+const description = String(preloadedMetadata?.description || "Presidency Solutions helps organizations maximize their impact with AI, Data Engineering, Databricks Solutions, Cloud Modernization, and Talent Solutions.");
+const imageUrl = String(preloadedMetadata?.image_url || `${origin}/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png`);
+const ogType = String(preloadedMetadata?.og_type || "website");
+const twitterCard = String(preloadedMetadata?.twitter_card || "summary_large_image");
 
 // Helper function to update meta tag if it exists or create it if it doesn't
-const updateOrCreateMetaTag = (tagData) => {
+const updateOrCreateMetaTag = (tagData: { [key: string]: string }) => {
   const selector = tagData.property
     ? `meta[property="${tagData.property}"]`
     : `meta[name="${tagData.name}"]`;
@@ -42,12 +47,12 @@ const updateOrCreateMetaTag = (tagData) => {
 const metaTags = [
   { property: "og:title", content: title },
   { property: "og:description", content: description },
-  { property: "og:type", content: "website" },
-  { property: "og:url", content: origin },
+  { property: "og:type", content: ogType },
+  { property: "og:url", content: window.location.href },
   { property: "og:image", content: imageUrl },
   { property: "og:site_name", content: "Presidency Solutions" },
   { property: "og:locale", content: "en_US" },
-  { name: "twitter:card", content: "summary_large_image" },
+  { name: "twitter:card", content: twitterCard },
   { name: "twitter:title", content: title },
   { name: "twitter:description", content: description },
   { name: "twitter:image", content: imageUrl }
@@ -58,6 +63,13 @@ metaTags.forEach(updateOrCreateMetaTag);
 
 // Set document title immediately
 document.title = title;
+
+// Declare the global type for TypeScript
+declare global {
+  interface Window {
+    __PRELOADED_METADATA__?: any;
+  }
+}
 
 // Now render the React app
 createRoot(document.getElementById("root")!).render(<App />);

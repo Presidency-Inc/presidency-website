@@ -37,43 +37,10 @@ const ServicesAI = () => {
       document.body.classList.remove('mobile-ai-services-layout');
     }
     
-    // Add meta tags to document head for crawlers
-    const head = document.querySelector('head');
-    if (head) {
-      const metaTags = [
-        { property: "og:title", content: title },
-        { property: "og:description", content: description },
-        { property: "og:type", content: ogType },
-        { property: "og:url", content: ogUrl },
-        { property: "og:image", content: ogImage },
-        { property: "og:locale", content: "en" },
-        { name: "twitter:card", content: twitterCard },
-        { name: "twitter:title", content: title },
-        { name: "twitter:description", content: description },
-        { name: "twitter:image", content: ogImage }
-      ];
-      
-      // Remove any existing OG tags that might be dynamically added
-      document.querySelectorAll('meta[property^="og:"], meta[name^="twitter:"]').forEach(tag => {
-        if (!tag.hasAttribute('data-react-helmet')) {
-          tag.remove();
-        }
-      });
-      
-      // Add meta tags
-      metaTags.forEach(tagData => {
-        const meta = document.createElement('meta');
-        Object.entries(tagData).forEach(([attr, value]) => {
-          meta.setAttribute(attr, value);
-        });
-        head.appendChild(meta);
-      });
-    }
-    
     return () => {
       document.body.classList.remove('mobile-ai-services-layout');
     };
-  }, [isMobile, title, description, ogType, ogUrl, ogImage, twitterCard]);
+  }, [isMobile]);
   
   // Scroll to top when component mounts
   useEffect(() => {
@@ -92,12 +59,14 @@ const ServicesAI = () => {
         <meta property="og:type" content={ogType} />
         <meta property="og:url" content={ogUrl} />
         <meta property="og:image" content={ogImage} />
-        <meta property="og:locale" content="en" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:site_name" content="Presidency Solutions" />
         
         <meta name="twitter:card" content={twitterCard} />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={ogImage} />
+        <meta name="twitter:site" content="@presidencysolns" />
       </Helmet>
       <StatusBar />
       <Navbar />

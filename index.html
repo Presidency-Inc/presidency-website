@@ -75,6 +75,51 @@
           if (d.head) d.head.appendChild(s);
       })(document, window, 'BrevoConversations');
     </script>
+    
+    <!-- Preload metadata from Supabase -->
+    <script>
+      // This script will execute before the main React application loads
+      window.__PRELOADED_METADATA__ = {};
+      
+      // Fetch current route from URL path
+      const currentPath = window.location.pathname || '/';
+      const cacheKey = `page_metadata_${currentPath}`;
+      
+      // Check if we have cached metadata for this route
+      const cachedData = localStorage.getItem(cacheKey);
+      if (cachedData) {
+        try {
+          window.__PRELOADED_METADATA__ = JSON.parse(cachedData);
+          
+          // Update meta tags immediately
+          const updateMetaTag = (selector, content) => {
+            const tag = document.querySelector(selector);
+            if (tag && content) tag.setAttribute('content', String(content));
+          };
+          
+          const metadata = window.__PRELOADED_METADATA__;
+          
+          // Set document title
+          if (metadata.title) document.title = String(metadata.title);
+          
+          // Update Open Graph tags
+          updateMetaTag('meta[property="og:title"]', metadata.title);
+          updateMetaTag('meta[property="og:description"]', metadata.description);
+          updateMetaTag('meta[property="og:type"]', metadata.og_type);
+          updateMetaTag('meta[property="og:image"]', metadata.image_url);
+          updateMetaTag('meta[property="og:url"]', window.location.href);
+          
+          // Update Twitter Card tags
+          updateMetaTag('meta[name="twitter:title"]', metadata.title);
+          updateMetaTag('meta[name="twitter:description"]', metadata.description);
+          updateMetaTag('meta[name="twitter:image"]', metadata.image_url);
+          updateMetaTag('meta[name="twitter:card"]', metadata.twitter_card);
+        } catch (e) {
+          console.error('Error parsing preloaded metadata:', e);
+        }
+      }
+    </script>
+    
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>

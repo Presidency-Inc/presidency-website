@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -60,7 +61,8 @@ export const usePageMetadata = (route: string) => {
       { property: "og:type", content: String(meta.og_type || 'website') },
       { property: "og:url", content: fullUrl },
       { property: "og:image", content: imageUrl },
-      { property: "og:locale", content: "en" },
+      { property: "og:locale", content: "en_US" },
+      { property: "og:site_name", content: "Presidency Solutions" },
       { name: "twitter:card", content: String(meta.twitter_card || 'summary_large_image') },
       { name: "twitter:title", content: String(meta.title) },
       { name: "twitter:description", content: String(meta.description) },
