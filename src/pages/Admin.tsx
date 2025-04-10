@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 import StatusBar from "@/components/StatusBar";
 import ScrollProgress from "@/components/ScrollProgress";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { User, FileText, Newspaper, Flag, Edit, Save, Plus } from "lucide-react";
+import { User, FileText, Newspaper, Flag, Edit, Save, Plus, Share } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
@@ -24,6 +24,7 @@ import BannerForm from "@/components/BannerForm";
 import BlogList from "@/components/BlogList";
 import BlogForm, { Blog } from "@/components/BlogForm";
 import BlogDetail from "@/components/BlogDetail";
+import OpenGraphForm from "@/components/OpenGraphForm";
 
 interface UserProfile {
   name: string;
@@ -331,7 +332,7 @@ const Admin = () => {
             
             <div className="border-t border-gray-200 px-4 py-5 sm:p-6">
               <Tabs defaultValue="profile" className="w-full">
-                <TabsList className="grid w-full grid-cols-4">
+                <TabsList className="grid w-full grid-cols-5">
                   <TabsTrigger value="profile" className="flex items-center gap-2">
                     <User size={16} />
                     <span>Your Profile</span>
@@ -347,6 +348,10 @@ const Admin = () => {
                   <TabsTrigger value="banner" className="flex items-center gap-2">
                     <Flag size={16} />
                     <span>Blue Banner</span>
+                  </TabsTrigger>
+                  <TabsTrigger value="opengraph" className="flex items-center gap-2">
+                    <Share size={16} />
+                    <span>Open Graph</span>
                   </TabsTrigger>
                 </TabsList>
                 
@@ -617,6 +622,18 @@ const Admin = () => {
                     </CardContent>
                   </Card>
                 </TabsContent>
+
+                <TabsContent value="opengraph" className="mt-6">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Open Graph & Twitter Cards</CardTitle>
+                      <CardDescription>Manage metadata for social media sharing across all pages.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <OpenGraphForm />
+                    </CardContent>
+                  </Card>
+                </TabsContent>
               </Tabs>
             </div>
           </div>
@@ -628,4 +645,3 @@ const Admin = () => {
 };
 
 export default Admin;
-

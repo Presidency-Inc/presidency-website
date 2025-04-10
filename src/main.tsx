@@ -15,15 +15,15 @@ if (!document.querySelector('link[rel="icon"]')) {
 const isBlogPostPage = window.location.pathname.startsWith('/blog/');
 
 // Set default document title and Open Graph metadata only if we're not on a blog post page
+// We'll leave basic fallback metadata here, but page components will override these with usePageMetadata
 if (!isBlogPostPage) {
   document.title = "Presidency Solutions | AI & Data Engineering Experts";
   
-  // Only set Open Graph metadata if not on a blog post page
   // Remove any existing OG tags first to avoid duplicates
   const existingOgTags = document.querySelectorAll('meta[property^="og:"], meta[name^="twitter:"]');
   existingOgTags.forEach(tag => tag.remove());
   
-  // Add default metadata
+  // Add default metadata as fallback - these will be replaced by component-level metadata
   const metaTags = [
     { property: "og:title", content: "Presidency Solutions | AI & Data Engineering Experts" },
     { property: "og:description", content: "Presidency Solutions helps organizations maximize their impact with AI, Data Engineering, Databricks Solutions, Cloud Modernization, and Talent Solutions." },
