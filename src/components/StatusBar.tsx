@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/components/ui/use-toast";
 
 interface BannerSettings {
   id: string;
@@ -17,7 +16,6 @@ interface BannerSettings {
 
 const StatusBar = () => {
   const isMobile = useIsMobile();
-  const { toast } = useToast();
   const [bannerSettings, setBannerSettings] = useState<BannerSettings>({
     id: "",
     title: "Join FREE AI Solutions Webinar: Maximize Enterprise Impact - June 15-16, 2023",
@@ -38,7 +36,6 @@ const StatusBar = () => {
 
         if (error) {
           console.error('Error fetching banner settings:', error);
-          // Fall back to default settings instead of showing an error
           return;
         }
 
@@ -54,7 +51,6 @@ const StatusBar = () => {
         }
       } catch (error) {
         console.error('Error fetching banner settings:', error);
-        // Silent fail to default banner settings
       } finally {
         setLoading(false);
       }

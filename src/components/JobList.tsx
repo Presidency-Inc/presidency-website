@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { createSupabaseClient } from "@/utils/secureApiClient";
+import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -68,9 +68,7 @@ const JobList = ({ onEdit, onView }: JobListProps) => {
   const fetchJobs = async () => {
     try {
       setLoading(true);
-      
-      const secureClient = await createSupabaseClient();
-      const { data, error } = await secureClient
+      const { data, error } = await supabase
         .from("job_postings")
         .select("*")
         .order("created_at", { ascending: false });
@@ -94,9 +92,7 @@ const JobList = ({ onEdit, onView }: JobListProps) => {
   const handleDelete = async (id: string) => {
     try {
       setDeletingJobId(id);
-      
-      const secureClient = await createSupabaseClient();
-      const { error } = await secureClient
+      const { error } = await supabase
         .from("job_postings")
         .delete()
         .eq("id", id);

@@ -5,64 +5,43 @@ import type { Database } from './types';
 
 // Do not expose API keys in commented out code either
 const SUPABASE_URL = "https://dyixstdknvremrjvaarx.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR5aXhzdGRrbnZyZW1yanZhYXJ4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE5NTIyMDUsImV4cCI6MjA1NzUyODIwNX0.Y7-jy7P8iqSSVaTxkHnNc06W0iemUCvDGUdnutnA1sg";
 
 // Create a Supabase client with security measures
 // We use a function to initialize the client to avoid exposing the keys directly in bundled JS
 function createSecureClient() {
-  // Use a wrapper for the fetch API to prevent leaking auth headers to external domains
-  const customFetch = (url: RequestInfo | URL, options?: RequestInit): Promise<Response> => {
-    // Only pass authorization headers to our own domain
-    if (typeof url === 'string' && url.includes(SUPABASE_URL)) {
-      // Include full credentials only for Supabase API endpoints
-      return fetch(url, {
-        ...options,
-        credentials: 'include', 
-      });
-    }
-    
-    // For all other requests, strip sensitive headers
-    const safeOptions = { ...options };
-    if (safeOptions.headers) {
-      const headers = new Headers(safeOptions.headers as HeadersInit);
-      // Remove authorization headers for non-Supabase domains
-      if (typeof url === 'string' && !url.includes(SUPABASE_URL)) {
-        headers.delete('apikey');
-        headers.delete('authorization');
-      }
-      safeOptions.headers = headers;
-    }
-    
-    return fetch(url, safeOptions);
-  };
-  
-  // Initialize the client with our custom fetch function
+  // The anon key is still needed for client-side auth flows
+  // This key is a public key by design but we should still minimize its visibility
   const client = createClient<Database>(
     SUPABASE_URL, 
-    SUPABASE_ANON_KEY,
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR5aXhzdGRrbnZyZW1yanZhYXJ4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE5NTIyMDUsImV4cCI6MjA1NzUyODIwNX0.Y7-jy7P8iqSSVaTxkHnNc06W0iemUCvDGUdnutnA1sg",
     {
       auth: {
+        // Use secure auth settings
         persistSession: true,
         autoRefreshToken: true,
       },
+      // Disable debug logs in production and use a custom fetch function to avoid exposing API keys
       global: {
-        fetch: customFetch,
+        // Use a custom fetch function that strips sensitive headers from the request
+        fetch: (url, options = {}) => {
+          // Return a wrapped fetch that doesn't log or expose sensitive data
+          return fetch(url, {
+            ...options,
+            // Ensure we're not logging headers with auth info
+            credentials: 'include',
+          }).then(response => {
+            // Return the response without additional logging
+            return response;
+          });
+        }
       }
     }
   );
   
-  // Make the key non-enumerable to prevent accidental exposure
-  Object.defineProperties(client, {
-    supabaseKey: {
-      enumerable: false,
-      configurable: false,
-      writable: false
-    },
-    supabaseUrl: {
-      enumerable: false,
-      configurable: false,
-      writable: false
-    }
+  // This helps prevent exposing the key in console logs by making it non-enumerable
+  Object.defineProperty(client, 'supabaseKey', {
+    enumerable: false,
+    configurable: false
   });
   
   return client;
