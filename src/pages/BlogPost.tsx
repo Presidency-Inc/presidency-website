@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { Helmet } from "react-helmet";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StatusBar from "@/components/StatusBar";
@@ -11,6 +10,7 @@ import { ArrowLeft } from "lucide-react";
 import { marked } from "marked";
 import { Blog, Tag } from "@/components/BlogForm";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import PageMetadata from "@/components/PageMetadata";
 
 marked.setOptions({
   breaks: true,
@@ -33,7 +33,7 @@ const BlogPostPage = () => {
   const [relatedPosts, setRelatedPosts] = useState<Blog[]>([]);
   const [author, setAuthor] = useState<Author | null>(null);
   
-  const currentUrl = `${window.location.origin}/blog/${slug}`;
+  const currentUrl = `/blog/${slug}`;
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -180,21 +180,15 @@ const BlogPostPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Helmet>
-        <title>{post?.title} | Presidency Solutions</title>
-        <meta name="description" content={post?.description} />
-        <meta name="keywords" content={post?.tags?.map(tag => tag.name).join(', ')} />
-        <meta property="og:type" content="article" key="og:type" />
-        <meta property="og:title" content={post?.title} key="og:title" />
-        <meta property="og:description" content={post?.description} key="og:description" />
-        <meta property="og:image" content={post?.banner_image} key="og:image" />
-        <meta property="og:url" content={currentUrl} key="og:url" />
-        <meta property="og:site_name" content="Presidency Solutions" key="og:site_name" />
-        <meta name="twitter:card" content="summary_large_image" key="twitter:card" />
-        <meta name="twitter:title" content={post?.title} key="twitter:title" />
-        <meta name="twitter:description" content={post?.description} key="twitter:description" />
-        <meta name="twitter:image" content={post?.banner_image} key="twitter:image" />
-      </Helmet>
+      {post && (
+        <PageMetadata
+          title={`${post.title} | Presidency Solutions`}
+          description={post.description}
+          image={post.banner_image}
+          url={currentUrl}
+          type="article"
+        />
+      )}
       
       <StatusBar />
       <Navbar />

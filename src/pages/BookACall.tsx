@@ -1,28 +1,20 @@
 
-import { Helmet } from "react-helmet";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import StatusBar from "@/components/StatusBar";
 import ScrollProgress from "@/components/ScrollProgress";
+import PageMetadata from "@/components/PageMetadata";
 
 const BookACall = () => {
   return (
     <>
-      <Helmet>
-        <title>Book a Call | Presidency Solutions</title>
-        <meta name="description" content="Schedule a consultation with our AI and data engineering experts to discuss your business needs and how we can help you maximize your impact." />
-        <meta name="keywords" content="consultation, book a call, expert consultation, AI consultation, data engineering consultation" />
-        <meta property="og:title" content="Book a Call | Presidency Solutions" />
-        <meta property="og:description" content="Schedule a consultation with our AI and data engineering experts to discuss your business needs." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="/book-a-call" />
-        <meta property="og:image" content="/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Book a Call | Presidency Solutions" />
-        <meta name="twitter:description" content="Schedule a consultation with our AI and data engineering experts to discuss your business needs." />
-        <meta name="twitter:image" content="/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png" />
-      </Helmet>
+      <PageMetadata
+        title="Book a Call | Presidency Solutions"
+        description="Schedule a consultation with our AI and data engineering experts to discuss your business needs and how we can help you maximize your impact."
+        image="/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png"
+        url="/book-a-call"
+      />
       <ScrollToTop />
       <StatusBar />
       <Navbar />

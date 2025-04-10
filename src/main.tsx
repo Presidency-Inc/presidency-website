@@ -11,41 +11,24 @@ if (!document.querySelector('link[rel="icon"]')) {
   document.head.appendChild(link);
 }
 
-// Check if we're on a blog post page
-const isBlogPostPage = window.location.pathname.startsWith('/blog/');
+// Add prerender status code meta tag for proper bot responses
+const prerenderStatusCode = document.createElement('meta');
+prerenderStatusCode.name = 'prerender-status-code';
+prerenderStatusCode.content = '200';
+document.head.appendChild(prerenderStatusCode);
 
-// Get the origin for absolute URLs
-const origin = window.location.origin;
+// Set a default prerender header for improved SEO
+const prerenderHeader = document.createElement('meta');
+prerenderHeader.name = 'prerender-header';
+prerenderHeader.content = 'Location: https://presidencysolutions.com/';
+document.head.appendChild(prerenderHeader);
 
-// Set default document title and Open Graph metadata only if we're not on a blog post page
-// We'll leave basic fallback metadata here, but page components will override these with usePageMetadata
-if (!isBlogPostPage) {
-  document.title = "Presidency Solutions | AI & Data Engineering Experts";
-  
-  // Remove any existing OG tags first to avoid duplicates
-  const existingOgTags = document.querySelectorAll('meta[property^="og:"], meta[name^="twitter:"]');
-  existingOgTags.forEach(tag => tag.remove());
-  
-  // Add default metadata as fallback - these will be replaced by component-level metadata
-  const metaTags = [
-    { property: "og:title", content: "Presidency Solutions | AI & Data Engineering Experts" },
-    { property: "og:description", content: "Presidency Solutions helps organizations maximize their impact with AI, Data Engineering, Databricks Solutions, Cloud Modernization, and Talent Solutions." },
-    { property: "og:type", content: "website" },
-    { property: "og:url", content: origin },
-    { property: "og:image", content: `${origin}/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png` },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:title", content: "Presidency Solutions | AI & Data Engineering Experts" },
-    { name: "twitter:description", content: "Presidency Solutions helps organizations maximize their impact with AI, Data Engineering, Databricks Solutions, Cloud Modernization, and Talent Solutions." },
-    { name: "twitter:image", content: `${origin}/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png` }
-  ];
-  
-  metaTags.forEach(tagData => {
-    const meta = document.createElement('meta');
-    Object.entries(tagData).forEach(([attr, value]) => {
-      meta.setAttribute(attr, value);
-    });
-    document.head.appendChild(meta);
-  });
+// In case page is 404, set appropriate status (page components can override this)
+if (window.location.pathname !== '/' && !document.querySelector('meta[name="prerender-status-code"]')) {
+  const statusMeta = document.createElement('meta');
+  statusMeta.name = 'prerender-status-code';
+  statusMeta.content = '404';
+  document.head.appendChild(statusMeta);
 }
 
 createRoot(document.getElementById("root")!).render(<App />);
