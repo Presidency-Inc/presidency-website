@@ -1,0 +1,8 @@
+
+{
+  "scripts": {
+    "serve": "node --experimental-modules server-start.js",
+    "start-prod": "node --experimental-modules scripts/start-production.js"
+  },
+  "type": "module"
+}

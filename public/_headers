@@ -7,4 +7,5 @@
   Pragma: no-cache
   Expires: 0
   Access-Control-Allow-Origin: *
-  Vary: Accept-Encoding
+  Vary: Accept-Encoding, User-Agent
+
