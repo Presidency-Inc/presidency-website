@@ -109,6 +109,9 @@ const BlogPostPage = () => {
           if (tagIds.length > 0) {
             fetchRelatedPosts(data.id, tagIds);
           }
+          
+          // Set the document title immediately to avoid flashes
+          document.title = `${data.title} | Presidency Solutions`;
         }
       } catch (error) {
         console.error('Error fetching blog post:', error);
@@ -180,24 +183,19 @@ const BlogPostPage = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Helmet>
-        {/* Replace all metadata completely for this page */}
-        <title>{post?.title || 'Blog Post'} | Presidency Solutions</title>
+        <title>{post?.title} | Presidency Solutions</title>
         <meta name="description" content={post?.description} />
         <meta name="keywords" content={post?.tags?.map(tag => tag.name).join(', ')} />
-        
-        {/* Open Graph metadata */}
-        <meta property="og:type" content="article" />
-        <meta property="og:title" content={post?.title} />
-        <meta property="og:description" content={post?.description} />
-        <meta property="og:image" content={post?.banner_image} />
-        <meta property="og:url" content={currentUrl} />
-        <meta property="og:site_name" content="Presidency Solutions" />
-        
-        {/* Twitter Card metadata */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={post?.title} />
-        <meta name="twitter:description" content={post?.description} />
-        <meta name="twitter:image" content={post?.banner_image} />
+        <meta property="og:type" content="article" key="og:type" />
+        <meta property="og:title" content={post?.title} key="og:title" />
+        <meta property="og:description" content={post?.description} key="og:description" />
+        <meta property="og:image" content={post?.banner_image} key="og:image" />
+        <meta property="og:url" content={currentUrl} key="og:url" />
+        <meta property="og:site_name" content="Presidency Solutions" key="og:site_name" />
+        <meta name="twitter:card" content="summary_large_image" key="twitter:card" />
+        <meta name="twitter:title" content={post?.title} key="twitter:title" />
+        <meta name="twitter:description" content={post?.description} key="twitter:description" />
+        <meta name="twitter:image" content={post?.banner_image} key="twitter:image" />
       </Helmet>
       
       <StatusBar />
