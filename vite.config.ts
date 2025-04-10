@@ -3,7 +3,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
-import prerenderPlugin from 'vite-plugin-prerender';
+import type { Request, Response, NextFunction } from 'express';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -11,7 +11,7 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
     middleware: [
-      (req, res, next) => {
+      (req: Request, res: Response, next: NextFunction) => {
         // Check if the request is from a bot
         const userAgent = req.headers['user-agent'] || '';
         const isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(userAgent);
