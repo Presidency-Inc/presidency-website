@@ -10,7 +10,7 @@ document.title = "Presidency Solutions | AI & Data Engineering Experts";
 if (!document.querySelector('link[rel="icon"]')) {
   const link = document.createElement('link');
   link.rel = 'icon';
-  link.href = '/lovable-uploads/e034b19d-8aef-4f26-a313-d58f10d804a6.png';
+  link.href = '/lovable-uploads/465dc1c4-12bb-4d80-b59c-8e56947c0ef0.png';
   document.head.appendChild(link);
 }
 

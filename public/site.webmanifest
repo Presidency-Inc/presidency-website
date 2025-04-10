@@ -1,0 +1,20 @@
+
+{
+  "name": "Presidency Solutions",
+  "short_name": "Presidency",
+  "icons": [
+    {
+      "src": "/lovable-uploads/465dc1c4-12bb-4d80-b59c-8e56947c0ef0.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "/lovable-uploads/20a1496b-9ff9-4278-a805-303b273caf88.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}
