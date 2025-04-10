@@ -21,6 +21,14 @@ const ProductOmniflow = () => {
   const isMobile = useIsMobile();
   const { metadata } = usePageMetadata("/products/omniflow");
   
+  // Extract string values for metadata to avoid Symbol conversion issues
+  const title = String(metadata?.title || "Omniflow | Enterprise Data Integration Platform");
+  const description = String(metadata?.description || "Omniflow is an enterprise-grade ETL platform that enables seamless data integration from any source to any target with powerful governance features.");
+  const ogType = String(metadata?.og_type || "website");
+  const ogUrl = String(metadata?.fullUrl || `${window.location.origin}/products/omniflow`);
+  const ogImage = String(metadata?.image_url || `${window.location.origin}/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png`);
+  const twitterCard = String(metadata?.twitter_card || "summary_large_image");
+  
   // Apply mobile-specific CSS class to the body when on mobile
   useEffect(() => {
     if (isMobile) {
@@ -29,47 +37,60 @@ const ProductOmniflow = () => {
       document.body.classList.remove('mobile-omniflow-layout');
     }
     
+    // Add meta tags to document head for crawlers
+    const head = document.querySelector('head');
+    if (head) {
+      const metaTags = [
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:type", content: ogType },
+        { property: "og:url", content: ogUrl },
+        { property: "og:image", content: ogImage },
+        { name: "twitter:card", content: twitterCard },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+        { name: "twitter:image", content: ogImage }
+      ];
+      
+      // Remove any existing OG tags that might be dynamically added
+      document.querySelectorAll('meta[property^="og:"], meta[name^="twitter:"]').forEach(tag => {
+        if (!tag.hasAttribute('data-react-helmet')) {
+          tag.remove();
+        }
+      });
+      
+      // Add meta tags
+      metaTags.forEach(tagData => {
+        const meta = document.createElement('meta');
+        Object.entries(tagData).forEach(([attr, value]) => {
+          meta.setAttribute(attr, value);
+        });
+        head.appendChild(meta);
+      });
+    }
+    
     return () => {
       document.body.classList.remove('mobile-omniflow-layout');
     };
-  }, [isMobile]);
+  }, [isMobile, title, description, ogType, ogUrl, ogImage, twitterCard]);
 
   return (
     <main className="min-h-screen bg-white overflow-x-hidden">
       <Helmet>
-        {metadata ? (
-          <>
-            <title>{metadata.title}</title>
-            <meta name="description" content={metadata.description} />
-            
-            {/* Open Graph Metadata */}
-            <meta property="og:title" content={metadata.title} />
-            <meta property="og:description" content={metadata.description} />
-            <meta property="og:type" content={metadata.og_type} />
-            <meta property="og:url" content={metadata.fullUrl} />
-            <meta property="og:image" content={metadata.image_url} />
-            
-            {/* Twitter Card Metadata */}
-            <meta name="twitter:card" content={metadata.twitter_card} />
-            <meta name="twitter:title" content={metadata.title} />
-            <meta name="twitter:description" content={metadata.description} />
-            <meta name="twitter:image" content={metadata.image_url} />
-          </>
-        ) : (
-          <>
-            <title>Omniflow | Enterprise Data Integration Platform</title>
-            <meta name="description" content="Omniflow is an enterprise-grade ETL platform that enables seamless data integration from any source to any target with powerful governance features." />
-            <meta property="og:title" content="Omniflow | Enterprise Data Integration Platform" />
-            <meta property="og:description" content="Omniflow is an enterprise-grade ETL platform that enables seamless data integration from any source to any target with powerful governance features." />
-            <meta property="og:type" content="website" />
-            <meta property="og:url" content={`${window.location.origin}/products/omniflow`} />
-            <meta property="og:image" content={`${window.location.origin}/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png`} />
-            <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:title" content="Omniflow | Enterprise Data Integration Platform" />
-            <meta name="twitter:description" content="Omniflow is an enterprise-grade ETL platform that enables seamless data integration from any source to any target with powerful governance features." />
-            <meta name="twitter:image" content={`${window.location.origin}/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png`} />
-          </>
-        )}
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta name="keywords" content="ETL platform, data integration, enterprise data, data governance, Omniflow" />
+        
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content={ogType} />
+        <meta property="og:url" content={ogUrl} />
+        <meta property="og:image" content={ogImage} />
+        
+        <meta name="twitter:card" content={twitterCard} />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={ogImage} />
       </Helmet>
       <StatusBar />
       <Navbar />

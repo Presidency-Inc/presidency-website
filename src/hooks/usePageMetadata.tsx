@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -44,49 +43,88 @@ export const usePageMetadata = (route: string) => {
     return `${window.location.origin}${imageUrl.startsWith('/') ? '' : '/'}${imageUrl}`;
   };
 
-  // Clear any existing meta tags from main.tsx to avoid duplicates
-  const clearExistingMetaTags = () => {
-    if (typeof document !== 'undefined') {
-      document.querySelectorAll('meta[property^="og:"], meta[name^="twitter:"]').forEach(tag => {
-        if (!tag.hasAttribute('data-react-helmet')) {
-          tag.remove();
+  // Function to update metadata in the document head
+  const updateDocumentHead = (meta: PageMetadata) => {
+    // Early return if not in browser environment
+    if (typeof document === 'undefined') return;
+    
+    document.title = String(meta.title);
+    
+    // Prepare metadata
+    const metaTags = [
+      { property: "og:title", content: String(meta.title) },
+      { property: "og:description", content: String(meta.description) },
+      { property: "og:type", content: String(meta.og_type || 'website') },
+      { property: "og:url", content: String(meta.fullUrl || getFullUrl(route)) },
+      { property: "og:image", content: String(meta.image_url) },
+      { name: "twitter:card", content: String(meta.twitter_card || 'summary_large_image') },
+      { name: "twitter:title", content: String(meta.title) },
+      { name: "twitter:description", content: String(meta.description) },
+      { name: "twitter:image", content: String(meta.image_url) }
+    ];
+    
+    // Update existing meta tags or create new ones
+    metaTags.forEach(tagData => {
+      const selector = tagData.property
+        ? `meta[property="${tagData.property}"]:not([data-react-helmet])`
+        : `meta[name="${tagData.name}"]:not([data-react-helmet])`;
+      
+      const existingTag = document.querySelector(selector);
+      
+      if (existingTag) {
+        // Update existing tag
+        if (tagData.property) {
+          existingTag.setAttribute('content', tagData.content);
+        } else {
+          existingTag.setAttribute('content', tagData.content);
         }
-      });
-    }
+      } else {
+        // Create new tag if it doesn't exist
+        const meta = document.createElement('meta');
+        Object.entries(tagData).forEach(([attr, value]) => {
+          meta.setAttribute(attr, value);
+        });
+        document.head.appendChild(meta);
+      }
+    });
   };
 
   useEffect(() => {
-    clearExistingMetaTags();
+    // Clear existing head tags that we'll manage
+    if (typeof document !== 'undefined') {
+      document.querySelectorAll('meta[property^="og:"]:not([data-react-helmet]), meta[name^="twitter:"]:not([data-react-helmet])').forEach(tag => {
+        tag.remove();
+      });
+    }
     
-    // Create a cache system to avoid repeated requests for the same routes
-    const cachedMetadata = localStorage.getItem(`page_metadata_${route}`);
+    // Create a cache key for this route
+    const cacheKey = `page_metadata_${route}`;
     
-    if (cachedMetadata) {
+    // Try to use cached data first to prevent flicker
+    const cachedData = localStorage.getItem(cacheKey);
+    
+    if (cachedData) {
       try {
-        // Try to use cached data first
-        const parsed = JSON.parse(cachedMetadata);
+        const parsed = JSON.parse(cachedData);
         
-        // Always fetch fresh data for base64 images
-        if (parsed.image_url && (parsed.image_url === '[base64-image]' || parsed.image_url.startsWith('data:'))) {
-          // Skip setting cached metadata and fetch directly
-          fetchMetadata();
-        } else {
-          // Make sure image URL is absolute
-          if (parsed.image_url) {
-            parsed.image_url = getAbsoluteImageUrl(parsed.image_url);
-          }
-          
-          // Add full URL
-          parsed.fullUrl = getFullUrl(route);
-          
-          setMetadata(parsed);
-          setLoading(false);
-          
-          // Still fetch in the background to update the cache
-          fetchMetadata(true);
+        // Add full URL and ensure image URL is absolute
+        if (parsed.image_url) {
+          parsed.image_url = getAbsoluteImageUrl(parsed.image_url);
         }
+        
+        parsed.fullUrl = getFullUrl(route);
+        
+        // Set state with cached data
+        setMetadata(parsed);
+        setLoading(false);
+        
+        // Update document head with cached data
+        updateDocumentHead(parsed);
+        
+        // Still fetch fresh data in the background
+        fetchMetadata(true);
       } catch (err) {
-        // If parsing fails, fetch the data
+        console.error("Error parsing cached metadata:", err);
         fetchMetadata();
       }
     } else {
@@ -110,7 +148,7 @@ export const usePageMetadata = (route: string) => {
       if (error) {
         // If no record found, create a fallback object with default values
         if (error.code === 'PGRST116') {
-          const fallbackMetadata = {
+          const fallbackMetadata: PageMetadata = {
             id: 'fallback',
             route: route,
             title: route === '/' 
@@ -123,74 +161,52 @@ export const usePageMetadata = (route: string) => {
             fullUrl: getFullUrl(route)
           };
           
-          setMetadata(fallbackMetadata as PageMetadata);
+          // Update state with fallback data
+          setMetadata(fallbackMetadata);
+          
+          // Update document head with fallback data
+          updateDocumentHead(fallbackMetadata);
           
           // Cache the fallback data
-          localStorage.setItem(`page_metadata_${route}`, JSON.stringify(fallbackMetadata));
+          localStorage.setItem(`page_metadata_${route}`, JSON.stringify({
+            ...fallbackMetadata,
+            image_url: fallbackMetadata.image_url // Store the absolute URL
+          }));
         } else {
           throw error;
         }
       } else if (data) {
-        // Ensure image URL is absolute and valid
-        if (data.image_url) {
-          // Skip base64 check - we now want to always convert to URL
-          data.image_url = getAbsoluteImageUrl(data.image_url);
-        }
-        
-        // Add the full URL (used only in rendering, not saved to DB)
-        const enhancedData = {
+        // Ensure all values are properly treated as strings
+        const stringifiedData: PageMetadata = {
           ...data,
-          fullUrl: getFullUrl(route),
-          image_url: data.image_url // This is now properly formatted
+          title: String(data.title),
+          description: String(data.description),
+          image_url: String(data.image_url),
+          og_type: String(data.og_type),
+          twitter_card: String(data.twitter_card),
         };
         
-        // Handle image validation: For external URLs only (not for data URLs or local URLs)
-        if (data.image_url && !data.image_url.startsWith(window.location.origin) && 
-            (data.image_url.startsWith('http://') || data.image_url.startsWith('https://'))) {
-          const img = new Image();
-          img.src = data.image_url;
-          
-          img.onload = () => {
-            // Image loaded successfully, use the data
-            setMetadata(enhancedData as PageMetadata);
-            // Cache the fetched data
-            localStorage.setItem(`page_metadata_${route}`, JSON.stringify(enhancedData));
-          };
-          
-          img.onerror = () => {
-            // Image failed to load, use fallback image
-            const correctedData = {
-              ...data,
-              image_url: getAbsoluteImageUrl("/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png"),
-              fullUrl: getFullUrl(route)
-            };
-            setMetadata(correctedData as PageMetadata);
-            // Cache the corrected data
-            localStorage.setItem(`page_metadata_${route}`, JSON.stringify(correctedData));
-          };
-        } else {
-          // For data URLs or local URLs, just use the data as is
-          setMetadata(enhancedData as PageMetadata);
-          
-          // Cache the fetched data, but only if it's not a base64 image
-          if (data.image_url && data.image_url.startsWith('data:image')) {
-            // Don't cache base64 images - they should be uploaded to storage
-            const cachedData = { 
-              ...enhancedData, 
-              image_url: '[base64-image]' // Just store a reference that it's a base64 image
-            };
-            localStorage.setItem(`page_metadata_${route}`, JSON.stringify(cachedData));
-          } else {
-            localStorage.setItem(`page_metadata_${route}`, JSON.stringify(enhancedData));
-          }
-        }
+        // Ensure image URL is absolute
+        stringifiedData.image_url = getAbsoluteImageUrl(stringifiedData.image_url);
+        
+        // Add the full URL
+        stringifiedData.fullUrl = getFullUrl(route);
+        
+        // Update state with fetched data
+        setMetadata(stringifiedData);
+        
+        // Update document head with fetched data
+        updateDocumentHead(stringifiedData);
+        
+        // Cache the data
+        localStorage.setItem(`page_metadata_${route}`, JSON.stringify(stringifiedData));
       }
     } catch (err) {
       console.error('Error fetching page metadata:', err);
       setError(err as Error);
       
       // Provide fallback metadata in case of error
-      const fallbackMetadata = {
+      const fallbackMetadata: PageMetadata = {
         id: 'fallback',
         route: route,
         title: route === '/' 
@@ -203,10 +219,11 @@ export const usePageMetadata = (route: string) => {
         fullUrl: getFullUrl(route)
       };
       
-      setMetadata(fallbackMetadata as PageMetadata);
+      // Update state with fallback data
+      setMetadata(fallbackMetadata);
       
-      // Cache the fallback data
-      localStorage.setItem(`page_metadata_${route}`, JSON.stringify(fallbackMetadata));
+      // Update document head with fallback data
+      updateDocumentHead(fallbackMetadata);
     } finally {
       if (!isBackgroundFetch) {
         setLoading(false);

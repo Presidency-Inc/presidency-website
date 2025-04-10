@@ -1,5 +1,5 @@
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StatusBar from "@/components/StatusBar";
@@ -11,9 +11,11 @@ import { motion } from "framer-motion";
 import JobList from "@/components/JobList";
 import { Helmet } from "react-helmet";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { Job } from "@/components/JobList";
 
 const Careers = () => {
   const { metadata } = usePageMetadata("/careers");
+  const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   
   // Extract string values for metadata to avoid Symbol conversion issues
   const title = String(metadata?.title || "Join Our Team | Presidency Solutions");
@@ -26,7 +28,50 @@ const Careers = () => {
   useEffect(() => {
     // Scroll to top when component mounts
     window.scrollTo(0, 0);
-  }, []);
+    
+    // Pre-render meta tags for crawlers
+    const head = document.querySelector('head');
+    if (head) {
+      const metaTags = [
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:type", content: ogType },
+        { property: "og:url", content: ogUrl },
+        { property: "og:image", content: ogImage },
+        { name: "twitter:card", content: twitterCard },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+        { name: "twitter:image", content: ogImage }
+      ];
+      
+      // Remove any existing OG tags that might be dynamically added
+      document.querySelectorAll('meta[property^="og:"], meta[name^="twitter:"]').forEach(tag => {
+        if (!tag.hasAttribute('data-react-helmet')) {
+          tag.remove();
+        }
+      });
+      
+      // Add meta tags server-side for crawlers
+      metaTags.forEach(tagData => {
+        const meta = document.createElement('meta');
+        Object.entries(tagData).forEach(([attr, value]) => {
+          meta.setAttribute(attr, value);
+        });
+        head.appendChild(meta);
+      });
+    }
+  }, [title, description, ogType, ogUrl, ogImage, twitterCard]);
+
+  // Placeholder handlers for JobList
+  const handleEditJob = (job: Job) => {
+    setSelectedJob(job);
+    console.log("Edit job:", job);
+  };
+  
+  const handleViewJob = (job: Job) => {
+    setSelectedJob(job);
+    console.log("View job:", job);
+  };
 
   return (
     <>
@@ -69,7 +114,7 @@ const Careers = () => {
               </p>
             </motion.div>
             
-            <JobList />
+            <JobList onEdit={handleEditJob} onView={handleViewJob} />
           </div>
         </section>
         
