@@ -1,6 +1,4 @@
-
 import { useState, useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Job } from "@/components/JobList";
@@ -25,6 +23,8 @@ import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Helmet } from "react-helmet";
+import { fetchData, insertRecord } from "@/utils/secureApiClient";
+import { supabase } from "@/integrations/supabase/client";
 
 const RECAPTCHA_SITE_KEY = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
 
@@ -89,15 +89,17 @@ const CareerPage = () => {
   const fetchJobs = async () => {
     try {
       setLoading(true);
-      const { data, error, count } = await supabase
-        .from("job_postings")
-        .select("*", { count: 'exact' })
-        .order("created_at", { ascending: false });
+      const response = await fetchData<Job[]>('job_postings', {
+        order: { column: 'created_at', ascending: false }
+      });
 
-      if (error) throw error;
-      setJobs(data as Job[] || []);
-      setFilteredJobs(data as Job[] || []);
-      setJobCount(count || 0);
+      if (response.error) {
+        throw new Error(response.error);
+      }
+      
+      setJobs(response.data || []);
+      setFilteredJobs(response.data || []);
+      setJobCount(response.count || 0);
     } catch (error: any) {
       console.error("Error fetching jobs:", error);
       toast({
@@ -181,16 +183,16 @@ const CareerPage = () => {
 
       if (uploadError) throw uploadError;
 
-      const { error: applicationError } = await supabase
-        .from('job_applicants')
-        .insert({
-          job_id: selectedJob.id,
-          name,
-          email,
-          resume_url: filePath,
-        });
+      const response = await insertRecord('job_applicants', {
+        job_id: selectedJob.id,
+        name,
+        email,
+        resume_url: filePath,
+      });
 
-      if (applicationError) throw applicationError;
+      if (response.error) {
+        throw new Error(response.error);
+      }
 
       toast({
         title: "Application submitted",
