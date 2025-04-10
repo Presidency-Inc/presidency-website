@@ -19,8 +19,9 @@ export default defineConfig(({ mode }) => ({
         if (isBot) {
           // Apply prerender middleware for bots
           console.log('Bot detected, applying prerender middleware:', userAgent);
+          const prerenderToken = process.env.PRERENDER_TOKEN || 'pWxLCawAzhz9R4gwZovp';
           const prerenderMiddleware = require('prerender-node')
-            .set('prerenderToken', process.env.PRERENDER_TOKEN || 'pWxLCawAzhz9R4gwZovp')
+            .set('prerenderToken', prerenderToken)
             .set('protocol', 'https')
             .set('host', 'presidencysolutions.com')
             .set('forwardHeaders', true);

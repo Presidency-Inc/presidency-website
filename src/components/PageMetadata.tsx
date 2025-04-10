@@ -23,7 +23,7 @@ const PageMetadata = ({
   const origin = window.location.origin;
   const currentUrl = url ? `${origin}${url}` : window.location.href;
   
-  // Ensure image is an absolute URL
+  // Ensure image is an absolute URL with improved handling
   const imageUrl = image ? (
     image.startsWith('http') ? image : `${origin}${image.startsWith('/') ? '' : '/'}${image}`
   ) : `${origin}/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png`;
@@ -51,9 +51,10 @@ const PageMetadata = ({
       {/* Canonical URL */}
       <link rel="canonical" href={currentUrl} />
       
-      {/* Prerender specific meta tags */}
+      {/* Prerender specific meta tags with enhanced detection */}
       <meta name="prerender-status-code" content="200" />
       <meta name="prerender-detection" content="Prerender.io integration active" />
+      <meta name="prerender-header" content="X-Prerender-Processed: true" />
       
       {/* Allow for additional custom meta tags */}
       {children}
