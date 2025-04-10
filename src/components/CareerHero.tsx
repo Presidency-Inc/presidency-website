@@ -49,25 +49,22 @@ const CareerHero = () => {
     canvas.height = window.innerHeight;
     
     let animationFrameId: number;
+    let starsPositions = [...stars]; // Create a copy of stars to avoid state updates in the render loop
     
     const render = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      stars.forEach((star, i) => {
+      // Update and draw stars without updating state in the render loop
+      starsPositions = starsPositions.map(star => {
         ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
         ctx.fill();
         
-        // Update star position
-        setStars(prev => {
-          const newStars = [...prev];
-          newStars[i] = {
-            ...star,
-            y: (star.y + star.speed) % canvas.height
-          };
-          return newStars;
-        });
+        return {
+          ...star,
+          y: (star.y + star.speed) % canvas.height
+        };
       });
       
       animationFrameId = requestAnimationFrame(render);
