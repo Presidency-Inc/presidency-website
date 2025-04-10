@@ -1,4 +1,3 @@
-
 import { Helmet } from "react-helmet";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -14,8 +13,8 @@ const BookACall = () => {
   const title = metadata?.title || "Book a Call | Presidency Solutions";
   const description = metadata?.description || "Schedule a consultation with our AI and data engineering experts to discuss your business needs and how we can help you maximize your impact.";
   const ogType = metadata?.og_type || "website";
-  const ogUrl = metadata?.fullUrl || `${window.location.origin}/book-a-call`;
-  const ogImage = metadata?.image_url || `${window.location.origin}/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png`;
+  const ogUrl = metadata?.fullUrl || `https://presidencysolutions.com/book-a-call`;
+  const ogImage = metadata?.image_url || `https://presidencysolutions.com/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png`;
   const twitterCard = metadata?.twitter_card || "summary_large_image";
   
   return (

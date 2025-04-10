@@ -1,4 +1,3 @@
-
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import StatusBar from "@/components/StatusBar";
@@ -15,7 +14,6 @@ import { Helmet } from "react-helmet";
 import usePageMetadata from "@/hooks/usePageMetadata";
 
 const Index = () => {
-  // Use the hook to get metadata for the homepage
   const { metadata, loading } = usePageMetadata("/");
   
   useEffect(() => {
@@ -43,8 +41,8 @@ const Index = () => {
   const title = String(metadata?.title || "Presidency Solutions | AI & Data Engineering Experts");
   const description = String(metadata?.description || "Presidency Solutions helps organizations maximize their impact with AI, Data Engineering, Databricks Solutions, Cloud Modernization, and Talent Solutions.");
   const ogType = String(metadata?.og_type || "website");
-  const ogUrl = String(metadata?.fullUrl || `${window.location.origin}/`);
-  const ogImage = String(metadata?.image_url || `${window.location.origin}/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png`);
+  const ogUrl = String(metadata?.fullUrl || `https://presidencysolutions.com/`);
+  const ogImage = String(metadata?.image_url || `https://presidencysolutions.com/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png`);
   const twitterCard = String(metadata?.twitter_card || "summary_large_image");
   
   return (
