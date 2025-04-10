@@ -1,6 +1,8 @@
 
 /*
-  Cache-Control: public, max-age=0, must-revalidate
+  Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: no-referrer-when-downgrade
+  Pragma: no-cache
+  Expires: 0

@@ -40,12 +40,12 @@ const Index = () => {
   }, []);
   
   // Extract string values for metadata to avoid Symbol conversion issues
-  const title = metadata?.title || "Presidency Solutions | AI, Data Engineering & Cloud Modernization";
-  const description = metadata?.description || "Presidency Solutions helps organizations maximize their impact with AI, Data Engineering, Databricks Solutions, Cloud Modernization, and Talent Solutions.";
-  const ogType = metadata?.og_type || "website";
-  const ogUrl = metadata?.fullUrl || `${window.location.origin}/`;
-  const ogImage = metadata?.image_url || `${window.location.origin}/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png`;
-  const twitterCard = metadata?.twitter_card || "summary_large_image";
+  const title = String(metadata?.title || "Presidency Solutions | AI & Data Engineering Experts");
+  const description = String(metadata?.description || "Presidency Solutions helps organizations maximize their impact with AI, Data Engineering, Databricks Solutions, Cloud Modernization, and Talent Solutions.");
+  const ogType = String(metadata?.og_type || "website");
+  const ogUrl = String(metadata?.fullUrl || `${window.location.origin}/`);
+  const ogImage = String(metadata?.image_url || `${window.location.origin}/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png`);
+  const twitterCard = String(metadata?.twitter_card || "summary_large_image");
   
   return (
     <main className="min-h-screen bg-white overflow-x-hidden">
@@ -59,11 +59,14 @@ const Index = () => {
         <meta property="og:type" content={ogType} />
         <meta property="og:url" content={ogUrl} />
         <meta property="og:image" content={ogImage} />
+        <meta property="og:site_name" content="Presidency Solutions" />
+        <meta property="og:locale" content="en_US" />
         
         <meta name="twitter:card" content={twitterCard} />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={ogImage} />
+        <meta name="twitter:site" content="@presidencysolns" />
       </Helmet>
       <StatusBar />
       <Navbar />
