@@ -185,21 +185,37 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
     
     setSaving(true);
     try {
+      // Optimize save operation by only updating the necessary fields
+      const updatedFields = {
+        title: data.title,
+        description: data.description,
+        image_url: data.image_url,
+        og_type: data.og_type,
+        twitter_card: data.twitter_card,
+        updated_at: new Date().toISOString(),
+      };
+      
       const { error } = await supabase
         .from('page_metadata')
-        .update({
-          title: data.title,
-          description: data.description,
-          image_url: data.image_url,
-          og_type: data.og_type,
-          twitter_card: data.twitter_card,
-          updated_at: new Date().toISOString(),
-        })
+        .update(updatedFields)
         .eq('id', selectedPage.id);
       
       if (error) {
         throw error;
       }
+      
+      // Update the local state to avoid unnecessary refetch
+      const updatedPages = pages.map(page => {
+        if (page.id === selectedPage.id) {
+          return { ...page, ...updatedFields };
+        }
+        return page;
+      });
+      
+      setPages(updatedPages);
+      
+      // Update selected page
+      setSelectedPage({ ...selectedPage, ...updatedFields });
       
       toast({
         title: "Success",
@@ -209,9 +225,6 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
       if (onSuccess) {
         onSuccess();
       }
-      
-      // Refresh the pages list
-      fetchPages();
     } catch (error) {
       console.error('Error updating page metadata:', error);
       toast({
