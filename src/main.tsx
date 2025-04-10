@@ -29,6 +29,22 @@ prerenderDetection.name = 'prerender-detection';
 prerenderDetection.content = 'Prerender.io integration active';
 document.head.appendChild(prerenderDetection);
 
+// Add console logging for prerender detection
+console.log('Checking for prerender:', window.navigator.userAgent);
+if (window.__PRERENDER_STATUS) {
+  console.log('Page is being prerendered!');
+}
+
+// Add window.prerenderReady control
+// This will force Prerender to wait until we explicitly set it to true
+window.prerenderReady = false;
+
+// Set prerenderReady to true after a short delay to ensure content is loaded
+setTimeout(() => {
+  console.log('Setting prerenderReady to true');
+  window.prerenderReady = true;
+}, 2000);
+
 // In case page is 404, set appropriate status (page components can override this)
 if (window.location.pathname !== '/' && !document.querySelector('meta[name="prerender-status-code"]')) {
   const statusMeta = document.createElement('meta');

@@ -28,6 +28,14 @@ const PageMetadata = ({
     image.startsWith('http') ? image : `${origin}${image.startsWith('/') ? '' : '/'}${image}`
   ) : `${origin}/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png`;
 
+  // Set prerenderReady to true when metadata is loaded
+  if (window.prerenderReady === false) {
+    setTimeout(() => {
+      console.log('PageMetadata: Setting prerenderReady to true');
+      window.prerenderReady = true;
+    }, 500);
+  }
+
   return (
     <Helmet>
       {/* Basic metadata */}
@@ -55,6 +63,9 @@ const PageMetadata = ({
       <meta name="prerender-status-code" content="200" />
       <meta name="prerender-detection" content="Prerender.io integration active" />
       <meta name="prerender-header" content="X-Prerender-Processed: true" />
+      
+      {/* Additional prerender meta tags to help with detection */}
+      <meta name="fragment" content="!" />
       
       {/* Allow for additional custom meta tags */}
       {children}
