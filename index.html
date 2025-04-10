@@ -62,20 +62,6 @@
 
   <body>
     <div id="root"></div>
-    <!-- Brevo Conversations Widget -->
-    <script>
-      (function(d, w, c) {
-          w.BrevoConversationsID = '67d1affe6f0f53dfd9086530';
-          w[c] = w[c] || function() {
-              (w[c].q = w[c].q || []).push(arguments);
-          };
-          var s = d.createElement('script');
-          s.async = true;
-          s.src = 'https://conversations-widget.brevo.com/brevo-conversations.js';
-          if (d.head) d.head.appendChild(s);
-      })(document, window, 'BrevoConversations');
-    </script>
-    
     <!-- Preload metadata from Supabase -->
     <script>
       // This script will execute before the main React application loads
@@ -89,30 +75,40 @@
       const cachedData = localStorage.getItem(cacheKey);
       if (cachedData) {
         try {
-          window.__PRELOADED_METADATA__ = JSON.parse(cachedData);
+          const metadata = JSON.parse(cachedData);
+          window.__PRELOADED_METADATA__ = metadata;
           
-          // Update meta tags immediately
+          // Update meta tags immediately for crawlers
           const updateMetaTag = (selector, content) => {
+            if (!content) return;
             const tag = document.querySelector(selector);
-            if (tag && content) tag.setAttribute('content', String(content));
+            if (tag) tag.setAttribute('content', String(content));
           };
-          
-          const metadata = window.__PRELOADED_METADATA__;
           
           // Set document title
           if (metadata.title) document.title = String(metadata.title);
+          
+          // Update meta description
+          updateMetaTag('meta[name="description"]', metadata.description);
           
           // Update Open Graph tags
           updateMetaTag('meta[property="og:title"]', metadata.title);
           updateMetaTag('meta[property="og:description"]', metadata.description);
           updateMetaTag('meta[property="og:type"]', metadata.og_type);
-          updateMetaTag('meta[property="og:image"]', metadata.image_url);
+          
+          // Ensure image URL is absolute
+          let imageUrl = metadata.image_url;
+          if (imageUrl && !imageUrl.startsWith('http') && !imageUrl.startsWith('data:')) {
+            imageUrl = window.location.origin + (imageUrl.startsWith('/') ? '' : '/') + imageUrl;
+          }
+          
+          updateMetaTag('meta[property="og:image"]', imageUrl);
           updateMetaTag('meta[property="og:url"]', window.location.href);
           
           // Update Twitter Card tags
           updateMetaTag('meta[name="twitter:title"]', metadata.title);
           updateMetaTag('meta[name="twitter:description"]', metadata.description);
-          updateMetaTag('meta[name="twitter:image"]', metadata.image_url);
+          updateMetaTag('meta[name="twitter:image"]', imageUrl);
           updateMetaTag('meta[name="twitter:card"]', metadata.twitter_card);
         } catch (e) {
           console.error('Error parsing preloaded metadata:', e);
