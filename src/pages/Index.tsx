@@ -39,7 +39,7 @@ const Index = () => {
     };
   }, []);
   
-  // Extract string values for metadata to avoid Symbol conversion issues
+  // Use string literals for all metadata values to avoid Symbol conversion issues
   const title = String(metadata?.title || "Presidency Solutions | AI & Data Engineering Experts");
   const description = String(metadata?.description || "Presidency Solutions helps organizations maximize their impact with AI, Data Engineering, Databricks Solutions, Cloud Modernization, and Talent Solutions.");
   const ogType = String(metadata?.og_type || "website");

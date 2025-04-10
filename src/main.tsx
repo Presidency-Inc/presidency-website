@@ -32,7 +32,7 @@ const updateOrCreateMetaTag = (tagData) => {
   } else {
     const meta = document.createElement('meta');
     Object.entries(tagData).forEach(([attr, value]) => {
-      meta.setAttribute(attr, value);
+      meta.setAttribute(attr, String(value));
     });
     document.head.appendChild(meta);
   }
