@@ -58,7 +58,6 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
     }
   });
 
-  // Function to extract routes from the app
   const extractRoutes = () => {
     return [
       "/",
@@ -80,7 +79,6 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
     ];
   };
   
-  // Function to get the full URL for a route
   const getFullUrl = (path: string): string => {
     const baseUrl = window.location.origin;
     return `${baseUrl}${path === '/' ? '' : path}`;
@@ -90,7 +88,6 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
     fetchPages();
   }, []);
   
-  // Track form changes to enable save button only when changes are made
   useEffect(() => {
     const subscription = form.watch(() => {
       setFormIsDirty(true);
@@ -111,31 +108,26 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
         throw error;
       }
       
-      // Check if we need to create any missing page metadata records
       if (data) {
         const existingRoutes = data.map((page: any) => page.route);
         const appRoutes = extractRoutes();
         
         const missingRoutes = appRoutes.filter(route => !existingRoutes.includes(route));
         
-        // Create metadata for missing routes
         for (const route of missingRoutes) {
           await createDefaultMetadata(route);
         }
         
-        // If we added routes, fetch again
         if (missingRoutes.length > 0) {
           fetchPages();
           return;
         }
         
-        // Enhance data with full URLs
         const enhancedData = data.map(page => ({
           ...page,
           fullUrl: getFullUrl(page.route)
         }));
         
-        // Set pages
         setPages(enhancedData as PageMetadata[]);
         
         if (enhancedData.length > 0) {
@@ -192,13 +184,10 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
   };
   
   const handlePageSelect = (page: PageMetadata) => {
-    // Clear previous form data before loading new page
     form.reset();
     setSelectedPage(page);
     
-    // If the page has a base64 image stored in the database, we need to fetch the latest version
     if (page.image_url && page.image_url.startsWith('data:image')) {
-      // Fetch the latest version of the page metadata directly from the database
       supabase
         .from('page_metadata')
         .select('*')
@@ -211,13 +200,11 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
           }
           
           if (data) {
-            // Update the page with the latest data
             const updatedPage = {
               ...data,
               fullUrl: getFullUrl(data.route)
             };
             
-            // Set the form values
             form.reset({
               id: updatedPage.id,
               route: updatedPage.route,
@@ -228,12 +215,10 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
               twitter_card: updatedPage.twitter_card || "summary_large_image",
             });
             
-            // Update the selected page
             setSelectedPage(updatedPage as PageMetadata);
           }
         });
     } else {
-      // Set the form values for non-base64 images
       form.reset({
         id: page.id,
         route: page.route,
@@ -245,12 +230,12 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
       });
     }
     
-    setFormIsDirty(false); // Reset dirty state when selecting a new page
+    setFormIsDirty(false);
   };
   
   const handleImageChange = (url: string) => {
     form.setValue('image_url', url);
-    setFormIsDirty(true); // Mark form as dirty when image changes
+    setFormIsDirty(true);
   };
 
   const onSubmit = async (data: PageMetadata) => {
@@ -258,7 +243,6 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
     
     setSaving(true);
     try {
-      // Optimize save operation by only updating the necessary fields
       const updatedFields = {
         title: data.title,
         description: data.description,
@@ -277,7 +261,6 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
         throw error;
       }
       
-      // Update the local state to avoid unnecessary refetch
       const updatedPages = pages.map(page => {
         if (page.id === selectedPage.id) {
           return { 
@@ -291,18 +274,15 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
       
       setPages(updatedPages);
       
-      // Update selected page
       setSelectedPage({ 
         ...selectedPage, 
         ...updatedFields,
         fullUrl: getFullUrl(selectedPage.route)
       });
       
-      setFormIsDirty(false); // Reset dirty state after save
+      setFormIsDirty(false);
       
-      // Clear the cache for this specific page to ensure fresh data on next load
-      const cachedKey = `page_metadata_${selectedPage.route}`;
-      localStorage.removeItem(cachedKey);
+      localStorage.clear();
       
       toast({
         title: "Success",
@@ -338,7 +318,7 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
     };
     
     form.reset({ ...selectedPage, ...defaultValues });
-    setFormIsDirty(true); // Mark form as dirty when resetting to defaults
+    setFormIsDirty(true);
   };
 
   return (
@@ -469,7 +449,7 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
                                         <ImageUploader 
                                           initialValue={field.value}
                                           onChange={handleImageChange}
-                                          aspectRatio={1.91} // Facebook recommends 1.91:1
+                                          aspectRatio={1.91}
                                         />
                                       </div>
                                     </FormControl>
@@ -564,7 +544,7 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
                                         <ImageUploader 
                                           initialValue={field.value}
                                           onChange={handleImageChange}
-                                          aspectRatio={1.91} // Twitter also uses 1.91:1
+                                          aspectRatio={1.91}
                                         />
                                       </div>
                                     </FormControl>

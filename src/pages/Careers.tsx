@@ -250,12 +250,12 @@ const CareerPage = () => {
             <meta property="og:description" content={metadata.description} />
             <meta property="og:type" content={metadata.og_type} />
             <meta property="og:url" content={metadata.fullUrl} />
-            <meta property="og:image" content={getAbsoluteImageUrl(metadata.image_url)} />
+            <meta property="og:image" content={metadata.image_url} />
             
             <meta name="twitter:card" content={metadata.twitter_card} />
             <meta name="twitter:title" content={metadata.title} />
             <meta name="twitter:description" content={metadata.description} />
-            <meta name="twitter:image" content={getAbsoluteImageUrl(metadata.image_url)} />
+            <meta name="twitter:image" content={metadata.image_url} />
           </>
         ) : (
           <>
@@ -266,13 +266,13 @@ const CareerPage = () => {
             <meta property="og:title" content="Careers | Presidency Solutions" />
             <meta property="og:description" content="Join our team at Presidency Solutions and help organizations maximize their impact with AI and data engineering." />
             <meta property="og:type" content="website" />
-            <meta property="og:url" content={`${origin}/careers`} />
-            <meta property="og:image" content={getAbsoluteImageUrl("/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png")} />
+            <meta property="og:url" content={`${window.location.origin}/careers`} />
+            <meta property="og:image" content={`${window.location.origin}/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png`} />
             
             <meta name="twitter:card" content="summary_large_image" />
             <meta name="twitter:title" content="Careers | Presidency Solutions" />
             <meta name="twitter:description" content="Join our team at Presidency Solutions and help organizations maximize their impact with AI and data engineering." />
-            <meta name="twitter:image" content={getAbsoluteImageUrl("/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png")} />
+            <meta name="twitter:image" content={`${window.location.origin}/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png`} />
           </>
         )}
       </Helmet>

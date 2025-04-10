@@ -10,9 +10,6 @@ if (!document.querySelector('link[rel="icon"]')) {
   document.head.appendChild(link);
 }
 
-// Check if we're on a blog post page
-const isBlogPostPage = window.location.pathname.startsWith('/blog/');
-
 // Get the origin for absolute URLs
 const origin = window.location.origin;
 
@@ -34,16 +31,13 @@ const getAbsoluteImageUrl = (imageUrl: string): string => {
   return `${origin}${imageUrl.startsWith('/') ? '' : '/'}${imageUrl}`;
 };
 
-// Set default document title and Open Graph metadata only if we're not on a blog post page
-// We'll leave basic fallback metadata here, but page components will override these with usePageMetadata
-if (!isBlogPostPage) {
+// Only set default document title and metadata if we're not on a page with specific metadata
+// We check for existing OG tags that may have been added by the Helmet component in specific pages
+const existingOgTags = document.querySelectorAll('meta[property^="og:"], meta[name^="twitter:"]');
+
+if (existingOgTags.length === 0) {
   document.title = "Presidency Solutions | AI & Data Engineering Experts";
   
-  // Remove any existing OG tags first to avoid duplicates
-  const existingOgTags = document.querySelectorAll('meta[property^="og:"], meta[name^="twitter:"]');
-  existingOgTags.forEach(tag => tag.remove());
-  
-  // Add default metadata as fallback - these will be replaced by component-level metadata
   const metaTags = [
     { property: "og:title", content: "Presidency Solutions | AI & Data Engineering Experts" },
     { property: "og:description", content: "Presidency Solutions helps organizations maximize their impact with AI, Data Engineering, Databricks Solutions, Cloud Modernization, and Talent Solutions." },
