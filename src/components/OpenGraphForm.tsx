@@ -47,6 +47,7 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [selectedTab, setSelectedTab] = useState('open-graph');
+  const [formIsDirty, setFormIsDirty] = useState(false);
   
   const form = useForm<PageMetadata>({
     defaultValues: {
@@ -80,9 +81,24 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
     ];
   };
   
+  // Function to get the full URL for a route
+  const getFullUrl = (path: string): string => {
+    const baseUrl = window.location.origin;
+    return `${baseUrl}${path === '/' ? '' : path}`;
+  };
+  
   useEffect(() => {
     fetchPages();
   }, []);
+  
+  // Track form changes to enable save button only when changes are made
+  useEffect(() => {
+    const subscription = form.watch(() => {
+      setFormIsDirty(true);
+    });
+    
+    return () => subscription.unsubscribe();
+  }, [form.watch]);
   
   const fetchPages = async () => {
     setLoading(true);
@@ -114,11 +130,17 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
           return;
         }
         
-        // Set pages
-        setPages(data as PageMetadata[]);
+        // Enhance data with full URLs
+        const enhancedData = data.map(page => ({
+          ...page,
+          fullUrl: getFullUrl(page.route)
+        }));
         
-        if (data.length > 0) {
-          handlePageSelect(data[0] as PageMetadata);
+        // Set pages
+        setPages(enhancedData as PageMetadata[]);
+        
+        if (enhancedData.length > 0) {
+          handlePageSelect(enhancedData[0] as PageMetadata);
         }
       }
     } catch (error) {
@@ -181,10 +203,12 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
       og_type: page.og_type || "website",
       twitter_card: page.twitter_card || "summary_large_image",
     });
+    setFormIsDirty(false); // Reset dirty state when selecting a new page
   };
   
   const handleImageChange = (url: string) => {
     form.setValue('image_url', url);
+    setFormIsDirty(true); // Mark form as dirty when image changes
   };
 
   const onSubmit = async (data: PageMetadata) => {
@@ -223,6 +247,7 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
       
       // Update selected page
       setSelectedPage({ ...selectedPage, ...updatedFields });
+      setFormIsDirty(false); // Reset dirty state after save
       
       toast({
         title: "Success",
@@ -258,6 +283,7 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
     };
     
     form.reset({ ...selectedPage, ...defaultValues });
+    setFormIsDirty(true); // Mark form as dirty when resetting to defaults
   };
 
   return (
@@ -315,6 +341,9 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
                     </CardTitle>
                     <CardDescription>
                       Configure Open Graph and Twitter Card metadata for this page
+                    </CardDescription>
+                    <CardDescription className="text-sm mt-2 bg-muted p-2 rounded">
+                      Full URL: <code className="bg-muted-foreground/20 px-1 rounded">{getFullUrl(selectedPage.route)}</code>
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -403,7 +432,10 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
                                   <FormItem>
                                     <FormLabel>Content Type</FormLabel>
                                     <Select 
-                                      onValueChange={field.onChange} 
+                                      onValueChange={(value) => {
+                                        field.onChange(value);
+                                        setFormIsDirty(true);
+                                      }}
                                       defaultValue={field.value}
                                       value={field.value}
                                     >
@@ -495,7 +527,10 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
                                   <FormItem>
                                     <FormLabel>Card Type</FormLabel>
                                     <Select 
-                                      onValueChange={field.onChange} 
+                                      onValueChange={(value) => {
+                                        field.onChange(value);
+                                        setFormIsDirty(true);
+                                      }}
                                       defaultValue={field.value}
                                       value={field.value}
                                     >
@@ -524,7 +559,7 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
                             <Button 
                               type="submit" 
                               className="ml-auto"
-                              disabled={saving}
+                              disabled={saving || !formIsDirty}
                             >
                               {saving ? (
                                 <>
