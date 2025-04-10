@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -26,6 +25,24 @@ export const usePageMetadata = (route: string) => {
     return `${baseUrl}${path === '/' ? '' : path}`;
   };
 
+  // Function to ensure image URL is absolute
+  const getAbsoluteImageUrl = (imageUrl: string): string => {
+    if (!imageUrl) return '';
+    
+    // If it's a data URL (base64), return as is
+    if (imageUrl.startsWith('data:')) {
+      return imageUrl;
+    }
+    
+    // If it's already an absolute URL, return as is
+    if (imageUrl.startsWith('http://') || imageUrl.startsWith('https://')) {
+      return imageUrl;
+    }
+    
+    // Otherwise, prepend the origin
+    return `${window.location.origin}${imageUrl.startsWith('/') ? '' : '/'}${imageUrl}`;
+  };
+
   useEffect(() => {
     // Create a cache system to avoid repeated requests for the same routes
     const cachedMetadata = localStorage.getItem(`page_metadata_${route}`);
@@ -36,10 +53,18 @@ export const usePageMetadata = (route: string) => {
         const parsed = JSON.parse(cachedMetadata);
         
         // If the cached data contains a base64 image, we need to fetch fresh data
-        if (parsed.image_url === '[base64-image]') {
+        if (parsed.image_url && parsed.image_url === '[base64-image]') {
           // Skip setting cached metadata and fetch directly
           fetchMetadata();
         } else {
+          // Make sure image URL is absolute
+          if (parsed.image_url) {
+            parsed.image_url = getAbsoluteImageUrl(parsed.image_url);
+          }
+          
+          // Add full URL
+          parsed.fullUrl = getFullUrl(route);
+          
           setMetadata(parsed);
           setLoading(false);
           
@@ -78,7 +103,7 @@ export const usePageMetadata = (route: string) => {
               ? "Presidency Solutions | AI & Data Engineering Experts" 
               : `${route.split("/").pop()?.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")} | Presidency Solutions`,
             description: "Presidency Solutions helps organizations maximize their impact with AI, Data Engineering, Databricks Solutions, Cloud Modernization, and Talent Solutions.",
-            image_url: "/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png",
+            image_url: getAbsoluteImageUrl("/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png"),
             og_type: "website",
             twitter_card: "summary_large_image",
             fullUrl: getFullUrl(route)
@@ -92,14 +117,22 @@ export const usePageMetadata = (route: string) => {
           throw error;
         }
       } else if (data) {
+        // Ensure image URL is absolute
+        if (data.image_url) {
+          data.image_url = getAbsoluteImageUrl(data.image_url);
+        }
+        
         // Add the full URL (used only in rendering, not saved to DB)
         const enhancedData = {
           ...data,
-          fullUrl: getFullUrl(route)
+          fullUrl: getFullUrl(route),
+          image_url: data.image_url // This is now properly formatted
         };
         
         // Handle image validation: For external URLs only (not for data URLs or local URLs)
-        if (data.image_url && !data.image_url.startsWith('data:image') && !data.image_url.startsWith('/')) {
+        if (data.image_url && !data.image_url.startsWith('data:image') && 
+            !data.image_url.startsWith(window.location.origin) && 
+            (data.image_url.startsWith('http://') || data.image_url.startsWith('https://'))) {
           const img = new Image();
           img.src = data.image_url;
           
@@ -114,7 +147,7 @@ export const usePageMetadata = (route: string) => {
             // Image failed to load, use fallback image
             const correctedData = {
               ...data,
-              image_url: "/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png",
+              image_url: getAbsoluteImageUrl("/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png"),
               fullUrl: getFullUrl(route)
             };
             setMetadata(correctedData as PageMetadata);
@@ -149,7 +182,7 @@ export const usePageMetadata = (route: string) => {
           ? "Presidency Solutions | AI & Data Engineering Experts" 
           : `${route.split("/").pop()?.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")} | Presidency Solutions`,
         description: "Presidency Solutions helps organizations maximize their impact with AI, Data Engineering, Databricks Solutions, Cloud Modernization, and Talent Solutions.",
-        image_url: "/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png",
+        image_url: getAbsoluteImageUrl("/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png"),
         og_type: "website",
         twitter_card: "summary_large_image",
         fullUrl: getFullUrl(route)

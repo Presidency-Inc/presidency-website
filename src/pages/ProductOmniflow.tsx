@@ -41,23 +41,19 @@ const ProductOmniflow = () => {
           <>
             <title>{metadata.title}</title>
             <meta name="description" content={metadata.description} />
+            
+            {/* Open Graph Metadata */}
             <meta property="og:title" content={metadata.title} />
             <meta property="og:description" content={metadata.description} />
             <meta property="og:type" content={metadata.og_type} />
             <meta property="og:url" content={metadata.fullUrl} />
-            <meta property="og:image" content={metadata.image_url.startsWith('data:') 
-              ? metadata.image_url 
-              : (metadata.image_url.startsWith('/') 
-                ? `${window.location.origin}${metadata.image_url}` 
-                : metadata.image_url)} />
+            <meta property="og:image" content={metadata.image_url} />
+            
+            {/* Twitter Card Metadata */}
             <meta name="twitter:card" content={metadata.twitter_card} />
             <meta name="twitter:title" content={metadata.title} />
             <meta name="twitter:description" content={metadata.description} />
-            <meta name="twitter:image" content={metadata.image_url.startsWith('data:') 
-              ? metadata.image_url 
-              : (metadata.image_url.startsWith('/') 
-                ? `${window.location.origin}${metadata.image_url}` 
-                : metadata.image_url)} />
+            <meta name="twitter:image" content={metadata.image_url} />
           </>
         ) : (
           <>
@@ -69,6 +65,8 @@ const ProductOmniflow = () => {
             <meta property="og:url" content={`${window.location.origin}/products/omniflow`} />
             <meta property="og:image" content={`${window.location.origin}/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png`} />
             <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:title" content="Omniflow | Enterprise Data Integration Platform" />
+            <meta name="twitter:description" content="Omniflow is an enterprise-grade ETL platform that enables seamless data integration from any source to any target with powerful governance features." />
             <meta name="twitter:image" content={`${window.location.origin}/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png`} />
           </>
         )}
