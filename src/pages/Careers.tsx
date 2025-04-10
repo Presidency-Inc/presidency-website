@@ -12,10 +12,15 @@ import JobList from "@/components/JobList";
 import { Helmet } from "react-helmet";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { Job } from "@/components/JobList";
+import JobDetail from "@/components/JobDetail";
+import JobApplicationForm from "@/components/JobApplicationForm";
+import { Button } from "@/components/ui/button";
 
 const Careers = () => {
   const { metadata } = usePageMetadata("/careers");
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
+  const [viewMode, setViewMode] = useState<"list" | "detail">("list");
+  const [isApplicationFormOpen, setIsApplicationFormOpen] = useState(false);
   
   // Extract string values for metadata to avoid Symbol conversion issues
   const title = String(metadata?.title || "Join Our Team | Presidency Solutions");
@@ -62,7 +67,6 @@ const Careers = () => {
     }
   }, [title, description, ogType, ogUrl, ogImage, twitterCard]);
 
-  // Placeholder handlers for JobList
   const handleEditJob = (job: Job) => {
     setSelectedJob(job);
     console.log("Edit job:", job);
@@ -70,7 +74,18 @@ const Careers = () => {
   
   const handleViewJob = (job: Job) => {
     setSelectedJob(job);
-    console.log("View job:", job);
+    setViewMode("detail");
+    window.scrollTo(0, 0);
+  };
+
+  const handleApplyToJob = (job: Job) => {
+    setSelectedJob(job);
+    setIsApplicationFormOpen(true);
+  };
+
+  const handleBackToList = () => {
+    setViewMode("list");
+    setSelectedJob(null);
   };
 
   return (
@@ -99,26 +114,74 @@ const Careers = () => {
       <main className="min-h-screen bg-white">
         <CareerHero />
         
-        <section className="py-16 md:py-24 bg-gray-50">
+        <section className="py-16 md:py-24 bg-gray-50 job-listings">
           <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="max-w-3xl mx-auto text-center mb-16"
-            >
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">Open Positions</h2>
-              <p className="text-gray-600 text-lg mb-8">
-                Join our team of passionate experts who are transforming how organizations leverage AI and data to maximize their impact.
-              </p>
-            </motion.div>
-            
-            <JobList onEdit={handleEditJob} onView={handleViewJob} />
+            {viewMode === "list" ? (
+              <>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  viewport={{ once: true }}
+                  className="max-w-3xl mx-auto text-center mb-16"
+                >
+                  <h2 className="text-3xl md:text-4xl font-bold mb-6">Open Positions</h2>
+                  <p className="text-gray-600 text-lg mb-8">
+                    Join our team of passionate experts who are transforming how organizations leverage AI and data to maximize their impact.
+                  </p>
+                </motion.div>
+                
+                <JobList 
+                  onEdit={handleEditJob} 
+                  onView={handleViewJob} 
+                  onApply={handleApplyToJob}
+                />
+              </>
+            ) : (
+              <div className="max-w-4xl mx-auto">
+                {selectedJob && (
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between">
+                      <Button 
+                        onClick={handleBackToList} 
+                        variant="outline"
+                        className="mb-4"
+                      >
+                        Back to All Jobs
+                      </Button>
+                      
+                      <Button 
+                        onClick={() => setIsApplicationFormOpen(true)}
+                        className="mb-4 bg-blue-600 hover:bg-blue-700"
+                      >
+                        Apply for This Position
+                      </Button>
+                    </div>
+                    
+                    <div className="bg-white p-8 rounded-lg shadow-md">
+                      <h2 className="text-2xl font-bold mb-2">{selectedJob.title}</h2>
+                      <div className="flex items-center mb-4 text-gray-600">
+                        <span className="mr-4">{selectedJob.department}</span>
+                        <span>{selectedJob.location}</span>
+                      </div>
+                      <div className="prose max-w-none" dangerouslySetInnerHTML={{ 
+                        __html: selectedJob.description.replace(/\n/g, '<br>') 
+                      }} />
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </section>
         
         <HiringProcessSection />
+
+        <JobApplicationForm 
+          job={selectedJob}
+          isOpen={isApplicationFormOpen} 
+          onClose={() => setIsApplicationFormOpen(false)} 
+        />
       </main>
       
       <Footer />
