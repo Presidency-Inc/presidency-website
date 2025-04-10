@@ -5,7 +5,8 @@
  */
 
 // Base URL for Supabase Functions - without exposing API keys in the URL
-const SUPABASE_FUNCTIONS_URL = "https://dyixstdknvremrjvaarx.supabase.co/functions/v1";
+const SUPABASE_URL = "https://dyixstdknvremrjvaarx.supabase.co";
+const SUPABASE_FUNCTIONS_URL = `${SUPABASE_URL}/functions/v1`;
 
 // Generic type for API responses
 export interface ApiResponse<T> {
@@ -55,4 +56,64 @@ export async function callFunction<T = any, P = any>(
     console.error(`Error calling function ${functionName}:`, error);
     return { error: error.message };
   }
+}
+
+/**
+ * Direct data access helper for Supabase REST API
+ * Use this when you need to make direct calls to Supabase tables
+ * through a proxy that handles authentication properly
+ */
+export async function createSupabaseClient() {
+  // In a real application, we would use an authentication service
+  // This is a placeholder implementation
+  return {
+    from: (table: string) => ({
+      select: async (columns: string = "*") => {
+        try {
+          // Use the edge function to proxy the request to avoid exposing keys
+          const result = await callFunction(`data-proxy`, {
+            table,
+            action: 'select',
+            columns,
+          });
+          
+          return result;
+        } catch (error: any) {
+          console.error(`Error selecting from ${table}:`, error);
+          return { error: error.message };
+        }
+      },
+      insert: async (data: any) => {
+        try {
+          // Use the edge function to proxy the request
+          const result = await callFunction(`data-proxy`, {
+            table,
+            action: 'insert',
+            data,
+          });
+          
+          return result;
+        } catch (error: any) {
+          console.error(`Error inserting into ${table}:`, error);
+          return { error: error.message };
+        }
+      },
+      update: async (data: any, match: any) => {
+        try {
+          // Use the edge function to proxy the request
+          const result = await callFunction(`data-proxy`, {
+            table,
+            action: 'update',
+            data,
+            match,
+          });
+          
+          return result;
+        } catch (error: any) {
+          console.error(`Error updating ${table}:`, error);
+          return { error: error.message };
+        }
+      }
+    })
+  };
 }
