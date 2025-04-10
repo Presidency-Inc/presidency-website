@@ -33,6 +33,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ImagePlus, Image, FileText, Twitter, Facebook, Globe, RefreshCw } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface PageMetadata {
   id: string;
@@ -184,322 +185,330 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
   };
 
   return (
-    <div>
-      {loading ? (
-        <div className="flex justify-center p-8">
-          <div className="w-8 h-8 border-t-2 border-b-2 border-gray-900 rounded-full animate-spin"></div>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="md:col-span-1">
-            <div className="bg-white rounded-lg shadow p-4">
-              <h3 className="text-sm font-medium mb-4">Select Page</h3>
-              <ScrollArea className="h-[400px]">
-                <div className="space-y-1">
-                  {pages.map((page) => (
-                    <Button
-                      key={page.id}
-                      variant={selectedPage?.id === page.id ? "default" : "ghost"}
-                      className="w-full justify-start text-left"
-                      onClick={() => handlePageSelect(page)}
+    <TooltipProvider>
+      <div>
+        {loading ? (
+          <div className="flex justify-center p-8">
+            <div className="w-8 h-8 border-t-2 border-b-2 border-gray-900 rounded-full animate-spin"></div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="md:col-span-1">
+              <div className="bg-white rounded-lg shadow p-4">
+                <h3 className="text-sm font-medium mb-4">Select Page</h3>
+                <ScrollArea className="h-[400px]">
+                  <div className="space-y-1">
+                    {pages.map((page) => (
+                      <Button
+                        key={page.id}
+                        variant={selectedPage?.id === page.id ? "default" : "ghost"}
+                        className="w-full justify-start text-left"
+                        onClick={() => handlePageSelect(page)}
+                      >
+                        <Globe className="mr-2 h-4 w-4" />
+                        {page.route === "/" ? "Home Page" : page.route}
+                      </Button>
+                    ))}
+                  </div>
+                </ScrollArea>
+              </div>
+            </div>
+            
+            <div className="md:col-span-2">
+              {selectedPage ? (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex justify-between items-center">
+                      <span>{selectedPage.route === "/" ? "Home Page" : selectedPage.route}</span>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={handleResetToDefaults}
+                            className="flex items-center gap-2"
+                          >
+                            <RefreshCw className="h-4 w-4" />
+                            <span className="hidden sm:inline">Reset to Defaults</span>
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Reset to default values</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </CardTitle>
+                    <CardDescription>
+                      Configure Open Graph and Twitter Card metadata for this page
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Tabs 
+                      defaultValue="open-graph" 
+                      value={selectedTab}
+                      onValueChange={setSelectedTab}
                     >
-                      <Globe className="mr-2 h-4 w-4" />
-                      {page.route === "/" ? "Home Page" : page.route}
-                    </Button>
-                  ))}
-                </div>
-              </ScrollArea>
+                      <TabsList className="grid w-full grid-cols-2">
+                        <TabsTrigger value="open-graph" className="flex items-center gap-2">
+                          <Facebook className="h-4 w-4" />
+                          Open Graph
+                        </TabsTrigger>
+                        <TabsTrigger value="twitter" className="flex items-center gap-2">
+                          <Twitter className="h-4 w-4" />
+                          Twitter Card
+                        </TabsTrigger>
+                      </TabsList>
+                      
+                      <Form {...form}>
+                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 mt-6">
+                          <TabsContent value="open-graph">
+                            <div className="space-y-6">
+                              <FormField
+                                control={form.control}
+                                name="title"
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel>Title</FormLabel>
+                                    <FormControl>
+                                      <Input {...field} placeholder="Page title for Open Graph" />
+                                    </FormControl>
+                                    <FormDescription>
+                                      This will be used for the og:title meta tag
+                                    </FormDescription>
+                                  </FormItem>
+                                )}
+                              />
+                              
+                              <FormField
+                                control={form.control}
+                                name="description"
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel>Description</FormLabel>
+                                    <FormControl>
+                                      <Textarea 
+                                        {...field} 
+                                        placeholder="Page description for Open Graph"
+                                        rows={3}
+                                      />
+                                    </FormControl>
+                                    <FormDescription>
+                                      This will be used for the og:description meta tag
+                                    </FormDescription>
+                                  </FormItem>
+                                )}
+                              />
+                              
+                              <FormField
+                                control={form.control}
+                                name="image_url"
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel>Image URL</FormLabel>
+                                    <FormControl>
+                                      <div className="flex gap-2">
+                                        <Input 
+                                          {...field} 
+                                          placeholder="URL for Open Graph image"
+                                          onChange={(e) => handleImageChange(e)}
+                                        />
+                                      </div>
+                                    </FormControl>
+                                    <FormDescription>
+                                      This will be used for the og:image meta tag. Use an absolute URL or a path like /lovable-uploads/image.png
+                                    </FormDescription>
+                                  </FormItem>
+                                )}
+                              />
+                              
+                              {imagePreview && (
+                                <div className="mt-4">
+                                  <p className="text-sm text-gray-500 mb-2">Image Preview:</p>
+                                  <div className="border rounded-md overflow-hidden max-w-xs">
+                                    <img 
+                                      src={imagePreview.startsWith('http') ? imagePreview : imagePreview} 
+                                      alt="Preview" 
+                                      className="w-full h-auto"
+                                      onError={(e) => {
+                                        (e.target as HTMLImageElement).src = '/placeholder.svg';
+                                      }}
+                                    />
+                                  </div>
+                                </div>
+                              )}
+                              
+                              <FormField
+                                control={form.control}
+                                name="og_type"
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel>Content Type</FormLabel>
+                                    <Select 
+                                      onValueChange={field.onChange} 
+                                      defaultValue={field.value}
+                                      value={field.value}
+                                    >
+                                      <FormControl>
+                                        <SelectTrigger>
+                                          <SelectValue placeholder="Select content type" />
+                                        </SelectTrigger>
+                                      </FormControl>
+                                      <SelectContent>
+                                        <SelectItem value="website">Website</SelectItem>
+                                        <SelectItem value="article">Article</SelectItem>
+                                        <SelectItem value="product">Product</SelectItem>
+                                        <SelectItem value="profile">Profile</SelectItem>
+                                      </SelectContent>
+                                    </Select>
+                                    <FormDescription>
+                                      This will be used for the og:type meta tag
+                                    </FormDescription>
+                                  </FormItem>
+                                )}
+                              />
+                            </div>
+                          </TabsContent>
+                          
+                          <TabsContent value="twitter">
+                            <div className="space-y-6">
+                              <FormField
+                                control={form.control}
+                                name="title"
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel>Title</FormLabel>
+                                    <FormControl>
+                                      <Input {...field} placeholder="Page title for Twitter Card" />
+                                    </FormControl>
+                                    <FormDescription>
+                                      This will be used for the twitter:title meta tag
+                                    </FormDescription>
+                                  </FormItem>
+                                )}
+                              />
+                              
+                              <FormField
+                                control={form.control}
+                                name="description"
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel>Description</FormLabel>
+                                    <FormControl>
+                                      <Textarea 
+                                        {...field} 
+                                        placeholder="Page description for Twitter Card"
+                                        rows={3}
+                                      />
+                                    </FormControl>
+                                    <FormDescription>
+                                      This will be used for the twitter:description meta tag
+                                    </FormDescription>
+                                  </FormItem>
+                                )}
+                              />
+                              
+                              <FormField
+                                control={form.control}
+                                name="image_url"
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel>Image URL</FormLabel>
+                                    <FormControl>
+                                      <div className="flex gap-2">
+                                        <Input 
+                                          {...field} 
+                                          placeholder="URL for Twitter Card image"
+                                          onChange={(e) => handleImageChange(e)}
+                                        />
+                                      </div>
+                                    </FormControl>
+                                    <FormDescription>
+                                      This will be used for the twitter:image meta tag
+                                    </FormDescription>
+                                  </FormItem>
+                                )}
+                              />
+                              
+                              {imagePreview && (
+                                <div className="mt-4">
+                                  <p className="text-sm text-gray-500 mb-2">Image Preview:</p>
+                                  <div className="border rounded-md overflow-hidden max-w-xs">
+                                    <img 
+                                      src={imagePreview.startsWith('http') ? imagePreview : imagePreview} 
+                                      alt="Preview" 
+                                      className="w-full h-auto"
+                                      onError={(e) => {
+                                        (e.target as HTMLImageElement).src = '/placeholder.svg';
+                                      }}
+                                    />
+                                  </div>
+                                </div>
+                              )}
+                              
+                              <FormField
+                                control={form.control}
+                                name="twitter_card"
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel>Card Type</FormLabel>
+                                    <Select 
+                                      onValueChange={field.onChange} 
+                                      defaultValue={field.value}
+                                      value={field.value}
+                                    >
+                                      <FormControl>
+                                        <SelectTrigger>
+                                          <SelectValue placeholder="Select card type" />
+                                        </SelectTrigger>
+                                      </FormControl>
+                                      <SelectContent>
+                                        <SelectItem value="summary">Summary</SelectItem>
+                                        <SelectItem value="summary_large_image">Summary with Large Image</SelectItem>
+                                        <SelectItem value="app">App</SelectItem>
+                                        <SelectItem value="player">Player</SelectItem>
+                                      </SelectContent>
+                                    </Select>
+                                    <FormDescription>
+                                      This will be used for the twitter:card meta tag
+                                    </FormDescription>
+                                  </FormItem>
+                                )}
+                              />
+                            </div>
+                          </TabsContent>
+                          
+                          <CardFooter className="px-0 pb-0">
+                            <Button 
+                              type="submit" 
+                              className="ml-auto"
+                              disabled={saving}
+                            >
+                              {saving ? (
+                                <>
+                                  <span className="mr-2">Saving</span>
+                                  <div className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                </>
+                              ) : (
+                                "Save Changes"
+                              )}
+                            </Button>
+                          </CardFooter>
+                        </form>
+                      </Form>
+                    </Tabs>
+                  </CardContent>
+                </Card>
+              ) : (
+                <Card>
+                  <CardContent className="p-8 text-center text-gray-500">
+                    <p>Select a page to edit its metadata</p>
+                  </CardContent>
+                </Card>
+              )}
             </div>
           </div>
-          
-          <div className="md:col-span-2">
-            {selectedPage ? (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex justify-between items-center">
-                    <span>{selectedPage.route === "/" ? "Home Page" : selectedPage.route}</span>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={handleResetToDefaults}
-                      title="Reset to default values"
-                      className="flex items-center gap-2"
-                    >
-                      <RefreshCw className="h-4 w-4" />
-                      <span className="hidden sm:inline">Reset to Defaults</span>
-                    </Button>
-                  </CardTitle>
-                  <CardDescription>
-                    Configure Open Graph and Twitter Card metadata for this page
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Tabs 
-                    defaultValue="open-graph" 
-                    value={selectedTab}
-                    onValueChange={setSelectedTab}
-                  >
-                    <TabsList className="grid w-full grid-cols-2">
-                      <TabsTrigger value="open-graph" className="flex items-center gap-2">
-                        <Facebook className="h-4 w-4" />
-                        Open Graph
-                      </TabsTrigger>
-                      <TabsTrigger value="twitter" className="flex items-center gap-2">
-                        <Twitter className="h-4 w-4" />
-                        Twitter Card
-                      </TabsTrigger>
-                    </TabsList>
-                    
-                    <Form {...form}>
-                      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 mt-6">
-                        <TabsContent value="open-graph">
-                          <div className="space-y-6">
-                            <FormField
-                              control={form.control}
-                              name="title"
-                              render={({ field }) => (
-                                <FormItem>
-                                  <FormLabel>Title</FormLabel>
-                                  <FormControl>
-                                    <Input {...field} placeholder="Page title for Open Graph" />
-                                  </FormControl>
-                                  <FormDescription>
-                                    This will be used for the og:title meta tag
-                                  </FormDescription>
-                                </FormItem>
-                              )}
-                            />
-                            
-                            <FormField
-                              control={form.control}
-                              name="description"
-                              render={({ field }) => (
-                                <FormItem>
-                                  <FormLabel>Description</FormLabel>
-                                  <FormControl>
-                                    <Textarea 
-                                      {...field} 
-                                      placeholder="Page description for Open Graph"
-                                      rows={3}
-                                    />
-                                  </FormControl>
-                                  <FormDescription>
-                                    This will be used for the og:description meta tag
-                                  </FormDescription>
-                                </FormItem>
-                              )}
-                            />
-                            
-                            <FormField
-                              control={form.control}
-                              name="image_url"
-                              render={({ field }) => (
-                                <FormItem>
-                                  <FormLabel>Image URL</FormLabel>
-                                  <FormControl>
-                                    <div className="flex gap-2">
-                                      <Input 
-                                        {...field} 
-                                        placeholder="URL for Open Graph image"
-                                        onChange={(e) => handleImageChange(e)}
-                                      />
-                                    </div>
-                                  </FormControl>
-                                  <FormDescription>
-                                    This will be used for the og:image meta tag. Use an absolute URL or a path like /lovable-uploads/image.png
-                                  </FormDescription>
-                                </FormItem>
-                              )}
-                            />
-                            
-                            {imagePreview && (
-                              <div className="mt-4">
-                                <p className="text-sm text-gray-500 mb-2">Image Preview:</p>
-                                <div className="border rounded-md overflow-hidden max-w-xs">
-                                  <img 
-                                    src={imagePreview.startsWith('http') ? imagePreview : imagePreview} 
-                                    alt="Preview" 
-                                    className="w-full h-auto"
-                                    onError={(e) => {
-                                      (e.target as HTMLImageElement).src = '/placeholder.svg';
-                                    }}
-                                  />
-                                </div>
-                              </div>
-                            )}
-                            
-                            <FormField
-                              control={form.control}
-                              name="og_type"
-                              render={({ field }) => (
-                                <FormItem>
-                                  <FormLabel>Content Type</FormLabel>
-                                  <Select 
-                                    onValueChange={field.onChange} 
-                                    defaultValue={field.value}
-                                    value={field.value}
-                                  >
-                                    <FormControl>
-                                      <SelectTrigger>
-                                        <SelectValue placeholder="Select content type" />
-                                      </SelectTrigger>
-                                    </FormControl>
-                                    <SelectContent>
-                                      <SelectItem value="website">Website</SelectItem>
-                                      <SelectItem value="article">Article</SelectItem>
-                                      <SelectItem value="product">Product</SelectItem>
-                                      <SelectItem value="profile">Profile</SelectItem>
-                                    </SelectContent>
-                                  </Select>
-                                  <FormDescription>
-                                    This will be used for the og:type meta tag
-                                  </FormDescription>
-                                </FormItem>
-                              )}
-                            />
-                          </div>
-                        </TabsContent>
-                        
-                        <TabsContent value="twitter">
-                          <div className="space-y-6">
-                            <FormField
-                              control={form.control}
-                              name="title"
-                              render={({ field }) => (
-                                <FormItem>
-                                  <FormLabel>Title</FormLabel>
-                                  <FormControl>
-                                    <Input {...field} placeholder="Page title for Twitter Card" />
-                                  </FormControl>
-                                  <FormDescription>
-                                    This will be used for the twitter:title meta tag
-                                  </FormDescription>
-                                </FormItem>
-                              )}
-                            />
-                            
-                            <FormField
-                              control={form.control}
-                              name="description"
-                              render={({ field }) => (
-                                <FormItem>
-                                  <FormLabel>Description</FormLabel>
-                                  <FormControl>
-                                    <Textarea 
-                                      {...field} 
-                                      placeholder="Page description for Twitter Card"
-                                      rows={3}
-                                    />
-                                  </FormControl>
-                                  <FormDescription>
-                                    This will be used for the twitter:description meta tag
-                                  </FormDescription>
-                                </FormItem>
-                              )}
-                            />
-                            
-                            <FormField
-                              control={form.control}
-                              name="image_url"
-                              render={({ field }) => (
-                                <FormItem>
-                                  <FormLabel>Image URL</FormLabel>
-                                  <FormControl>
-                                    <div className="flex gap-2">
-                                      <Input 
-                                        {...field} 
-                                        placeholder="URL for Twitter Card image"
-                                        onChange={(e) => handleImageChange(e)}
-                                      />
-                                    </div>
-                                  </FormControl>
-                                  <FormDescription>
-                                    This will be used for the twitter:image meta tag
-                                  </FormDescription>
-                                </FormItem>
-                              )}
-                            />
-                            
-                            {imagePreview && (
-                              <div className="mt-4">
-                                <p className="text-sm text-gray-500 mb-2">Image Preview:</p>
-                                <div className="border rounded-md overflow-hidden max-w-xs">
-                                  <img 
-                                    src={imagePreview.startsWith('http') ? imagePreview : imagePreview} 
-                                    alt="Preview" 
-                                    className="w-full h-auto"
-                                    onError={(e) => {
-                                      (e.target as HTMLImageElement).src = '/placeholder.svg';
-                                    }}
-                                  />
-                                </div>
-                              </div>
-                            )}
-                            
-                            <FormField
-                              control={form.control}
-                              name="twitter_card"
-                              render={({ field }) => (
-                                <FormItem>
-                                  <FormLabel>Card Type</FormLabel>
-                                  <Select 
-                                    onValueChange={field.onChange} 
-                                    defaultValue={field.value}
-                                    value={field.value}
-                                  >
-                                    <FormControl>
-                                      <SelectTrigger>
-                                        <SelectValue placeholder="Select card type" />
-                                      </SelectTrigger>
-                                    </FormControl>
-                                    <SelectContent>
-                                      <SelectItem value="summary">Summary</SelectItem>
-                                      <SelectItem value="summary_large_image">Summary with Large Image</SelectItem>
-                                      <SelectItem value="app">App</SelectItem>
-                                      <SelectItem value="player">Player</SelectItem>
-                                    </SelectContent>
-                                  </Select>
-                                  <FormDescription>
-                                    This will be used for the twitter:card meta tag
-                                  </FormDescription>
-                                </FormItem>
-                              )}
-                            />
-                          </div>
-                        </TabsContent>
-                        
-                        <CardFooter className="px-0 pb-0">
-                          <Button 
-                            type="submit" 
-                            className="ml-auto"
-                            disabled={saving}
-                          >
-                            {saving ? (
-                              <>
-                                <span className="mr-2">Saving</span>
-                                <div className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                              </>
-                            ) : (
-                              "Save Changes"
-                            )}
-                          </Button>
-                        </CardFooter>
-                      </form>
-                    </Form>
-                  </Tabs>
-                </CardContent>
-              </Card>
-            ) : (
-              <Card>
-                <CardContent className="p-8 text-center text-gray-500">
-                  <p>Select a page to edit its metadata</p>
-                </CardContent>
-              </Card>
-            )}
-          </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </TooltipProvider>
   );
 };
 

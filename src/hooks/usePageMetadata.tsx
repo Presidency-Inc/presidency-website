@@ -25,23 +25,37 @@ export const usePageMetadata = (route: string) => {
       setError(null);
       
       try {
-        // This table doesn't exist yet - we'll need to create it with a SQL command
-        // For now, we'll return a fallback object to prevent errors
+        const { data, error } = await supabase
+          .from('page_metadata')
+          .select('*')
+          .eq('route', route)
+          .single();
         
-        // When the table exists, this code will work:
-        // const { data, error } = await supabase
-        //   .from('page_metadata')
-        //   .select('*')
-        //   .eq('route', route)
-        //   .single();
+        if (error) {
+          // If no record found, create a fallback object with default values
+          if (error.code === 'PGRST116') {
+            setMetadata({
+              id: 'fallback',
+              route: route,
+              title: route === '/' 
+                ? "Presidency Solutions | AI & Data Engineering Experts" 
+                : `${route.split("/").pop()?.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")} | Presidency Solutions`,
+              description: "Presidency Solutions helps organizations maximize their impact with AI, Data Engineering, Databricks Solutions, Cloud Modernization, and Talent Solutions.",
+              image_url: "/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png",
+              og_type: "website",
+              twitter_card: "summary_large_image"
+            });
+          } else {
+            throw error;
+          }
+        } else if (data) {
+          setMetadata(data);
+        }
+      } catch (err) {
+        console.error('Error fetching page metadata:', err);
+        setError(err as Error);
         
-        // if (error) throw error;
-        
-        // if (data) {
-        //   setMetadata(data);
-        // }
-        
-        // Fallback metadata for now
+        // Provide fallback metadata in case of error
         setMetadata({
           id: 'fallback',
           route: route,
@@ -53,9 +67,6 @@ export const usePageMetadata = (route: string) => {
           og_type: "website",
           twitter_card: "summary_large_image"
         });
-      } catch (err) {
-        console.error('Error fetching page metadata:', err);
-        setError(err as Error);
       } finally {
         setLoading(false);
       }

@@ -203,6 +203,42 @@ export type Database = {
         }
         Relationships: []
       }
+      page_metadata: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          image_url: string
+          og_type: string
+          route: string
+          title: string
+          twitter_card: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          id?: string
+          image_url: string
+          og_type: string
+          route: string
+          title: string
+          twitter_card: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          image_url?: string
+          og_type?: string
+          route?: string
+          title?: string
+          twitter_card?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_profiles: {
         Row: {
           avatar_url: string | null
