@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
@@ -16,7 +15,7 @@ import { usePageMetadata } from "@/hooks/usePageMetadata";
 const About = () => {
   const { metadata } = usePageMetadata("/about");
   
-  // Prepare metadata with fallbacks
+  // Extract string values for metadata to avoid Symbol conversion issues
   const title = metadata?.title || "About Presidency Solutions | AI & Data Engineering Experts";
   const description = metadata?.description || "Learn about Presidency Solutions, a leading technology company empowering organizations to maximize their impact with AI, Data Engineering, and Cloud Modernization solutions.";
   const ogType = metadata?.og_type || "website";
@@ -46,9 +45,6 @@ const About = () => {
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={ogImage} />
-        
-        <link rel="icon" type="image/png" sizes="32x32" href="/lovable-uploads/e034b19d-8aef-4f26-a313-d58f10d804a6.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/lovable-uploads/eb3e8cc7-360f-45f9-b968-33a36047149b.png" />
       </Helmet>
       <StatusBar />
       <Navbar />

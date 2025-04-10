@@ -10,7 +10,7 @@ import { usePageMetadata } from "@/hooks/usePageMetadata";
 const BookACall = () => {
   const { metadata } = usePageMetadata("/book-a-call");
   
-  // Prepare metadata with fallbacks
+  // Extract string values for metadata to avoid Symbol conversion issues
   const title = metadata?.title || "Book a Call | Presidency Solutions";
   const description = metadata?.description || "Schedule a consultation with our AI and data engineering experts to discuss your business needs and how we can help you maximize your impact.";
   const ogType = metadata?.og_type || "website";
