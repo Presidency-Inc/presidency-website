@@ -180,7 +180,7 @@ const BlogPostPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Helmet prioritizeSeoTags={true}>
+      <Helmet>
         <title>{post?.title} | Presidency Solutions</title>
         <meta name="description" content={post?.description} />
         <meta name="keywords" content={post?.tags?.map(tag => tag.name).join(', ')} />
