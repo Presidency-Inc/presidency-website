@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -157,9 +158,13 @@ const ImageUploader = ({ initialValue, onChange, aspectRatio = 1.91 }: ImageUplo
           variant: 'destructive'
         });
         
-        // If Supabase upload fails, fall back to using the base64 image
-        setImage(croppedImageBase64);
-        onChange(croppedImageBase64);
+        // Do not fall back to base64 image for OG images
+        // Instead notify the user that storage upload is required
+        toast({
+          title: 'Storage upload required',
+          description: 'OpenGraph images must be uploaded to storage for proper URL generation',
+          variant: 'destructive'
+        });
       } else {
         // Get the public URL
         const { data: publicURLData } = supabase.storage
@@ -219,7 +224,7 @@ const ImageUploader = ({ initialValue, onChange, aspectRatio = 1.91 }: ImageUplo
           </AspectRatio>
           <div className="flex justify-between items-center p-2 bg-muted/20">
             <div className="text-xs text-muted-foreground truncate max-w-[180px]">
-              {image.startsWith('data:image') ? 'Cropped image' : image.split('/').pop()}
+              {image.startsWith('data:image') ? 'Base64 image (not recommended for OG)' : image.split('/').pop()}
             </div>
             <div className="flex space-x-2">
               {!image.startsWith('data:image') && (
@@ -259,6 +264,9 @@ const ImageUploader = ({ initialValue, onChange, aspectRatio = 1.91 }: ImageUplo
               </p>
               <p className="text-xs text-muted-foreground mt-1">
                 Recommended size: 1200×630 pixels (1.91:1 ratio)
+              </p>
+              <p className="text-xs text-amber-600 mt-1">
+                Images will be uploaded to storage for OG metadata
               </p>
             </div>
             <Input 

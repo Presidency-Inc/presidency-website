@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -65,8 +66,8 @@ export const usePageMetadata = (route: string) => {
         // Try to use cached data first
         const parsed = JSON.parse(cachedMetadata);
         
-        // If the cached data contains a base64 image, we need to fetch fresh data
-        if (parsed.image_url && parsed.image_url === '[base64-image]') {
+        // Always fetch fresh data for base64 images
+        if (parsed.image_url && (parsed.image_url === '[base64-image]' || parsed.image_url.startsWith('data:'))) {
           // Skip setting cached metadata and fetch directly
           fetchMetadata();
         } else {
@@ -130,8 +131,9 @@ export const usePageMetadata = (route: string) => {
           throw error;
         }
       } else if (data) {
-        // Ensure image URL is absolute
+        // Ensure image URL is absolute and valid
         if (data.image_url) {
+          // Skip base64 check - we now want to always convert to URL
           data.image_url = getAbsoluteImageUrl(data.image_url);
         }
         
@@ -143,8 +145,7 @@ export const usePageMetadata = (route: string) => {
         };
         
         // Handle image validation: For external URLs only (not for data URLs or local URLs)
-        if (data.image_url && !data.image_url.startsWith('data:image') && 
-            !data.image_url.startsWith(window.location.origin) && 
+        if (data.image_url && !data.image_url.startsWith(window.location.origin) && 
             (data.image_url.startsWith('http://') || data.image_url.startsWith('https://'))) {
           const img = new Image();
           img.src = data.image_url;
@@ -171,8 +172,9 @@ export const usePageMetadata = (route: string) => {
           // For data URLs or local URLs, just use the data as is
           setMetadata(enhancedData as PageMetadata);
           
-          // Cache the fetched data, but if it's a base64 image, just store a reference
+          // Cache the fetched data, but only if it's not a base64 image
           if (data.image_url && data.image_url.startsWith('data:image')) {
+            // Don't cache base64 images - they should be uploaded to storage
             const cachedData = { 
               ...enhancedData, 
               image_url: '[base64-image]' // Just store a reference that it's a base64 image

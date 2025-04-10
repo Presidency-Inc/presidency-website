@@ -187,53 +187,50 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
     form.reset();
     setSelectedPage(page);
     
-    if (page.image_url && page.image_url.startsWith('data:image')) {
-      supabase
-        .from('page_metadata')
-        .select('*')
-        .eq('id', page.id)
-        .single()
-        .then(({ data, error }) => {
-          if (error) {
-            console.error('Error fetching page:', error);
-            return;
-          }
+    supabase
+      .from('page_metadata')
+      .select('*')
+      .eq('id', page.id)
+      .single()
+      .then(({ data, error }) => {
+        if (error) {
+          console.error('Error fetching page:', error);
+          return;
+        }
+        
+        if (data) {
+          const updatedPage = {
+            ...data,
+            fullUrl: getFullUrl(data.route)
+          };
           
-          if (data) {
-            const updatedPage = {
-              ...data,
-              fullUrl: getFullUrl(data.route)
-            };
-            
-            form.reset({
-              id: updatedPage.id,
-              route: updatedPage.route,
-              title: updatedPage.title,
-              description: updatedPage.description,
-              image_url: updatedPage.image_url,
-              og_type: updatedPage.og_type || "website",
-              twitter_card: updatedPage.twitter_card || "summary_large_image",
-            });
-            
-            setSelectedPage(updatedPage as PageMetadata);
-          }
-        });
-    } else {
-      form.reset({
-        id: page.id,
-        route: page.route,
-        title: page.title,
-        description: page.description,
-        image_url: page.image_url,
-        og_type: page.og_type || "website",
-        twitter_card: page.twitter_card || "summary_large_image",
+          form.reset({
+            id: updatedPage.id,
+            route: updatedPage.route,
+            title: updatedPage.title,
+            description: updatedPage.description,
+            image_url: updatedPage.image_url,
+            og_type: updatedPage.og_type || "website",
+            twitter_card: updatedPage.twitter_card || "summary_large_image",
+          });
+          
+          setSelectedPage(updatedPage as PageMetadata);
+        }
       });
-    }
     
     setFormIsDirty(false);
   };
   
   const handleImageChange = (url: string) => {
+    if (url && !url.startsWith('http') && !url.startsWith('/')) {
+      toast({
+        title: 'Invalid URL',
+        description: 'Please provide a valid URL for OpenGraph images',
+        variant: 'destructive'
+      });
+      return;
+    }
+    
     form.setValue('image_url', url);
     setFormIsDirty(true);
   };
@@ -243,6 +240,16 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
     
     setSaving(true);
     try {
+      if (data.image_url && data.image_url.startsWith('data:')) {
+        toast({
+          title: "Warning",
+          description: "Data URLs are not recommended for OG images. Please upload to storage instead.",
+          variant: "destructive",
+        });
+        setSaving(false);
+        return;
+      }
+      
       const updatedFields = {
         title: data.title,
         description: data.description,
