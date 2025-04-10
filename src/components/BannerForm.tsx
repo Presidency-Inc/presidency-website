@@ -1,10 +1,10 @@
 
 import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { fetchData, updateRecord } from "@/utils/secureApiClient";
 
 interface BannerSettings {
   id: string;
@@ -28,11 +28,15 @@ const BannerForm = () => {
   useEffect(() => {
     const fetchBannerSettings = async () => {
       try {
-        setLoading(true);
-        const response = await fetchData<BannerSettings>('banner_settings');
+        // We need to explicitly cast the types to avoid TypeScript errors
+        // since the banner_settings table is not in the generated types yet
+        const { data, error } = await supabase
+          .from('banner_settings')
+          .select('*')
+          .single();
 
-        if (response.error) {
-          console.error('Error fetching banner settings:', response.error);
+        if (error) {
+          console.error('Error fetching banner settings:', error);
           toast({
             title: "Error",
             description: "Failed to load banner settings. Please try again.",
@@ -41,8 +45,15 @@ const BannerForm = () => {
           return;
         }
 
-        if (response.data) {
-          const bannerData: BannerSettings = response.data;
+        if (data) {
+          const bannerData: BannerSettings = {
+            id: data.id,
+            title: data.title,
+            link_name: data.link_name,
+            link_url: data.link_url,
+            updated_at: data.updated_at,
+            updated_by: data.updated_by
+          };
           
           setSettings(bannerData);
           setFormData({
@@ -77,14 +88,19 @@ const BannerForm = () => {
     try {
       setSaving(true);
       
-      const response = await updateRecord('banner_settings', settings.id, {
-        title: formData.title,
-        link_name: formData.link_name,
-        link_url: formData.link_url,
-      });
+      const { error } = await supabase
+        .from('banner_settings')
+        .update({
+          title: formData.title,
+          link_name: formData.link_name,
+          link_url: formData.link_url,
+          updated_at: new Date().toISOString(),
+          updated_by: (await supabase.auth.getUser()).data.user?.id
+        })
+        .eq('id', settings.id);
 
-      if (response.error) {
-        console.error('Error updating banner settings:', response.error);
+      if (error) {
+        console.error('Error updating banner settings:', error);
         toast({
           title: "Error",
           description: "Failed to update banner settings. Please try again.",

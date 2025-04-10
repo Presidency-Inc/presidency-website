@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useEffect, useState } from "react";
-import { fetchData } from "@/utils/secureApiClient";
+import { supabase } from "@/integrations/supabase/client";
 
 interface BannerSettings {
   id: string;
@@ -27,16 +27,27 @@ const StatusBar = () => {
   useEffect(() => {
     const fetchBannerSettings = async () => {
       try {
-        setLoading(true);
-        const response = await fetchData<BannerSettings>('banner_settings');
+        // We need to explicitly cast the types to avoid TypeScript errors
+        // since the banner_settings table is not in the generated types yet
+        const { data, error } = await supabase
+          .from('banner_settings')
+          .select('*')
+          .single();
 
-        if (response.error) {
-          console.error('Error fetching banner settings:', response.error);
+        if (error) {
+          console.error('Error fetching banner settings:', error);
           return;
         }
 
-        if (response.data) {
-          setBannerSettings(response.data);
+        if (data) {
+          setBannerSettings({
+            id: data.id,
+            title: data.title,
+            link_name: data.link_name,
+            link_url: data.link_url,
+            updated_at: data.updated_at,
+            updated_by: data.updated_by
+          });
         }
       } catch (error) {
         console.error('Error fetching banner settings:', error);

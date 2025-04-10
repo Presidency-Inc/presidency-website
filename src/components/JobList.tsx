@@ -1,5 +1,5 @@
-
 import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -24,7 +24,6 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Search, Edit, Trash2, Eye, Loader2, MapPin } from "lucide-react";
-import { fetchData, deleteRecord } from "@/utils/secureApiClient";
 
 export interface Job {
   id: string;
@@ -69,14 +68,15 @@ const JobList = ({ onEdit, onView }: JobListProps) => {
   const fetchJobs = async () => {
     try {
       setLoading(true);
-      const response = await fetchData<Job[]>('job_postings', {
-        order: { column: 'created_at', ascending: false }
-      });
+      const { data, error } = await supabase
+        .from("job_postings")
+        .select("*")
+        .order("created_at", { ascending: false });
 
-      if (response.error) throw new Error(response.error);
-      
-      setJobs(response.data || []);
-      setFilteredJobs(response.data || []);
+      if (error) throw error;
+
+      setJobs(data || []);
+      setFilteredJobs(data || []);
     } catch (error: any) {
       console.error("Error fetching jobs:", error);
       toast({
@@ -92,9 +92,12 @@ const JobList = ({ onEdit, onView }: JobListProps) => {
   const handleDelete = async (id: string) => {
     try {
       setDeletingJobId(id);
-      
-      const response = await deleteRecord('job_postings', id);
-      if (response.error) throw new Error(response.error);
+      const { error } = await supabase
+        .from("job_postings")
+        .delete()
+        .eq("id", id);
+
+      if (error) throw error;
 
       setJobs(jobs.filter(job => job.id !== id));
       toast({

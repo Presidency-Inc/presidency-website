@@ -53,24 +53,22 @@ const CareerHero = () => {
     const render = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      // Use a temporary array to avoid state mutation during render
-      const updatedStars = [...stars];
-      
-      updatedStars.forEach((star, i) => {
+      stars.forEach((star, i) => {
         ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
         ctx.fill();
         
-        // Update star position without directly mutating state
-        updatedStars[i] = {
-          ...star,
-          y: (star.y + star.speed) % canvas.height
-        };
+        // Update star position
+        setStars(prev => {
+          const newStars = [...prev];
+          newStars[i] = {
+            ...star,
+            y: (star.y + star.speed) % canvas.height
+          };
+          return newStars;
+        });
       });
-      
-      // Only update state once per animation frame to avoid infinite loop
-      setStars(updatedStars);
       
       animationFrameId = requestAnimationFrame(render);
     };
@@ -80,7 +78,7 @@ const CareerHero = () => {
     return () => {
       cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [stars]);
   
   const handleScrollToJobs = () => {
     const jobSection = document.querySelector('.job-listings');

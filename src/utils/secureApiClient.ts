@@ -11,7 +11,6 @@ const SUPABASE_FUNCTIONS_URL = "https://dyixstdknvremrjvaarx.supabase.co/functio
 export interface ApiResponse<T> {
   data?: T;
   error?: string;
-  count?: number;
 }
 
 /**
@@ -51,80 +50,9 @@ export async function callFunction<T = any, P = any>(
       throw new Error(result.error || `Error calling ${functionName}`);
     }
     
-    return { 
-      data: result.data, 
-      count: result.count,
-      error: undefined 
-    };
+    return { data: result };
   } catch (error: any) {
     console.error(`Error calling function ${functionName}:`, error);
     return { error: error.message };
   }
-}
-
-// Helper for data-proxy endpoint
-export async function fetchData<T = any>(
-  table: string, 
-  options?: {
-    select?: string;
-    filters?: Record<string, any>;
-    order?: { column: string; ascending: boolean };
-    limit?: number;
-    offset?: number;
-  }
-): Promise<ApiResponse<T>> {
-  return callFunction<T>('data-proxy', {
-    action: 'select',
-    table,
-    options
-  });
-}
-
-// Helper for specific data operations
-export async function getRecord<T = any>(
-  table: string,
-  id: string,
-  select?: string
-): Promise<ApiResponse<T>> {
-  return callFunction<T>('data-proxy', {
-    action: 'getRecord',
-    table,
-    id,
-    select
-  });
-}
-
-export async function insertRecord<T = any>(
-  table: string,
-  data: Record<string, any>
-): Promise<ApiResponse<T>> {
-  return callFunction<T>('data-proxy', {
-    action: 'insert',
-    table,
-    data
-  });
-}
-
-export async function updateRecord<T = any>(
-  table: string,
-  id: string,
-  data: Record<string, any>
-): Promise<ApiResponse<T>> {
-  return callFunction<T>('data-proxy', {
-    action: 'update',
-    table,
-    id,
-    data
-  });
-}
-
-export async function deleteRecord<T = any>(
-  table: string,
-  id: string
-): Promise<ApiResponse<T>> {
-  return callFunction<T>('data-proxy', {
-    action: 'delete',
-    table,
-    id
-  });
 }
