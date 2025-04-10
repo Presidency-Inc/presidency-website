@@ -12,45 +12,74 @@ export default defineConfig(({ mode }) => ({
     port: 8080,
     middleware: [
       (req: Request, res: Response, next: NextFunction) => {
-        // Enhanced bot detection with more comprehensive regex
+        // Enhanced bot detection with more comprehensive regex and debugging
         const userAgent = req.headers['user-agent'] || '';
-        // Expanded bot detection regex to catch more crawlers
-        const isBot = /bot|googlebot|baiduspider|facebookexternalhit|twitterbot|rogerbot|linkedinbot|embedly|quora|pinterest|slackbot|vkshare|facebot|outbrain|w3c_validator|crawler|spider|yahoo|bingbot|duckduckbot|yandex|exabot|sogou|semrush|ahref|mj12bot|prerender/i.test(userAgent);
+        // Log all requests for debugging
+        console.log(`🔍 Request: ${req.url} - User Agent: ${userAgent}`);
         
-        // Log all requests with user agent for debugging
-        console.log(`Request: ${req.url} - User Agent: ${userAgent.substring(0, 100)}...`);
+        // Enhanced debugging for headers
+        console.log('📋 Request headers:', JSON.stringify(req.headers));
         
-        if (isBot) {
-          // Apply prerender middleware for bots with enhanced logging
-          console.log('🤖 Bot detected:', userAgent);
+        // Expanded bot detection regex with additional crawlers and debugging flags
+        const botPatterns = [
+          'bot', 'googlebot', 'bingbot', 'slurp', 'duckduckbot', 'baiduspider', 
+          'yandexbot', 'facebot', 'facebookexternalhit', 'twitterbot', 
+          'rogerbot', 'linkedinbot', 'embedly', 'quora', 'pinterest', 
+          'slackbot', 'vkshare', 'outbrain', 'w3c_validator', 'crawler', 
+          'spider', 'yahoo', 'exabot', 'sogou', 'semrush', 'ahrefsbot', 
+          'mj12bot', 'prerender', 'screaming frog', 'headless', 'lighthouse',
+          'chrome-lighthouse', 'pagespeed', 'ptr', 'whatsapp', 'snapchat',
+          'telegrambot', 'wechat', 'skype', 'ia_archiver', 'adsbot'
+        ];
+        
+        // Create a regex pattern from the bot patterns array
+        const botRegexPattern = new RegExp(botPatterns.join('|'), 'i');
+        const isBot = botRegexPattern.test(userAgent);
+        
+        // Allow forcing prerender with a query parameter for testing
+        const forcePrerenderParam = req.query?.forcePrerender === 'true';
+        
+        if (isBot || forcePrerenderParam) {
+          // Log detection clearly
+          console.log(`🤖 Bot detected or prerender forced: ${forcePrerenderParam ? 'Force param' : userAgent}`);
           
           try {
+            // Get the token with fallback and verbose logging
             const prerenderToken = process.env.PRERENDER_TOKEN || 'pWxLCawAzhz9R4gwZovp';
-            console.log('Using Prerender token:', prerenderToken.substring(0, 5) + '...');
+            console.log(`🔑 Using Prerender token: ${prerenderToken.substring(0, 5)}...`);
             
-            // Configure prerender with more options and better error handling
+            // Get the host with proper fallback for production
+            const host = process.env.HOST_URL || 'presidencysolutions.com';
+            console.log(`🌐 Using host for prerender: ${host}`);
+            
+            // More extensive prerender configuration with additional options
             const prerenderMiddleware = require('prerender-node')
               .set('prerenderToken', prerenderToken)
               .set('protocol', 'https')
-              .set('host', 'presidencysolutions.com')
+              .set('host', host)
               .set('forwardHeaders', true)
-              .set('waitAfterLastRequest', 500) // Wait after the last request to ensure JS execution
-              .set('pageLoadTimeout', 20000) // Increase timeout for complex pages
-              .set('followRedirects', true) // Follow redirects automatically
+              .set('waitAfterLastRequest', 1000) // Increased time to ensure full execution
+              .set('pageLoadTimeout', 30000) // Increased timeout for complex pages
+              .set('followRedirects', true)
+              .set('bubbleUp5xxErrors', true) // Allow 5xx errors to bubble up
               .set('beforeRender', function(req: Request, done: Function) {
-                console.log('✅ Prerender beforeRender:', req.url);
+                console.log('✅ Prerender beforeRender triggered for:', req.url);
+                // Add custom header to track prerender processing
+                req.headers['X-Prerender-Trace'] = 'requested';
                 done();
               })
               .set('afterRender', function(err: Error, req: Request, prerender_res: any) {
                 if (err) {
                   console.error('❌ Prerender error:', err);
                 } else {
-                  console.log(`✅ Prerender success: ${req.url} - Status: ${prerender_res.statusCode}`);
-                  
-                  // Log headers to help with debugging
-                  console.log('Response headers:', JSON.stringify(prerender_res.headers));
+                  console.log(`✅ Prerender success for: ${req.url} - Status: ${prerender_res?.statusCode || 'unknown'}`);
+                  // Log all headers to identify what's being returned
+                  console.log('📋 Prerender response headers:', JSON.stringify(prerender_res?.headers || {}));
                 }
               });
+            
+            // Log that middleware is about to be called
+            console.log('🚀 Applying prerender middleware...');
             
             // Apply the middleware with error handling
             return prerenderMiddleware(req, res, next);
@@ -58,9 +87,10 @@ export default defineConfig(({ mode }) => ({
             console.error('❌ Error initializing prerender middleware:', error);
             return next();
           }
+        } else {
+          console.log('👤 Regular user request (not a bot)');
+          return next();
         }
-        
-        return next();
       }
     ]
   },

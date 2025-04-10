@@ -22,30 +22,52 @@ const PageMetadata = ({
   children,
 }: PageMetadataProps) => {
   const origin = window.location.origin;
-  const currentUrl = url ? `${origin}${url}` : window.location.href;
+  const currentUrl = url ? `${origin}${url.startsWith('/') ? '' : '/'}${url}` : window.location.href;
   
   // Ensure image is an absolute URL with improved handling
   const imageUrl = image ? (
     image.startsWith('http') ? image : `${origin}${image.startsWith('/') ? '' : '/'}${image}`
   ) : `${origin}/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png`;
 
+  // Helper function to detect if we're in a prerender context
+  const isPrerenderContext = () => {
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    const botPatterns = ['bot', 'googlebot', 'prerender', 'headless', 'lighthouse'];
+    return botPatterns.some(pattern => userAgent.includes(pattern)) || 
+           Boolean(window.__PRERENDER_STATUS) ||
+           Boolean((window as any).__PRERENDER_INJECTED);
+  };
+
   // Use useEffect to set prerenderReady to true when metadata is loaded
   useEffect(() => {
+    const isPrerender = isPrerenderContext();
+    
+    if (isPrerender) {
+      console.log('🤖 Bot/Prerender detected in PageMetadata component');
+      console.log('🔍 Metadata being served:', { title, description, imageUrl, currentUrl });
+    }
+    
     if (typeof window !== 'undefined' && window.prerenderReady === false) {
-      console.log('PageMetadata: Setting prerenderReady to true soon');
+      console.log('⚙️ PageMetadata: Setting prerenderReady to true soon');
       
       // Set a timeout to ensure images have time to load
       setTimeout(() => {
-        console.log('PageMetadata: Now setting prerenderReady to true');
+        console.log('✅ PageMetadata: Now setting prerenderReady to true');
         window.prerenderReady = true;
-      }, 1000);
-    }
-    
-    // Log for debugging purposes
-    const isBot = /bot|googlebot|prerender/i.test(navigator.userAgent);
-    if (isBot) {
-      console.log('Bot detected in PageMetadata component');
-      console.log('Metadata being served:', { title, description, imageUrl, currentUrl });
+        
+        // Add additional logging for debugging
+        if (isPrerender) {
+          console.log('📊 Final state before prerender completion:', {
+            documentTitle: document.title,
+            metaTags: Array.from(document.querySelectorAll('meta')).map(meta => ({
+              name: meta.getAttribute('name') || meta.getAttribute('property'),
+              content: meta.getAttribute('content')
+            })),
+            imageLoaded: Boolean(imageUrl),
+            prerenderReady: window.prerenderReady
+          });
+        }
+      }, 2000);
     }
   }, [title, description, imageUrl, currentUrl]);
 
