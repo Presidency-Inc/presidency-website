@@ -43,7 +43,20 @@ export const usePageMetadata = (route: string) => {
     return `${window.location.origin}${imageUrl.startsWith('/') ? '' : '/'}${imageUrl}`;
   };
 
+  // Clear any existing meta tags from main.tsx to avoid duplicates
+  const clearExistingMetaTags = () => {
+    if (typeof document !== 'undefined') {
+      document.querySelectorAll('meta[property^="og:"], meta[name^="twitter:"]').forEach(tag => {
+        if (!tag.hasAttribute('data-react-helmet')) {
+          tag.remove();
+        }
+      });
+    }
+  };
+
   useEffect(() => {
+    clearExistingMetaTags();
+    
     // Create a cache system to avoid repeated requests for the same routes
     const cachedMetadata = localStorage.getItem(`page_metadata_${route}`);
     

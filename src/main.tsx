@@ -1,3 +1,4 @@
+
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
@@ -33,9 +34,25 @@ const getAbsoluteImageUrl = (imageUrl: string): string => {
 
 // Only set default document title and metadata if we're not on a page with specific metadata
 // We check for existing OG tags that may have been added by the Helmet component in specific pages
-const existingOgTags = document.querySelectorAll('meta[property^="og:"], meta[name^="twitter:"]');
+const checkAndRemoveExistingMetaTags = () => {
+  document.querySelectorAll('meta[property^="og:"], meta[name^="twitter:"]').forEach(tag => {
+    // If the tag was added by Helmet (has data-react-helmet attribute), leave it alone
+    if (!tag.hasAttribute('data-react-helmet')) {
+      tag.remove();
+    }
+  });
+};
 
-if (existingOgTags.length === 0) {
+// Remove any existing non-Helmet OG/Twitter tags before adding default ones
+checkAndRemoveExistingMetaTags();
+
+// Function to check if there are Helmet-added meta tags
+const hasHelmetMetaTags = () => {
+  return document.querySelectorAll('meta[data-react-helmet="true"]').length > 0;
+};
+
+// Only set default metadata if no page-specific metadata exists
+if (!hasHelmetMetaTags()) {
   document.title = "Presidency Solutions | AI & Data Engineering Experts";
   
   const metaTags = [

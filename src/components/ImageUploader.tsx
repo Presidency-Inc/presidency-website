@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,6 +8,7 @@ import ReactCrop, { type Crop as CropType } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import { toast } from "@/components/ui/use-toast";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { supabase } from "@/integrations/supabase/client";
 
 interface ImageUploaderProps {
   initialValue: string;
@@ -35,6 +35,25 @@ const ImageUploader = ({ initialValue, onChange, aspectRatio = 1.91 }: ImageUplo
   React.useEffect(() => {
     setImage(initialValue || null);
   }, [initialValue]);
+
+  // Function to ensure image URL is absolute
+  const getAbsoluteImageUrl = (imageUrl: string): string => {
+    if (!imageUrl) return '';
+    
+    // If it's a data URL (base64), return as is
+    if (imageUrl.startsWith('data:')) {
+      return imageUrl;
+    }
+    
+    // If it's already an absolute URL, return as is
+    if (imageUrl.startsWith('http://') || imageUrl.startsWith('https://')) {
+      return imageUrl;
+    }
+    
+    // Otherwise, prepend the origin
+    const origin = window.location.origin;
+    return `${origin}${imageUrl.startsWith('/') ? '' : '/'}${imageUrl}`;
+  };
 
   const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -97,6 +116,19 @@ const ImageUploader = ({ initialValue, onChange, aspectRatio = 1.91 }: ImageUplo
     setSelectedFile(null);
   };
 
+  // Helper function to convert data URL to File
+  const dataURLtoFile = (dataurl: string, filename: string): File => {
+    const arr = dataurl.split(',');
+    const mime = arr[0].match(/:(.*?);/)![1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, { type: mime });
+  };
+
   const handleCropApply = async () => {
     try {
       const croppedImageBase64 = await getCroppedImg();
@@ -105,20 +137,49 @@ const ImageUploader = ({ initialValue, onChange, aspectRatio = 1.91 }: ImageUplo
       setIsUploading(true);
       setCropDialogOpen(false);
       
-      // Store the cropped image as a base64 string but don't call onChange yet
-      // We'll just update the local preview
-      setImage(croppedImageBase64);
+      // First convert the cropped base64 image to a file object
+      const filename = `image-${Date.now()}.jpg`;
+      const file = dataURLtoFile(croppedImageBase64, filename);
       
-      // Now pass the cropped image to the parent component
-      onChange(croppedImageBase64);
+      // Upload to Supabase Storage
+      const { data, error } = await supabase.storage
+        .from('images')
+        .upload(`page-metadata/${filename}`, file, {
+          cacheControl: '3600',
+          upsert: true
+        });
       
-      toast({
-        title: 'Image processed',
-        description: 'Your image has been cropped and is ready to be saved.'
-      });
+      if (error) {
+        console.error('Error uploading image:', error);
+        toast({
+          title: 'Upload failed',
+          description: 'Failed to upload image to storage.',
+          variant: 'destructive'
+        });
+        
+        // If Supabase upload fails, fall back to using the base64 image
+        setImage(croppedImageBase64);
+        onChange(croppedImageBase64);
+      } else {
+        // Get the public URL
+        const { data: publicURLData } = supabase.storage
+          .from('images')
+          .getPublicUrl(`page-metadata/${filename}`);
+          
+        const imageUrl = publicURLData.publicUrl;
+        
+        // Store the image URL
+        setImage(imageUrl);
+        onChange(imageUrl);
+        
+        toast({
+          title: 'Image uploaded',
+          description: 'Your image has been cropped and uploaded.'
+        });
+      }
       
     } catch (error) {
-      console.error('Crop error:', error);
+      console.error('Crop/upload error:', error);
       toast({
         title: 'Error processing image',
         description: 'Failed to process the cropped image.',
@@ -148,7 +209,7 @@ const ImageUploader = ({ initialValue, onChange, aspectRatio = 1.91 }: ImageUplo
         <div className="border rounded-md overflow-hidden">
           <AspectRatio ratio={aspectRatio}>
             <img 
-              src={image} 
+              src={getAbsoluteImageUrl(image)} 
               alt="Uploaded preview" 
               className="w-full h-full object-cover"
               onError={(e) => {
@@ -166,7 +227,7 @@ const ImageUploader = ({ initialValue, onChange, aspectRatio = 1.91 }: ImageUplo
                   size="sm" 
                   variant="outline"
                   onClick={() => {
-                    navigator.clipboard.writeText(image);
+                    navigator.clipboard.writeText(getAbsoluteImageUrl(image));
                     toast({
                       title: 'URL copied',
                       description: 'Image URL copied to clipboard.'

@@ -282,11 +282,15 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
       
       setFormIsDirty(false);
       
-      localStorage.clear();
+      Object.keys(localStorage).forEach(key => {
+        if (key.startsWith('page_metadata_')) {
+          localStorage.removeItem(key);
+        }
+      });
       
       toast({
         title: "Success",
-        description: "Page metadata updated successfully",
+        description: "Page metadata updated successfully. Cache cleared for all pages.",
       });
       
       if (onSuccess) {
