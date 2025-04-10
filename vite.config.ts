@@ -36,5 +36,11 @@ export default defineConfig(({ mode }) => ({
     cssCodeSplit: true,
     // Minimize bundle size
     minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: false,
+        drop_debugger: true
+      }
+    }
   },
 }));

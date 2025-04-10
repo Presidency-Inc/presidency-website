@@ -2,7 +2,8 @@
 {
   "scripts": {
     "serve": "node --experimental-modules server-start.js",
-    "start-prod": "node --experimental-modules scripts/start-production.js"
+    "start-prod": "node --experimental-modules scripts/start-production.js",
+    "update-browserslist": "npx update-browserslist-db@latest"
   },
   "type": "module"
 }
