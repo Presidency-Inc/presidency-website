@@ -25,7 +25,6 @@ export const usePageMetadata = (route: string) => {
       setError(null);
       
       try {
-        // Use type assertion to tell TypeScript this is valid
         const { data, error } = await supabase
           .from('page_metadata')
           .select('*')
@@ -50,8 +49,7 @@ export const usePageMetadata = (route: string) => {
             throw error;
           }
         } else if (data) {
-          // Assert the data is of type PageMetadata
-          setMetadata(data as unknown as PageMetadata);
+          setMetadata(data as PageMetadata);
         }
       } catch (err) {
         console.error('Error fetching page metadata:', err);

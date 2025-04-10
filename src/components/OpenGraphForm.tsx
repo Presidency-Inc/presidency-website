@@ -35,8 +35,6 @@ import { ImagePlus, Image, FileText, Twitter, Facebook, Globe, RefreshCw } from 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { PageMetadata } from "@/hooks/usePageMetadata";
-import App from "@/App";
-import { BrowserRouter, Route } from "react-router-dom";
 
 interface OpenGraphFormProps {
   onSuccess?: () => void;
@@ -60,10 +58,8 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
     }
   });
 
-  // Function to extract routes from App.tsx
+  // Function to extract routes from the app
   const extractRoutes = () => {
-    // This is a simplified version that just extracts common routes
-    // In a real implementation, you'd parse the Route components from App.tsx
     return [
       "/",
       "/products/leapfrog",
@@ -91,7 +87,6 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
   const fetchPages = async () => {
     setLoading(true);
     try {
-      // Use type assertion for Supabase query
       const { data, error } = await supabase
         .from('page_metadata')
         .select('*')
@@ -103,7 +98,7 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
       
       // Check if we need to create any missing page metadata records
       if (data) {
-        const existingRoutes = data.map(page => page.route);
+        const existingRoutes = data.map((page: any) => page.route);
         const appRoutes = extractRoutes();
         
         const missingRoutes = appRoutes.filter(route => !existingRoutes.includes(route));
@@ -119,11 +114,11 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
           return;
         }
         
-        // Set pages with proper type assertion
-        setPages(data as unknown as PageMetadata[]);
+        // Set pages
+        setPages(data as PageMetadata[]);
         
         if (data.length > 0) {
-          handlePageSelect(data[0] as unknown as PageMetadata);
+          handlePageSelect(data[0] as PageMetadata);
         }
       }
     } catch (error) {
