@@ -16,7 +16,7 @@ import usePageMetadata from "@/hooks/usePageMetadata";
 
 const Index = () => {
   // Use the hook to get metadata for the homepage
-  const { metadata } = usePageMetadata("/");
+  const { metadata, loading } = usePageMetadata("/");
   
   useEffect(() => {
     // Scroll to top when component mounts

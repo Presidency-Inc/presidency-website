@@ -34,19 +34,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ImagePlus, Image, FileText, Twitter, Facebook, Globe, RefreshCw } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-
-interface PageMetadata {
-  id: string;
-  route: string;
-  title: string;
-  description: string;
-  image_url: string;
-  og_type: string;
-  twitter_card: string;
-  created_at?: string;
-  updated_at?: string;
-  updated_by?: string;
-}
+import { PageMetadata } from "@/hooks/usePageMetadata";
+import App from "@/App";
+import { BrowserRouter, Route } from "react-router-dom";
 
 interface OpenGraphFormProps {
   onSuccess?: () => void;
@@ -69,6 +59,30 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
       twitter_card: "summary_large_image",
     }
   });
+
+  // Function to extract routes from App.tsx
+  const extractRoutes = () => {
+    // This is a simplified version that just extracts common routes
+    // In a real implementation, you'd parse the Route components from App.tsx
+    return [
+      "/",
+      "/products/leapfrog",
+      "/products/omniflow",
+      "/products/kube8r",
+      "/services/databricks",
+      "/services/ai",
+      "/services/data",
+      "/talent",
+      "/talent/nearshore",
+      "/careers",
+      "/about",
+      "/contact-us",
+      "/privacy",
+      "/terms",
+      "/sitemap",
+      "/cookies"
+    ];
+  };
   
   useEffect(() => {
     fetchPages();
@@ -77,6 +91,7 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
   const fetchPages = async () => {
     setLoading(true);
     try {
+      // Use type assertion for Supabase query
       const { data, error } = await supabase
         .from('page_metadata')
         .select('*')
@@ -86,10 +101,30 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
         throw error;
       }
       
-      setPages(data || []);
-      
-      if (data && data.length > 0) {
-        handlePageSelect(data[0]);
+      // Check if we need to create any missing page metadata records
+      if (data) {
+        const existingRoutes = data.map(page => page.route);
+        const appRoutes = extractRoutes();
+        
+        const missingRoutes = appRoutes.filter(route => !existingRoutes.includes(route));
+        
+        // Create metadata for missing routes
+        for (const route of missingRoutes) {
+          await createDefaultMetadata(route);
+        }
+        
+        // If we added routes, fetch again
+        if (missingRoutes.length > 0) {
+          fetchPages();
+          return;
+        }
+        
+        // Set pages with proper type assertion
+        setPages(data as unknown as PageMetadata[]);
+        
+        if (data.length > 0) {
+          handlePageSelect(data[0] as unknown as PageMetadata);
+        }
       }
     } catch (error) {
       console.error('Error fetching pages:', error);
@@ -100,6 +135,33 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
       });
     } finally {
       setLoading(false);
+    }
+  };
+  
+  const createDefaultMetadata = async (route: string) => {
+    try {
+      const title = route === '/' 
+        ? "Presidency Solutions | AI & Data Engineering Experts" 
+        : `${route.split("/").pop()?.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")} | Presidency Solutions`;
+        
+      const newMetadata = {
+        route,
+        title,
+        description: "Presidency Solutions helps organizations maximize their impact with AI, Data Engineering, Databricks Solutions, Cloud Modernization, and Talent Solutions.",
+        image_url: "/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png",
+        og_type: "website",
+        twitter_card: "summary_large_image"
+      };
+      
+      const { error } = await supabase
+        .from('page_metadata')
+        .insert(newMetadata);
+      
+      if (error) {
+        console.error('Error creating default metadata:', error);
+      }
+    } catch (error) {
+      console.error('Error creating default metadata:', error);
     }
   };
   
