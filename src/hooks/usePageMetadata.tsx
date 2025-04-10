@@ -12,6 +12,7 @@ export interface PageMetadata {
   twitter_card: string;
   created_at?: string;
   updated_at?: string;
+  fullUrl?: string; // For displaying the full URL
 }
 
 export const usePageMetadata = (route: string) => {
@@ -72,41 +73,36 @@ export const usePageMetadata = (route: string) => {
             description: "Presidency Solutions helps organizations maximize their impact with AI, Data Engineering, Databricks Solutions, Cloud Modernization, and Talent Solutions.",
             image_url: "/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png",
             og_type: "website",
-            twitter_card: "summary_large_image"
+            twitter_card: "summary_large_image",
+            fullUrl: getFullUrl(route)
           };
           
-          setMetadata({
-            ...fallbackMetadata,
-            // Add the full URL (used only in rendering, not saved to DB)
-            fullUrl: getFullUrl(route)
-          } as PageMetadata);
+          setMetadata(fallbackMetadata as PageMetadata);
           
           // Cache the fallback data
-          localStorage.setItem(`page_metadata_${route}`, JSON.stringify({
-            ...fallbackMetadata,
-            fullUrl: getFullUrl(route)
-          }));
+          localStorage.setItem(`page_metadata_${route}`, JSON.stringify(fallbackMetadata));
         } else {
           throw error;
         }
       } else if (data) {
-        // Check if image_url is valid
-        const imageUrl = data.image_url;
+        // Add the full URL (used only in rendering, not saved to DB)
+        const enhancedData = {
+          ...data,
+          fullUrl: getFullUrl(route)
+        };
         
-        // Preload image to test if it exists
-        if (imageUrl && !imageUrl.startsWith('/')) {
+        // Handle image validation: For external URLs only (not for data URLs)
+        if (data.image_url && !data.image_url.startsWith('data:image') && !data.image_url.startsWith('/')) {
           const img = new Image();
-          img.src = imageUrl;
+          img.src = data.image_url;
+          
           img.onload = () => {
             // Image loaded successfully, use the data
-            const enhancedData = {
-              ...data,
-              fullUrl: getFullUrl(route)
-            };
             setMetadata(enhancedData as PageMetadata);
             // Cache the fetched data
             localStorage.setItem(`page_metadata_${route}`, JSON.stringify(enhancedData));
           };
+          
           img.onerror = () => {
             // Image failed to load, use fallback image
             const correctedData = {
@@ -119,11 +115,7 @@ export const usePageMetadata = (route: string) => {
             localStorage.setItem(`page_metadata_${route}`, JSON.stringify(correctedData));
           };
         } else {
-          // Not a remote URL, just use the data
-          const enhancedData = {
-            ...data,
-            fullUrl: getFullUrl(route)
-          };
+          // For data URLs or local URLs, just use the data
           setMetadata(enhancedData as PageMetadata);
           // Cache the fetched data
           localStorage.setItem(`page_metadata_${route}`, JSON.stringify(enhancedData));

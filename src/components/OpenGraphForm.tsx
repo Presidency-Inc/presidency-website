@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useForm } from "react-hook-form";
@@ -253,6 +252,17 @@ const OpenGraphForm = ({ onSuccess }: OpenGraphFormProps) => {
         title: "Success",
         description: "Page metadata updated successfully",
       });
+      
+      if (data.image_url && data.image_url.startsWith('data:image')) {
+        const cachedKey = `page_metadata_${selectedPage.route}`;
+        const cached = localStorage.getItem(cachedKey);
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          // Just store a reference that it's a base64 image in the cache
+          parsed.image_url = '[base64-image]';
+          localStorage.setItem(cachedKey, JSON.stringify(parsed));
+        }
+      }
       
       if (onSuccess) {
         onSuccess();

@@ -83,28 +83,9 @@ const ImageUploader = ({ initialValue, onChange, aspectRatio = 1.91 }: ImageUplo
       );
     }
     
-    // Convert canvas to blob
-    return new Promise<File>((resolve, reject) => {
-      canvas.toBlob(
-        (blob) => {
-          if (!blob || !selectedFile) {
-            reject(new Error('Canvas is empty'));
-            return;
-          }
-          
-          const fileName = `cropped-${selectedFile.name}`;
-          const croppedFile = new File([blob], fileName, {
-            type: 'image/jpeg',
-            lastModified: Date.now(),
-          });
-          
-          resolve(croppedFile);
-        },
-        'image/jpeg',
-        0.95
-      );
-    });
-  }, [crop, selectedFile]);
+    // Convert canvas to dataURL
+    return canvas.toDataURL('image/jpeg', 0.95);
+  }, [crop]);
 
   const handleCropCancel = () => {
     setCropDialogOpen(false);
@@ -114,59 +95,22 @@ const ImageUploader = ({ initialValue, onChange, aspectRatio = 1.91 }: ImageUplo
 
   const handleCropApply = async () => {
     try {
-      const croppedFile = await getCroppedImg();
-      if (!croppedFile) return;
+      const croppedImageBase64 = await getCroppedImg();
+      if (!croppedImageBase64) return;
       
       setIsUploading(true);
       setCropDialogOpen(false);
       
-      // Upload to Supabase Storage
-      const fileExt = croppedFile.name.split('.').pop();
-      const fileName = `og-${Date.now()}.${fileExt}`;
-      
-      // Check if storage bucket exists, create if not
-      const { data: buckets } = await supabase.storage.listBuckets();
-      const bucketExists = buckets?.some(bucket => bucket.name === 'open-graph');
-      
-      if (!bucketExists) {
-        // Create bucket if it doesn't exist
-        await supabase.storage.createBucket('open-graph', {
-          public: true,
-          fileSizeLimit: 5242880, // 5MB
-          allowedMimeTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/gif']
-        });
-      }
-      
-      const { data, error } = await supabase.storage
-        .from('open-graph')
-        .upload(fileName, croppedFile, {
-          cacheControl: '3600',
-          upsert: false
-        });
-      
-      if (error) {
-        console.error('Upload error:', error);
-        toast({
-          title: 'Upload failed',
-          description: error.message,
-          variant: 'destructive'
-        });
-        return;
-      }
-      
-      // Get public URL
-      const { data: publicUrlData } = supabase.storage
-        .from('open-graph')
-        .getPublicUrl(fileName);
-      
-      const imageUrl = publicUrlData.publicUrl;
-      setImage(imageUrl);
-      onChange(imageUrl);
+      // Store the cropped image as a base64 string to be used directly
+      // We'll save it to the database when the form is submitted
+      setImage(croppedImageBase64);
+      onChange(croppedImageBase64);
       
       toast({
-        title: 'Image uploaded',
-        description: 'Your image has been uploaded and cropped successfully.'
+        title: 'Image processed',
+        description: 'Your image has been cropped and is ready to be saved.'
       });
+      
     } catch (error) {
       console.error('Crop error:', error);
       toast({
@@ -208,22 +152,24 @@ const ImageUploader = ({ initialValue, onChange, aspectRatio = 1.91 }: ImageUplo
           </AspectRatio>
           <div className="flex justify-between items-center p-2 bg-muted/20">
             <div className="text-xs text-muted-foreground truncate max-w-[180px]">
-              {image.split('/').pop()}
+              {image.startsWith('data:image') ? 'Cropped image' : image.split('/').pop()}
             </div>
             <div className="flex space-x-2">
-              <Button 
-                size="sm" 
-                variant="outline"
-                onClick={() => {
-                  navigator.clipboard.writeText(image);
-                  toast({
-                    title: 'URL copied',
-                    description: 'Image URL copied to clipboard.'
-                  });
-                }}
-              >
-                Copy URL
-              </Button>
+              {!image.startsWith('data:image') && (
+                <Button 
+                  size="sm" 
+                  variant="outline"
+                  onClick={() => {
+                    navigator.clipboard.writeText(image);
+                    toast({
+                      title: 'URL copied',
+                      description: 'Image URL copied to clipboard.'
+                    });
+                  }}
+                >
+                  Copy URL
+                </Button>
+              )}
               <Button 
                 size="sm" 
                 variant="destructive"
@@ -260,7 +206,7 @@ const ImageUploader = ({ initialValue, onChange, aspectRatio = 1.91 }: ImageUplo
               htmlFor="image-upload"
               className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 cursor-pointer"
             >
-              {isUploading ? 'Uploading...' : 'Select image'}
+              {isUploading ? 'Processing...' : 'Select image'}
             </Label>
             <div className="text-xs text-muted-foreground mt-2">
               or enter image URL:
