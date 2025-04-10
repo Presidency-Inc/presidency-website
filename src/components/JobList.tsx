@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent } from "@/components/ui/card";
@@ -24,8 +23,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Search, Edit, Trash2, Eye, Loader2, MapPin, Send } from "lucide-react";
-import { useAuth } from "@/hooks/useAuth";
+import { Search, Edit, Trash2, Eye, Loader2, MapPin } from "lucide-react";
 
 export interface Job {
   id: string;
@@ -41,17 +39,14 @@ export interface Job {
 interface JobListProps {
   onEdit: (job: Job) => void;
   onView: (job: Job) => void;
-  onApply?: (job: Job) => void;
 }
 
-const JobList = ({ onEdit, onView, onApply }: JobListProps) => {
+const JobList = ({ onEdit, onView }: JobListProps) => {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredJobs, setFilteredJobs] = useState<Job[]>([]);
   const [deletingJobId, setDeletingJobId] = useState<string | null>(null);
-  const { session } = useAuth();
-  const isAdmin = !!session?.user;
 
   useEffect(() => {
     fetchJobs();
@@ -163,6 +158,7 @@ const JobList = ({ onEdit, onView, onApply }: JobListProps) => {
                 <TableHead>Department</TableHead>
                 <TableHead>Location</TableHead>
                 <TableHead>Created</TableHead>
+                <TableHead>Updated</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -178,6 +174,7 @@ const JobList = ({ onEdit, onView, onApply }: JobListProps) => {
                     </div>
                   </TableCell>
                   <TableCell>{new Date(job.created_at).toLocaleDateString()}</TableCell>
+                  <TableCell>{new Date(job.updated_at).toLocaleDateString()}</TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
                       <Button 
@@ -187,61 +184,44 @@ const JobList = ({ onEdit, onView, onApply }: JobListProps) => {
                       >
                         <Eye size={16} />
                       </Button>
-                      
-                      {onApply && (
-                        <Button 
-                          variant="ghost" 
-                          size="sm" 
-                          onClick={() => onApply(job)}
-                          className="text-blue-600 hover:text-blue-800"
-                        >
-                          <Send size={16} />
-                        </Button>
-                      )}
-                      
-                      {isAdmin && (
-                        <>
-                          <Button 
-                            variant="ghost" 
-                            size="sm" 
-                            onClick={() => onEdit(job)}
-                          >
-                            <Edit size={16} />
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        onClick={() => onEdit(job)}
+                      >
+                        <Edit size={16} />
+                      </Button>
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button variant="ghost" size="sm">
+                            <Trash2 size={16} className="text-destructive" />
                           </Button>
-                          
-                          <AlertDialog>
-                            <AlertDialogTrigger asChild>
-                              <Button variant="ghost" size="sm">
-                                <Trash2 size={16} className="text-destructive" />
-                              </Button>
-                            </AlertDialogTrigger>
-                            <AlertDialogContent>
-                              <AlertDialogHeader>
-                                <AlertDialogTitle>Delete Job Posting</AlertDialogTitle>
-                                <AlertDialogDescription>
-                                  Are you sure you want to delete "{job.title}"? This action cannot be undone.
-                                </AlertDialogDescription>
-                              </AlertDialogHeader>
-                              <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction
-                                  onClick={() => handleDelete(job.id)}
-                                  className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                                >
-                                  {deletingJobId === job.id ? (
-                                    <>
-                                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                      Deleting...
-                                    </>
-                                  ) : (
-                                    "Delete"
-                                  )}
-                                </AlertDialogAction>
-                              </AlertDialogFooter>
-                            </AlertDialogContent>
-                          </AlertDialog>
-                        </>
-                      )}
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Delete Job Posting</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              Are you sure you want to delete "{job.title}"? This action cannot be undone.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction
+                              onClick={() => handleDelete(job.id)}
+                              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                            >
+                              {deletingJobId === job.id ? (
+                                <>
+                                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                  Deleting...
+                                </>
+                              ) : (
+                                "Delete"
+                              )}
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
                     </div>
                   </TableCell>
                 </TableRow>

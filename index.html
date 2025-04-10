@@ -1,28 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <!-- Base metadata with static values for crawlers -->
-    <title>Presidency Solutions | AI & Data Engineering Experts</title>
-    <meta name="description" content="Presidency Solutions helps organizations maximize their impact with AI, Data Engineering, Databricks Solutions, Cloud Modernization, and Talent Solutions." />
+    <!-- Base metadata will be set dynamically by main.tsx or by the Helmet in specific pages -->
     <meta name="author" content="Presidency Solutions" />
-    
-    <!-- Essential Open Graph Meta Tags - Static version for crawlers -->
-    <meta property="og:title" content="Presidency Solutions | AI & Data Engineering Experts" />
-    <meta property="og:description" content="Presidency Solutions helps organizations maximize their impact with AI, Data Engineering, Databricks Solutions, Cloud Modernization, and Talent Solutions." />
-    <meta property="og:image" content="https://presidencysolutions.com/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png" />
-    <meta property="og:url" content="https://presidencysolutions.com" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Presidency Solutions" />
-    <meta property="og:locale" content="en_US" />
-    
-    <!-- Twitter Card Tags - Static version -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Presidency Solutions | AI & Data Engineering Experts" />
-    <meta name="twitter:description" content="Presidency Solutions helps organizations maximize their impact with AI, Data Engineering, Databricks Solutions, Cloud Modernization, and Talent Solutions." />
-    <meta name="twitter:image" content="https://presidencysolutions.com/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png" />
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/lovable-uploads/465dc1c4-12bb-4d80-b59c-8e56947c0ef0.png" sizes="96x96" />
@@ -61,60 +44,19 @@
 
   <body>
     <div id="root"></div>
-    <!-- Preload metadata from Supabase -->
+    <!-- Brevo Conversations Widget -->
     <script>
-      // This script will execute before the main React application loads
-      window.__PRELOADED_METADATA__ = {};
-      
-      // Fetch current route from URL path
-      const currentPath = window.location.pathname || '/';
-      const cacheKey = `page_metadata_${currentPath}`;
-      
-      // Check if we have cached metadata for this route
-      const cachedData = localStorage.getItem(cacheKey);
-      if (cachedData) {
-        try {
-          const metadata = JSON.parse(cachedData);
-          window.__PRELOADED_METADATA__ = metadata;
-          
-          // Update meta tags immediately for crawlers
-          const updateMetaTag = (selector, content) => {
-            if (!content) return;
-            const tag = document.querySelector(selector);
-            if (tag) tag.setAttribute('content', String(content));
+      (function(d, w, c) {
+          w.BrevoConversationsID = '67d1affe6f0f53dfd9086530';
+          w[c] = w[c] || function() {
+              (w[c].q = w[c].q || []).push(arguments);
           };
-          
-          // Set document title
-          if (metadata.title) document.title = String(metadata.title);
-          
-          // Update meta description
-          updateMetaTag('meta[name="description"]', metadata.description);
-          
-          // Update Open Graph tags
-          updateMetaTag('meta[property="og:title"]', metadata.title);
-          updateMetaTag('meta[property="og:description"]', metadata.description);
-          updateMetaTag('meta[property="og:type"]', metadata.og_type);
-          
-          // Ensure image URL is absolute
-          let imageUrl = metadata.image_url;
-          if (imageUrl && !imageUrl.startsWith('http') && !imageUrl.startsWith('data:')) {
-            imageUrl = window.location.origin + (imageUrl.startsWith('/') ? '' : '/') + imageUrl;
-          }
-          
-          updateMetaTag('meta[property="og:image"]', imageUrl);
-          updateMetaTag('meta[property="og:url"]', window.location.href);
-          
-          // Update Twitter Card tags
-          updateMetaTag('meta[name="twitter:title"]', metadata.title);
-          updateMetaTag('meta[name="twitter:description"]', metadata.description);
-          updateMetaTag('meta[name="twitter:image"]', imageUrl);
-          updateMetaTag('meta[name="twitter:card"]', metadata.twitter_card);
-        } catch (e) {
-          console.error('Error parsing preloaded metadata:', e);
-        }
-      }
+          var s = d.createElement('script');
+          s.async = true;
+          s.src = 'https://conversations-widget.brevo.com/brevo-conversations.js';
+          if (d.head) d.head.appendChild(s);
+      })(document, window, 'BrevoConversations');
     </script>
-    
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>

@@ -1,39 +1,27 @@
+
 import { Helmet } from "react-helmet";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import StatusBar from "@/components/StatusBar";
 import ScrollProgress from "@/components/ScrollProgress";
-import { usePageMetadata } from "@/hooks/usePageMetadata";
 
 const BookACall = () => {
-  const { metadata } = usePageMetadata("/book-a-call");
-  
-  // Extract string values for metadata to avoid Symbol conversion issues
-  const title = metadata?.title || "Book a Call | Presidency Solutions";
-  const description = metadata?.description || "Schedule a consultation with our AI and data engineering experts to discuss your business needs and how we can help you maximize your impact.";
-  const ogType = metadata?.og_type || "website";
-  const ogUrl = metadata?.fullUrl || `https://presidencysolutions.com/book-a-call`;
-  const ogImage = metadata?.image_url || `https://presidencysolutions.com/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png`;
-  const twitterCard = metadata?.twitter_card || "summary_large_image";
-  
   return (
     <>
       <Helmet>
-        <title>{title}</title>
-        <meta name="description" content={description} />
+        <title>Book a Call | Presidency Solutions</title>
+        <meta name="description" content="Schedule a consultation with our AI and data engineering experts to discuss your business needs and how we can help you maximize your impact." />
         <meta name="keywords" content="consultation, book a call, expert consultation, AI consultation, data engineering consultation" />
-        
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="og:type" content={ogType} />
-        <meta property="og:url" content={ogUrl} />
-        <meta property="og:image" content={ogImage} />
-        
-        <meta name="twitter:card" content={twitterCard} />
-        <meta name="twitter:title" content={title} />
-        <meta name="twitter:description" content={description} />
-        <meta name="twitter:image" content={ogImage} />
+        <meta property="og:title" content="Book a Call | Presidency Solutions" />
+        <meta property="og:description" content="Schedule a consultation with our AI and data engineering experts to discuss your business needs." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="/book-a-call" />
+        <meta property="og:image" content="/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Book a Call | Presidency Solutions" />
+        <meta name="twitter:description" content="Schedule a consultation with our AI and data engineering experts to discuss your business needs." />
+        <meta name="twitter:image" content="/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png" />
       </Helmet>
       <ScrollToTop />
       <StatusBar />
