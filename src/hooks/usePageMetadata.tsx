@@ -29,7 +29,7 @@ export const usePageMetadata = (route: string) => {
   const getAbsoluteImageUrl = (imageUrl: string): string => {
     if (!imageUrl) return '';
     
-    // If it's a data URL (base64), return as is
+    // If it's a data URL (base64), return as is (though we should avoid these for OG)
     if (imageUrl.startsWith('data:')) {
       return imageUrl;
     }
@@ -50,34 +50,34 @@ export const usePageMetadata = (route: string) => {
     
     document.title = String(meta.title);
     
+    const fullUrl = meta.fullUrl || getFullUrl(route);
+    const imageUrl = getAbsoluteImageUrl(meta.image_url);
+    
     // Prepare metadata
     const metaTags = [
       { property: "og:title", content: String(meta.title) },
       { property: "og:description", content: String(meta.description) },
       { property: "og:type", content: String(meta.og_type || 'website') },
-      { property: "og:url", content: String(meta.fullUrl || getFullUrl(route)) },
-      { property: "og:image", content: String(meta.image_url) },
+      { property: "og:url", content: fullUrl },
+      { property: "og:image", content: imageUrl },
+      { property: "og:locale", content: "en" },
       { name: "twitter:card", content: String(meta.twitter_card || 'summary_large_image') },
       { name: "twitter:title", content: String(meta.title) },
       { name: "twitter:description", content: String(meta.description) },
-      { name: "twitter:image", content: String(meta.image_url) }
+      { name: "twitter:image", content: imageUrl }
     ];
     
     // Update existing meta tags or create new ones
     metaTags.forEach(tagData => {
       const selector = tagData.property
-        ? `meta[property="${tagData.property}"]:not([data-react-helmet])`
-        : `meta[name="${tagData.name}"]:not([data-react-helmet])`;
+        ? `meta[property="${tagData.property}"]`
+        : `meta[name="${tagData.name}"]`;
       
       const existingTag = document.querySelector(selector);
       
       if (existingTag) {
         // Update existing tag
-        if (tagData.property) {
-          existingTag.setAttribute('content', tagData.content);
-        } else {
-          existingTag.setAttribute('content', tagData.content);
-        }
+        existingTag.setAttribute('content', tagData.content);
       } else {
         // Create new tag if it doesn't exist
         const meta = document.createElement('meta');
@@ -90,17 +90,10 @@ export const usePageMetadata = (route: string) => {
   };
 
   useEffect(() => {
-    // Clear existing head tags that we'll manage
-    if (typeof document !== 'undefined') {
-      document.querySelectorAll('meta[property^="og:"]:not([data-react-helmet]), meta[name^="twitter:"]:not([data-react-helmet])').forEach(tag => {
-        tag.remove();
-      });
-    }
-    
     // Create a cache key for this route
     const cacheKey = `page_metadata_${route}`;
     
-    // Try to use cached data first to prevent flicker
+    // Try to use cached data first for immediate display
     const cachedData = localStorage.getItem(cacheKey);
     
     if (cachedData) {
@@ -108,10 +101,7 @@ export const usePageMetadata = (route: string) => {
         const parsed = JSON.parse(cachedData);
         
         // Add full URL and ensure image URL is absolute
-        if (parsed.image_url) {
-          parsed.image_url = getAbsoluteImageUrl(parsed.image_url);
-        }
-        
+        parsed.image_url = getAbsoluteImageUrl(parsed.image_url);
         parsed.fullUrl = getFullUrl(route);
         
         // Set state with cached data
@@ -120,22 +110,17 @@ export const usePageMetadata = (route: string) => {
         
         // Update document head with cached data
         updateDocumentHead(parsed);
-        
-        // Still fetch fresh data in the background
-        fetchMetadata(true);
       } catch (err) {
         console.error("Error parsing cached metadata:", err);
-        fetchMetadata();
       }
-    } else {
-      fetchMetadata();
     }
+    
+    // Always fetch fresh data (whether we used cache or not)
+    fetchMetadata();
   }, [route]);
 
-  const fetchMetadata = async (isBackgroundFetch = false) => {
-    if (!isBackgroundFetch) {
-      setLoading(true);
-    }
+  const fetchMetadata = async () => {
+    setLoading(true);
     setError(null);
     
     try {
@@ -148,6 +133,9 @@ export const usePageMetadata = (route: string) => {
       if (error) {
         // If no record found, create a fallback object with default values
         if (error.code === 'PGRST116') {
+          const fullUrl = getFullUrl(route);
+          const imageUrl = getAbsoluteImageUrl("/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png");
+          
           const fallbackMetadata: PageMetadata = {
             id: 'fallback',
             route: route,
@@ -155,10 +143,10 @@ export const usePageMetadata = (route: string) => {
               ? "Presidency Solutions | AI & Data Engineering Experts" 
               : `${route.split("/").pop()?.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")} | Presidency Solutions`,
             description: "Presidency Solutions helps organizations maximize their impact with AI, Data Engineering, Databricks Solutions, Cloud Modernization, and Talent Solutions.",
-            image_url: getAbsoluteImageUrl("/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png"),
+            image_url: imageUrl,
             og_type: "website",
             twitter_card: "summary_large_image",
-            fullUrl: getFullUrl(route)
+            fullUrl: fullUrl
           };
           
           // Update state with fallback data
@@ -168,29 +156,28 @@ export const usePageMetadata = (route: string) => {
           updateDocumentHead(fallbackMetadata);
           
           // Cache the fallback data
-          localStorage.setItem(`page_metadata_${route}`, JSON.stringify({
-            ...fallbackMetadata,
-            image_url: fallbackMetadata.image_url // Store the absolute URL
-          }));
+          localStorage.setItem(`page_metadata_${route}`, JSON.stringify(fallbackMetadata));
+          
+          // Done loading
+          setLoading(false);
+          return;
         } else {
           throw error;
         }
       } else if (data) {
         // Ensure all values are properly treated as strings
+        const fullUrl = getFullUrl(route);
+        const imageUrl = getAbsoluteImageUrl(data.image_url);
+        
         const stringifiedData: PageMetadata = {
           ...data,
           title: String(data.title),
           description: String(data.description),
-          image_url: String(data.image_url),
-          og_type: String(data.og_type),
-          twitter_card: String(data.twitter_card),
+          image_url: imageUrl,
+          og_type: String(data.og_type || "website"),
+          twitter_card: String(data.twitter_card || "summary_large_image"),
+          fullUrl: fullUrl
         };
-        
-        // Ensure image URL is absolute
-        stringifiedData.image_url = getAbsoluteImageUrl(stringifiedData.image_url);
-        
-        // Add the full URL
-        stringifiedData.fullUrl = getFullUrl(route);
         
         // Update state with fetched data
         setMetadata(stringifiedData);
@@ -206,6 +193,9 @@ export const usePageMetadata = (route: string) => {
       setError(err as Error);
       
       // Provide fallback metadata in case of error
+      const fullUrl = getFullUrl(route);
+      const imageUrl = getAbsoluteImageUrl("/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png");
+      
       const fallbackMetadata: PageMetadata = {
         id: 'fallback',
         route: route,
@@ -213,10 +203,10 @@ export const usePageMetadata = (route: string) => {
           ? "Presidency Solutions | AI & Data Engineering Experts" 
           : `${route.split("/").pop()?.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")} | Presidency Solutions`,
         description: "Presidency Solutions helps organizations maximize their impact with AI, Data Engineering, Databricks Solutions, Cloud Modernization, and Talent Solutions.",
-        image_url: getAbsoluteImageUrl("/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png"),
+        image_url: imageUrl,
         og_type: "website",
         twitter_card: "summary_large_image",
-        fullUrl: getFullUrl(route)
+        fullUrl: fullUrl
       };
       
       // Update state with fallback data
@@ -225,9 +215,7 @@ export const usePageMetadata = (route: string) => {
       // Update document head with fallback data
       updateDocumentHead(fallbackMetadata);
     } finally {
-      if (!isBackgroundFetch) {
-        setLoading(false);
-      }
+      setLoading(false);
     }
   };
 
