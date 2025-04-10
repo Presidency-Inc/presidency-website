@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -179,10 +180,12 @@ const BlogPostPage = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Helmet>
+        {/* Replace all metadata completely for this page */}
         <title>{post?.title || 'Blog Post'} | Presidency Solutions</title>
         <meta name="description" content={post?.description} />
         <meta name="keywords" content={post?.tags?.map(tag => tag.name).join(', ')} />
         
+        {/* Open Graph metadata */}
         <meta property="og:type" content="article" />
         <meta property="og:title" content={post?.title} />
         <meta property="og:description" content={post?.description} />
@@ -190,6 +193,7 @@ const BlogPostPage = () => {
         <meta property="og:url" content={currentUrl} />
         <meta property="og:site_name" content="Presidency Solutions" />
         
+        {/* Twitter Card metadata */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post?.title} />
         <meta name="twitter:description" content={post?.description} />

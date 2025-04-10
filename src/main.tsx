@@ -3,9 +3,6 @@ import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 
-// Add document title as a fallback (Helmet will override this on specific pages)
-document.title = "Presidency Solutions | AI & Data Engineering Experts";
-
 // Create favicon link if not already in the document
 if (!document.querySelector('link[rel="icon"]')) {
   const link = document.createElement('link');
