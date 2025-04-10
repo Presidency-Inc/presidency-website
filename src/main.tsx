@@ -1,4 +1,3 @@
-
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
@@ -17,6 +16,24 @@ const isBlogPostPage = window.location.pathname.startsWith('/blog/');
 // Get the origin for absolute URLs
 const origin = window.location.origin;
 
+// Function to ensure image URL is absolute
+const getAbsoluteImageUrl = (imageUrl: string): string => {
+  if (!imageUrl) return '';
+  
+  // If it's a data URL (base64), return as is
+  if (imageUrl.startsWith('data:')) {
+    return imageUrl;
+  }
+  
+  // If it's already an absolute URL, return as is
+  if (imageUrl.startsWith('http://') || imageUrl.startsWith('https://')) {
+    return imageUrl;
+  }
+  
+  // Otherwise, prepend the origin
+  return `${origin}${imageUrl.startsWith('/') ? '' : '/'}${imageUrl}`;
+};
+
 // Set default document title and Open Graph metadata only if we're not on a blog post page
 // We'll leave basic fallback metadata here, but page components will override these with usePageMetadata
 if (!isBlogPostPage) {
@@ -32,11 +49,11 @@ if (!isBlogPostPage) {
     { property: "og:description", content: "Presidency Solutions helps organizations maximize their impact with AI, Data Engineering, Databricks Solutions, Cloud Modernization, and Talent Solutions." },
     { property: "og:type", content: "website" },
     { property: "og:url", content: origin },
-    { property: "og:image", content: `${origin}/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png` },
+    { property: "og:image", content: getAbsoluteImageUrl("/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png") },
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:title", content: "Presidency Solutions | AI & Data Engineering Experts" },
     { name: "twitter:description", content: "Presidency Solutions helps organizations maximize their impact with AI, Data Engineering, Databricks Solutions, Cloud Modernization, and Talent Solutions." },
-    { name: "twitter:image", content: `${origin}/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png` }
+    { name: "twitter:image", content: getAbsoluteImageUrl("/lovable-uploads/16521bca-3a39-4376-8e26-15995aa57549.png") }
   ];
   
   metaTags.forEach(tagData => {

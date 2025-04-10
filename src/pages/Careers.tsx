@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
@@ -25,6 +24,7 @@ import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Helmet } from "react-helmet";
+import { usePageMetadata } from "@/hooks/usePageMetadata";
 
 const RECAPTCHA_SITE_KEY = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
 
@@ -50,6 +50,8 @@ const CareerPage = () => {
 
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [captchaError, setCaptchaError] = useState(false);
+
+  const { metadata } = usePageMetadata("/careers");
 
   useEffect(() => {
     fetchJobs();
@@ -220,19 +222,59 @@ const CareerPage = () => {
     setSelectedLocation(null);
   };
 
+  const origin = typeof window !== 'undefined' ? window.location.origin : '';
+  
+  const getAbsoluteImageUrl = (imageUrl: string | undefined): string => {
+    if (!imageUrl) return `${origin}/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png`;
+    
+    if (imageUrl.startsWith('data:')) {
+      return imageUrl;
+    }
+    
+    if (imageUrl.startsWith('http://') || imageUrl.startsWith('https://')) {
+      return imageUrl;
+    }
+    
+    return `${origin}${imageUrl.startsWith('/') ? '' : '/'}${imageUrl}`;
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <Helmet>
-        <title>Careers | Presidency Solutions</title>
-        <meta name="description" content="Join our team at Presidency Solutions and help organizations maximize their impact with AI and data engineering. Explore exciting career opportunities." />
-        <meta name="keywords" content="careers, jobs, AI careers, data engineering jobs, technology careers" />
-        <meta property="og:title" content="Careers | Presidency Solutions" />
-        <meta property="og:description" content="Join our team at Presidency Solutions and help organizations maximize their impact with AI and data engineering." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="/careers" />
-        <meta property="og:image" content="/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png" />
+        {metadata ? (
+          <>
+            <title>{metadata.title}</title>
+            <meta name="description" content={metadata.description} />
+            
+            <meta property="og:title" content={metadata.title} />
+            <meta property="og:description" content={metadata.description} />
+            <meta property="og:type" content={metadata.og_type} />
+            <meta property="og:url" content={metadata.fullUrl} />
+            <meta property="og:image" content={getAbsoluteImageUrl(metadata.image_url)} />
+            
+            <meta name="twitter:card" content={metadata.twitter_card} />
+            <meta name="twitter:title" content={metadata.title} />
+            <meta name="twitter:description" content={metadata.description} />
+            <meta name="twitter:image" content={getAbsoluteImageUrl(metadata.image_url)} />
+          </>
+        ) : (
+          <>
+            <title>Careers | Presidency Solutions</title>
+            <meta name="description" content="Join our team at Presidency Solutions and help organizations maximize their impact with AI and data engineering. Explore exciting career opportunities." />
+            <meta name="keywords" content="careers, jobs, AI careers, data engineering jobs, technology careers" />
+            
+            <meta property="og:title" content="Careers | Presidency Solutions" />
+            <meta property="og:description" content="Join our team at Presidency Solutions and help organizations maximize their impact with AI and data engineering." />
+            <meta property="og:type" content="website" />
+            <meta property="og:url" content={`${origin}/careers`} />
+            <meta property="og:image" content={getAbsoluteImageUrl("/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png")} />
+            
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:title" content="Careers | Presidency Solutions" />
+            <meta name="twitter:description" content="Join our team at Presidency Solutions and help organizations maximize their impact with AI and data engineering." />
+            <meta name="twitter:image" content={getAbsoluteImageUrl("/lovable-uploads/2b4e222c-4468-46fe-8613-555cefe4eac4.png")} />
+          </>
+        )}
       </Helmet>
       <StatusBar />
       <Navbar />
