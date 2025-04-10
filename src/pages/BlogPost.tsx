@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -110,7 +109,6 @@ const BlogPostPage = () => {
             fetchRelatedPosts(data.id, tagIds);
           }
           
-          // Set the document title immediately to avoid flashes
           document.title = `${data.title} | Presidency Solutions`;
         }
       } catch (error) {
@@ -182,7 +180,7 @@ const BlogPostPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Helmet>
+      <Helmet prioritizeSeoTags={true}>
         <title>{post?.title} | Presidency Solutions</title>
         <meta name="description" content={post?.description} />
         <meta name="keywords" content={post?.tags?.map(tag => tag.name).join(', ')} />
