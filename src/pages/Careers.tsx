@@ -1,6 +1,6 @@
-
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { createSupabaseClient } from "@/utils/secureApiClient";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Job } from "@/components/JobList";
@@ -89,15 +89,18 @@ const CareerPage = () => {
   const fetchJobs = async () => {
     try {
       setLoading(true);
-      const { data, error, count } = await supabase
-        .from("job_postings")
-        .select("*", { count: 'exact' })
-        .order("created_at", { ascending: false });
-
-      if (error) throw error;
-      setJobs(data as Job[] || []);
-      setFilteredJobs(data as Job[] || []);
-      setJobCount(count || 0);
+      
+      const secureClient = await createSupabaseClient();
+      const result = await secureClient.from('job_postings').select('*');
+      
+      if (result.error) {
+        throw result.error;
+      }
+      
+      const jobsData = result.data as Job[] || [];
+      setJobs(jobsData);
+      setFilteredJobs(jobsData);
+      setJobCount(jobsData.length);
     } catch (error: any) {
       console.error("Error fetching jobs:", error);
       toast({
@@ -181,7 +184,8 @@ const CareerPage = () => {
 
       if (uploadError) throw uploadError;
 
-      const { error: applicationError } = await supabase
+      const secureClient = await createSupabaseClient();
+      const { error: applicationError } = await secureClient
         .from('job_applicants')
         .insert({
           job_id: selectedJob.id,

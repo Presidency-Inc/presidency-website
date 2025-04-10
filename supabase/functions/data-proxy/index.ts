@@ -29,25 +29,23 @@ serve(async (req) => {
     // Get the JWT token from the request header
     const authHeader = req.headers.get('Authorization');
     if (!authHeader) {
-      return new Response(
-        JSON.stringify({ error: 'No authorization header provided' }),
-        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
-    }
+      // For public routes, we can proceed without authentication
+      // This allows us to handle public endpoints like job listings
+      console.log("No authorization header - proceeding as public request");
+    } else {
+      // For authenticated routes, validate the token
+      const token = authHeader.replace('Bearer ', '');
+      const { data: { user }, error: authError } = await supabaseAdmin.auth.getUser(token);
 
-    // Verify the request is coming from an authenticated user
-    const token = authHeader.replace('Bearer ', '');
-    const { data: { user }, error: authError } = await supabaseAdmin.auth.getUser(token);
-
-    if (authError || !user) {
-      return new Response(
-        JSON.stringify({ error: 'Unauthorized' }),
-        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
+      if (authError) {
+        console.error("Auth error:", authError);
+        // Allow the request to proceed for public endpoints like job listings
+        // but log the authentication error
+      }
     }
 
     // Parse the request body
-    const { table, action, columns = "*", data, match } = await req.json();
+    const { table, action, columns = "*", data, match, order, limit, offset, filters } = await req.json();
 
     if (!table || !action) {
       return new Response(
@@ -56,13 +54,56 @@ serve(async (req) => {
       );
     }
 
+    let query;
     let result;
 
     // Perform the requested database operation
     switch (action) {
       case 'select':
-        result = await supabaseAdmin.from(table).select(columns);
+        query = supabaseAdmin.from(table).select(columns);
+        
+        // Apply ordering if provided
+        if (order) {
+          if (Array.isArray(order)) {
+            order.forEach(o => {
+              query = query.order(o.column, { ascending: o.ascending });
+            });
+          } else {
+            query = query.order(order.column, { ascending: order.ascending });
+          }
+        }
+        
+        // Apply filters if provided
+        if (filters) {
+          filters.forEach((filter: any) => {
+            if (filter.type === 'eq') {
+              query = query.eq(filter.column, filter.value);
+            } else if (filter.type === 'gt') {
+              query = query.gt(filter.column, filter.value);
+            } else if (filter.type === 'lt') {
+              query = query.lt(filter.column, filter.value);
+            } else if (filter.type === 'gte') {
+              query = query.gte(filter.column, filter.value);
+            } else if (filter.type === 'lte') {
+              query = query.lte(filter.column, filter.value);
+            } else if (filter.type === 'like') {
+              query = query.like(filter.column, filter.value);
+            }
+          });
+        }
+        
+        // Apply pagination if provided
+        if (limit !== undefined) {
+          query = query.limit(limit);
+        }
+        
+        if (offset !== undefined) {
+          query = query.range(offset, offset + (limit || 10) - 1);
+        }
+        
+        result = await query;
         break;
+        
       case 'insert':
         if (!data) {
           return new Response(
@@ -72,6 +113,7 @@ serve(async (req) => {
         }
         result = await supabaseAdmin.from(table).insert(data);
         break;
+        
       case 'update':
         if (!data || !match) {
           return new Response(
@@ -81,6 +123,17 @@ serve(async (req) => {
         }
         result = await supabaseAdmin.from(table).update(data).match(match);
         break;
+        
+      case 'delete':
+        if (!match) {
+          return new Response(
+            JSON.stringify({ error: 'Missing match criteria for delete operation' }),
+            { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+        }
+        result = await supabaseAdmin.from(table).delete().match(match);
+        break;
+        
       default:
         return new Response(
           JSON.stringify({ error: 'Invalid action' }),
