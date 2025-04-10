@@ -51,6 +51,10 @@ const PageMetadata = ({
       {/* Canonical URL */}
       <link rel="canonical" href={currentUrl} />
       
+      {/* Prerender specific meta tags */}
+      <meta name="prerender-status-code" content="200" />
+      <meta name="prerender-detection" content="Prerender.io integration active" />
+      
       {/* Allow for additional custom meta tags */}
       {children}
     </Helmet>

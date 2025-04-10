@@ -17,11 +17,17 @@ prerenderStatusCode.name = 'prerender-status-code';
 prerenderStatusCode.content = '200';
 document.head.appendChild(prerenderStatusCode);
 
-// Set a default prerender header for improved SEO
+// Add prerender header for better bot processing
 const prerenderHeader = document.createElement('meta');
 prerenderHeader.name = 'prerender-header';
-prerenderHeader.content = 'Location: https://presidencysolutions.com/';
+prerenderHeader.content = 'X-Prerender-Processed: true';
 document.head.appendChild(prerenderHeader);
+
+// Add a specific meta tag that Prerender.io can detect to confirm integration
+const prerenderDetection = document.createElement('meta');
+prerenderDetection.name = 'prerender-detection';
+prerenderDetection.content = 'Prerender.io integration active';
+document.head.appendChild(prerenderDetection);
 
 // In case page is 404, set appropriate status (page components can override this)
 if (window.location.pathname !== '/' && !document.querySelector('meta[name="prerender-status-code"]')) {

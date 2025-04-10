@@ -12,13 +12,19 @@ export default defineConfig(({ mode }) => ({
     port: 8080,
     middleware: [
       (req: Request, res: Response, next: NextFunction) => {
-        // Check if the request is from a bot
+        // Check if the request is from a bot or crawler
         const userAgent = req.headers['user-agent'] || '';
-        const isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(userAgent);
+        const isBot = /bot|googlebot|crawler|spider|robot|crawling|facebook|twitter|linkedin|prerender/i.test(userAgent);
         
         if (isBot) {
           // Apply prerender middleware for bots
-          const prerenderMiddleware = require('prerender-node').set('prerenderToken', process.env.PRERENDER_TOKEN || '');
+          console.log('Bot detected, applying prerender middleware:', userAgent);
+          const prerenderMiddleware = require('prerender-node')
+            .set('prerenderToken', process.env.PRERENDER_TOKEN || 'pWxLCawAzhz9R4gwZovp')
+            .set('protocol', 'https')
+            .set('host', 'presidencysolutions.com')
+            .set('forwardHeaders', true);
+          
           return prerenderMiddleware(req, res, next);
         }
         
